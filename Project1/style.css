@@ -1,0 +1,57 @@
+:root {
+    --main-bg-color: #adadad;
+  }
+  
+
+@font-face {
+    font-family: "custom-bubbly";
+    src: url(sunny-spells-font/SunnyspellsRegular-MV9ze.otf);
+}
+body{
+    background-color: var(--main-bg-color);
+    font-family: "custom-bubbly";
+    color: #1e74cf;
+}
+
+.wrapper{
+    overflow: hidden; /* add this to contain floated children */
+    display: flex;
+  justify-content: center;
+}
+.innerelements{
+    margin: 1%;
+    padding: 1%;
+
+
+    float:left; /* add this */
+    background-color: aliceblue;
+    border-radius: 10px;
+
+}
+img {
+    width: 100%;
+    max-width: 240px;
+    display: block;
+    /* remove extra space below image */
+}
+
+p {
+    font-family: "custom-bubbly";
+}
+
+@media (max-width:720px) {
+
+    /* your conditional / responsive CSS inside this condition */
+    .wrapper{
+        display: inline;
+    }
+    .innerelements{
+        float:none;
+        text-align: center;
+    }  
+    img{
+        margin:auto;
+        border-radius: 10px;
+
+    }
+  }

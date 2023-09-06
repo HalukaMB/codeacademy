@@ -1,0 +1,154 @@
+@font-face {
+    font-family: "general-fonts";
+    src: url(fonts/Rex-BoldInline.otf);
+}
+
+@font-face {
+    font-family: "title";
+    src: url(fonts/Metropolis1920-Regular.otf);
+}
+
+body {
+    font-size: 16px;
+    color: #000;
+    font-family: "general-fonts";
+}
+
+header {
+    display: block;
+    height: 40px;
+    background-color: antiquewhite;
+    margin-bottom: 20px;
+
+}
+
+div.hamburger-logo {
+    cursor: pointer;
+    margin-right: 10px;
+    float: left;
+}
+
+div.hamburger-logo span {
+
+    height: 5px;
+    width: 40px;
+    background: #000;
+    display: block;
+    margin: 5px 0px;
+    transition: transform 0.3s ease-in-out, top 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+}
+.webpage-title{
+    font-family: "title";
+    font-size: 25px;
+    width: 50%;
+    margin:auto;
+    text-align: center;
+
+}
+
+
+.trigger {
+    display: none;
+}
+
+.trigger:checked~div.hamburger-logo span:first-child {
+    transform: rotate(45deg);
+    top: 10px;
+    position: relative;
+}
+
+.trigger:checked~div.hamburger-logo span:last-child {
+    transform: rotate(-45deg);
+    top: -10px;
+    position: relative;
+}
+
+.trigger:checked~div.hamburger-logo span:nth-child(2) {
+    opacity: 0%;
+    position: relative;
+}
+
+.trigger:checked~nav {
+    left: 0;
+}
+
+nav {
+    background-color: antiquewhite;
+    width: 100%;
+    opacity: 100%;
+    padding: 30px 4s0px;
+    margin: 10px 0px;
+    position: absolute;
+    left: -100%;
+    box-sizing: border-box;
+    transition: left 0.3s ease-in-out;
+
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+li>a {
+    color: #000
+}
+
+.title {
+    font-family: "title";
+    font-size: 52px;
+
+}
+
+.subtitle {
+    font-size: 20px;
+}
+
+.highlighted {
+    color: blue;
+}
+
+.image-wrapper-title {
+    font-family: "title";
+    font-size: 24px;
+    padding-top: 1%;
+}
+
+.image-wrapper {
+    justify-content: start;
+}
+
+.image-itself {
+    width: 320px;
+    object-fit: contain;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+}
+
+.question {
+    padding: 2%;
+}
+
+input[type=text] {
+    height: 150px;
+    width: 75%;
+}
+
+.results {
+    width:75%;
+    border: 1px solid #090909;
+    border-bottom:1px solid black;
+    border-collapse:collapse;
+
+}
+
+td, th{
+    border: 1px solid #090909;
+    height:40px;
+}
+
+tr:nth-child(even) {
+    background-color: #a3a3a3;
+}

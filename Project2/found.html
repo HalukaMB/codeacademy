@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost, Found, Connected</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <label for="trigger">
+            <input type="checkbox" class="trigger" id="trigger">
+            <div class="hamburger-logo">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="found.html">Found</a></li>
+                    <li><a href="connected.html">Connected</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </label>
+    </header>
+    <div class="title">
+        What did you find?
+    </div>
+    <form>
+        <div class="question">
+            <div class="subtitle">It is... </div>
+            <input type="radio" id="html" name="found_thing" value="object">
+            <label for="object">an object</label><br>
+            <input type="radio" id="css" name="found_thing" value="immaterial">
+            <label for="immaterial">something immaterial</label><br>
+            <input type="radio" id="javascript" name="found_thing" value="else">
+            <label for="else">something else</label>
+        </div>
+        <div class="question">
+            <div class="subtitle">And the owner should know out of these three options which one(s) are true</div>
+            <div>
+                <input type="text" id="option1" value="Space for one fact">
+                <label for="option1">true?</label>
+                <input type="checkbox" id="option1" value="option1" checked>
+            </div>
+            <div>
+                <input type="text" id="option2" value="Space for another fact">
+                <label for="option2">true?</label>
+                <input type="checkbox" id="option2" value="option2">
+            </div>
+            <div>
+                <input type="text" id="option3" value="Space for a third fact">
+                <label for="option3">true?</label>
+                <input type="checkbox" id="option3" value="option3">
+            </div>
+        </div>
+        <div class="question">
+            <div class="subtitle">Lastly, where would you like the rightful owner to meet you to get back his lost
+                thing?</div>
+            <select>
+                <option value="alex">At McDonalds at Alexanderplatz at 12 am, Sunday</option>
+                <option value="warschauer">At the Späti at U-Bahn Warschauerstraße at 3pm, Saturday</option>
+                <option value="zoo">At the elephant gate at Zoologischer Garten, 6pm, Friday</option>
+            </select>
+        </div>
+        <div class="consent">
+            <div class="subtitle">Is it okay that we store your data to connect you to the person that is searching for
+                the thing that they lost?</div>
+            <input type="checkbox" id="option1" value="option1" checked>
+            <label for="option1">Yes</label>
+
+        </div>
+        <input type="submit" value="Submit">
+
+    </form>
+
+
+</body>
+
+</html>
