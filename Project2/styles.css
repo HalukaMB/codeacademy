@@ -14,39 +14,35 @@ body {
     font-family: "general-fonts";
 }
 
-header {
-    display: block;
-    height: 40px;
-    background-color: antiquewhite;
-    margin-bottom: 20px;
 
-}
 
 div.hamburger-logo {
     cursor: pointer;
-    margin-right: 10px;
     float: left;
+    padding-left: 10px;
 }
 
 div.hamburger-logo span {
-
     height: 5px;
     width: 40px;
     background: #000;
     display: block;
-    margin: 5px 0px;
+    margin: 25% 0;
     transition: transform 0.3s ease-in-out, top 0.3s ease-in-out, opacity 0.3s ease-in-out;
-
-}
-.webpage-title{
-    font-family: "title";
-    font-size: 25px;
-    width: 50%;
-    margin:auto;
-    text-align: center;
-
 }
 
+nav {
+    background-color: antiquewhite;
+    width: 100%;
+    opacity: 100%;
+    padding: 10px 40px;
+    margin: 60px 0px;
+    position: absolute;
+    left: -100%;
+    box-sizing: border-box;
+    transition: left 0.3s ease-in-out;
+
+}
 
 .trigger {
     display: none;
@@ -60,7 +56,7 @@ div.hamburger-logo span {
 
 .trigger:checked~div.hamburger-logo span:last-child {
     transform: rotate(-45deg);
-    top: -10px;
+    top: -20px;
     position: relative;
 }
 
@@ -73,18 +69,64 @@ div.hamburger-logo span {
     left: 0;
 }
 
-nav {
+/* header {
+    display: block;
+    height: 50px;
     background-color: antiquewhite;
-    width: 100%;
-    opacity: 100%;
-    padding: 30px 4s0px;
-    margin: 10px 0px;
-    position: absolute;
-    left: -100%;
-    box-sizing: border-box;
-    transition: left 0.3s ease-in-out;
+    margin-bottom: 20px;
+
+
+} */
+
+header {
+ display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-self: stretch;
+    height: 100px;
+    background-color: antiquewhite;
+    justify-content: start; 
+    align-items: center;
+    margin-bottom: 20px;
+
 
 }
+
+.webpage-title{
+    font-size: 25px;
+    font-family: "title";
+    display: flex;
+    justify-content: center; 
+    width:100%;
+    position: absolute;
+    padding-top: 1rem;
+
+
+
+}
+
+/* .webpage-title{
+    font-family: "title";
+    font-size: 25px;
+    display: flex;
+    height: 50px;
+    background-color: antiquewhite;
+    justify-content: center; 
+    align-items: center;
+    background-color: antiquewhite;
+} 
+
+/* .webpage-title {
+    font-family: "title";
+    font-size: 25px;
+    width: 50%;
+    padding-top: 1rem;
+    margin: auto;
+    text-align: center;
+    display: table-cell;
+
+    vertical-align: middle;
+} */
 
 li {
     margin-bottom: 10px;
@@ -137,16 +179,17 @@ input[type=text] {
 }
 
 .results {
-    width:75%;
+    width: 75%;
     border: 1px solid #090909;
-    border-bottom:1px solid black;
-    border-collapse:collapse;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
 
 }
 
-td, th{
+td,
+th {
     border: 1px solid #090909;
-    height:40px;
+    height: 40px;
 }
 
 tr:nth-child(even) {
