@@ -11,22 +11,28 @@
 <body>
     <header>
         <label for="trigger">
-            <input type="checkbox" class="trigger" id="trigger">
-            <div class="hamburger-logo">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="found.html">Found</a></li>
-                    <li><a href="connected.html">Connected</a></li>
-                    <li><a href="about.html">About</a></li>
-                </ul>
-            </nav>
+          <input type="checkbox" class="trigger" id="trigger" />
+          <div class="hamburger-logo">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="found.html">Found</a></li>
+              <li><a href="connected.html">Connected</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </nav>
         </label>
-    </header>
+        <div class="webpage-title">
+          <span>Lost&ensp;&&ensp;Found&ensp;</span
+          ><span class="highlighted">&&ensp;Connected</span>
+        </div>
+        <div class="placeholder"></div>
+      </header>
+  
     <div class="title">
         What did you find?
     </div>
@@ -41,32 +47,37 @@
             <label for="else">something else</label>
         </div>
         <div class="question">
-            <div class="subtitle">And the owner should know out of these three options which one(s) are true</div>
-            <div>
-                <input type="text" id="option1" value="Space for one fact">
+            <div class="subtitle">Please write three claims about the item. At least one has to be true. <br>
+                We need this to check whether the found item is actually belonging to a person that says so.</div>
+            <div class="claims">
+                <input type="text" id="option1" value="Space for one claim">
                 <label for="option1">true?</label>
                 <input type="checkbox" id="option1" value="option1" checked>
             </div>
-            <div>
-                <input type="text" id="option2" value="Space for another fact">
+            <div class="claims">
+                <input type="text" id="option2" value="Space for another claim">
                 <label for="option2">true?</label>
                 <input type="checkbox" id="option2" value="option2">
             </div>
-            <div>
-                <input type="text" id="option3" value="Space for a third fact">
+            <div class="claims">
+                <input type="text" id="option3" value="Space for a third claim">
                 <label for="option3">true?</label>
                 <input type="checkbox" id="option3" value="option3">
             </div>
         </div>
         <div class="question">
             <div class="subtitle">Lastly, where would you like the rightful owner to meet you to get back his lost
-                thing?</div>
-            <select>
+                item?</div>
+            <select id="places">
                 <option value="alex">At McDonalds at Alexanderplatz at 12 am, Sunday</option>
                 <option value="warschauer">At the Späti at U-Bahn Warschauerstraße at 3pm, Saturday</option>
                 <option value="zoo">At the elephant gate at Zoologischer Garten, 6pm, Friday</option>
             </select>
         </div>
+
+        </div>
+        <div class="question">
+
         <div class="consent">
             <div class="subtitle">Is it okay that we store your data to connect you to the person that is searching for
                 the thing that they lost?</div>
@@ -75,6 +86,7 @@
 
         </div>
         <input type="submit" value="Submit">
+    </div>
 
     </form>
 
