@@ -37,7 +37,7 @@ header {
 
 
 }
-
+ 
 div.hamburger-logo {
     float: left;
     padding-left: calc(var(--baseunitlength)*3);
@@ -46,6 +46,7 @@ div.hamburger-logo {
 div.hamburger-logo span {
     height: var(--baseunitheight);
     width: calc(var(--baseunitlength)*6);
+    border-radius: 30%;
     background: #000;
     display: block;
     margin: 25% 0;
@@ -131,9 +132,9 @@ li>a {
 }
 
 .subtitle {
-    font-size: 20px;
-    padding-top: var(--baseunitheight);
-    padding-left: calc(var(--baseunitlength));
+    font-size: calc(var(--baseunitheight)*5);
+    padding-top: calc(var(--baseunitheight));
+    padding-left: calc(var(--baseunitlength)*4);
     padding-bottom: calc(var(--baseunitheight)*2);
 
 }
@@ -142,13 +143,6 @@ li>a {
     color: blue;
 }
 
-.image-wrapper-title {
-    font-family: "title";
-    font-size: 24px;
-    padding-top: 16px;
-    padding-bottom: 4px;
-
-}
 
 .image-wrapper {
     justify-content: start;
@@ -176,7 +170,7 @@ input[type=text] {
     width: 75%;
     border: 1px solid #090909;
     border-bottom: 1px solid black;
-    border-collapse: collapse;
+    border-collapse: collapse; 
 
 }
 table{
