@@ -20,9 +20,13 @@ body {
 }
 
 header {
+    position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  left: 0; /* Position the navbar at the top of the page */
+
     display: flex;
     justify-content: space-between;
-    height: calc(var(--baseunitheight)*25);
+    height: calc(var(--baseunitheight)*20);
     width: 100%;
     background-color: antiquewhite;
     align-items: center;
@@ -30,6 +34,10 @@ header {
     border-bottom: var(--baseunitheight);
     border-style: solid;
     border-color: #000;
+}
+.content{
+    margin-top: calc(var(--baseunitheight)*25);
+
 }
 
 .webpage-title {
