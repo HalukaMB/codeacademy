@@ -10,28 +10,29 @@
 
 <body>
     <header>
-        <label for="trigger">
-          <input type="checkbox" class="trigger" id="trigger" />
-          <div class="hamburger-logo">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <nav>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="found.html">Found</a></li>
-              <li><a href="connected.html">Connected</a></li>
-              <li><a href="about.html">About</a></li>
-            </ul>
-          </nav>
-        </label>
+        <div class="headerelements">
+            <label for="trigger">
+                <input type="checkbox" class="trigger" id="trigger" />
+                <div class="hamburger-logo">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Lost</a></li>
+                        <li><a href="found.html">Found</a></li>
+                        <li><a href="connected.html">Connected</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+            </label>
+        </div>
         <div class="webpage-title">
-          <span>Lost&ensp;&&ensp;Found&ensp;</span
-          ><span class="highlighted">&&ensp;Connected</span>
+            Lost, Found <br><span class="highlighted">& Connected</span>
         </div>
         <div class="placeholder"></div>
-      </header>
+    </header>
   
     <div class="title">
         What did you find?
@@ -47,8 +48,7 @@
             <label for="else">something else</label>
         </div>
         <div class="question">
-            <div class="subtitle">Please write three claims about the item. At least one has to be true. <br>
-                We need this to check whether the found item is actually belonging to a person that says so.</div>
+            <div class="subtitle">Please write 3 claims about the item and mark the ones that are true.</div>
             <div class="claims">
                 <input type="text" id="option1" value="Space for one claim">
                 <label for="option1">true?</label>
@@ -64,14 +64,16 @@
                 <label for="option3">true?</label>
                 <input type="checkbox" id="option3" value="option3">
             </div>
+            <div class="subtitle">This should help us to verify, whether someone is the rightful owner</div>
+
         </div>
         <div class="question">
             <div class="subtitle">Lastly, where would you like the rightful owner to meet you to get back his lost
                 item?</div>
             <select id="places">
-                <option value="alex">At McDonalds at Alexanderplatz at 12 am, Sunday</option>
-                <option value="warschauer">At the Späti at U-Bahn Warschauerstraße at 3pm, Saturday</option>
-                <option value="zoo">At the elephant gate at Zoologischer Garten, 6pm, Friday</option>
+                <option value="alex">McDonalds, Alexanderplatz</option>
+                <option value="warschauer">Späti, U-Bahn Warschauerstraße</option>
+                <option value="zoo">Elephant gate at Zoo</option>
             </select>
         </div>
 
