@@ -142,7 +142,7 @@ li>a {
 }
 
 .found-item {
-    margin: 2vh 2vw 2vh 2vw;
+    margin: 2vh 1vw 2vh 1vw;
     background-color: antiquewhite;
     display: flex;
     align-items: center;
@@ -169,7 +169,8 @@ li>a {
     }
     
     .image-description {
-        min-width: 10vw;
+        width: 10vw;
+
         padding-left: 2%;
         padding-right: 1%;
         padding-top: 0.5%;
@@ -177,17 +178,13 @@ li>a {
     }
     
     .image-itself {
-        width: 25vw;
+        width: 20vw;
         object-fit: contain;
 
     }
-    .image-wrapper {
-        width: 25vw;
-        object-fit: contain;
-
-    }
+  
     .yours{
-        width: 5vw;
+        max-width: 5vw;
         padding-left: 2%;
         padding-right: 1%;
         padding-top: 0.5%;
