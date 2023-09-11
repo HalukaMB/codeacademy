@@ -169,7 +169,7 @@ li>a {
     }
     
     .image-description {
-        width: 10vw;
+        min-width: 10vw;
         padding-left: 2%;
         padding-right: 1%;
         padding-top: 0.5%;
@@ -177,6 +177,11 @@ li>a {
     }
     
     .image-itself {
+        width: 25vw;
+        object-fit: contain;
+
+    }
+    .image-wrapper {
         width: 25vw;
         object-fit: contain;
 
