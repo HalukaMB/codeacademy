@@ -35,64 +35,65 @@
     </header>
     <div class="content">
 
-    <div class="title">
-        What did you find?
+        <div class="title">
+            What did you find?
+        </div>
+        <form>
+            <div class="question">
+                <div class="subtitle">It is... </div>
+                <input type="radio" id="html" name="found_thing" value="object">
+                <label for="object">an object</label><br>
+                <input type="radio" id="css" name="found_thing" value="immaterial">
+                <label for="immaterial">something immaterial</label><br>
+                <input type="radio" id="javascript" name="found_thing" value="else">
+                <label for="else">something else</label>
+            </div>
+            <div class="question">
+                <div class="subtitle">Please write 3 claims about the item and mark the ones that are true.</div>
+                <div class="claims">
+                    <input type="text" id="option1" value="Space for one claim">
+                    <label for="option1">true?</label>
+                    <input type="checkbox" id="option1" value="option1" checked>
+                </div>
+                <div class="claims">
+                    <input type="text" id="option2" value="Space for another claim">
+                    <label for="option2">true?</label>
+                    <input type="checkbox" id="option2" value="option2">
+                </div>
+                <div class="claims">
+                    <input type="text" id="option3" value="Space for a third claim">
+                    <label for="option3">true?</label>
+                    <input type="checkbox" id="option3" value="option3">
+                </div>
+                <div class="subtitle">This should help us to verify, whether someone is the rightful owner</div>
+
+            </div>
+            <div class="question">
+                <div class="subtitle">Lastly, where would you like the rightful owner to meet you to get back his lost
+                    item?</div>
+                <select id="places">
+                    <option value="alex">McDonalds, Alexanderplatz</option>
+                    <option value="warschauer">Späti, U-Bahn Warschauerstraße</option>
+                    <option value="zoo">Elephant gate at Zoo</option>
+                </select>
+            </div>
+            <div class="question">
+
+                <div class="consent">
+                    <div class="subtitle">Is it okay that we store your data to connect you to the person that is searching for
+                        the thing that they lost?</div>
+                    <input type="checkbox" id="option1" value="option1" checked>
+                    <label for="option1">Yes</label>
+        
+                </div>
+                <input type="submit" value="Submit">
+            </div>
     </div>
-    <form>
-        <div class="question">
-            <div class="subtitle">It is... </div>
-            <input type="radio" id="html" name="found_thing" value="object">
-            <label for="object">an object</label><br>
-            <input type="radio" id="css" name="found_thing" value="immaterial">
-            <label for="immaterial">something immaterial</label><br>
-            <input type="radio" id="javascript" name="found_thing" value="else">
-            <label for="else">something else</label>
-        </div>
-        <div class="question">
-            <div class="subtitle">Please write 3 claims about the item and mark the ones that are true.</div>
-            <div class="claims">
-                <input type="text" id="option1" value="Space for one claim">
-                <label for="option1">true?</label>
-                <input type="checkbox" id="option1" value="option1" checked>
-            </div>
-            <div class="claims">
-                <input type="text" id="option2" value="Space for another claim">
-                <label for="option2">true?</label>
-                <input type="checkbox" id="option2" value="option2">
-            </div>
-            <div class="claims">
-                <input type="text" id="option3" value="Space for a third claim">
-                <label for="option3">true?</label>
-                <input type="checkbox" id="option3" value="option3">
-            </div>
-            <div class="subtitle">This should help us to verify, whether someone is the rightful owner</div>
-
-        </div>
-        <div class="question">
-            <div class="subtitle">Lastly, where would you like the rightful owner to meet you to get back his lost
-                item?</div>
-            <select id="places">
-                <option value="alex">McDonalds, Alexanderplatz</option>
-                <option value="warschauer">Späti, U-Bahn Warschauerstraße</option>
-                <option value="zoo">Elephant gate at Zoo</option>
-            </select>
-        </div>
-        </div>
-        <div class="question">
-
-        <div class="consent">
-            <div class="subtitle">Is it okay that we store your data to connect you to the person that is searching for
-                the thing that they lost?</div>
-            <input type="checkbox" id="option1" value="option1" checked>
-            <label for="option1">Yes</label>
-
-        </div>
-        <input type="submit" value="Submit">
-    </div>
+    
 
     </form>
 
-</div>
+    </div>
 
 </body>
 

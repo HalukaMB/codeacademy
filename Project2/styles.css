@@ -127,14 +127,13 @@ li>a {
     font-size: calc(var(--baseunitheight)*10);
     padding-top: calc(var(--baseunitheight)*3);
     padding-bottom: calc(var(--baseunitheight)*3);
-
     padding-left: calc(var(--baseunitlength)*2);
 }
 
 .subtitle {
     font-size: calc(var(--baseunitheight)*5);
     padding-top: calc(var(--baseunitheight));
-    padding-left: calc(var(--baseunitlength));
+    padding-left: calc(var(--baseunitlength)*2);
     padding-bottom: calc(var(--baseunitheight)*2);
 }
 
@@ -143,9 +142,10 @@ li>a {
 }
 
 .found-item {
+    margin: 2vh 2vw 2vh 2vw;
+    background-color: antiquewhite;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
 }
 
 .image-description {
@@ -159,10 +159,35 @@ li>a {
 .image-itself {
     width: 50vw;
     object-fit: contain;
-    padding-left: 1%;
-    padding-right: 1%;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
+    padding: 1.5% 0;
+}
+
+@media (min-width: 720px){
+    .found-items-grid{
+        display: grid;
+        grid-template-columns: repeat(2,1fr); 
+    }
+    
+    .image-description {
+        width: 10vw;
+        padding-left: 2%;
+        padding-right: 1%;
+        padding-top: 0.5%;
+        padding-bottom: 0.5%;
+    }
+    
+    .image-itself {
+        width: 25vw;
+        object-fit: contain;
+
+    }
+    .yours{
+        width: 5vw;
+        padding-left: 2%;
+        padding-right: 1%;
+        padding-top: 0.5%;
+        padding-bottom: 0.5%;
+    }
 }
 
 
@@ -170,6 +195,8 @@ li>a {
 form {
     padding-left: calc(var(--baseunitlength)*1);
     padding-top: calc(var(--baseunitheight)*1);
+    background-color: antiquewhite;
+
 }
 
 .question {
@@ -205,10 +232,11 @@ form {
 }
 .claims:nth-child(4){
     padding-bottom: calc(var(--baseunitheight)*5);
+    
 }
 
 input[type=text] {
-    text-align: left;
+    text-align: center;
     height: calc(var(--baseunitheight)*30);
     width: 75%;
     font-family: "general-fonts";
@@ -245,8 +273,8 @@ input[type="submit"] {
 }
 
 table {
-    margin-left: calc(var(--baseunitlength)*4);
-    margin-top: calc(var(--baseunitheight)*5);
+    margin-left: calc(var(--baseunitlength)*2);
+    margin-top: calc(var(--baseunitheight)*2);
 }
 
 td,
@@ -265,4 +293,7 @@ tr:nth-child(even) {
     display: block;
     border-style: none;
     margin: 0 auto;
+    padding:2vw 2vh;
+    background-color: antiquewhite;
+
 }
