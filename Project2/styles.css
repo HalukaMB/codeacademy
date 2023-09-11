@@ -20,9 +20,12 @@ body {
 }
 
 header {
-    position: fixed; /* Set the navbar to fixed position */
-  top: 0; /* Position the navbar at the top of the page */
-  left: 0; /* Position the navbar at the top of the page */
+    position: fixed;
+    /* Set the navbar to fixed position */
+    top: 0;
+    /* Position the navbar at the top of the page */
+    left: 0;
+    /* Position the navbar at the top of the page */
 
     display: flex;
     justify-content: space-between;
@@ -35,7 +38,8 @@ header {
     border-style: solid;
     border-color: #000;
 }
-.content{
+
+.content {
     margin-top: calc(var(--baseunitheight)*25);
 
 }
@@ -71,9 +75,9 @@ div.hamburger-logo span {
 }
 
 nav {
-    background-color: rgb(249, 216, 248);
+    background-color: rgb(216, 216, 216);
     width: 100%;
-    margin: calc(var(--baseunitheight)*15) 0px  0px 0px;
+    margin: calc(var(--baseunitheight)*15) 0px 0px 0px;
     position: fixed;
     left: -100%;
     border: var(--baseunitheight);
@@ -148,11 +152,19 @@ li>a {
     align-items: center;
 }
 
-.image-description {
-    width: 25vw;
+.image-date {
+    width: 20vw;
     padding-left: 2%;
     padding-right: 1%;
     padding-top: 0.5%;
+    padding-bottom: 0.5%;
+}
+
+.image-description {
+    width: 25vw;
+    padding-left: 4%;
+    padding-right: 1%;
+    margin-top: 5%;
     padding-bottom: 0.5%;
 }
 
@@ -162,29 +174,39 @@ li>a {
     padding: 1.5% 0;
 }
 
-@media (min-width: 720px){
-    .found-items-grid{
+.yours {
+    font-size: calc(var(--baseunitheight)*4);
+    width: 10vw;
+    margin-left: 3%;
+    padding-right: 1%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+}
+
+@media (min-width: 720px) {
+    .found-items-grid {
         display: grid;
-        grid-template-columns: repeat(2,1fr); 
+        grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .image-description {
-        width: 10vw;
+        width: 7vw;
 
         padding-left: 2%;
         padding-right: 1%;
         padding-top: 0.5%;
         padding-bottom: 0.5%;
     }
-    
+
     .image-itself {
-        width: 20vw;
+        width: 17vw;
         object-fit: contain;
 
     }
-  
-    .yours{
-        max-width: 5vw;
+
+    .yours {
+        max-width: 10vw;
+        align-items: end;
         padding-left: 2%;
         padding-right: 1%;
         padding-top: 0.5%;
@@ -231,10 +253,12 @@ form {
     font-size: calc(var(--baseunitheight)*4);
     margin-left: calc(var(--baseunitlength)*6);
     margin-right: calc(var(--baseunitlength)*3);
+
 }
-.claims:nth-child(4){
+
+.claims:nth-child(4) {
     padding-bottom: calc(var(--baseunitheight)*5);
-    
+
 }
 
 input[type=text] {
@@ -243,23 +267,16 @@ input[type=text] {
     width: 75%;
     font-family: "general-fonts";
     font-size: calc(var(--baseunitheight)*4);
+    color: rgb(174, 173, 173)
 }
 
-.yours {
-    font-size: calc(var(--baseunitheight)*4);
-    width: 10vw;
-    margin-left: 3%;
-    padding-right: 1%;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
-}
 
-#places
- {
+
+#places {
     text-align: left;
     font-family: "general-fonts";
     font-size: calc(var(--baseunitheight)*4);
-
+    color: rgb(174, 173, 173)
 }
 
 input[type="submit"] {
@@ -271,12 +288,13 @@ input[type="submit"] {
     border: 1px solid #090909;
     border-bottom: 1px solid black;
     border-collapse: collapse;
-
 }
 
 table {
     margin-left: calc(var(--baseunitlength)*2);
     margin-top: calc(var(--baseunitheight)*2);
+    margin-bottom: calc(var(--baseunitheight)*5);
+
 }
 
 td,
@@ -295,7 +313,50 @@ tr:nth-child(even) {
     display: block;
     border-style: none;
     margin: 0 auto;
-    padding:2vw 2vh;
+    padding: 2vw 2vh;
     background-color: antiquewhite;
 
+}
+
+.simplechart {
+    margin: 2vh 2vw;
+    padding: 1vh 5vh;
+    background-color: antiquewhite;
+}
+
+.rowofchart {
+    display: flex;
+    width: 80vw;
+    background-color: #fdfdfd;
+    flex-wrap: wrap;
+    margin-top: 1vh;
+    margin-bottom: 5vh;
+
+
+}
+
+.counter-item {
+    border-width: 2vw;
+    border-style: solid;
+    border-radius: 4vw;
+    border-color: white;
+    display: inline-block;
+    align-self: center;
+    background-color: rgb(0, 0, 0);
+    width: 4vw;
+    height: 4vw;
+}
+
+.sub {
+    background-color: rgb(170, 170, 170);
+
+}
+
+.sub2 {
+    background-color: rgb(66, 81, 255);
+
+}
+
+.charttitle {
+    margin-top: 4vh;
 }
