@@ -20,28 +20,31 @@ body {
 }
 
 header {
+    /* Set the header to fixed position so that it is a constant navbar */
     position: fixed;
-    /* Set the navbar to fixed position */
     top: 0;
-    /* Position the navbar at the top of the page */
     left: 0;
-    /* Position the navbar at the top of the page */
 
-    display: flex;
-    justify-content: space-between;
+    /* set size */
     height: calc(var(--baseunitheight)*20);
     width: 100%;
-    background-color: antiquewhite;
-    align-items: center;
     margin-bottom: calc(var(--baseunitheight)*5);
     border-bottom: var(--baseunitheight);
+
+    /* define style */
+    background-color: antiquewhite;
     border-style: solid;
     border-color: #000;
+
+    /* Make it into a flexbox container */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
 }
 
 .content {
-    margin-top: calc(var(--baseunitheight)*25);
-
+    margin: calc(var(--baseunitheight)*30) calc(var(--baseunitlength)*5);
 }
 
 .webpage-title {
@@ -58,13 +61,13 @@ header {
     padding-right: calc(var(--baseunitlength)*3);
 }
 
-div.hamburger-logo {
+.hamburger-logo {
     float: left;
     padding-left: calc(var(--baseunitlength)*3);
     padding-right: calc(var(--baseunitlength)*3);
 }
 
-div.hamburger-logo span {
+.hamburger-logo span {
     height: calc(var(--baseunitheight)*1);
     width: calc(var(--baseunitlength)*5.5);
     border-radius: 25%;
@@ -77,7 +80,7 @@ div.hamburger-logo span {
 nav {
     background-color: rgb(216, 216, 216);
     width: 100%;
-    margin: calc(var(--baseunitheight)*15) 0px 0px 0px;
+    margin: calc(var(--baseunitheight)*18) 0px 0px 0px;
     position: fixed;
     left: -100%;
     border: var(--baseunitheight);
@@ -89,42 +92,49 @@ nav {
 
 label {
     cursor: pointer;
-
 }
 
-.trigger {
+#trigger{
     display: none;
 }
 
-.trigger:checked~div.hamburger-logo span:first-child {
-    transform: rotate(45deg);
-    top: calc(var(--baseunitheight)*2);
-    position: relative;
-}
-
-.trigger:checked~div.hamburger-logo span:last-child {
-    transform: rotate(-45deg);
+.hamburger-logo span { 
+    left:calc(var(--baseunitlength)*3);
+    height: var(--baseunitheight); width: calc(var(--baseunitlength)*10); 
+    background: #000000; border-radius: var(--baseunitheight);
+    display: block; 
+    transition: 0.5s; 
+    transform-origin: center; 
+ }
+ 
+ .hamburger-logo span:nth-child(1) { top:  calc(var(--baseunitheight)*3); }
+ .hamburger-logo span:nth-child(2) { top: calc(var(--baseunitheight)*6); }
+ .hamburger-logo span:nth-child(3) { top: calc(var(--baseunitheight)*9); }
+ 
+ #trigger:checked + .hamburger-logo span:nth-child(1){
+    transform: translateY(calc(var(--baseunitlength)*3)) rotate(45deg);
     top: calc(var(--baseunitheight)*-4);
-    position: relative;
-}
 
-.trigger:checked~div.hamburger-logo span:nth-child(2) {
+    }
+ #trigger:checked + .hamburger-logo span:nth-child(3){
+    transform: translateY(calc(var(--baseunitlength)*-3)) rotate(-45deg);
+    top: calc(var(--baseunitheight)*2);
+
+     }
+ #trigger:checked + .hamburger-logo span:nth-child(2){
     opacity: 0%;
-    position: relative;
-}
+   }
 
-.trigger:checked~nav {
+
+ #trigger:checked~nav {
     left: calc(var(--baseunitlength)*2);
     width: calc(100vw - (var(--baseunitlength)*4));
 }
-
 li {
-    margin-bottom: 10px;
-}
-
-li>a {
+    margin-bottom: calc(var(--baseunitheight)*3);
     color: #000
 }
+
 
 .title {
     font-family: "title";
@@ -191,7 +201,6 @@ li>a {
 
     .image-description {
         width: 7vw;
-
         padding-left: 2%;
         padding-right: 1%;
         padding-top: 0.5%;
@@ -220,25 +229,24 @@ form {
     padding-left: calc(var(--baseunitlength)*1);
     padding-top: calc(var(--baseunitheight)*1);
     background-color: antiquewhite;
-
 }
 
 .question {
     padding: 2%;
     width: 95%;
     border: 1px solid #090909;
-    border-left: 3px solid;
-    border-right: 3px solid;
+    border-left: calc(var(--baseunitlength)) solid;
+    border-right: calc(var(--baseunitlength)) solid;
     border-collapse: collapse;
 }
 
 .question:first-child {
-    border-top: 3px solid #090909;
+    border-top: calc(var(--baseunitlength)) solid #090909;
     border-collapse: collapse;
 }
 
 .question:last-child {
-    border-bottom: 3px solid #090909;
+    border-bottom: calc(var(--baseunitlength)) solid #090909;
     border-collapse: collapse;
 }
 
@@ -300,7 +308,7 @@ table {
 td,
 th {
     border: 1px solid #090909;
-    height: 40px;
+    height: calc(var(--baseunitheight)*10);
     padding: 10px;
 }
 
@@ -308,15 +316,7 @@ tr:nth-child(even) {
     background-color: antiquewhite;
 }
 
-.actual-map {
-    width: 90vw;
-    display: block;
-    border-style: none;
-    margin: 0 auto;
-    padding: 2vw 2vh;
-    background-color: antiquewhite;
 
-}
 
 .simplechart {
     margin: 2vh 2vw;
@@ -326,7 +326,7 @@ tr:nth-child(even) {
 
 .rowofchart {
     display: flex;
-    width: 80vw;
+    width: 100%;
     background-color: #fdfdfd;
     flex-wrap: wrap;
     margin-top: 1vh;
@@ -356,7 +356,21 @@ tr:nth-child(even) {
     background-color: rgb(66, 81, 255);
 
 }
+.actual-map {
+    width: 80vw;
+    height: 40vh;
+    display: block;
+    border-style: none;
+    margin: 0 auto;
+    padding: 2vw 2vh;
+    background-color: antiquewhite;
 
+}
 .charttitle {
     margin-top: 4vh;
+}
+.error-image{
+    margin:auto;
+    display: block;
+
 }

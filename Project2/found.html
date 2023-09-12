@@ -11,25 +11,24 @@
 <body>
     <header>
         <div class="headerelements">
-            <label for="trigger">
-                <input type="checkbox" class="trigger" id="trigger" />
-                <div class="hamburger-logo">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="index.html">Lost</a></li>
-                        <li><a href="found.html">Found</a></li>
-                        <li><a href="connected.html">Connected</a></li>
-                        <li><a href="about.html">About</a></li>
-                    </ul>
-                </nav>
+            <input type="checkbox" id="trigger" />
+            <label for="trigger" class="hamburger-logo">
+                <span></span>
+                <span></span>
+                <span></span>
             </label>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Lost</a></li>
+                    <li><a href="found.html">Found</a></li>
+                    <li><a href="connected.html">Connected</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
         </div>
         <div class="webpage-title">
-            Lost, Found <br><span class="highlighted">& Connected</span>
+            Lost, Found <span class="highlighted">& Connected</span>
         </div>
         <div class="placeholder"></div>
     </header>
@@ -38,14 +37,14 @@
         <div class="title">
             What did you find?
         </div>
-        <form>
+        <form action="backend.html">
             <div class="question">
                 <div class="subtitle">It is... </div>
-                <input type="radio" id="html" name="found_thing" value="object">
+                <input type="radio" id="object" name="found_thing" value="object">
                 <label for="object">an object</label><br>
-                <input type="radio" id="css" name="found_thing" value="immaterial">
+                <input type="radio" id="immaterial" name="found_thing" value="immaterial">
                 <label for="immaterial">something immaterial</label><br>
-                <input type="radio" id="javascript" name="found_thing" value="else">
+                <input type="radio" id="else" name="found_thing" value="else">
                 <label for="else">something else</label>
             </div>
             <div class="question">
@@ -53,17 +52,17 @@
                 <div class="claims">
                     <input type="text" id="option1" value="Space for one claim">
                     <label for="option1">true?</label>
-                    <input type="checkbox" id="option1" value="option1" checked>
+                    <input type="checkbox" id="option1A" value="option1" checked>
                 </div>
                 <div class="claims">
                     <input type="text" id="option2" value="Space for another claim">
                     <label for="option2">true?</label>
-                    <input type="checkbox" id="option2" value="option2">
+                    <input type="checkbox" id="option2A" value="option2">
                 </div>
                 <div class="claims">
                     <input type="text" id="option3" value="Space for a third claim">
                     <label for="option3">true?</label>
-                    <input type="checkbox" id="option3" value="option3">
+                    <input type="checkbox" id="option3A" value="option3">
                 </div>
                 <div class="subtitle">This should help us to verify, whether someone is the rightful owner</div>
 
@@ -80,18 +79,18 @@
             <div class="question">
 
                 <div class="consent">
-                    <div class="subtitle">Is it okay that we store your data to connect you to the person that is searching for
+                    <div class="subtitle">Is it okay that we store your data to connect you to the person that is
+                        searching for
                         the thing that they lost?</div>
-                    <input type="checkbox" id="option1" value="option1" checked>
+                    <input type="checkbox" id="option4" value="option4" checked>
                     <label for="option1">Yes</label>
-        
-                </div>
-                <input type="submit" value="Submit">
-            </div>
-    </div>
-    
 
-    </form>
+                </div>
+                <input type="submit">
+            </div>
+
+
+        </form>
 
     </div>
 
