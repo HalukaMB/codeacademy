@@ -27,7 +27,7 @@ header {
 
     /* set size */
     height: calc(var(--baseunitheight)*20);
-    width: 100%;
+    width: calc(100% - var(--baseunitlength));
     margin-bottom: calc(var(--baseunitheight)*5);
     border-bottom: var(--baseunitheight);
 
@@ -40,20 +40,17 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
-.content {
-    margin: calc(var(--baseunitheight)*30) calc(var(--baseunitlength)*5);
-}
-
+/* Here we create a combination a header that also has a hamburger nav */
+/* We do this using a webpage title */
 .webpage-title {
     font-size: calc(var(--baseunitheight)*7);
     margin-top: calc(var(--baseunitheight)*2);
     font-family: "title";
     justify-content: center;
 }
-
+/* a place holder that has the same size as the nav bar we are going to use later*/
 .placeholder {
     width: calc(var(--baseunitlength)*5.5);
     height: calc(var(--baseunitheight)*10);
@@ -61,6 +58,7 @@ header {
     padding-right: calc(var(--baseunitlength)*3);
 }
 
+/* And the specific hamburger nav */
 .hamburger-logo {
     float: left;
     padding-left: calc(var(--baseunitlength)*3);
@@ -68,19 +66,26 @@ header {
 }
 
 .hamburger-logo span {
-    height: calc(var(--baseunitheight)*1);
     width: calc(var(--baseunitlength)*5.5);
+    height: calc(var(--baseunitheight)*1);
     border-radius: 25%;
-    background: #000;
+    background: #000000; border-radius: var(--baseunitheight);
     display: block;
     margin: 25% 0;
+    transform-origin: center; 
     transition: transform 0.3s ease-in-out, top 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
+/* And we spread the logo out using nth */
+.hamburger-logo span:nth-child(1) { top:  calc(var(--baseunitheight)*3); }
+.hamburger-logo span:nth-child(2) { top: calc(var(--baseunitheight)*6); }
+.hamburger-logo span:nth-child(3) { top: calc(var(--baseunitheight)*9); }
+
+/*Lastly we design the nav-bar that will only appear once the menu is clicked*/
 nav {
     background-color: rgb(216, 216, 216);
     width: 100%;
-    margin: calc(var(--baseunitheight)*18) 0px 0px 0px;
+    margin: calc(var(--baseunitheight)*15) 0px 0px 0px;
     position: fixed;
     left: -100%;
     border: var(--baseunitheight);
@@ -94,47 +99,44 @@ label {
     cursor: pointer;
 }
 
-#trigger{
-    display: none;
-}
+/* And then we build together the whole trigger logic. If it is checked */
 
-.hamburger-logo span { 
-    left:calc(var(--baseunitlength)*3);
-    height: var(--baseunitheight); width: calc(var(--baseunitlength)*10); 
-    background: #000000; border-radius: var(--baseunitheight);
-    display: block; 
-    transition: 0.5s; 
-    transform-origin: center; 
- }
- 
- .hamburger-logo span:nth-child(1) { top:  calc(var(--baseunitheight)*3); }
- .hamburger-logo span:nth-child(2) { top: calc(var(--baseunitheight)*6); }
- .hamburger-logo span:nth-child(3) { top: calc(var(--baseunitheight)*9); }
- 
+/* if the trigger is checked, we turn outer ones of the spans */
  #trigger:checked + .hamburger-logo span:nth-child(1){
-    transform: translateY(calc(var(--baseunitlength)*3)) rotate(45deg);
+    transform: translateY(calc(var(--baseunitlength)*2)) rotate(45deg);
     top: calc(var(--baseunitheight)*-4);
 
     }
  #trigger:checked + .hamburger-logo span:nth-child(3){
-    transform: translateY(calc(var(--baseunitlength)*-3)) rotate(-45deg);
+    transform: translateY(calc(var(--baseunitlength)*-2)) rotate(-45deg);
     top: calc(var(--baseunitheight)*2);
 
      }
+     /* and erase the middle one */
  #trigger:checked + .hamburger-logo span:nth-child(2){
     opacity: 0%;
    }
 
+     /* and we let the nav appear */
 
  #trigger:checked~nav {
     left: calc(var(--baseunitlength)*2);
     width: calc(100vw - (var(--baseunitlength)*4));
 }
+
 li {
     margin-bottom: calc(var(--baseunitheight)*3);
     color: #000
 }
+/* And lastly we hide the trigger itself */
+#trigger{
+    display: none;
+}
 
+/* We create on content div to push all the things below the fixed header */
+.content {
+    margin: calc(var(--baseunitheight)*30) 0;
+}
 
 .title {
     font-family: "title";
@@ -155,13 +157,17 @@ li {
     color: blue;
 }
 
+/* This is the bit of the CSS specifically for the found items */
+
+/* each found item is encapsulated in one div */
 .found-item {
     margin: 2vh 1vw 2vh 1vw;
     background-color: antiquewhite;
     display: flex;
     align-items: center;
 }
-
+/* in which we have the date, the description, the image of the found item
+and a possibility to claim the found item as yours */
 .image-date {
     width: 20vw;
     padding-left: 2%;
@@ -171,7 +177,7 @@ li {
 }
 
 .image-description {
-    width: 25vw;
+    width: 20vw;
     padding-left: 4%;
     padding-right: 1%;
     margin-top: 5%;
@@ -192,7 +198,7 @@ li {
     padding-top: 0.5%;
     padding-bottom: 0.5%;
 }
-
+/* And we have an alternative styling for bigger screens */
 @media (min-width: 720px) {
     .found-items-grid {
         display: grid;
@@ -224,13 +230,16 @@ li {
 }
 
 
-
+/* This is the css for the found page 
+We pad the form a little*/
 form {
     padding-left: calc(var(--baseunitlength)*1);
     padding-top: calc(var(--baseunitheight)*1);
     background-color: antiquewhite;
 }
 
+/*and then we split each section of the form
+into a question div*/
 .question {
     padding: 2%;
     width: 95%;
@@ -240,6 +249,8 @@ form {
     border-collapse: collapse;
 }
 
+/*for the borders to look evev throughout we have to target
+the first and last once more*/
 .question:first-child {
     border-top: calc(var(--baseunitlength)) solid #090909;
     border-collapse: collapse;
@@ -250,7 +261,7 @@ form {
     border-collapse: collapse;
 }
 
-
+/*the second question section is called claims */
 .claims {
     display: flex;
 }
@@ -261,15 +272,14 @@ form {
     font-size: calc(var(--baseunitheight)*4);
     margin-left: calc(var(--baseunitlength)*6);
     margin-right: calc(var(--baseunitlength)*3);
-
 }
 
 .claims:nth-child(4) {
     padding-bottom: calc(var(--baseunitheight)*5);
-
 }
 
-input[type=text] {
+/* and here we ask users for written input as well */
+.claims input[type=text] {
     text-align: center;
     height: calc(var(--baseunitheight)*30);
     width: 75%;
@@ -278,8 +288,7 @@ input[type=text] {
     color: rgb(174, 173, 173)
 }
 
-
-
+/* lastly we ask for a decision where the found item should be brought to */
 #places {
     text-align: left;
     font-family: "general-fonts";
@@ -291,6 +300,16 @@ input[type="submit"] {
     margin-top: calc(var(--baseunitheight)*2);
 }
 
+/*and this is for the page that leads you to an error when you submit*/
+.error-image{
+    margin:auto;
+    display: block;
+
+}
+
+/* this part of the css is regarding the results of the search
+in a table and a small graph it is visualised what this webpage
+has archieved so far */
 .results {
     width: 75%;
     border: 1px solid #090909;
@@ -316,8 +335,6 @@ tr:nth-child(even) {
     background-color: antiquewhite;
 }
 
-
-
 .simplechart {
     margin: 2vh 2vw;
     padding: 1vh 5vh;
@@ -331,10 +348,9 @@ tr:nth-child(even) {
     flex-wrap: wrap;
     margin-top: 1vh;
     margin-bottom: 5vh;
-
-
 }
 
+/* these are the dots in the graphic */
 .counter-item {
     border-width: 2vw;
     border-style: solid;
@@ -356,6 +372,8 @@ tr:nth-child(even) {
     background-color: rgb(66, 81, 255);
 
 }
+
+/*lastly we style the about page with its map*/
 .actual-map {
     width: 80vw;
     height: 40vh;
@@ -368,9 +386,4 @@ tr:nth-child(even) {
 }
 .charttitle {
     margin-top: 4vh;
-}
-.error-image{
-    margin:auto;
-    display: block;
-
 }
