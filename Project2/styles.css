@@ -27,7 +27,7 @@ header {
 
     /* set size */
     height: calc(var(--baseunitheight)*20);
-    width: calc(100% - var(--baseunitlength));
+    width: 100%;
     margin-bottom: calc(var(--baseunitheight)*5);
     border-bottom: var(--baseunitheight);
 
@@ -304,7 +304,6 @@ input[type="submit"] {
 .error-image{
     margin:auto;
     display: block;
-
 }
 
 /* this part of the css is regarding the results of the search
@@ -321,7 +320,6 @@ table {
     margin-left: calc(var(--baseunitlength)*2);
     margin-top: calc(var(--baseunitheight)*2);
     margin-bottom: calc(var(--baseunitheight)*5);
-
 }
 
 td,
@@ -365,12 +363,10 @@ tr:nth-child(even) {
 
 .sub {
     background-color: rgb(170, 170, 170);
-
 }
 
 .sub2 {
     background-color: rgb(66, 81, 255);
-
 }
 
 /*lastly we style the about page with its map*/

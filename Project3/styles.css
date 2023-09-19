@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "general-fonts";
+    src: url(fonts/Rex-BoldInline.otf);
+}
+
+@font-face {
+    font-family: "title";
+    src: url(fonts/Metropolis1920-Regular.otf);
+}
+
+@font-face {
+    font-family: "regular-text";
+    src: url(fonts/HandilPro-Medium.otf);
+}
+
+:root {
+    --baseunitheight: 4px;
+    --baseunitlength: 6px;
+}
+
+body {
+    font-size: calc(var(--baseunitheight)*5);
+    color: #000;
+    font-family: "regular-text";
+}
+.upper-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#website-name{
+    font-family: "general-fonts";
+    font-size: calc(var(--baseunitheight)*15);
+
+}
+footer{
+    
+}
