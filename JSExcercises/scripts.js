@@ -251,3 +251,36 @@ function printdoubles(array){
 
 }
 printdoubles(arrayofnumberswithdoubles)
+const divband=document.getElementById("listband")
+
+function myBandList(bands){
+    for(i=0;i<bands.length; i++){
+        let newtext=document.createElement("div")
+        newtext.innerHTML=bands[i]
+        divband.appendChild(newtext)
+    }
+}
+arrayBands=["Daft Punk","Foo Figthers"]
+
+myBandList(arrayBands)
+
+function addMultTable(a,b){
+    let tablebase=document.createElement("table")
+    for (i=0;i<a;i++){
+        let tablerow=document.createElement("tr")
+        for (j=0;j<b;j++){
+            console.log(j)
+            let tablecell=document.createElement("td")
+            tablecell.style.backgroundColor = "black";
+            tablecell.style.height = "300px";
+            tablecell.style.width = "300px";
+
+            tablerow.appendChild(tablecell)
+        }
+        tablebase.append(tablerow)
+        
+    }
+    divband.appendChild(tablebase)
+
+}
+addMultTable(2,3)

@@ -4995,14 +4995,13 @@ let results_release = artist_answer_json["results"]
 style_array = []
 label_array = []
 for (index = 0; index < artist_answer_json["results"].length; index++) {
-/*     results_release[index]["master_id"]==0
- */    style_array.push(...results_release[index]["style"])
+    style_array.push(...results_release[index]["style"])
     let label_doubles=new Set (results_release[index]["label"])
     label_array.push(...label_doubles)
 
 }
 
-function OccurenceOfProperyCheck(array) {
+function OccurenceOfPropertyCheck(array) {
         OccurenceObj = {}
         array.forEach(element => {
             if ((element != "Techno")&(element != "House")){
@@ -5016,8 +5015,8 @@ function OccurenceOfProperyCheck(array) {
             return OccurenceObj
         }
 
-let occurence_of_styles = OccurenceOfProperyCheck(style_array)
-let occurence_of_labels = OccurenceOfProperyCheck(label_array)
+let occurence_of_styles = OccurenceOfPropertyCheck(style_array)
+let occurence_of_labels = OccurenceOfPropertyCheck(label_array)
 
 console.log(occurence_of_styles)
 
