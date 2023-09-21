@@ -15,7 +15,7 @@
 
 :root {
     --baseunitheight: 4px;
-    --baseunitlength: 6px;
+    --baseunitwidth: 6px;
 }
 
 body {
@@ -32,6 +32,16 @@ body {
 #website-name{
     font-family: "general-fonts";
     font-size: calc(var(--baseunitheight)*15);
+
+}
+.entry{
+    display:flex;
+    align-items: center;
+}
+.preview{
+    height: 100px;
+    width:100px;
+    padding:calc(var(--baseunitheight)*5)    calc(var(--baseunitwidth)*5)
 
 }
 footer{
