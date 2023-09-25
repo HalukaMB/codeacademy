@@ -161,7 +161,7 @@ body {
     scroll-snap-type: x mandatory;
   }
   
-  .carousel__slide, .carousel__slide-2 {
+  .carousel__slide {
     position: relative;
     flex: 0 0 100%;
     width: 100%;
@@ -170,7 +170,7 @@ body {
   }
   
   /* Using psuedo classes to colour even slides differently */
-  .carousel__slide:nth-child(even),.carousel__slide-2:nth-child(even) {
+  .carousel__slide:nth-child(even),carousel__slide-2:nth-child(even) {
     background-color: #99f;
   }
   
