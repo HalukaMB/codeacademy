@@ -1,19 +1,24 @@
 let results_release = artist_answer_json["results"]
+/* we get from the results all represented labels and arrays and turn them into a flat array */
 
-/* we get from the results all represented labels and arrays */
-style_array = []
-label_array = []
-for (index = 0; index < artist_answer_json["results"].length; index++) {
-    style_array.push(...results_release[index]["style"])
-    let label_doubles = new Set(results_release[index]["label"])
-    label_array.push(...label_doubles)
+function flattenArrays(artist_answer_json, keyword) {
+    let array = []
+    for (index = 0; index < artist_answer_json["results"].length; index++) {
+        let array_with_doubles = new Set(results_release[index][keyword])
+        array.push(...array_with_doubles)
+    }
+    return (array)
 }
 
-/* And thne we count the occurence of each value*/
-function OccurenceOfPropertyCheck(array) {
+let style_array = flattenArrays(artist_answer_json, "style")
+let label_array = flattenArrays(artist_answer_json, "label")
+
+
+/* And then we count the occurence of each value while also for certain things we do not want to count*/
+function OccurenceOfPropertyCheck(array, NotInList = []) {
     OccurenceObj = {}
     array.forEach(element => {
-        if ((element != "Techno") & (element != "House")) {
+        if (!NotInList.includes(element)) {
             if (OccurenceObj[element]) {
                 OccurenceObj[element] += 1
             } else {
@@ -24,10 +29,10 @@ function OccurenceOfPropertyCheck(array) {
     return OccurenceObj
 }
 
-let occurence_of_styles = OccurenceOfPropertyCheck(style_array)
+let occurence_of_styles = OccurenceOfPropertyCheck(style_array, ["House", "Techno"])
 let occurence_of_labels = OccurenceOfPropertyCheck(label_array)
 
-
+/* And then we sort for the occurence */
 function SortOccurenceArray(occurence_of_property) {
     let sortable_array = []
     for (let property in occurence_of_property) {
@@ -42,53 +47,39 @@ function SortOccurenceArray(occurence_of_property) {
 let sortable_style = SortOccurenceArray(occurence_of_styles);
 let sortable_labels = SortOccurenceArray(occurence_of_labels);
 
-
-let styles_to_check_against = sortable_style.splice(0, 10)
-console.log(styles_to_check_against)
-listofstyles = []
-for (let index = 0; index < styles_to_check_against.length; index++) {
-    listofstyles.push(styles_to_check_against[index][0])
-}
-/* if master-id is not 0, there are multiple */
-/* https://api.discogs.com/database/search?per_page=100&sort=year&key={}&secret={}&label=rekids */
-
-console.log(labeljson_database_without_artist["results"])
-
-recommendations_similar = []
-
-
-for (let index = 0; index < labeljson_database_without_artist["results"].length; index++) {
-    styles_of_release = labeljson_database_without_artist["results"][index]["style"]
-    if (styles_of_release.some(r => listofstyles.includes(r)) & labeljson_database_without_artist["results"][index]["community"]["have"] > 50) {
-        console.log("match")
-        recommendations_similar.push(labeljson_database_without_artist["results"][index])
+/* here we define the styles to check for the 10 formeost occuring */
+function creatingFilterArray(arrayWithNesting, cutoff, nestedIndex) {
+    arrayToCheckAgainst = []
+    let reducedArray = arrayWithNesting.splice(0, cutoff)
+    for (let index = 0; index < reducedArray.length; index++) {
+        arrayToCheckAgainst.push(reducedArray[index][nestedIndex])
     }
+    return arrayToCheckAgainst
 }
+let arrayOfStyles = creatingFilterArray(sortable_style, 10, 0)
 
-let idOfArtistList = []
-for (i = 0; i < labeljson_database_with_artist["results"].length; i++) {
-    idOfArtistRelease = labeljson_database_with_artist["results"][i]["id"]
-    idOfArtistList.push(idOfArtistRelease)
-}
+/*Finally we filter only for releases that do not include this artist*/
+function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist) {
 
-for (i = 0; i < recommendations_similar.length; i++) {
-    if (idOfArtistList.includes(recommendations_similar[i].id)) {
-        recommendations_similar[i]
+    let idOfArtistList = []
+    for (i = 0; i < resultsOnlyWithArtist["results"].length; i++) {
+        idOfArtistRelease = resultsOnlyWithArtist["results"][i]["id"]
+        idOfArtistList.push(idOfArtistRelease)
     }
+
+    console.log(allResults)
+
+    let filteredItems = allResults["results"].filter(release => {
+        let itemId = release.id
+        let itemtype = release.type
+        if ((!idOfArtistList.includes(itemId)) && itemtype == "release") {
+            return release
+        }
+
+    })
+    return filteredItems
 }
-
-
-
-const filteredItems = recommendations_similar.filter(release => {
-    console.log(release)
-    let itemId = release.id
-    let itemtype = release.type
-
-    if ((!idOfArtistList.includes(itemId)) && itemtype == "release") {
-        return release
-    }
-})
-console.log(filteredItems)
+let filteredItems = onlyKeepOtherArtists(labeljson_database_all, labeljson_database_with_artist)
 
 
 const second_gallery = document.getElementById("carousel_ol-2")
@@ -103,10 +94,11 @@ for (index = 0; index < filteredItems.length; index++) {
     listEntry.id = "carousel__slide_2-" + String(index)
     listEntry.classList.add("carousel__slide")
 
-    let releaseInfoDiv=document.createElement("a")
+    let releaseInfoDiv = document.createElement("a")
     releaseInfoDiv.classList.add("carousel__content")
-/*     releaseInfoDiv.href= "https://www.discogs.com" + filteredItems[index].uri
- */    releaseInfoDiv.innerHTML=filteredItems[index].title
+    /*     releaseInfoDiv.href= "https://www.discogs.com" + filteredItems[index].uri
+     */
+    releaseInfoDiv.innerHTML = filteredItems[index].title
 
     let divSlide = document.createElement("div")
     divSlide.classList.add("carousel__snapper")
@@ -117,14 +109,14 @@ for (index = 0; index < filteredItems.length; index++) {
     if (index == 0) {
         toPreviousSlide.href = "#carousel__slide_2-" + String(filteredItems.length - 1)
     } else {
-        toPreviousSlide.href = "#carousel__slide_2-" + String(index-1)
+        toPreviousSlide.href = "#carousel__slide_2-" + String(index - 1)
     }
     let toNextSlide = document.createElement("a")
     toNextSlide.classList.add("carousel__next")
     if (index == (filteredItems.length - 1)) {
         toNextSlide.href = "#carousel__slide_2-" + String(0)
     } else {
-        toNextSlide.href = "#carousel__slide_2-" + String(index+1)
+        toNextSlide.href = "#carousel__slide_2-" + String(index + 1)
     }
     listEntry.appendChild(divSlide)
     listEntry.appendChild(releaseInfoDiv)
@@ -138,7 +130,7 @@ for (index = 0; index < filteredItems.length; index++) {
 
 ALTERNATIVE: addEventListener after rendering DOM has finished*/
 second_gallery.appendChild(orderedListForSlides)
-
+/* 
 
 document.addEventListener("mouseover", function(e){
     const target = e.target.closest(".carousel__snapper"); // Or any other selector.
@@ -159,14 +151,15 @@ function createButton(){
     const divToAttach = document.querySelector("#herebutton")
     const myButton = document.createElement('button')
 /*     .addEventListener("click",function(){console.log("You clicked the button")})
- */    divToAttach.appendChild(myButton)
-}
+/*  
+divToAttach.appendChild(myButton)
+
 createButton();
 
 
 
-function initPage (){
-createCarousel();
-pickUpElementsAndAddListener()
+function initPage() {
+    createCarousel();
+    pickUpElementsAndAddListener()
 }
-initPage()
+initPage() * / */

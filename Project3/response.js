@@ -4987,7 +4987,7 @@ let artist_answer_json = {
         }
     ]
 }
-let labeljson_database_without_artist={
+let labeljson_database_all={
     "pagination": {
         "page": 1,
         "pages": 12,
