@@ -57,51 +57,9 @@ body {
     padding: 0 1.25rem;
     font-family: 'Lato', sans-serif;
   }
-  
-  @keyframes tonext {
-    75% {
-      left: 0;
-    }
-    95% {
-      left: 100%;
-    }
-    98% {
-      left: 100%;
-    }
-    99% {
-      left: 0;
-    }
-  }
-  
-  @keyframes tostart {
-    75% {
-      left: 0;
-    }
-    95% {
-      left: -300%;
-    }
-    98% {
-      left: -300%;
-    }
-    99% {
-      left: 0;
-    }
-  }
-  
-  @keyframes snap {
-    96% {
-      scroll-snap-align: center;
-    }
-    97% {
-      scroll-snap-align: none;
-    }
-    99% {
-      scroll-snap-align: none;
-    }
-    100% {
-      scroll-snap-align: center;
-    }
-  }
+
+
+
   
   body {
     max-width: 37.5rem;
@@ -174,8 +132,7 @@ body {
     background-color: #99f;
   }
   
-  .carousel__slide:before {
-    content: counter(item);
+  .carousel__slide:before,.carousel__content {
     position: absolute;
     top: 50%;
     left: 50%;
