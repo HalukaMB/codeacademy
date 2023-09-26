@@ -1,25 +1,15 @@
-let base = 1
-document.getElementById("test").innerHTML = "\"HELLO WORLD\""
-
-
-/* FIRST REQUEST FOR ARTIST
-
-https://api.discogs.com/database/search?q=Ian%20Pooley&per_page=100&sort=year&key={}&secret={}
-*/
-
-
-
 let results_release = artist_answer_json["results"]
 
+/* we get from the results all represented labels and arrays */
 style_array = []
 label_array = []
 for (index = 0; index < artist_answer_json["results"].length; index++) {
     style_array.push(...results_release[index]["style"])
     let label_doubles = new Set(results_release[index]["label"])
     label_array.push(...label_doubles)
-
 }
 
+/* And thne we count the occurence of each value*/
 function OccurenceOfPropertyCheck(array) {
     OccurenceObj = {}
     array.forEach(element => {
@@ -37,7 +27,6 @@ function OccurenceOfPropertyCheck(array) {
 let occurence_of_styles = OccurenceOfPropertyCheck(style_array)
 let occurence_of_labels = OccurenceOfPropertyCheck(label_array)
 
-console.log(occurence_of_styles)
 
 function SortOccurenceArray(occurence_of_property) {
     let sortable_array = []
@@ -60,24 +49,22 @@ listofstyles = []
 for (let index = 0; index < styles_to_check_against.length; index++) {
     listofstyles.push(styles_to_check_against[index][0])
 }
-console.log(listofstyles)
 /* if master-id is not 0, there are multiple */
 /* https://api.discogs.com/database/search?per_page=100&sort=year&key={}&secret={}&label=rekids */
 
 console.log(labeljson_database_without_artist["results"])
 
 recommendations_similar = []
+
+
 for (let index = 0; index < labeljson_database_without_artist["results"].length; index++) {
     styles_of_release = labeljson_database_without_artist["results"][index]["style"]
-
-
     if (styles_of_release.some(r => listofstyles.includes(r)) & labeljson_database_without_artist["results"][index]["community"]["have"] > 50) {
         console.log("match")
         recommendations_similar.push(labeljson_database_without_artist["results"][index])
-
-
     }
 }
+
 let idOfArtistList = []
 for (i = 0; i < labeljson_database_with_artist["results"].length; i++) {
     idOfArtistRelease = labeljson_database_with_artist["results"][i]["id"]
@@ -85,11 +72,12 @@ for (i = 0; i < labeljson_database_with_artist["results"].length; i++) {
 }
 
 for (i = 0; i < recommendations_similar.length; i++) {
-    console.log(recommendations_similar[i].id)
     if (idOfArtistList.includes(recommendations_similar[i].id)) {
         recommendations_similar[i]
     }
 }
+
+
 
 const filteredItems = recommendations_similar.filter(release => {
     console.log(release)
@@ -102,21 +90,17 @@ const filteredItems = recommendations_similar.filter(release => {
 })
 console.log(filteredItems)
 
-function handleEvent(event){
-    console.log(event)
-}
 
 const second_gallery = document.getElementById("carousel_ol-2")
-
 let orderedListForSlides = document.createElement("ol")
 orderedListForSlides.classList.add("carousel__viewport")
+
+
+
 for (index = 0; index < filteredItems.length; index++) {
-    console.log(index)
     let listEntry = document.createElement("li")
     listEntry.tabindex = "0"
     listEntry.id = "carousel__slide_2-" + String(index)
-    listEntry.addEventListener("mouseOver",handleEvent)
-
     listEntry.classList.add("carousel__slide")
 
     let releaseInfoDiv=document.createElement("a")
@@ -142,7 +126,6 @@ for (index = 0; index < filteredItems.length; index++) {
     } else {
         toNextSlide.href = "#carousel__slide_2-" + String(index+1)
     }
-
     listEntry.appendChild(divSlide)
     listEntry.appendChild(releaseInfoDiv)
 
@@ -151,11 +134,14 @@ for (index = 0; index < filteredItems.length; index++) {
 
     orderedListForSlides.appendChild(listEntry)
 }
+/* Problem might be that bcs of asynchronity that event listener is added before the element
+
+ALTERNATIVE: addEventListener after rendering DOM has finished*/
 second_gallery.appendChild(orderedListForSlides)
 
 
 document.addEventListener("mouseover", function(e){
-    const target = e.target.closest("carousel__snapper"); // Or any other selector.
+    const target = e.target.closest(".carousel__snapper"); // Or any other selector.
     console.log(target)
 
     console.log("hihere!")
@@ -168,5 +154,19 @@ carouselParents=document.getElementsByClassName("carousel__snapper")
 console.log(carouselParents)
 
 
+function createButton(){
+
+    const divToAttach = document.querySelector("#herebutton")
+    const myButton = document.createElement('button')
+/*     .addEventListener("click",function(){console.log("You clicked the button")})
+ */    divToAttach.appendChild(myButton)
+}
+createButton();
 
 
+
+function initPage (){
+createCarousel();
+pickUpElementsAndAddListener()
+}
+initPage()
