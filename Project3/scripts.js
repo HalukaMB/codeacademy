@@ -150,23 +150,37 @@ for (index = 0; index < filteredItems.length; index++) {
 ALTERNATIVE: addEventListener after rendering DOM has finished*/
 second_gallery.appendChild(orderedListForSlides)
 
-function lazyLoadImage(element){}
+function increaseopacity(img){
+    let i =0
+    var k = window.setInterval(function() {
+        if (i >= 30) {
+          clearInterval(k);
+        } else {
+            img.style.opacity = i / 100;
+          i++;
+        }
+      }, 100);
+}
 
 function appendEventListener(parentElementId, newElementClass) {
     const container = document.querySelector(parentElementId);
     console.log(container)
     container.addEventListener('mouseover', function (e) {
-/*         if (e.target.classList.contains(newElementClass)) {
+        if (e.target.classList.contains(newElementClass)) {
             divToBeFilled=e.target.parentElement
             console.log(divToBeFilled)
             if (!divToBeFilled.img){
             src_for_image=(divToBeFilled.getAttribute("cover_image"))
-
-            img=document.createElement("img")
+            let img=document.createElement("img")
+            img.style.opacity=0
             img.src=src_for_image
+            img.classList.add("coverimage")
+            increaseopacity(img)
+
             divToBeFilled.appendChild(img)
+            
         }
-        } */
+        }
     })
 }
 appendEventListener("#carousel_ol-2","carousel__content");
