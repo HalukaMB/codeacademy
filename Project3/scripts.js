@@ -79,13 +79,51 @@ function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist) {
     })
     return filteredItems
 }
-let filteredItems = onlyKeepOtherArtists(labeljson_database_all, labeljson_database_with_artist)
+let filteredItems = (onlyKeepOtherArtists(labeljson_database_all, labeljson_database_with_artist)).splice(0, 10)
+console.log(filteredItems)
 
 
 const second_gallery = document.getElementById("carousel_ol-2")
 let orderedListForSlides = document.createElement("ol")
 orderedListForSlides.classList.add("carousel__viewport")
 
+function addSlide(entry) {
+    carouselSlide = document.createElement("div")
+    carouselSlide.classList.add("carousel__snapper")
+    let releaseInfoDiv = document.createElement("a")
+    releaseInfoDiv.classList.add("carousel__content")
+
+    releaseInfoDiv.innerHTML = entry.title
+    releaseInfoDiv.href= "https://www.discogs.com" + entry.uri
+    carouselSlide.appendChild(releaseInfoDiv)
+    return carouselSlide
+}
+
+function addNavigator(direction, index, lastindex) {
+    if ((direction == "prev") || (direction == "next")) {
+        slideNavigator = document.createElement("a")
+        slideNavigator.classList.add("carousel__" + direction)
+
+        if (direction=="prev"){
+            slideNavigator.href= "#carousel__slide_2-" + String(index - 1)
+            if(index==0){
+            slideNavigator.href= "#carousel__slide_2-" + String(lastindex - 1)
+            }
+        }
+
+        if (direction=="next"){
+            slideNavigator.href= "#carousel__slide_2-" + String(index + 1)
+            if(index==lastindex - 1){
+            slideNavigator.href= "#carousel__slide_2-" + String(0)
+            }
+        }
+        return slideNavigator
+
+    }
+    else{
+        console.log("wrong pointer")
+    }
+}
 
 
 for (index = 0; index < filteredItems.length; index++) {
@@ -94,33 +132,11 @@ for (index = 0; index < filteredItems.length; index++) {
     listEntry.id = "carousel__slide_2-" + String(index)
     listEntry.classList.add("carousel__slide")
 
-    let releaseInfoDiv = document.createElement("a")
-    releaseInfoDiv.classList.add("carousel__content")
-    /*     releaseInfoDiv.href= "https://www.discogs.com" + filteredItems[index].uri
-     */
-    releaseInfoDiv.innerHTML = filteredItems[index].title
+    let divSlide=addSlide(filteredItems[index])
+    let toPreviousSlide = addNavigator("prev",index,filteredItems.length)
+    let toNextSlide = addNavigator("next",index,filteredItems.length)
 
-    let divSlide = document.createElement("div")
-    divSlide.classList.add("carousel__snapper")
-
-    let toPreviousSlide = document.createElement("a")
-    toPreviousSlide.classList.add("carousel__prev")
-
-    if (index == 0) {
-        toPreviousSlide.href = "#carousel__slide_2-" + String(filteredItems.length - 1)
-    } else {
-        toPreviousSlide.href = "#carousel__slide_2-" + String(index - 1)
-    }
-    let toNextSlide = document.createElement("a")
-    toNextSlide.classList.add("carousel__next")
-    if (index == (filteredItems.length - 1)) {
-        toNextSlide.href = "#carousel__slide_2-" + String(0)
-    } else {
-        toNextSlide.href = "#carousel__slide_2-" + String(index + 1)
-    }
     listEntry.appendChild(divSlide)
-    listEntry.appendChild(releaseInfoDiv)
-
     listEntry.appendChild(toPreviousSlide)
     listEntry.appendChild(toNextSlide)
 
