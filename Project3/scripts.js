@@ -90,11 +90,13 @@ orderedListForSlides.classList.add("carousel__viewport")
 function addSlide(entry) {
     carouselSlide = document.createElement("div")
     carouselSlide.classList.add("carousel__snapper")
+    carouselSlide.setAttribute("cover_image",entry.cover_image)
+
     let releaseInfoDiv = document.createElement("a")
     releaseInfoDiv.classList.add("carousel__content")
 
     releaseInfoDiv.innerHTML = entry.title
-    releaseInfoDiv.href= "https://www.discogs.com" + entry.uri
+    releaseInfoDiv.href = "https://www.discogs.com" + entry.uri
     carouselSlide.appendChild(releaseInfoDiv)
     return carouselSlide
 }
@@ -104,26 +106,26 @@ function addNavigator(direction, index, lastindex) {
         slideNavigator = document.createElement("a")
         slideNavigator.classList.add("carousel__" + direction)
 
-        if (direction=="prev"){
-            slideNavigator.href= "#carousel__slide_2-" + String(index - 1)
-            if(index==0){
-            slideNavigator.href= "#carousel__slide_2-" + String(lastindex - 1)
+        if (direction == "prev") {
+            slideNavigator.href = "#carousel__slide_2-" + String(index - 1)
+            if (index == 0) {
+                slideNavigator.href = "#carousel__slide_2-" + String(lastindex - 1)
             }
         }
 
-        if (direction=="next"){
-            slideNavigator.href= "#carousel__slide_2-" + String(index + 1)
-            if(index==lastindex - 1){
-            slideNavigator.href= "#carousel__slide_2-" + String(0)
+        if (direction == "next") {
+            slideNavigator.href = "#carousel__slide_2-" + String(index + 1)
+            if (index == lastindex - 1) {
+                slideNavigator.href = "#carousel__slide_2-" + String(0)
             }
         }
         return slideNavigator
 
-    }
-    else{
+    } else {
         console.log("wrong pointer")
     }
 }
+
 
 
 for (index = 0; index < filteredItems.length; index++) {
@@ -132,20 +134,43 @@ for (index = 0; index < filteredItems.length; index++) {
     listEntry.id = "carousel__slide_2-" + String(index)
     listEntry.classList.add("carousel__slide")
 
-    let divSlide=addSlide(filteredItems[index])
-    let toPreviousSlide = addNavigator("prev",index,filteredItems.length)
-    let toNextSlide = addNavigator("next",index,filteredItems.length)
+    let divSlide = addSlide(filteredItems[index])
+    let toPreviousSlide = addNavigator("prev", index, filteredItems.length)
+    let toNextSlide = addNavigator("next", index, filteredItems.length)
 
     listEntry.appendChild(divSlide)
     listEntry.appendChild(toPreviousSlide)
     listEntry.appendChild(toNextSlide)
 
     orderedListForSlides.appendChild(listEntry)
+
 }
 /* Problem might be that bcs of asynchronity that event listener is added before the element
 
 ALTERNATIVE: addEventListener after rendering DOM has finished*/
 second_gallery.appendChild(orderedListForSlides)
+
+function lazyLoadImage(element){}
+
+function appendEventListener(parentElementId, newElementClass) {
+    const container = document.querySelector(parentElementId);
+    console.log(container)
+    container.addEventListener('mouseover', function (e) {
+/*         if (e.target.classList.contains(newElementClass)) {
+            divToBeFilled=e.target.parentElement
+            console.log(divToBeFilled)
+            if (!divToBeFilled.img){
+            src_for_image=(divToBeFilled.getAttribute("cover_image"))
+
+            img=document.createElement("img")
+            img.src=src_for_image
+            divToBeFilled.appendChild(img)
+        }
+        } */
+    })
+}
+appendEventListener("#carousel_ol-2","carousel__content");
+
 /* 
 
 document.addEventListener("mouseover", function(e){
