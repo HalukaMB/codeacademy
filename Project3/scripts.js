@@ -90,14 +90,22 @@ orderedListForSlides.classList.add("carousel__viewport")
 function addSlide(entry) {
     carouselSlide = document.createElement("div")
     carouselSlide.classList.add("carousel__snapper")
-    carouselSlide.setAttribute("cover_image",entry.cover_image)
+
+    let placeholderDiv=document.createElement("div")
+    placeholderDiv.classList.add("carousel__image__placeholder")
+
 
     let releaseInfoDiv = document.createElement("a")
     releaseInfoDiv.classList.add("carousel__content")
 
     releaseInfoDiv.innerHTML = entry.title
     releaseInfoDiv.href = "https://www.discogs.com" + entry.uri
-    carouselSlide.appendChild(releaseInfoDiv)
+    placeholderDiv.setAttribute("cover_image",entry.cover_image)
+    placeholderDiv.setAttribute("load_status","false")
+
+
+    placeholderDiv.appendChild(releaseInfoDiv)
+    carouselSlide.appendChild(placeholderDiv)
     return carouselSlide
 }
 
@@ -107,7 +115,11 @@ function addNavigator(direction, index, lastindex) {
         slideNavigator.classList.add("carousel__" + direction)
 
         if (direction == "prev") {
-            slideNavigator.href = "#carousel__slide_2-" + String(index - 1)
+
+            slideNavigator.href = "#carousel__slide_2-" + String(index - 1);
+/*             slideNavigator.style.backgroundImage = "data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E";
+ */
+
             if (index == 0) {
                 slideNavigator.href = "#carousel__slide_2-" + String(lastindex - 1)
             }
@@ -166,10 +178,18 @@ function appendEventListener(parentElementId, newElementClass) {
     const container = document.querySelector(parentElementId);
     console.log(container)
     container.addEventListener('mouseover', function (e) {
+        console.log("this is what I try to find:",newElementClass)
+        console.log("this is what I try find class-wise:", e.target.classList)
+        console.log(e.target.classList.contains(newElementClass))
         if (e.target.classList.contains(newElementClass)) {
             divToBeFilled=e.target.parentElement
             console.log(divToBeFilled)
-            if (!divToBeFilled.img){
+            console.log(divToBeFilled.img)
+            load_status=(divToBeFilled.getAttribute("load_status"))
+            console.log(load_status)
+
+            if (load_status=="false"){
+            console.log(load_status)
             src_for_image=(divToBeFilled.getAttribute("cover_image"))
             let img=document.createElement("img")
             img.style.opacity=0
@@ -178,12 +198,13 @@ function appendEventListener(parentElementId, newElementClass) {
             increaseopacity(img)
 
             divToBeFilled.appendChild(img)
+            divToBeFilled.setAttribute("load_status","true")
             
         }
         }
     })
 }
-appendEventListener("#carousel_ol-2","carousel__content");
+appendEventListener("#carousel-div-2","carousel__content");
 
 /* 
 
