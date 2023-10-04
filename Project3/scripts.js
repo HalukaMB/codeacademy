@@ -1,17 +1,17 @@
-let results_release = artist_answer_json["results"]
-/* we get from the results all represented labels and arrays and turn them into a flat array */
+/* let results_release = artist_answer_json["results"]
+we get from the results all represented labels and arrays and turn them into a flat array */
 
 function flattenArrays(artist_answer_json, keyword) {
+    console.log(artist_answer_json)
     let array = []
-    for (index = 0; index < artist_answer_json["results"].length; index++) {
-        let array_with_doubles = new Set(results_release[index][keyword])
+    for (index = 0; index < artist_answer_json.length; index++) {
+        let array_with_doubles = new Set(artist_answer_json[index][keyword])
         array.push(...array_with_doubles)
     }
     return (array)
 }
 
-let style_array = flattenArrays(artist_answer_json, "style")
-let label_array = flattenArrays(artist_answer_json, "label")
+
 
 
 /* And then we count the occurence of each value while also for certain things we do not want to count*/
@@ -29,9 +29,9 @@ function OccurenceOfPropertyCheck(array, NotInList = []) {
     return OccurenceObj
 }
 
-let occurence_of_styles = OccurenceOfPropertyCheck(style_array, ["House", "Techno"])
+/* let occurence_of_styles = OccurenceOfPropertyCheck(style_array, ["House", "Techno"])
 let occurence_of_labels = OccurenceOfPropertyCheck(label_array)
-
+ */
 /* And then we sort for the occurence */
 function SortOccurenceArray(occurence_of_property) {
     let sortable_array = []
@@ -44,9 +44,9 @@ function SortOccurenceArray(occurence_of_property) {
     return sortable_array
 }
 
-let sortable_style = SortOccurenceArray(occurence_of_styles);
+/* let sortable_style = SortOccurenceArray(occurence_of_styles);
 let sortable_labels = SortOccurenceArray(occurence_of_labels);
-
+ */
 /* here we define the styles to check for the 10 formeost occuring */
 function creatingFilterArray(arrayWithNesting, cutoff, nestedIndex) {
     arrayToCheckAgainst = []
@@ -56,8 +56,8 @@ function creatingFilterArray(arrayWithNesting, cutoff, nestedIndex) {
     }
     return arrayToCheckAgainst
 }
-let arrayOfStyles = creatingFilterArray(sortable_style, 10, 0)
-
+/* let arrayOfStyles = creatingFilterArray(sortable_style, 10, 0)
+ */
 /*Finally we filter only for releases that do not include this artist*/
 function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist) {
 
@@ -206,36 +206,32 @@ function appendEventListener(parentElementId, newElementClass) {
 }
 appendEventListener("#carousel-div-2","carousel__content");
 
-/* 
-
-document.addEventListener("mouseover", function(e){
-    const target = e.target.closest(".carousel__snapper"); // Or any other selector.
-    console.log(target)
-
-    console.log("hihere!")
-
-    if(target){
-      // Do something with `target`.
-    }
-  });
-carouselParents=document.getElementsByClassName("carousel__snapper")
-console.log(carouselParents)
-
-
-function createButton(){
-
-    const divToAttach = document.querySelector("#herebutton")
-    const myButton = document.createElement('button')
-/*     .addEventListener("click",function(){console.log("You clicked the button")})
-/*  
-divToAttach.appendChild(myButton)
-
-createButton();
-
-
-
-function initPage() {
-    createCarousel();
-    pickUpElementsAndAddListener()
+/* This gets triggered if someone clicks send */
+const readOutForm=(formBlob)=>{
+    let artistName=formBlob.getElementsByTagName("input")[0].value
+    apiUrl=`https://api.discogs.com/database/search?q=${artistName}&token=${authKey}&secret=${secretKey}`
+    askForArtistData(apiUrl)
 }
-initPage() * / */
+
+
+function askForArtistData(url){ fetch(url).then(response=>
+    response.json()).then(result=>{
+        let artist_entries=(result["results"]);
+        console.log(artist_entries)
+        let style_array = flattenArrays(artist_entries, "style")
+        let label_array = flattenArrays(artist_entries, "label")
+        console.log(style_array)
+        console.log(label_array)
+        let sortable_style = SortOccurenceArray(occurence_of_styles);
+        let sortable_labels = SortOccurenceArray(occurence_of_labels);
+        console.log(sortable_style)
+        console.log(sortable_labels)
+
+        
+    }
+)}
+
+discogsForm=document.getElementById("requestToDiscogs")
+let typedInName=(discogsForm.getElementsByTagName("input")[0].value)
+let sendButton=(discogsForm.getElementsByTagName("input")[1])
+sendButton.addEventListener("click", (event)=>readOutForm(event.target.parentElement))

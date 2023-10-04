@@ -11,16 +11,26 @@
 <body>
   <div class="upper-section">
     <div id="website-name" class="mt-5">Vinyl Gem Hunter</div>
-    <div>Findings some cheap gems on vinyl fitting to your taste.</div>
+    <div>Finding some cheap gems on vinyl fitting to your taste.</div>
   </div>
-  <form class="p-4 bg-slate-400 rounded-md">
-  <div id="start-question">Who is an artist that you like?</div>
-  <input type="text" name="artistname" value="Halunki" class="artist-entry block bg-slate-200 w-full border-solid rounded-md drop-shadow-lg indent-3">
-  <input type="submit" class="bg-emerald-200 rounded-md my-3 w-60" value="Send">
-</form>
-  <div id="filter-option">And do you rather want suggestions for easier to get releases? Or the rare ones?</div>
-  <div id="suggestions">This is empty</div>
+  <form class="p-4 bg-slate-400 rounded-md" id="requestToDiscogs">
+    <div id="start-question">Who is an artist that you like?</div>
+    <input type="text" name="artistname" value="Villalobos"
+      class="artist-entry block text-slate-500 bg-slate-200 w-full border-solid rounded-md drop-shadow-lg indent-3">
+    <input type="submit" class="bg-emerald-200 rounded-md my-3 w-60" value="Send">
+  </form>
+  <div id="filter-div" class="my-4 p-4 bg-slate-400 rounded-md">
+    <div id="rare-option">And do you rather want suggestions for easier to get releases? Or the rare ones?</div>
+    <div class="slider-label">
+      <a class="slider-start">Very rare</a> <a class="slider-end">Very ubiquous</a>
 
+    </div>
+
+    <div class="slidecontainer">
+      <input type="range" min="1" max="100" value="50" class="slider w-full accent-emerald-200" id="myRange">
+    </div>
+
+  </div>
   <div id="carousel-div-2">
     <section class="carousel" id="carousel_ol-2" aria-label="Gallery">
 

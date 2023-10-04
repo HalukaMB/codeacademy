@@ -3,6 +3,8 @@
 
 https://api.discogs.com/database/search?q=Ian%20Pooley&per_page=100&sort=year&key={}&secret={}
 */
+let authKey="HeWJZRTVLSazLSCDrPZMokBPhCPOKhhFnTZkIrly"
+let secretKey="kGBUYtjloaDzoCQvlsqyHJLzeUnagEeX"
 let artist_answer_json = {
     "pagination": {
         "page": 1,
