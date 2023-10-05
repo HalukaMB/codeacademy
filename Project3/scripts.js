@@ -5,8 +5,21 @@ function flattenArrays(artist_answer_json, keyword) {
     console.log(artist_answer_json)
     let array = []
     for (index = 0; index < artist_answer_json.length; index++) {
+        console.log(artist_answer_json[index][keyword])
         let array_with_doubles = new Set(artist_answer_json[index][keyword])
-        array.push(...array_with_doubles)
+        if (keyword=="style"){
+            array.push(...array_with_doubles)
+        }
+        if (keyword=="label"){
+            console.log(array_with_doubles)
+            if (typeof(array_with_doubles[0])){
+                array.push(...array_with_doubles)
+            }else{
+                let array_from_list=Array.from(array_with_doubles)
+                array.push(array_from_list[0])
+
+            }
+        }
     }
     return (array)
 }
@@ -29,10 +42,7 @@ function OccurenceOfPropertyCheck(array, NotInList = []) {
     return OccurenceObj
 }
 
-/* let occurence_of_styles = OccurenceOfPropertyCheck(style_array, ["House", "Techno"])
-let occurence_of_labels = OccurenceOfPropertyCheck(label_array)
- */
-/* And then we sort for the occurence */
+
 function SortOccurenceArray(occurence_of_property) {
     let sortable_array = []
     for (let property in occurence_of_property) {
@@ -174,10 +184,11 @@ function increaseopacity(img){
       }, 100);
 }
 
-function appendEventListener(parentElementId, newElementClass) {
+function appendEventListener(eventtype,parentElementId, newElementClass) {
+    console.log("triggered")
     const container = document.querySelector(parentElementId);
     console.log(container)
-    container.addEventListener('mouseover', function (e) {
+    container.addEventListener(eventtype, function (e) {
         console.log("this is what I try to find:",newElementClass)
         console.log("this is what I try find class-wise:", e.target.classList)
         console.log(e.target.classList.contains(newElementClass))
@@ -204,15 +215,33 @@ function appendEventListener(parentElementId, newElementClass) {
         }
     })
 }
-appendEventListener("#carousel-div-2","carousel__content");
+appendEventListener("mouseover","#carousel-div-2","carousel__content");
 
 /* This gets triggered if someone clicks send */
 const readOutForm=(formBlob)=>{
     let artistName=formBlob.getElementsByTagName("input")[0].value
-    apiUrl=`https://api.discogs.com/database/search?q=${artistName}&token=${authKey}&secret=${secretKey}`
-    askForArtistData(apiUrl)
+    apiUrl=`https://api.discogs.com/database/search?q=${artistName}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`
+    clearingUpArtist(apiUrl)
 }
 
+function clearingUpArtist(url){ fetch(url).then(response=>
+    response.json()).then(result=>{
+    let artists=(result["results"]);
+    console.log(artists)
+    selectArtist=document.querySelector("#select-artists")
+    artists.map((element)=>{
+        console.log(element);
+        aOption=document.createElement("option")
+        aOption.innerHTML=element.title
+        aOption.classList.add("artistOption")
+        aOption.setAttribute("id",element.id)
+        selectArtist.appendChild(aOption)
+        
+    })
+    appendEventListener("focus","#select-artists","artistOption");
+
+})
+}
 
 function askForArtistData(url){ fetch(url).then(response=>
     response.json()).then(result=>{
@@ -220,12 +249,15 @@ function askForArtistData(url){ fetch(url).then(response=>
         console.log(artist_entries)
         let style_array = flattenArrays(artist_entries, "style")
         let label_array = flattenArrays(artist_entries, "label")
-        console.log(style_array)
-        console.log(label_array)
+      
+        let occurence_of_styles = OccurenceOfPropertyCheck(style_array, ["House", "Techno"])
+        let occurence_of_labels = OccurenceOfPropertyCheck(label_array)
+        console.log(occurence_of_styles,occurence_of_labels)
+
         let sortable_style = SortOccurenceArray(occurence_of_styles);
         let sortable_labels = SortOccurenceArray(occurence_of_labels);
-        console.log(sortable_style)
-        console.log(sortable_labels)
+
+        console.log(sortable_style,sortable_labels)
 
         
     }
