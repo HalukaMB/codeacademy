@@ -1,17 +1,17 @@
-/* let results_release = artist_answer_json["results"]
+/* let results_release = artistAnswerJson["results"]
 we get from the results all represented labels and arrays and turn them into a flat array */
 
-function flattenArrays(artist_answer_json, keyword) {
+function flattenArrays(artistAnswerJson, keyword) {
     let array = []
-    for (index = 0; index < artist_answer_json.length; index++) {
+    for (index = 0; index < artistAnswerJson.length; index++) {
         if (keyword == "style") {
-            let array_with_doubles = new Set(artist_answer_json[index][keyword])
-            array.push(...array_with_doubles)
+            let arrayWithDoubles = new Set(artistAnswerJson[index][keyword])
+            array.push(...arrayWithDoubles)
         }
         if (keyword == "label") {
-            let labelinfo = (artist_answer_json[index]["label"][0])
+            let labelInfo = (artistAnswerJson[index]["label"][0])
 
-            array.push(labelinfo)
+            array.push(labelInfo)
 
 
         }
@@ -20,13 +20,11 @@ function flattenArrays(artist_answer_json, keyword) {
 }
 
 
-
-
 /* And then we count the occurence of each value while also for certain things we do not want to count*/
-function OccurenceOfPropertyCheck(array, NotInList = []) {
+function occurenceOfPropertyCheck(array, notInList = []) {
     OccurenceObj = {}
     array.forEach(element => {
-        if (!NotInList.includes(element)) {
+        if (!notInList.includes(element)) {
             if (OccurenceObj[element]) {
                 OccurenceObj[element] += 1
             } else {
@@ -38,24 +36,24 @@ function OccurenceOfPropertyCheck(array, NotInList = []) {
 }
 
 
-function SortOccurenceArray(occurence_of_property) {
-    let sortable_array = []
-    for (let property in occurence_of_property) {
-        sortable_array.push([property, occurence_of_property[property]])
+function sortOccurenceArray(occurenceOfProperty) {
+    let sortableArray = []
+    for (let property in occurenceOfProperty) {
+        sortableArray.push([property, occurenceOfProperty[property]])
     }
-    sortable_array.sort(function (a, b) {
+    sortableArray.sort(function (a, b) {
         return b[1] - a[1]
     })
-    return sortable_array
+    return sortableArray
 }
 
-/* let sortable_style = SortOccurenceArray(occurence_of_styles);
-let sortable_labels = SortOccurenceArray(occurence_of_labels);
+/* let sortable_style = sortOccurenceArray(occurence_of_styles);
+let sortable_labels = sortOccurenceArray(occurence_of_labels);
  */
 /* here we define the styles to check for the 10 formeost occuring */
-function creatingFilterArray(arrayWithNesting, cutoff, nestedIndex) {
+function creatingFilterArray(arrayWithNesting, cutOff, nestedIndex) {
     arrayToCheckAgainst = []
-    let reducedArray = arrayWithNesting.splice(0, cutoff)
+    let reducedArray = arrayWithNesting.splice(0, cutOff)
     for (let index = 0; index < reducedArray.length; index++) {
         arrayToCheckAgainst.push(reducedArray[index][nestedIndex])
     }
@@ -83,7 +81,7 @@ function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist) {
     })
     return filteredItems
 }
-let filteredItems = (onlyKeepOtherArtists(labeljson_database_all, labeljson_database_with_artist)).splice(0, 10)
+let filteredItems = (onlyKeepOtherArtists(labeljsonDatabaseAll, labeljsonDatabaseWithArtist)).splice(0, 10)
 console.log(filteredItems)
 
 
@@ -216,16 +214,17 @@ const readOutForm = (formBlob) => {
     const args = {}
     args["type"] = "artistSearch"
     args["artistName"] = artistName
-    calldiscogs(args).then(artists=>clearingUpArtist(artists)
+    callDiscogs(args).then(artists=>clearingUpArtist(artists)
     )
 }
 
-const calldiscogs = (args) => {
+const callDiscogs = (args) => {
         switch (args["type"]) {
             case "artistSearch":
                 apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`
                 fetch(apiUrl).then(response => response.json()).then(result => {
                     let artists = (result["results"]);
+                    console.log(artists)
                     return (artists)
                 })
             case "labelSearch":
@@ -272,11 +271,11 @@ const calldiscogs = (args) => {
                 let style_array = flattenArrays(artist_entries, "style")
                 let label_array = flattenArrays(artist_entries, "label")
 
-                let occurence_of_styles = OccurenceOfPropertyCheck(style_array, ["House", "Techno"])
-                let occurence_of_labels = OccurenceOfPropertyCheck(label_array)
+                let occurence_of_styles = occurenceOfPropertyCheck(style_array, ["House", "Techno"])
+                let occurence_of_labels = occurenceOfPropertyCheck(label_array)
 
-                let sortable_style = SortOccurenceArray(occurence_of_styles);
-                let sortable_labels = SortOccurenceArray(occurence_of_labels);
+                let sortable_style = sortOccurenceArray(occurence_of_styles);
+                let sortable_labels = sortOccurenceArray(occurence_of_labels);
 
 
                 let arrayOfStyles = creatingFilterArray(sortable_style, 10, 0)
@@ -286,11 +285,11 @@ const calldiscogs = (args) => {
 
                 console.log(arrayOfStyles)
                 console.log(arrayOfLabels)
-                let label_to_search_for = (arrayOfLabels[Math.floor(Math.random() * arrayOfLabels.length)])
+                let labelToSearchFor = (arrayOfLabels[Math.floor(Math.random() * arrayOfLabels.length)])
                 const args = {}
                 args["type"]="labelSearch"
-                args["label"]=label_to_search_for
-                const promise = calldiscogs(args);
+                args["label"]=labelToSearchFor
+                const promise = callDiscogs(args);
                 promise.then((result) => console.log(result));
               
 

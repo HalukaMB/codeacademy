@@ -5,7 +5,7 @@ https://api.discogs.com/database/search?q=Ian%20Pooley&per_page=100&sort=year&ke
 */
 let authKey="HeWJZRTVLSazLSCDrPZMokBPhCPOKhhFnTZkIrly"
 let secretKey="kGBUYtjloaDzoCQvlsqyHJLzeUnagEeX"
-let artist_answer_json = {
+let artistAnswerJson = {
     "pagination": {
         "page": 1,
         "pages": 32,
@@ -4989,7 +4989,7 @@ let artist_answer_json = {
         }
     ]
 }
-let labeljson_database_all={
+let labeljsonDatabaseAll={
     "pagination": {
         "page": 1,
         "pages": 12,
@@ -9412,7 +9412,7 @@ let labeljson_database_all={
     ]
 }
 
-let labeljson_database_with_artist={
+let labeljsonDatabaseWithArtist={
     "pagination": {
         "page": 1,
         "pages": 1,
