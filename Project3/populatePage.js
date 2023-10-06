@@ -1,5 +1,6 @@
 const fillGallery = (filteredItems) => {
     const second_gallery = document.getElementById("carousel_ol-2")
+    second_gallery.innerHTML = '';
     let orderedListForSlides = document.createElement("ol")
     orderedListForSlides.classList.add("carousel__viewport")
     for (index = 0; index < filteredItems.length; index++) {
@@ -96,11 +97,9 @@ function addEventListenerForDropdown(eventtype, parentElementId){
     container.addEventListener(eventtype, function (e) {
         
         let selectedArtist=((container.options[e.target.selectedIndex]).getAttribute("artistid"))
-        args={}
-        args["type"] = "artistSearch";
-        args["artistName"]=selectedArtist
+
         console.log("selected")
-        callDiscogs(args)
+        artistToSimilarChain(selectedArtist)
     })
 }
 

@@ -135,17 +135,22 @@ const readOutForm = (formBlob) => {
     callDiscogs(args).then(
         (artistnames) => {
             createArtistChoicesDropdpown(artistnames);
+            artistId=artistnames[0].uri.slice(8)
+            artistToSimilarChain(artistId)
+        }
+    )
+}
+
+artistToSimilarChain=(artistId)=>{
+            args={}
             args["type"] = "artistSearch";
-            args["artistName"] = artistnames[0].uri.slice(8);
+            args["artistName"] = artistId;
             (callDiscogs(args)).then(
                 (result) => {
                     filterArtistData(result).then(
                         artistinfo => searchForSimilar(artistinfo, args)
                     )
-                }
-            )
-        }
-    )
+                })
 }
 
 searchForSimilar = (artistinfo, args) => {
