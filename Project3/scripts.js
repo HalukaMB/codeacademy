@@ -71,20 +71,6 @@ function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist, stylesToFilter)
     return filteredItems
 }
 
-
-function createArtistChoicesDropdpown(artistnames) {
-    selectArtist = document.querySelector("#select-artists")
-    artistnames.map((element) => {
-        aOption = document.createElement("option")
-        aOption.innerHTML = element.title
-        aOption.classList.add("artistOption")
-        aOption.setAttribute("id", element.id)
-        selectArtist.appendChild(aOption)
-    })
-    appendEventListener("click", "#select-artists", ".artistOption");
-    return artistnames[0]
-}
-
 function filterArtistData(result) {
     return new Promise((resolve) => {
         const artistinfo = {}
@@ -111,6 +97,7 @@ function filterArtistData(result) {
 
 /* ### QUESTION */
 const callDiscogs = (args) => {
+    console.log("called")
     switch (args["type"]) {
         case "artistClarificationSearch":
             apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`

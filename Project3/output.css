@@ -662,6 +662,10 @@ body {
 footer{
 }
 
+#clarifierArtist{
+  display: none;
+}
+
 body {
   max-width: 37.5rem;
   margin: 0 auto;

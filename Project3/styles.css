@@ -52,7 +52,9 @@ footer{
     
 }
 
-  
+#clarifierArtist{
+  display: none;
+}
 
 
 body {

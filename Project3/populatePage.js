@@ -90,13 +90,28 @@ function increaseopacity(img) {
     }, 100);
 }
 
-function appendEventListener(eventtype, parentElementId, newElementClass) {
-    console.log("triggered")
+function addEventListenerForDropdown(eventtype, parentElementId){
     const container = document.querySelector(parentElementId);
+    console.log(container.value)
+    container.addEventListener(eventtype, function (e) {
+        
+        let selectedArtist=((container.options[e.target.selectedIndex]).getAttribute("artistid"))
+        args={}
+        args["type"] = "artistSearch";
+        args["artistName"]=selectedArtist
+        console.log("selected")
+        callDiscogs(args)
+    })
+}
+
+function appendEventListener(eventtype, parentElementId, newElementClass) {
+    const container = document.querySelector(parentElementId);
+    console.log(container)
     container.addEventListener(eventtype, function (e) {
 
         if (e.target.classList.contains(newElementClass)) {
             divToBeFilled = e.target.parentElement
+            console.log(e)
 
             load_status = (divToBeFilled.getAttribute("load_status"))
 
@@ -116,3 +131,21 @@ function appendEventListener(eventtype, parentElementId, newElementClass) {
     })
 }
 appendEventListener("mouseover", "#carousel-div-2", "carousel__content");
+
+function createArtistChoicesDropdpown(artistnames) {
+    selectArtistClarifier = document.querySelector("#clarifierArtist")
+    console.log(selectArtistClarifier)
+
+    selectArtistClarifier.style.display = "block";
+
+    selectArtist = document.querySelector("#selectArtists")
+    artistnames.map((element) => {
+        aOption = document.createElement("option")
+        aOption.innerHTML = element.title
+        aOption.classList.add("artistOption")
+        aOption.setAttribute("artistid", element.uri.slice(8))
+        selectArtist.appendChild(aOption)
+    })
+    addEventListenerForDropdown("change", "#selectArtists");
+    return artistnames[0]
+}
