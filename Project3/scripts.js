@@ -1,5 +1,6 @@
 /* let results_release = artistAnswerJson["results"]
 we get from the results all represented labels and arrays and turn them into a flat array */
+let resultsObject={}
 
 function flattenArrays(artistAnswerJson, keyword) {
     let array = []
@@ -16,7 +17,6 @@ function flattenArrays(artistAnswerJson, keyword) {
     return (array)
 }
 
-
 /* And then we count the occurence of each value while also for certain things we do not want to count*/
 function occurenceOfPropertyCheck(array, notInList = []) {
     const OccurenceObj = {}
@@ -31,7 +31,6 @@ function occurenceOfPropertyCheck(array, notInList = []) {
     });
     return OccurenceObj
 }
-
 
 function sortOccurenceArray(occurenceOfProperty) {
     let sortableArray = []
@@ -91,8 +90,8 @@ function addSlide(entry) {
 
     releaseInfoDiv.innerHTML = entry.title
     releaseInfoDiv.href = "https://www.discogs.com" + entry.uri
-    releaseInfoDiv.setAttribute("target","_blank")
-    releaseInfoDiv.setAttribute("rel","noopener noreferrer")
+    releaseInfoDiv.setAttribute("target", "_blank")
+    releaseInfoDiv.setAttribute("rel", "noopener noreferrer")
     placeholderDiv.setAttribute("cover_image", entry.cover_image)
     placeholderDiv.setAttribute("load_status", "false")
 
@@ -170,13 +169,13 @@ function increaseopacity(img) {
 function appendEventListener(eventtype, parentElementId, newElementClass) {
     console.log("triggered")
     const container = document.querySelector(parentElementId);
-    console.log(container)
-    container.addEventListener(eventtype, function (e) {
-        console.log(e)
+/*     console.log(container)
+ */    container.addEventListener(eventtype, function (e) {
+      /*   console.log(e)
         console.log("this is what I try to find:", newElementClass)
         console.log("this is what I try find class-wise:", e.target.classList)
         console.log(e.target.classList.contains(newElementClass))
-        if (e.target.classList.contains(newElementClass)) {
+    */     if (e.target.classList.contains(newElementClass)) {
             divToBeFilled = e.target.parentElement
 
             load_status = (divToBeFilled.getAttribute("load_status"))
@@ -201,36 +200,42 @@ appendEventListener("mouseover", "#carousel-div-2", "carousel__content");
 /* This gets triggered if someone clicks send */
 const readOutForm = (formBlob) => {
     let artistName = formBlob.getElementsByTagName("input")[0].value
-    apiUrl = `https://api.discogs.com/database/search?q=${artistName}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`
-    const args = {}
-    args["type"] = "artistSearch"
+    /*     apiUrl = `https://api.discogs.com/database/search?q=${artistName}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`
+     */
+    let args = {}
+    args["type"] = "artistClarificationSearch"
     args["artistName"] = artistName
-    artistRetrieval=callDiscogs(args)
+    /* artistRetrieval=callDiscogs(args)
     args["type"] = "labelSearch"
     args["label"] = "Somekind"
-    labelRetrieval=callDiscogs(args)
-    callDiscogs(args).then(artists => clearingUpArtist(artists))
+    labelRetrieval=callDiscogs(args) */
+    callDiscogs(args).then(artistnames => clearingUpArtist(artistnames))
 }
 
 
 /* ### QUESTION */
 const callDiscogs = (args) => {
     switch (args["type"]) {
-        case "artistSearch":
+        case "artistClarificationSearch":
             apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`
             return fetch(apiUrl).then(response => response.json()).then(result => {
+                let artistnames = (result["results"]);
+                return (artistnames)
+            })
+        case "artistSearch":
+            apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
+            return fetch(apiUrl).then(response => response.json()).then(result => {
                 let artists = (result["results"]);
-                console.log(artists)
                 return (artists)
             })
         case "labelSearch":
-            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&token=${authKey}&secret=${secretKey}&per_page=100`
+            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
             return fetch(apiUrl).then(response => response.json()).then(result => {
                 let allLabelReleases = (result["results"]);
                 return allLabelReleases
             })
         case "labelAndArtistSearch":
-            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&q=${args["artistName"]}&token=${authKey}&secret=${secretKey}&per_page=100`
+            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&q=${args["artistName"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
             return fetch(apiUrl).then(response => response.json()).then(result => {
                 let artistReleases = (result["results"]);
                 return artistReleases
@@ -240,9 +245,9 @@ const callDiscogs = (args) => {
     }
 }
 
-function clearingUpArtist(artists) {
+function clearingUpArtist(artistnames) {
     selectArtist = document.querySelector("#select-artists")
-    artists.map((element) => {
+    artistnames.map((element) => {
         aOption = document.createElement("option")
         aOption.innerHTML = element.title
         aOption.classList.add("artistOption")
@@ -250,35 +255,52 @@ function clearingUpArtist(artists) {
         selectArtist.appendChild(aOption)
     })
     appendEventListener("click", "#select-artists", ".artistOption");
-    const default_artist_name_id = (artists[0].uri).slice(8)
-    let defaultArtistUrl = apiUrl = `https://api.discogs.com/database/search?q=${default_artist_name_id}&token=${authKey}&secret=${secretKey}&per_page=100`
-    askForArtistData(defaultArtistUrl)
+    const default_artist_name_id = (artistnames[0].uri).slice(8)
+    resultsObject["artist"]=default_artist_name_id
+    args = {}
+    args["type"] = "artistSearch"
+    args["artistName"] = default_artist_name_id
+    callDiscogs(args).then(results => {
+        filterArtistData(results)
+    })
 }
 
-function askForArtistData(url) {
-    fetch(url).then(response =>
-        response.json()).then(result => {
-        let artist_entries = (result["results"]);
-        let style_array = flattenArrays(artist_entries, "style")
-        let label_array = flattenArrays(artist_entries, "label")
+function filterArtistData(result) {
 
-        let occurence_of_styles = occurenceOfPropertyCheck(style_array, ["House", "Techno"])
-        let occurence_of_labels = occurenceOfPropertyCheck(label_array)
+    let artist_entries = result;
+    let style_array = flattenArrays(artist_entries, "style")
+    let label_array = flattenArrays(artist_entries, "label")
 
-        let sortable_style = sortOccurenceArray(occurence_of_styles);
-        let sortable_labels = sortOccurenceArray(occurence_of_labels);
+    let occurence_of_styles = occurenceOfPropertyCheck(style_array, ["House", "Techno"])
+    let occurence_of_labels = occurenceOfPropertyCheck(label_array)
 
-        let arrayOfStyles = creatingFilterArray(sortable_style, 10, 0)
-        let arrayOfLabels = creatingFilterArray(sortable_labels, 5, 0)
+    let sortable_style = sortOccurenceArray(occurence_of_styles);
+    let sortable_labels = sortOccurenceArray(occurence_of_labels);
 
-        console.log(arrayOfStyles)
-        console.log(arrayOfLabels)
-        let labelToSearchFor = (arrayOfLabels[Math.floor(Math.random() * arrayOfLabels.length)])
-        const args = {}
-        args["type"] = "labelSearch"
-        args["label"] = labelToSearchFor
-        callDiscogs(args).then((result) => console.log(result));
-    })
+    let arrayOfStyles = creatingFilterArray(sortable_style, 10, 0)
+    let arrayOfLabels = creatingFilterArray(sortable_labels, 5, 0)
+
+    console.log(arrayOfStyles)
+    console.log(arrayOfLabels)
+    let labelToSearchFor = (arrayOfLabels[Math.floor(Math.random() * arrayOfLabels.length)])
+    let args = {}
+    args["type"] = "labelSearch"
+    args["label"] = labelToSearchFor
+    resultsObject["label"]=labelToSearchFor;
+    console.log(args)
+    callDiscogs(args).then((labelresults) => {
+        resultsObject["labelResults"]=labelresults;
+}).then(()=>{
+    args={}
+args["type"]="labelAndArtistSearch";
+args["label"]=resultsObject["label"];
+args["artistName"]=resultsObject["artistName"];
+}).then((result)=>{
+    console.log(result);
+   
+}
+    
+);
 }
 
 discogsForm = document.getElementById("requestToDiscogs")
