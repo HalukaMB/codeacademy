@@ -1,6 +1,6 @@
-/* let results_release = artistAnswerJson["results"]
-we get from the results all represented labels and arrays and turn them into a flat array */
-let resultsObject={}
+/* we get from the results all represented labels and arrays and turn them into a flat array */
+
+let resultsObject = {}
 
 function flattenArrays(artistAnswerJson, keyword) {
     let array = []
@@ -71,6 +71,132 @@ function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist) {
     })
     return filteredItems
 }
+
+
+function createArtistChoicesDropdpown(artistnames) {
+    selectArtist = document.querySelector("#select-artists")
+    artistnames.map((element) => {
+        aOption = document.createElement("option")
+        aOption.innerHTML = element.title
+        aOption.classList.add("artistOption")
+        aOption.setAttribute("id", element.id)
+        selectArtist.appendChild(aOption)
+    })
+    appendEventListener("click", "#select-artists", ".artistOption");
+    return artistnames[0]
+}
+
+function filterArtistData(result) {
+    return new Promise((resolve) => {
+        const artistinfo = {}
+
+        let artist_entries = result;
+        console.log(artist_entries)
+        let style_array = flattenArrays(artist_entries, "style")
+        let label_array = flattenArrays(artist_entries, "label")
+    
+        let occurence_of_styles = occurenceOfPropertyCheck(style_array, ["House", "Techno"])
+        let occurence_of_labels = occurenceOfPropertyCheck(label_array)
+    
+        let sortable_style = sortOccurenceArray(occurence_of_styles);
+        let sortable_labels = sortOccurenceArray(occurence_of_labels);
+    
+        artistinfo["styles"] = creatingFilterArray(sortable_style, 10, 0)
+        artistinfo["labels"] = creatingFilterArray(sortable_labels, 5, 0)
+        console.log(artistinfo)
+
+      return resolve(artistinfo)});
+}
+
+
+/* ### QUESTION */
+const callDiscogs = (args) => {
+    switch (args["type"]) {
+        case "artistClarificationSearch":
+            apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`
+            return fetch(apiUrl).then(response => response.json()).then(result => {
+                let artistnames = (result["results"]);
+                return (artistnames)
+            })
+        case "artistSearch":
+            apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
+            return fetch(apiUrl).then(response => response.json()).then(result => {
+                let artists = (result["results"]);
+                return (artists)
+            })
+        case "labelSearch":
+            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
+            return fetch(apiUrl).then(response => response.json()).then(result => {
+                let allLabelReleases = (result["results"]);
+                return allLabelReleases
+            })
+        case "labelAndArtistSearch":
+            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&q=${args["artistName"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
+            return fetch(apiUrl).then(response => response.json()).then(result => {
+                let artistReleases = (result["results"]);
+                return artistReleases
+
+            })
+
+    }
+}
+
+/* This gets triggered if someone clicks send */
+const readOutForm = (formBlob) => {
+    let artistName = formBlob.getElementsByTagName("input")[0].value
+    let args={}
+    args["type"] = "artistClarificationSearch"
+    args["artistName"] = artistName
+    callDiscogs(args).then(
+        (artistnames) => {
+            
+        createArtistChoicesDropdpown(artistnames);
+        
+        args["type"] = "artistSearch";
+        args["artistName"] = artistnames[0].uri.slice(8);
+        (callDiscogs(args)).then(
+            (result)=>{filterArtistData(result).then(
+                artistinfo=>searchForSimilar(artistinfo, args)
+                )}
+            )}
+        )
+}
+
+searchForSimilar=(artistinfo, args)=>{
+    console.log(artistinfo)
+    const randomIndex = Math.floor(Math.random() * artistinfo["labels"].length);
+    labelToSearch=artistinfo["labels"][randomIndex]
+    console.log(labelToSearch)
+
+}
+
+
+
+discogsForm = document.getElementById("requestToDiscogs")
+let typedInName = (discogsForm.getElementsByTagName("input")[0].value)
+let sendButton = (discogsForm.getElementsByTagName("input")[1])
+sendButton.addEventListener("click", (event) => readOutForm(event.target.parentElement))
+
+
+
+
+
+
+/* const default_artist_name_id = (artistnames[0].uri).slice(8)
+    resultsObject["artist"] = default_artist_name_id
+    args = {}
+    args["type"] = "artistSearch"
+    args["artistName"] = default_artist_name_id
+    callDiscogs(args).then(results => {
+        filterArtistData(results)
+    })
+ */
+
+
+
+
+
+
 let filteredItems = (onlyKeepOtherArtists(labeljsonDatabaseAll, labeljsonDatabaseWithArtist)).splice(0, 10)
 
 const second_gallery = document.getElementById("carousel_ol-2")
@@ -107,11 +233,7 @@ function addNavigator(direction, index, lastindex) {
         slideNavigator.classList.add("carousel__" + direction)
 
         if (direction == "prev") {
-
             slideNavigator.href = "#carousel__slide_2-" + String(index - 1);
-            /*             slideNavigator.style.backgroundImage = "data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E";
-             */
-
             if (index == 0) {
                 slideNavigator.href = "#carousel__slide_2-" + String(lastindex - 1)
             }
@@ -169,13 +291,9 @@ function increaseopacity(img) {
 function appendEventListener(eventtype, parentElementId, newElementClass) {
     console.log("triggered")
     const container = document.querySelector(parentElementId);
-/*     console.log(container)
- */    container.addEventListener(eventtype, function (e) {
-      /*   console.log(e)
-        console.log("this is what I try to find:", newElementClass)
-        console.log("this is what I try find class-wise:", e.target.classList)
-        console.log(e.target.classList.contains(newElementClass))
-    */     if (e.target.classList.contains(newElementClass)) {
+    container.addEventListener(eventtype, function (e) {
+
+        if (e.target.classList.contains(newElementClass)) {
             divToBeFilled = e.target.parentElement
 
             load_status = (divToBeFilled.getAttribute("load_status"))
@@ -196,114 +314,3 @@ function appendEventListener(eventtype, parentElementId, newElementClass) {
     })
 }
 appendEventListener("mouseover", "#carousel-div-2", "carousel__content");
-
-/* This gets triggered if someone clicks send */
-const readOutForm = (formBlob) => {
-    let artistName = formBlob.getElementsByTagName("input")[0].value
-    /*     apiUrl = `https://api.discogs.com/database/search?q=${artistName}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`
-     */
-    let args = {}
-    args["type"] = "artistClarificationSearch"
-    args["artistName"] = artistName
-    /* artistRetrieval=callDiscogs(args)
-    args["type"] = "labelSearch"
-    args["label"] = "Somekind"
-    labelRetrieval=callDiscogs(args) */
-    callDiscogs(args).then(artistnames => clearingUpArtist(artistnames))
-}
-
-
-/* ### QUESTION */
-const callDiscogs = (args) => {
-    switch (args["type"]) {
-        case "artistClarificationSearch":
-            apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`
-            return fetch(apiUrl).then(response => response.json()).then(result => {
-                let artistnames = (result["results"]);
-                return (artistnames)
-            })
-        case "artistSearch":
-            apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
-            return fetch(apiUrl).then(response => response.json()).then(result => {
-                let artists = (result["results"]);
-                return (artists)
-            })
-        case "labelSearch":
-            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
-            return fetch(apiUrl).then(response => response.json()).then(result => {
-                let allLabelReleases = (result["results"]);
-                return allLabelReleases
-            })
-        case "labelAndArtistSearch":
-            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&q=${args["artistName"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
-            return fetch(apiUrl).then(response => response.json()).then(result => {
-                let artistReleases = (result["results"]);
-                return artistReleases
-
-            })
-
-    }
-}
-
-function clearingUpArtist(artistnames) {
-    selectArtist = document.querySelector("#select-artists")
-    artistnames.map((element) => {
-        aOption = document.createElement("option")
-        aOption.innerHTML = element.title
-        aOption.classList.add("artistOption")
-        aOption.setAttribute("id", element.id)
-        selectArtist.appendChild(aOption)
-    })
-    appendEventListener("click", "#select-artists", ".artistOption");
-    const default_artist_name_id = (artistnames[0].uri).slice(8)
-    resultsObject["artist"]=default_artist_name_id
-    args = {}
-    args["type"] = "artistSearch"
-    args["artistName"] = default_artist_name_id
-    callDiscogs(args).then(results => {
-        filterArtistData(results)
-    })
-}
-
-function filterArtistData(result) {
-
-    let artist_entries = result;
-    let style_array = flattenArrays(artist_entries, "style")
-    let label_array = flattenArrays(artist_entries, "label")
-
-    let occurence_of_styles = occurenceOfPropertyCheck(style_array, ["House", "Techno"])
-    let occurence_of_labels = occurenceOfPropertyCheck(label_array)
-
-    let sortable_style = sortOccurenceArray(occurence_of_styles);
-    let sortable_labels = sortOccurenceArray(occurence_of_labels);
-
-    let arrayOfStyles = creatingFilterArray(sortable_style, 10, 0)
-    let arrayOfLabels = creatingFilterArray(sortable_labels, 5, 0)
-
-    console.log(arrayOfStyles)
-    console.log(arrayOfLabels)
-    let labelToSearchFor = (arrayOfLabels[Math.floor(Math.random() * arrayOfLabels.length)])
-    let args = {}
-    args["type"] = "labelSearch"
-    args["label"] = labelToSearchFor
-    resultsObject["label"]=labelToSearchFor;
-    console.log(args)
-    callDiscogs(args).then((labelresults) => {
-        resultsObject["labelResults"]=labelresults;
-}).then(()=>{
-    args={}
-args["type"]="labelAndArtistSearch";
-args["label"]=resultsObject["label"];
-args["artistName"]=resultsObject["artistName"];
-}).then((result)=>{
-    console.log(result);
-   
-}
-    
-);
-}
-
-discogsForm = document.getElementById("requestToDiscogs")
-let typedInName = (discogsForm.getElementsByTagName("input")[0].value)
-let sendButton = (discogsForm.getElementsByTagName("input")[1])
-sendButton.addEventListener("click", (event) => readOutForm(event.target.parentElement))
