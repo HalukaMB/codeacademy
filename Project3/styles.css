@@ -27,6 +27,62 @@ body {
     color: #000;
     font-family: "regular-text";
 }
+/* Here we create a combination a header that also has a hamburger nav */
+/* We do this using a webpage title */
+.webpage-title {
+  font-size: calc(var(--baseunitheight)*7);
+  margin-top: calc(var(--baseunitheight)*2);
+  font-family: "title";
+  justify-content: center;
+}
+/* a place holder that has the same size as the nav bar we are going to use later*/
+.placeholder {
+  width: calc(var(--baseunitwidth)*5.5);
+  height: calc(var(--baseunitheight)*10);
+  padding-left: calc(var(--baseunitwidth)*3);
+  padding-right: calc(var(--baseunitwidth)*3);
+}
+
+.headerelements{
+  width: calc(var(--baseunitwidth)*5.5);
+  height: calc(var(--baseunitheight)*10);
+  padding-right: calc(var(--baseunitwidth)*15);
+
+}
+
+
+header {
+  /* Set the header to fixed position so that it is a constant navbar */
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* set size */
+  height: calc(var(--baseunitheight)*20);
+  width: 100%;
+  margin-bottom: calc(var(--baseunitheight)*5);
+  border-bottom: var(--baseunitheight);
+
+
+  /* define style */
+  border-style: solid;
+  border-color: #000;
+
+  /* Make it into a flexbox container */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content {
+  margin: calc(var(--baseunitheight)*30) 0;
+}
+/* And the specific hamburger nav */
+
+
+label {
+  cursor: pointer;
+}
+
 .upper-section{
     display: flex;
     flex-direction: column;
@@ -55,17 +111,6 @@ footer{
 #clarifierArtist{
   display: none;
 }
-
-
-body {
-    max-width: 37.5rem;
-    margin: 0 auto;
-    padding: 0 1.25rem;
-    font-family: 'Lato', sans-serif;
-  }
-
-
-
   
   body {
     max-width: 37.5rem;
@@ -278,4 +323,7 @@ body {
     justify-content: space-between;
   }
 
+  #whoIsIt{
+    display: none;
+  }
  

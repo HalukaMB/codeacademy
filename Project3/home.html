@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="output.css" />
+</head>
+
+<body>
+    <header>
+        <div class="headerelements">
+          <a href="about.html">about</a>
+      </div>
+      <div class="webpage-title">
+          Lost, Found <span class="highlighted">& Connected</span>
+      </div>
+      <div class="placeholder"></div>
+    </header>
+  <div class="upper-section">
+    <div id="website-name" class="mt-5">Vinyl Gem Hunter</div>
+    <div>Finding some cheap gems on vinyl fitting to your taste.</div>
+  </div>
+  <form class="p-4 bg-slate-400 rounded-md" id="requestToDiscogs">
+    <div id="start-question">Who is an artist that you like?</div>
+    <input type="text" name="artistname" value=""
+      class="artist-entry block text-slate-500 bg-slate-200 w-full border-solid rounded-md drop-shadow-lg indent-3">
+    <button type="submit" class="bg-emerald-200 rounded-md my-3 w-60">Send</button> 
+  </form>
+  <div id="clarifierArtist" class="my-4 p-4 bg-slate-400 rounded-md">
+    <select id="selectArtists"></select>
+  </div>
+  <div id="filter-div" class="my-4 p-4 bg-slate-400 rounded-md">
+    <div id="rare-option">And do you rather want suggestions for easier to get releases? Or the rare ones?</div>
+    <div id="slider-legend" class="slider-label">
+      <div class="slider-start">Rare</div> <div class="slider-end">Ubiquous</div>
+    </div>
+
+    <div class="slidecontainer">
+      <input type="range" min="1" max="100" value="50" class="slider w-full accent-emerald-200" id="myRange">
+    </div>
+
+  </div>
+  <div id="carousel-div-2">
+    <section class="carousel" id="carousel_ol-2" aria-label="Gallery">
+
+    </section>
+  </div>
+</body>
+<script src="response.js" async></script>
+<script src="populatePage.js" async></script>
+
+<script src="scripts.js" async></script>
+<footer>
+  <div>"This application uses Discogs' API but is not affiliated with, sponsored or endorsed by Discogs. "Discogs" is
+    a trademark of Zink Media, LLC." </div>
+</footer>
+
+</html>

@@ -58,16 +58,23 @@ function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist, stylesToFilter)
         idOfArtistRelease = resultsOnlyWithArtist[i]["id"]
         idOfArtistList.push(idOfArtistRelease)
     }
+    console.log(allResults);
+    let catNoArray=[]
     let filteredItems = allResults.filter(release => {
-        let itemId = release.id
-        let itemtype = release.type
-        let styleArray = release.style
+        let itemId = release.id;
+        let itemtype = release.type;
+        let styleArray = release.style;
+        let catNo = release.catno;
 
-        if ((!idOfArtistList.includes(itemId)) && itemtype == "release" && styleArray.some(r=> stylesToFilter.includes(r))) {
+
+        if ((!idOfArtistList.includes(itemId)) && itemtype == "release" && styleArray.some(r=> stylesToFilter.includes(r)) && !catNoArray.includes(catNo)) {
+            catNoArray.push(catNo)
             return release
         }
 
     })
+    console.log(filteredItems);
+
     return filteredItems
 }
 
@@ -172,8 +179,9 @@ searchForSimilar = (artistinfo, args) => {
     const promiseLabelArtistSearch = callDiscogs(labelSearchArtistArgs)
 
     let arrayOfPromises = [promiseLabelSearch, promiseLabelArtistSearch];
-    let resultOfBothPromises = Promise.all(arrayOfPromises).then((arrayOfResults) => {
+    Promise.all(arrayOfPromises).then((arrayOfResults) => {
         const similarReleases = (onlyKeepOtherArtists(arrayOfResults[0], arrayOfResults[1], stylesToFilter));
+        console.log(similarReleases)
         fillGallery(similarReleases)
     })
 }
@@ -182,6 +190,6 @@ searchForSimilar = (artistinfo, args) => {
 
 discogsForm = document.getElementById("requestToDiscogs")
 let typedInName = (discogsForm.getElementsByTagName("input")[0].value)
-let sendButton = (discogsForm.getElementsByTagName("input")[1])
+let sendButton = (discogsForm.getElementsByTagName("button")[0])
 sendButton.addEventListener("click", (event) => readOutForm(event.target.parentElement))
 let filteredItems = (onlyKeepOtherArtists(labeljsonDatabaseAll["results"], labeljsonDatabaseWithArtist["results"], ["House","Techno"])).splice(0, 10)
