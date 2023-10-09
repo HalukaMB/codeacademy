@@ -20,7 +20,7 @@ const showMoreOrLess = ()=>{
     if (MoreLessButtonStatus=="active"){
         MoreLessButton.setAttribute("status","inactive")
         MoreLessButton.innerHTML=""
-        MoreLessButton.innerHTML="Show Me More"
+        MoreLessButton.innerHTML="Show More"
         whoIsIt.style.display = "none";
 
     }

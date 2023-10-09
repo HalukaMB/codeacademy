@@ -1,4 +1,5 @@
 const fillGallery = (filteredItems) => {
+    console.log(filteredItems)
     const second_gallery = document.getElementById("carousel_ol-2")
     second_gallery.innerHTML = '';
     let orderedListForSlides = document.createElement("ol")

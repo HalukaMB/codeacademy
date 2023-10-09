@@ -52,7 +52,6 @@ function creatingFilterArray(arrayWithNesting, cutOff, nestedIndex) {
 
 /*Finally we filter only for releases that do not include this artist*/
 function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist, stylesToFilter) {
-    console.log(stylesToFilter)
     let idOfArtistList = []
     for (i = 0; i < resultsOnlyWithArtist.length; i++) {
         idOfArtistRelease = resultsOnlyWithArtist[i]["id"]
@@ -73,7 +72,6 @@ function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist, stylesToFilter)
         }
 
     })
-    console.log(filteredItems);
 
     return filteredItems
 }
@@ -136,6 +134,7 @@ const callDiscogs = (args) => {
 /* This gets triggered if someone clicks send */
 const readOutForm = (formBlob) => {
     let artistName = formBlob.getElementsByTagName("input")[0].value
+    console.log(artistName)
     let args = {}
     args["type"] = "artistClarificationSearch"
     args["artistName"] = artistName
@@ -191,5 +190,8 @@ searchForSimilar = (artistinfo, args) => {
 discogsForm = document.getElementById("requestToDiscogs")
 let typedInName = (discogsForm.getElementsByTagName("input")[0].value)
 let sendButton = (discogsForm.getElementsByTagName("button")[0])
-sendButton.addEventListener("click", (event) => readOutForm(event.target.parentElement))
+console.log(sendButton)
+sendButton.addEventListener("click", (event) => {
+    console.log(event)
+    readOutForm(event.target.parentElement)})
 let filteredItems = (onlyKeepOtherArtists(labeljsonDatabaseAll["results"], labeljsonDatabaseWithArtist["results"], ["House","Techno"])).splice(0, 10)
