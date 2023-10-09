@@ -189,9 +189,9 @@ searchForSimilar = (artistinfo, args) => {
 
 discogsForm = document.getElementById("requestToDiscogs")
 let typedInName = (discogsForm.getElementsByTagName("input")[0].value)
-let sendButton = (discogsForm.getElementsByTagName("button")[0])
+let sendButton = (document.getElementById("sendDiscogsButton"))
 console.log(sendButton)
 sendButton.addEventListener("click", (event) => {
     console.log(event)
     readOutForm(event.target.parentElement)})
-let filteredItems = (onlyKeepOtherArtists(labeljsonDatabaseAll["results"], labeljsonDatabaseWithArtist["results"], ["House","Techno"])).splice(0, 10)
+/* let filteredItems = (onlyKeepOtherArtists(labeljsonDatabaseAll["results"], labeljsonDatabaseWithArtist["results"], ["House","Techno"])).splice(0, 10) */
