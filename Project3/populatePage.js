@@ -1,13 +1,12 @@
 const fillGallery = (filteredItems) => {
-    console.log(filteredItems)
-    const second_gallery = document.getElementById("carousel_ol-2")
+    const second_gallery = document.getElementById("carousel_ol")
     second_gallery.innerHTML = '';
     let orderedListForSlides = document.createElement("ol")
     orderedListForSlides.classList.add("carousel__viewport")
     for (index = 0; index < filteredItems.length; index++) {
         let listEntry = document.createElement("li")
         listEntry.tabindex = "0"
-        listEntry.id = "carousel__slide_2-" + String(index)
+        listEntry.id = "carousel__slide_" + String(index)
         listEntry.classList.add("carousel__slide")
 
         let divSlide = addSlide(filteredItems[index])
@@ -64,27 +63,22 @@ function addNavigator(direction, index, lastindex) {
         slideNavigator.classList.add("carousel__" + direction)
 
         if (direction == "prev") {
-            slideNavigator.href = "#carousel__slide_2-" + String(index - 1);
+            slideNavigator.href = "#carousel__slide_" + String(index - 1);
             if (index == 0) {
-                slideNavigator.href = "#carousel__slide_2-" + String(lastindex - 1)
+                slideNavigator.href = "#carousel__slide_" + String(lastindex - 1)
             }
         }
 
         if (direction == "next") {
-            slideNavigator.href = "#carousel__slide_2-" + String(index + 1)
+            slideNavigator.href = "#carousel__slide_" + String(index + 1)
             if (index == lastindex - 1) {
-                slideNavigator.href = "#carousel__slide_2-" + String(0)
+                slideNavigator.href = "#carousel__slide_" + String(0)
             }
         }
         return slideNavigator
 
-    } else {
-        console.log("wrong pointer")
     }
 }
-
-
-
 
 function increaseopacity(img) {
     let i = 0
@@ -100,13 +94,14 @@ function increaseopacity(img) {
 
 function addEventListenerForDropdown(eventtype, parentElementId){
     const container = document.querySelector(parentElementId);
-    console.log(container.value)
     container.addEventListener(eventtype, function (e) {
         
         let selectedArtist=((container.options[e.target.selectedIndex]).getAttribute("artistid"))
 
-        console.log("selected")
+        let selectedArtistUrl=((container.options[e.target.selectedIndex]).getAttribute("resource"))
         artistToSimilarChain(selectedArtist)
+        getBioDataForArtist(selectedArtistUrl)
+
     })
 }
 
@@ -136,7 +131,13 @@ function appendEventListener(eventtype, parentElementId, newElementClass) {
         }
     })
 }
-appendEventListener("mouseover", "#carousel-div-2", "carousel__content");
+appendEventListener("mouseover", "#carousel-div", "carousel__content");
+
+function populateBioDiv(profileBio){
+    const divForBio=document.getElementById("profileOfArtist")
+    divForBio.innerHTML=""
+    divForBio.innerHTML = profileBio
+}
 
 function createArtistChoicesDropdpown(artistnames) {
     selectArtistClarifier = document.querySelector("#clarifierArtist")
@@ -150,6 +151,8 @@ function createArtistChoicesDropdpown(artistnames) {
         aOption.innerHTML = element.title
         aOption.classList.add("artistOption")
         aOption.setAttribute("artistid", element.uri.slice(8))
+        aOption.setAttribute("resource", element.resource_url)
+
         selectArtist.appendChild(aOption)
     })
     addEventListenerForDropdown("change", "#selectArtists");

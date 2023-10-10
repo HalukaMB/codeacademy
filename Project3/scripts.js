@@ -1,4 +1,5 @@
-lastSearchResultsOrdered=[]
+let artistoptions={}
+let lastSearchResultsOrdered=[]
 
 
 /* here we define the styles to check for the 10 foremost occuring */
@@ -22,12 +23,11 @@ function onlyKeepOtherArtists(allResults, resultsOnlyWithArtist, stylesToFilter)
     let catNoArray=[]
     let filteredItems = allResults.filter(release => {
         let itemId = release.id;
-        let itemtype = release.type;
         let styleArray = release.style;
         let catNo = release.catno;
 
 
-        if ((!idOfArtistList.includes(itemId)) && itemtype == "release" && styleArray.some(r=> stylesToFilter.includes(r)) && !catNoArray.includes(catNo)) {
+        if ((!idOfArtistList.includes(itemId)) && styleArray.some(r=> stylesToFilter.includes(r)) && !catNoArray.includes(catNo)) {
             catNoArray.push(catNo)
             return release
         }
@@ -42,7 +42,6 @@ function filterArtistData(result) {
         const artistinfo = {}
 
         let artist_entries = result;
-        console.log(artist_entries)
         let style_array = flattenArrays(artist_entries, "style")
         let label_array = flattenArrays(artist_entries, "label")
 
@@ -94,18 +93,42 @@ const callDiscogs = (args) => {
 
 /* This gets triggered if someone clicks send */
 const readOutForm = (formBlob) => {
+    allElementsToShowOnSearch=document.querySelectorAll("[class*='hideShowFirst']")
+    console.log(allElementsToShowOnSearch)
+    allElementsToShowOnSearch.forEach(element=>{
+        element.style.display="block"
+    })
     let artistName = formBlob.getElementsByTagName("input")[0].value
-    console.log(artistName)
+   if (artistName===""){
+    artistName = formBlob.getElementsByTagName("input")[0].placeholder
+   }
     let args = {}
     args["type"] = "artistClarificationSearch"
     args["artistName"] = artistName
     callDiscogs(args).then(
         (artistnames) => {
+            console.log(artistnames)
             createArtistChoicesDropdpown(artistnames);
             artistId=artistnames[0].uri.slice(8)
+            artistResourcesUrl=artistnames[0].resource_url
+            console.log(artistResourcesUrl)
             artistToSimilarChain(artistId)
+            getBioDataForArtist(artistResourcesUrl)
         }
     )
+}
+
+getBioDataForArtist=(artistResourcesUrl)=>{
+    console.log(artistResourcesUrl)
+    fetch(artistResourcesUrl).then(response => response.json()).then(result => {
+        const roughBio=(result.profile)
+        roughBioArray=roughBio.split(".")
+        const reducedRoughBioArray=roughBioArray.filter(sentence=>{return(!sentence.includes("["))
+    })
+        console.log(reducedRoughBioArray)
+        const bioString=reducedRoughBioArray.join(".")
+        populateBioDiv(bioString)
+    })
 }
 
 artistToSimilarChain=(artistId)=>{
@@ -165,6 +188,10 @@ let slider = (document.getElementById("myRangeSlider"))
 
 
 const filterDown=(slidervalue)=>{
+    hideShowSecondDiv=document.querySelectorAll(".hideShowSecond")
+    hideShowSecondDiv.forEach(element=>{
+        element.style.display="block"
+    })
     console.log(slidervalue)
     filteredResult=lastSearchResultsOrdered[slidervalue-1]
     fillBestSuggestion(filteredResult)

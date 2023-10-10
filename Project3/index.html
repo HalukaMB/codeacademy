@@ -30,7 +30,6 @@
         <input
           type="text"
           name="artistname"
-          value="Ricardo Villalobos"
           class="artist-entry block w-full rounded-md border-solid bg-slate-200 indent-3 text-slate-500 drop-shadow-lg"
           placeholder="Ricardo Villalobos"
         />
@@ -42,20 +41,24 @@
           Send
         </button>
       </div>
-      <div id="clarifierArtist" class="my-4 rounded-md bg-slate-400 p-4">
+      <div id="clarifierArtist" class="hideShowFirst my-4 rounded-md bg-slate-400 p-4">
+        <div>Just to clarify, did you mean</div>
         <select id="selectArtists"></select>
+        <div>Who according to Discogs is characterized as follows:</div>
+        <div id="profileOfArtist"></div>
+
       </div>
 
-      <div id="carousel-div-2">
+      <div class="hideShowFirst" id="carousel-div">
         <section
           class="carousel"
-          id="carousel_ol-2"
+          id="carousel_ol"
           aria-label="Gallery"
         ></section>
       </div>
     </div>
 
-    <div id="filter-div" class="my-4 rounded-md bg-slate-400 p-4">
+    <div class="hideShowFirst my-4 rounded-md bg-slate-400 p-4"id="filter-div" class="my-4 rounded-md bg-slate-400 p-4">
       <div id="rare-option">
         And do you rather want suggestions for easier to get releases? Or the
         rare ones?
@@ -77,13 +80,15 @@
       </div>
 
     </div>
-
+    <div class="hideShowSecond">
     <div>Which means the perfect match of giving a listen to is:</div>
     <div id="bestSuggestion"></div>
+  </div>
 
+  </div>
   </body>
   <script src="response.js" async></script>
-  <script src="datawrangling.js" async></script>
+  <script src="dataWrangling.js" async></script>
 
   <script src="populatePage.js" async></script>
 

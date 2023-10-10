@@ -340,7 +340,13 @@ footer{
   #whoIsIt{
     display: none;
   }
- 
+
+  .hideShowFirst{
+    display: none;
+  }
+  .hideShowSecond{
+    display: none;
+  }
 
 @media (max-width: 720px) {
 

@@ -973,6 +973,14 @@ ol, li {
   display: none;
 }
 
+.hideShowFirst{
+  display: none;
+}
+
+.hideShowSecond{
+  display: none;
+}
+
 @media (max-width: 720px) {
   #website-name {
     font-size: calc(var(--baseunitheight)*5);
