@@ -1,65 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="output.css" />
-</head>
+  <body>
+    <header class="bg-slate-400">
+      <div class="placeholder"></div>
 
-<body>
-  <header class="bg-slate-400">
-    <div class="placeholder"></div>
+      <div id="website-name" class="mt-5">
+        <a href="index.html">Discogs Matcher</a>
+      </div>
 
-    <div id="website-name" class="mt-5"> <a href="index.html">Discogs Matcher</a></div>
-
-    <div class="headerelements">
+      <div class="headerelements">
         <a href="about.html">about</a>
-    </div>
-</header>
-  <div class="content">
+      </div>
+    </header>
+    <div class="content">
+      <div class="upper-section">
+        <div>Let's find releases similar to the artists that you like.</div>
+      </div>
+      <div class="my-4 rounded-md bg-slate-400 p-4">
 
-    <div class="upper-section">
-      <div>Finding some cheap gems on vinyl fitting to your taste.</div>
-    </div>
-    <form class="p-4 bg-slate-400 rounded-md" id="requestToDiscogs">
-      <div id="start-question">Who is an artist that you like?</div>
-      <input type="text" name="artistname" value=""
-        class="artist-entry block text-slate-500 bg-slate-200 w-full border-solid rounded-md drop-shadow-lg indent-3">
-    </form>
-    <button id="sendDiscogsButton" class="bg-emerald-200 rounded-md my-3 w-60">Send</button>
+      <form class="rounded-md bg-slate-400 p-4" id="requestToDiscogs">
+        <div id="start-question">Who is an artist that you like?</div>
+        <input
+          type="text"
+          name="artistname"
+          value="Ricardo Villalobos"
+          class="artist-entry block w-full rounded-md border-solid bg-slate-200 indent-3 text-slate-500 drop-shadow-lg"
+          placeholder="Ricardo Villalobos"
+        />
+      </form>
+        <button
+          id="sendDiscogsButton"
+          class="my-3 w-60 rounded-md bg-emerald-200"
+        >
+          Send
+        </button>
+      </div>
+      <div id="clarifierArtist" class="my-4 rounded-md bg-slate-400 p-4">
+        <select id="selectArtists"></select>
+      </div>
 
-    <div id="clarifierArtist" class="my-4 p-4 bg-slate-400 rounded-md">
-      <select id="selectArtists"></select>
+      <div id="carousel-div-2">
+        <section
+          class="carousel"
+          id="carousel_ol-2"
+          aria-label="Gallery"
+        ></section>
+      </div>
     </div>
-    <div id="filter-div" class="my-4 p-4 bg-slate-400 rounded-md">
-      <div id="rare-option">And do you rather want suggestions for easier to get releases? Or the rare ones?</div>
+
+    <div id="filter-div" class="my-4 rounded-md bg-slate-400 p-4">
+      <div id="rare-option">
+        And do you rather want suggestions for easier to get releases? Or the
+        rare ones?
+      </div>
       <div id="slider-legend" class="slider-label">
         <div class="slider-start">Rare</div>
         <div class="slider-end">Ubiquous</div>
       </div>
 
       <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="50" class="slider w-full accent-emerald-200" id="myRange">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          class="slider w-full accent-emerald-200"
+          id="myRangeSlider"
+        />
       </div>
 
     </div>
-    <div id="carousel-div-2">
-      <section class="carousel" id="carousel_ol-2" aria-label="Gallery">
 
-      </section>
+    <div>Which means the perfect match of giving a listen to is:</div>
+    <div id="bestSuggestion"></div>
+
+  </body>
+  <script src="response.js" async></script>
+  <script src="datawrangling.js" async></script>
+
+  <script src="populatePage.js" async></script>
+
+  <script src="scripts.js" async></script>
+  <footer>
+    <div>
+      "This application uses Discogs' API but is not affiliated with, sponsored
+      or endorsed by Discogs. "Discogs" is a trademark of Zink Media, LLC."
     </div>
-  </div>
-
-</body>
-<script src="response.js" async></script>
-<script src="populatePage.js" async></script>
-
-<script src="scripts.js" async></script>
-<footer>
-  <div>"This application uses Discogs' API but is not affiliated with, sponsored or endorsed by Discogs. "Discogs" is
-    a trademark of Zink Media, LLC." </div>
-</footer>
-
+  </footer>
 </html>

@@ -1,46 +1,7 @@
-/* we get from the results all represented labels and arrays and turn them into a flat array */
-function flattenArrays(artistAnswerJson, keyword) {
-    let array = []
-    for (index = 0; index < artistAnswerJson.length; index++) {
-        if (keyword == "style") {
-            let arrayWithDoubles = new Set(artistAnswerJson[index][keyword])
-            array.push(...arrayWithDoubles)
-        }
-        if (keyword == "label") {
-            let labelInfo = (artistAnswerJson[index]["label"][0])
-            array.push(labelInfo)
-        }
-    }
-    return (array)
-}
+lastSearchResultsOrdered=[]
 
-/* And then we count the occurence of each value while also for certain things we do not want to count*/
-function occurenceOfPropertyCheck(array, notInList = []) {
-    const OccurenceObj = {}
-    array.forEach(element => {
-        if (!notInList.includes(element)) {
-            if (OccurenceObj[element]) {
-                OccurenceObj[element] += 1
-            } else {
-                OccurenceObj[element] = 1
-            }
-        }
-    });
-    return OccurenceObj
-}
 
-function sortOccurenceArray(occurenceOfProperty) {
-    let sortableArray = []
-    for (let property in occurenceOfProperty) {
-        sortableArray.push([property, occurenceOfProperty[property]])
-    }
-    sortableArray.sort(function (a, b) {
-        return b[1] - a[1]
-    })
-    return sortableArray
-}
-
-/* here we define the styles to check for the 10 formeost occuring */
+/* here we define the styles to check for the 10 foremost occuring */
 function creatingFilterArray(arrayWithNesting, cutOff, nestedIndex) {
     let arrayToCheckAgainst = []
     let reducedArray = arrayWithNesting.splice(0, cutOff)
@@ -92,7 +53,7 @@ function filterArtistData(result) {
         let sortable_labels = sortOccurenceArray(occurence_of_labels);
 
         artistinfo["styles"] = creatingFilterArray(sortable_style, 10, 0)
-        artistinfo["labels"] = creatingFilterArray(sortable_labels, 5, 0)
+        artistinfo["labels"] = creatingFilterArray(sortable_labels, 10, 0)
         console.log(artistinfo)
 
         return resolve(artistinfo)
@@ -111,19 +72,19 @@ const callDiscogs = (args) => {
                 return (artistnames)
             })
         case "artistSearch":
-            apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
+            apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&type=release&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
             return fetch(apiUrl).then(response => response.json()).then(result => {
                 let artists = (result["results"]);
                 return (artists)
             })
         case "labelSearch":
-            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
+            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&type=release&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
             return fetch(apiUrl).then(response => response.json()).then(result => {
                 let allLabelReleases = (result["results"]);
                 return allLabelReleases
             })
         case "labelAndArtistSearch":
-            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&q=${args["artistName"]}&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
+            apiUrl = `https://api.discogs.com/database/search?label=${args["label"]}&q=${args["artistName"]}&type=release&token=${authKey}&secret=${secretKey}&per_page=100&sort=year`
             return fetch(apiUrl).then(response => response.json()).then(result => {
                 let artistReleases = (result["results"]);
                 return artistReleases
@@ -181,17 +142,35 @@ searchForSimilar = (artistinfo, args) => {
     Promise.all(arrayOfPromises).then((arrayOfResults) => {
         const similarReleases = (onlyKeepOtherArtists(arrayOfResults[0], arrayOfResults[1], stylesToFilter));
         console.log(similarReleases)
+        resortSearchResults(similarReleases);
         fillGallery(similarReleases)
     })
 }
 
-
+const resortSearchResults = (similarReleases)=>{
+    similarReleases.sort(function(a, b) { 
+        return (a.community.have-a.community.want)-(b.community.have-b.community.want);
+        })
+        lastSearchResultsOrdered=similarReleases
+        customizeSlider(similarReleases.length)
+}
 
 discogsForm = document.getElementById("requestToDiscogs")
 let typedInName = (discogsForm.getElementsByTagName("input")[0].value)
 let sendButton = (document.getElementById("sendDiscogsButton"))
-console.log(sendButton)
 sendButton.addEventListener("click", (event) => {
     console.log(event)
     readOutForm(event.target.parentElement)})
-/* let filteredItems = (onlyKeepOtherArtists(labeljsonDatabaseAll["results"], labeljsonDatabaseWithArtist["results"], ["House","Techno"])).splice(0, 10) */
+let slider = (document.getElementById("myRangeSlider"))
+
+
+const filterDown=(slidervalue)=>{
+    console.log(slidervalue)
+    filteredResult=lastSearchResultsOrdered[slidervalue-1]
+    fillBestSuggestion(filteredResult)
+}
+
+slider.addEventListener("change", (event) => {
+    console.log(event);
+    filterDown(slider.value)
+    })

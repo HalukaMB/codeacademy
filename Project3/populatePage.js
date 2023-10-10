@@ -27,7 +27,13 @@ const fillGallery = (filteredItems) => {
     second_gallery.appendChild(orderedListForSlides)
 }
 
+customizeSlider=(length)=>{
+    slider=document.getElementById("myRangeSlider")
+    slider.setAttribute("max",length)
+    let half=Math.round(length/2)
+    slider.setAttribute("value",half)
 
+}
 function addSlide(entry) {
     let carouselSlide = document.createElement("div")
     carouselSlide.classList.add("carousel__snapper")
@@ -148,4 +154,19 @@ function createArtistChoicesDropdpown(artistnames) {
     })
     addEventListenerForDropdown("change", "#selectArtists");
     return artistnames[0]
+}
+
+const fillBestSuggestion=(filteredResult)=>{
+    let divForBestSuggestion=document.querySelector("#bestSuggestion")
+    divForBestSuggestion.innerHTML=""
+    console.log(filteredResult)
+    let suggestionTitleDiv=document.createElement("div")
+    suggestionTitleDiv.innerHTML=filteredResult.title
+    suggestionTitleDiv.classList.add("suggestionTitle")
+    let img = document.createElement("img")
+    img.src = filteredResult.cover_image
+    img.classList.add("coverimage")
+    divForBestSuggestion.appendChild(suggestionTitleDiv)
+    divForBestSuggestion.appendChild(img)
+
 }
