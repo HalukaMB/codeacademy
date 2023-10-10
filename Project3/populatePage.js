@@ -159,17 +159,27 @@ function createArtistChoicesDropdpown(artistnames) {
     return artistnames[0]
 }
 
-const fillBestSuggestion=(filteredResult)=>{
+const fillBestSuggestion=(entry)=>{
     let divForBestSuggestion=document.querySelector("#bestSuggestion")
     divForBestSuggestion.innerHTML=""
-    console.log(filteredResult)
-    let suggestionTitleDiv=document.createElement("div")
-    suggestionTitleDiv.innerHTML=filteredResult.title
-    suggestionTitleDiv.classList.add("suggestionTitle")
-    let img = document.createElement("img")
-    img.src = filteredResult.cover_image
-    img.classList.add("coverimage")
-    divForBestSuggestion.appendChild(suggestionTitleDiv)
-    divForBestSuggestion.appendChild(img)
+    console.log(entry)
+    let releaseInfoDiv=document.createElement("div")
+    let placeholderDiv = document.createElement("div")
+     placeholderDiv.classList.add("bestSuggestionPlaceholder")
+
+
+
+    releaseInfoDiv.innerHTML = entry.title
+    releaseInfoDiv.href = "https://www.discogs.com" + entry.uri
+    releaseInfoDiv.setAttribute("target", "_blank")
+    releaseInfoDiv.setAttribute("rel", "noopener noreferrer")
+
+    placeholderDiv.setAttribute("cover_image", entry.cover_image)
+    placeholderDiv.setAttribute("load_status", "false")
+
+    placeholderDiv.appendChild(releaseInfoDiv)
+    divForBestSuggestion.appendChild(placeholderDiv)
+
+    appendEventListener("mouseover", "#bestSuggestion", "carousel__content");
 
 }
