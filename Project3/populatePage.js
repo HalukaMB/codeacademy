@@ -113,9 +113,10 @@ function appendEventListener(eventtype, parentElementId, newElementClass) {
         if (e.target.classList.contains(newElementClass)) {
             divToBeFilled = e.target.parentElement
             console.log(e)
+            console.log(divToBeFilled)
 
             load_status = (divToBeFilled.getAttribute("load_status"))
-
+            console.log(load_status)
             if (load_status == "false") {
                 src_for_image = (divToBeFilled.getAttribute("cover_image"))
                 let img = document.createElement("img")
@@ -163,21 +164,28 @@ const fillBestSuggestion=(entry)=>{
     let divForBestSuggestion=document.querySelector("#bestSuggestion")
     divForBestSuggestion.innerHTML=""
     console.log(entry)
-    let releaseInfoDiv=document.createElement("a")
+    let releaseInfoA=document.createElement("a")
     let placeholderDiv = document.createElement("div")
     placeholderDiv.classList.add("bestSuggestionPlaceholder")
 
-    releaseInfoDiv.innerHTML = entry.title
-    releaseInfoDiv.href = "https://www.discogs.com" + entry.uri
-    releaseInfoDiv.setAttribute("target", "_blank")
-    releaseInfoDiv.setAttribute("rel", "noopener noreferrer")
 
-    placeholderDiv.setAttribute("cover_image", entry.cover_image)
-    placeholderDiv.setAttribute("load_status", "false")
+    let releaseInfoDiv = document.createElement("div")
+    releaseInfoDiv.classList.add("releaseInfoDiv")
 
-    placeholderDiv.appendChild(releaseInfoDiv)
+
+    releaseInfoA.innerHTML = entry.title
+    releaseInfoA.href = "https://www.discogs.com" + entry.uri
+    releaseInfoA.setAttribute("target", "_blank")
+    releaseInfoA.setAttribute("rel", "noopener noreferrer")
+    releaseInfoA.classList.add("bestSuggestionAText")
+
+
+    divForBestSuggestion.setAttribute("cover_image", entry.cover_image)
+    divForBestSuggestion.setAttribute("load_status", "false")
+
+    placeholderDiv.appendChild(releaseInfoA)
     divForBestSuggestion.appendChild(placeholderDiv)
 
-    appendEventListener("mouseover", "#bestSuggestion", "carousel__content");
+    appendEventListener("mouseover", "#bestSuggestion", "bestSuggestionAText");
 
 }

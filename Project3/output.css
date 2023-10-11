@@ -830,7 +830,7 @@ ol, li {
   background-color: #99f;
 }
 
-.carousel__slide:before,.carousel__content {
+.carousel__slide:before,.carousel__content, .bestSuggestionAText {
   position: absolute;
   top: 50%;
   left: 50%;
