@@ -80,6 +80,7 @@ header {
 }
 .content {
   margin-top: calc(var(--baseunitheight)*30);
+  
 }
 /* And the specific hamburger nav */
 
@@ -174,6 +175,10 @@ footer{
     counter-reset: item;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
+  }
+  .bestSuggestionInnerDiv{
+    display:flex;
+    justify-content: center;
   }
  
   .carousel__slide, .bestSuggestionInnerDiv {

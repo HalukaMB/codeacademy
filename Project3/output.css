@@ -804,6 +804,11 @@ ol, li {
   scroll-snap-type: x mandatory;
 }
 
+.bestSuggestionInnerDiv{
+  display:flex;
+  justify-content: center;
+}
+
 .carousel__slide, .bestSuggestionInnerDiv {
   position: relative;
   flex: 0 0 100%;

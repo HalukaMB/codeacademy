@@ -144,11 +144,10 @@ function populateBioDiv(profileBio){
 
 function createArtistChoicesDropdpown(artistnames) {
     selectArtistClarifier = document.querySelector("#clarifierArtist")
-    console.log(selectArtistClarifier)
-
     selectArtistClarifier.style.display = "block";
 
     selectArtist = document.querySelector("#selectArtists")
+    selectArtist.innerHTML=""
     artistnames.map((element) => {
         aOption = document.createElement("option")
         aOption.innerHTML = element.title
