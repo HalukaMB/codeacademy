@@ -175,8 +175,12 @@ footer{
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
   }
-  
-  .carousel__slide {
+  .bestSuggestionPlaceholder{
+    width:100%;
+    padding-top: 75%;
+  }
+
+  .carousel__slide, .bestSuggestionPlaceholder {
     position: relative;
     flex: 0 0 100%;
     width: 100%;
@@ -191,7 +195,7 @@ footer{
   }
   
   /* Using psuedo classes to colour even slides differently */
-  .carousel__slide:nth-child(even),carousel__slide-2:nth-child(even) {
+  .carousel__slide:nth-child(even){
     background-color: #99f;
   }
   

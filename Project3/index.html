@@ -1,102 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="output.css" />
-  </head>
 
-  <body>
-    <header class="bg-slate-400">
-      <div class="placeholder"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="output.css" />
+</head>
 
-      <div id="website-name" class="mt-5">
-        <a href="index.html">Discogs Matcher</a>
-      </div>
+<body>
+  <header class="bg-slate-400">
+    <div class="placeholder"></div>
 
-      <div class="headerelements">
-        <a href="about.html">about</a>
-      </div>
-    </header>
-    <div class="content">
-      <div class="upper-section">
-        <div>Let's find releases similar to the artists that you like.</div>
-      </div>
-      <div class="my-4 rounded-md bg-slate-400 p-4">
+    <div id="website-name" class="mt-5">
+      <a href="index.html">Discogs Matcher</a>
+    </div>
+
+    <div class="headerelements">
+      <a href="about.html">about</a>
+    </div>
+  </header>
+  <div class="content">
+    <div class="upper-section">
+      <div>Let's find releases similar to the artists that you like.</div>
+    </div>
+    <div class="my-4 rounded-md bg-slate-400 p-4">
 
       <form class="rounded-md bg-slate-400 p-4" id="requestToDiscogs">
         <div id="start-question">Who is an artist that you like?</div>
-        <input
-          type="text"
-          name="artistname"
+        <input type="text" name="artistname"
           class="artist-entry block w-full rounded-md border-solid bg-slate-200 indent-3 text-slate-500 drop-shadow-lg"
-          placeholder="Ricardo Villalobos"
-        />
+          placeholder="Ricardo Villalobos" />
       </form>
-        <button
-          id="sendDiscogsButton"
-          class="my-3 w-60 rounded-md bg-emerald-200"
-        >
-          Send
-        </button>
-      </div>
-      <div id="clarifierArtist" class="hideShowFirst my-4 rounded-md bg-slate-400 p-4">
-        <div>Just to clarify, did you mean</div>
-        <select id="selectArtists"></select>
-        <div>Who according to Discogs is characterized as follows:</div>
-        <div id="profileOfArtist"></div>
+      <button id="sendDiscogsButton" class="my-3 w-60 rounded-md bg-emerald-200">
+        Send
+      </button>
+    </div>
+    <div id="clarifierArtist" class="hideShowFirst my-4 rounded-md bg-slate-400 p-4">
+      <div>Just to clarify, did you mean</div>
+      <select id="selectArtists"></select>
+      <div>Who according to Discogs is characterized as follows:</div>
+      <div id="profileOfArtist"></div>
 
-      </div>
-
-      <div class="hideShowFirst" id="carousel-div">
-        <section
-          class="carousel"
-          id="carousel_ol"
-          aria-label="Gallery"
-        ></section>
-      </div>
     </div>
 
-    <div class="hideShowFirst my-4 rounded-md bg-slate-400 p-4"id="filter-div" class="my-4 rounded-md bg-slate-400 p-4">
-      <div id="rare-option">
-        And do you rather want suggestions for easier to get releases? Or the
-        rare ones?
-      </div>
-      <div id="slider-legend" class="slider-label">
-        <div class="slider-start">Rare</div>
-        <div class="slider-end">Ubiquous</div>
-      </div>
-
-      <div class="slidecontainer">
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value="50"
-          class="slider w-full accent-emerald-200"
-          id="myRangeSlider"
-        />
-      </div>
-
+    <div class="hideShowFirst" id="carousel-div">
+      <section class="carousel" id="carousel_ol" aria-label="Gallery"></section>
     </div>
-    <div class="hideShowSecond">
+
+  <div class="hideShowFirst my-4 rounded-md bg-slate-400 p-4" id="filter-div" class="my-4 rounded-md bg-slate-400 p-4">
+    <div id="rare-option">
+      And do you rather want suggestions for easier to get releases? Or the
+      rare ones?
+    </div>
+    <div id="slider-legend" class="slider-label">
+      <div class="slider-start">Rare</div>
+      <div class="slider-end">Ubiquous</div>
+    </div>
+
+    <div class="slidecontainer">
+      <input type="range" min="0" max="100" value="50" class="slider w-full accent-emerald-200" id="myRangeSlider" />
+    </div>
+
+  </div>
+  <div class="hideShowSecond">
     <div>Which means the perfect match of giving a listen to is:</div>
     <div id="bestSuggestion"></div>
   </div>
+</div>
 
   </div>
-  </body>
-  <script src="response.js" async></script>
-  <script src="dataWrangling.js" async></script>
+</body>
+<script src="response.js" async></script>
+<script src="dataWrangling.js" async></script>
 
-  <script src="populatePage.js" async></script>
+<script src="populatePage.js" async></script>
 
-  <script src="scripts.js" async></script>
-  <footer>
-    <div>
-      "This application uses Discogs' API but is not affiliated with, sponsored
-      or endorsed by Discogs. "Discogs" is a trademark of Zink Media, LLC."
-    </div>
-  </footer>
+<script src="scripts.js" async></script>
+<footer>
+  <div>
+    "This application uses Discogs' API but is not affiliated with, sponsored
+    or endorsed by Discogs. "Discogs" is a trademark of Zink Media, LLC."
+  </div>
+</footer>
+
 </html>

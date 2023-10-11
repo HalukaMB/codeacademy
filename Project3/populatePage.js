@@ -163,11 +163,9 @@ const fillBestSuggestion=(entry)=>{
     let divForBestSuggestion=document.querySelector("#bestSuggestion")
     divForBestSuggestion.innerHTML=""
     console.log(entry)
-    let releaseInfoDiv=document.createElement("div")
+    let releaseInfoDiv=document.createElement("a")
     let placeholderDiv = document.createElement("div")
-     placeholderDiv.classList.add("bestSuggestionPlaceholder")
-
-
+    placeholderDiv.classList.add("bestSuggestionPlaceholder")
 
     releaseInfoDiv.innerHTML = entry.title
     releaseInfoDiv.href = "https://www.discogs.com" + entry.uri
