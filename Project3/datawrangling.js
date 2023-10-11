@@ -40,3 +40,13 @@ function sortOccurenceArray(occurenceOfProperty) {
     lastSearchResultsOrdered=sortableArray
     return sortableArray
 }
+
+/* here we define the styles to check for the 10 foremost occuring */
+function creatingFilterArray(arrayWithNesting, cutOff, nestedIndex) {
+    let arrayToCheckAgainst = []
+    let reducedArray = arrayWithNesting.splice(0, cutOff)
+    for (let index = 0; index < reducedArray.length; index++) {
+        arrayToCheckAgainst.push(reducedArray[index][nestedIndex])
+    }
+    return arrayToCheckAgainst
+}

@@ -3,31 +3,32 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "general-fonts";
-    src: url(fonts/Rex-BoldInline.otf);
+  font-family: "general-fonts";
+  src: url(fonts/Rex-BoldInline.otf);
 }
 
 @font-face {
-    font-family: "title";
-    src: url(fonts/Metropolis1920-Regular.otf);
+  font-family: "title";
+  src: url(fonts/Metropolis1920-Regular.otf);
 }
 
 @font-face {
-    font-family: "regular-text";
-    src: url(fonts/HandilPro-Medium.otf);
+  font-family: "regular-text";
+  src: url(fonts/HandilPro-Medium.otf);
 }
 
 
 :root {
-    --baseunitheight: 4px;
-    --baseunitwidth: 6px;
+  --baseunitheight: 4px;
+  --baseunitwidth: 6px;
 }
 
 body {
-    font-size: calc(var(--baseunitheight)*5);
-    color: #000;
-    font-family: "regular-text";
+  font-size: calc(var(--baseunitheight)*5);
+  color: #000;
+  font-family: "regular-text";
 }
+
 /* Here we create a combination a header that also has a hamburger nav */
 /* We do this using a webpage title */
 .webpage-title {
@@ -36,6 +37,7 @@ body {
   font-family: "title";
   justify-content: center;
 }
+
 /* a place holder that has the same size as the nav bar we are going to use later*/
 .placeholder {
   width: calc(var(--baseunitwidth)*5.5);
@@ -44,7 +46,7 @@ body {
   padding-left: calc(var(--baseunitwidth)*15);
 }
 
-.headerelements{
+.headerelements {
   width: calc(var(--baseunitwidth)*5.5);
   height: calc(var(--baseunitheight)*10);
   padding-top: calc(var(--baseunitheight)*2.5);
@@ -78,10 +80,13 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+
 .content {
   margin-top: calc(var(--baseunitheight)*30);
-  
+
 }
+
+
 /* And the specific hamburger nav */
 
 
@@ -89,270 +94,299 @@ label {
   cursor: pointer;
 }
 
-.upper-section{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-#website-name{
-    font-family: "general-fonts";
-    font-size: calc(var(--baseunitheight)*15);
-
-}
-.entry{
-    display:flex;
-    align-items: center;
-}
-.preview{
-    height: 100px;
-    width:100px;
-    padding:calc(var(--baseunitheight)*5)    calc(var(--baseunitwidth)*5)
-
-}
-footer{
-    
+.upper-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#clarifierArtist{
+#website-name {
+  font-family: "general-fonts";
+  font-size: calc(var(--baseunitheight)*15);
+
+}
+
+.entry {
+  display: flex;
+  align-items: center;
+}
+
+.preview {
+  height: 100px;
+  width: 100px;
+  padding: calc(var(--baseunitheight)*5) calc(var(--baseunitwidth)*5)
+}
+
+footer {
+  margin-bottom: calc(var(--baseunitheight)*30);
+  font-style: italic;
+}
+
+#clarifierArtist {
   display: none;
 }
-  
-  body {
-    max-width: 37.5rem;
-    margin: 0 auto;
-    padding: 0 1.25rem;
-    font-family: 'Lato', sans-serif;
-  }
-  
-  * {
-    box-sizing: border-box;
-    scrollbar-color: transparent transparent; /* thumb and track color */
-    scrollbar-width: 0px;
-  }
-  /* This bit is needed to keep the scrollbar of the carousel transparent */
-  *::-webkit-scrollbar {
-    width: 0;
-  }
-  
-  *::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  *::-webkit-scrollbar-thumb {
-    background: transparent;
-    border: none;
-  }
-  
-  * {
-    -ms-overflow-style: none;
-  }
-  /*the slides are basically multiple slides*/
-  ol, li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .carousel, .bestSuggestion {
-    position: relative;
-    padding-top: 75%;
-    perspective: 100px;
-  }
-  
-  .carousel__viewport {
-    position: absolute;
-    overflow: hidden;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-      /*the slides are basically multiple slides and we need flex and scroll 
+
+body {
+  max-width: 37.5rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  font-family: 'Lato', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-color: transparent transparent;
+  /* thumb and track color */
+  scrollbar-width: 0px;
+}
+
+/* This bit is needed to keep the scrollbar of the carousel transparent */
+*::-webkit-scrollbar {
+  width: 0;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}
+
+/*the slides are basically multiple slides*/
+ol,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.carousel {
+  position: relative;
+  padding-top: 75%;
+  perspective: 100px;
+}
+
+.carousel__viewport {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /*the slides are basically multiple slides and we need flex and scroll 
       so that the overflowing content /extra slides are hidden*/
 
-    display: flex;
-    overflow-x: scroll;
-    counter-reset: item;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-  }
-  .bestSuggestionInnerDiv{
-    display:flex;
-    justify-content: center;
-  }
- 
-  .carousel__slide, .bestSuggestionInnerDiv {
-    position: relative;
-    flex: 0 0 100%;
-    width: 100%;
-    background-color: #f99;
-    counter-increment: item;
-  }
-  .carousel__image__placeholder{
-    width:100%;
-    height:100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Using psuedo classes to colour even slides differently */
-  .carousel__slide:nth-child(even){
-    background-color: #99f;
-  }
-  
-  .carousel__slide:before,.carousel__content, .bestSuggestionAText {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%,-40%,70px);
-    color: #fff;
-    font-size: 2em;
-    z-index: 1;
-  }
-  /*this is the element that holds the slides*/
+  display: flex;
+  overflow-x: scroll;
+  counter-reset: item;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.hideShowSecond {
+  display: flex;
+  justify-content: center;
+  height:500px;
+}
+
+.carousel__slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  background-color: #f99;
+  counter-increment: item;
+}
+
+.bestSuggestionInnerDiv {
+  position: relative;
+  background-color: #f99;
+  counter-increment: item;
+  height:450px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.carousel__image__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Using psuedo classes to colour even slides differently */
+.carousel__slide:nth-child(even) {
+  background-color: #99f;
+}
+
+.carousel__slide:before,
+.carousel__content,
+.bestSuggestionAText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -40%, 70px);
+  color: #fff;
+  font-size: 2em;
+  z-index: 10;
+}
+
+/*this is the element that holds the slides*/
+.carousel__snapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+/*what is this bit doing?*/
+@media (hover: hover) {
   .carousel__snapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    scroll-snap-align: center;
-    display: flex;
-    justify-content: center;
-  }
-  /*what is this bit doing?*/
-  @media (hover: hover) {
-    .carousel__snapper {
-      animation-name: tonext, snap;
-      animation-timing-function: ease;
-      animation-duration: 4s;
-      animation-iteration-count: infinite;
-    }
-  
-    .carousel__slide:last-child .carousel__snapper {
-      animation-name: tostart, snap;
-    }
-  }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .carousel__snapper {
-      animation-name: none;
-
-    }
+    animation-name: tonext, snap;
+    animation-timing-function: ease;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
   }
 
+  .carousel__slide:last-child .carousel__snapper {
+    animation-name: tostart, snap;
+  }
+}
 
-  
-  .carousel:hover .carousel__snapper,
-  .carousel:focus-within .carousel__snapper {
+@media (prefers-reduced-motion: reduce) {
+  .carousel__snapper {
     animation-name: none;
-  }
-  
-  /*these are the dots at the bottom*/
-  .carousel__navigation {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-  }
-  
-  .carousel__navigation-list,
-  .carousel__navigation-item {
-    display: inline-block;
-  }
-  
-  
-  /* which are basically a hrefs with dots drawn into */
-  .carousel__navigation-button {
-    display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: #333;
-    background-clip: content-box;
-    border: 0.25rem solid transparent;
-    border-radius: 50%;
-    font-size: 0;
-    transition: transform 0.1s;
-  }
-  
 
-  /*this is the whole styling and positioning of the arrow buttons*/
-  .carousel::before,
-  .carousel::after,
-  .carousel__prev,
-  .carousel__next {
-    position: absolute;
-    top: 0;
-    /*this is half the original margin because it is for the arrows*/
-    margin-top: 37.5%;
-    transform: translateY(-50%);
+  }
+}
 
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    font-size: 0;
-    outline: 0;
-    z-index: 10;
-  }
-  
-  .carousel::before,
-  .carousel__prev {
-    left: -1rem;
-  }
-  
-  .carousel::after,
-  .carousel__next {
-    right: -1rem;
-  }
-  
-  .carousel::before,
-  .carousel::after {
-    content: '';
-    z-index: 1;
-    background-color: #333;
-    background-size: 1.5rem 1.5rem;
-    background-repeat: no-repeat;
-    background-position: center center;
-    color: #fff;
-    font-size: 2.5rem;
-    line-height: 4rem;
-    text-align: center;
-    pointer-events: none;
-  }
-  
-  .carousel::before {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
-  }
-  
-  .carousel::after {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
-  }
 
-  #slider-legend{
-    display: flex;
-    justify-content: space-between;
-  }
 
-  #baseInfo{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .MoreLessButton{
-    width:50px
-  }
+.carousel:hover .carousel__snapper,
+.carousel:focus-within .carousel__snapper {
+  animation-name: none;
+}
 
-  #whoIsIt{
-    display: none;
-  }
+/*these are the dots at the bottom*/
+.carousel__navigation {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
 
-  .hideShowFirst{
-    display: none;
-  }
-  .hideShowSecond{
-    display: none;
-  }
+.carousel__navigation-list,
+.carousel__navigation-item {
+  display: inline-block;
+}
+
+
+/* which are basically a hrefs with dots drawn into */
+.carousel__navigation-button {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #333;
+  background-clip: content-box;
+  border: 0.25rem solid transparent;
+  border-radius: 50%;
+  font-size: 0;
+  transition: transform 0.1s;
+}
+
+
+/*this is the whole styling and positioning of the arrow buttons*/
+.carousel::before,
+.carousel::after,
+.carousel__prev,
+.carousel__next {
+  position: absolute;
+  top: 0;
+  /*this is half the original margin because it is for the arrows*/
+  margin-top: 37.5%;
+  transform: translateY(-50%);
+
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  font-size: 0;
+  outline: 0;
+  z-index: 10;
+}
+
+.carousel::before,
+.carousel__prev {
+  left: -1rem;
+}
+
+.carousel::after,
+.carousel__next {
+  right: -1rem;
+}
+
+.carousel::before,
+.carousel::after {
+  content: '';
+  z-index: 1;
+  background-color: #333;
+  background-size: 1.5rem 1.5rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 4rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.carousel::before {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+.carousel::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+#slider-legend {
+  display: flex;
+  justify-content: space-between;
+}
+
+#baseInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.MoreLessButton {
+  width: 50px
+}
+
+#whoIsIt {
+  display: none;
+}
+
+.hideShowFirst {
+  display: none;
+}
+
+.hideShowSecond {
+  display: none;
+}
 
 @media (max-width: 720px) {
 
@@ -361,15 +395,17 @@ footer{
     margin-top: calc(var(--baseunitheight)*1);
     justify-content: center;
   }
-  .headerelements{
+
+  .headerelements {
     width: calc(var(--baseunitwidth)*5.5);
     font-size: calc(var(--baseunitheight)*4);
 
     padding-right: calc(var(--baseunitwidth)*7.5);
 
     font-family: "general-fonts";
-  
+
   }
+
   .placeholder {
     width: calc(var(--baseunitwidth)*5.5);
     padding-left: calc(var(--baseunitwidth)*7.5);
