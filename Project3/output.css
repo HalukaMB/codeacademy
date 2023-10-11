@@ -782,7 +782,7 @@ ol, li {
   padding: 0;
 }
 
-.carousel, .carousel-2 {
+.carousel, .bestSuggestion {
   position: relative;
   padding-top: 75%;
   perspective: 100px;
@@ -804,12 +804,7 @@ ol, li {
   scroll-snap-type: x mandatory;
 }
 
-.bestSuggestionPlaceholder{
-  width:100%;
-  padding-top: 75%;
-}
-
-.carousel__slide, .bestSuggestionPlaceholder {
+.carousel__slide, .bestSuggestionInnerDiv {
   position: relative;
   flex: 0 0 100%;
   width: 100%;

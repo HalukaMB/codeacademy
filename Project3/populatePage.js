@@ -113,6 +113,8 @@ function appendEventListener(eventtype, parentElementId, newElementClass) {
         if (e.target.classList.contains(newElementClass)) {
             divToBeFilled = e.target.parentElement
             console.log(e)
+            console.log(e.target)
+
             console.log(divToBeFilled)
 
             load_status = (divToBeFilled.getAttribute("load_status"))
@@ -161,30 +163,33 @@ function createArtistChoicesDropdpown(artistnames) {
 }
 
 const fillBestSuggestion=(entry)=>{
-    let divForBestSuggestion=document.querySelector("#bestSuggestion")
-    divForBestSuggestion.innerHTML=""
     console.log(entry)
-    let releaseInfoA=document.createElement("a")
-    let placeholderDiv = document.createElement("div")
-    placeholderDiv.classList.add("bestSuggestionPlaceholder")
+    let divToAddBestSuggestion=document.querySelector("#bestSuggestion")
+    divToAddBestSuggestion.innerHTML=""
+
+    let bestSuggestionOuterDiv=document.createElement("div")
+    bestSuggestionOuterDiv.classList.add("bestSuggestionOuterDiv")
+
+    
+    let bestSuggestionInnerDiv=document.createElement("div")
+    bestSuggestionInnerDiv.classList.add("bestSuggestionInnerDiv")
+    bestSuggestionInnerDiv.setAttribute("cover_image", entry.cover_image)
+    bestSuggestionInnerDiv.setAttribute("load_status", "false")
+
+    let bestSuggestionInnerA=document.createElement("a")
+    bestSuggestionInnerA.classList.add("bestSuggestionAText")
+    bestSuggestionInnerA.innerHTML = entry.title
+    bestSuggestionInnerA.href = "https://www.discogs.com" + entry.uri
+    bestSuggestionInnerA.setAttribute("target", "_blank")
+    bestSuggestionInnerA.setAttribute("rel", "noopener noreferrer")
 
 
-    let releaseInfoDiv = document.createElement("div")
-    releaseInfoDiv.classList.add("releaseInfoDiv")
 
 
-    releaseInfoA.innerHTML = entry.title
-    releaseInfoA.href = "https://www.discogs.com" + entry.uri
-    releaseInfoA.setAttribute("target", "_blank")
-    releaseInfoA.setAttribute("rel", "noopener noreferrer")
-    releaseInfoA.classList.add("bestSuggestionAText")
+    bestSuggestionInnerDiv.appendChild(bestSuggestionInnerA)
+    bestSuggestionOuterDiv.appendChild(bestSuggestionInnerDiv)
+    divToAddBestSuggestion.appendChild(bestSuggestionOuterDiv)
 
-
-    divForBestSuggestion.setAttribute("cover_image", entry.cover_image)
-    divForBestSuggestion.setAttribute("load_status", "false")
-
-    placeholderDiv.appendChild(releaseInfoA)
-    divForBestSuggestion.appendChild(placeholderDiv)
 
     appendEventListener("mouseover", "#bestSuggestion", "bestSuggestionAText");
 
