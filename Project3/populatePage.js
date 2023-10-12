@@ -86,6 +86,7 @@ function addNavigator(direction, index, lastindex) {
     }
 }
 
+
 /* this function is fired when someone hovers over the text of the release */
 function appendEventListenerForImg(eventtype, parentElementId, newElementClass) {
     const container = document.querySelector(parentElementId);
@@ -94,12 +95,12 @@ function appendEventListenerForImg(eventtype, parentElementId, newElementClass) 
         we create the gallery slides dynamically so we cannot simply add the eventlistener
         to the slides per se */
         if (e.target.classList.contains(newElementClass)) {
-            divToBeFilled = e.target.parentElement
+            const divToBeFilled = e.target.parentElement
             /* we check whether the image was already loaded */
-            load_status = (divToBeFilled.getAttribute("load_status"))
+            let load_status = (divToBeFilled.getAttribute("load_status"))
             if (load_status == "false") {
                 /* if this is not the case, we create a image with a starting opacity of zero */
-                src_for_image = (divToBeFilled.getAttribute("cover_image"))
+                const src_for_image = (divToBeFilled.getAttribute("cover_image"))
                 let img = document.createElement("img")
                 img.style.opacity = 0
                 img.src = src_for_image
@@ -136,7 +137,7 @@ function createArtistChoicesDropdpown(artistnames) {
     selectArtist.innerHTML = ""
     /* for each possible artist selection, it creates another option */
     artistnames.map((element) => {
-        aOption = document.createElement("option")
+        const aOption = document.createElement("option")
         aOption.innerHTML = element.title
         aOption.classList.add("artistOption")
         /* that also holds certain info important for later event triggers */
@@ -157,7 +158,6 @@ function addEventListenerForDropdown(eventtype, parentElementId) {
         and also loads a new bio*/
         let selectedArtist = ((container.options[e.target.selectedIndex]).getAttribute("artistid"))
         let selectedArtistUrl = ((container.options[e.target.selectedIndex]).getAttribute("resource"))
-        hidefunction("hideShowSecond")
         artistToSimilarChain(selectedArtist)
         getBioDataForArtist(selectedArtistUrl)
 
@@ -175,8 +175,8 @@ function populateBioDiv(profileBio) {
 that matches best his taste for how rare a record is */
 const customizeSlider = (similarReleases) => {
     /* we take in the number of similar releases and set them as the max for the slider */
-    lengthForSlider=similarReleases.length
-    slider = document.getElementById("myRangeSlider")
+    const lengthForSlider=similarReleases.length
+    const slider = document.getElementById("myRangeSlider")
     slider.setAttribute("max", lengthForSlider)
     /* and set the slider to half of that */
     let half = Math.round(lengthForSlider / 2)
@@ -223,6 +223,7 @@ const fillBestSuggestion = (entry) => {
 const hidefunction = (className) => {
     elementsToHide = document.querySelectorAll(`[class*='${className}']`)
     elementsToHide.forEach(element => {
+        console.log(element.style)
         element.style.display = "none"
     })
 }

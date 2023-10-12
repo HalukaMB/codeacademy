@@ -21,7 +21,6 @@ const init = () => {
 
 /* this is the central function for all possible fetches */
 const callDiscogs = (args) => {
-    console.log("called")
     switch (args["type"]) {
         case "artistClarificationSearch":
             apiUrl = `https://api.discogs.com/database/search?q=${args["artistName"]}&type=artist&token=${authKey}&secret=${secretKey}&per_page=10`
@@ -47,9 +46,12 @@ const fetchFunction = (apiUrl) => {
 
 /* This gets triggered if someone clicks send on the form with some kind of name for an artist*/
 const readOutForm = (formBlob) => {
-    hidefunction("hideShowSecond")
     showfunction("hideShowFirst")
+    hidefunction("hideShowSecond")
+    hidefunction("hideShowThird")
 
+/*     document.location.href = newUrl;
+ */
     let artistName = formBlob.getElementsByTagName("input")[0].value
     if (artistName === "") {
         artistName = formBlob.getElementsByTagName("input")[0].placeholder
@@ -64,23 +66,24 @@ const readOutForm = (formBlob) => {
             createArtistChoicesDropdpown(artistnames);
 
             /* and this will retrieve the bio for the first hit of the artists */
-            artistResourcesUrl = artistnames[0].resource_url
+            const artistResourcesUrl = artistnames[0].resource_url
             getBioDataForArtist(artistResourcesUrl)
 
             /* and this will retrieve the unique-id of this artist and kick off the
             search chain for similar releases to the artist's ones */
-            artistId = artistnames[0].uri.slice(8)
+            const artistId = artistnames[0].uri.slice(8)
             artistToSimilarChain(artistId)
         }
     )
 }
 
 const getBioDataForArtist = (artistResourcesUrl) => {
+    console.log(artistResourcesUrl)
     fetch(artistResourcesUrl).then(response => response.json()).then(result => {
         /* this retrieves the profile of the artist */
-        const roughBio = (result.profile)
+        const roughBio = result.profile
         /* but we want to clean it from the cross references */
-        roughBioArray = roughBio.split(".")
+        const roughBioArray = roughBio.split(".")
         const reducedRoughBioArray = roughBioArray.filter(sentence => {
             return (!sentence.includes("["))
         })
@@ -92,6 +95,7 @@ const getBioDataForArtist = (artistResourcesUrl) => {
 
 /* We first search for the releases of this artist using his id */
 const artistToSimilarChain = (artistId) => {
+    hidefunction("hideShowThird")
     args = {}
     args["type"] = "artistSearch";
     args["artistName"] = artistId;
@@ -137,8 +141,8 @@ function filterArtistData(result) {
 const searchForSimilar = (artistinfo, args) => {
     /* we pick one random label out of the 10 that are the most associated with our artist */
     const randomIndex = Math.floor(Math.random() * artistinfo["labels"].length);
-    labelToSearch = artistinfo["labels"][randomIndex]
-    stylesToFilter = artistinfo["styles"]
+    const labelToSearch = artistinfo["labels"][randomIndex]
+    const stylesToFilter = artistinfo["styles"]
 
     /* and we will once retrieve all releases from this label */
     let labelSearchArgs = {}
@@ -163,7 +167,24 @@ const searchForSimilar = (artistinfo, args) => {
         onlyKeepOtherArtists(arrayOfResults[0], arrayOfResults[1], stylesToFilter).then(similarReleases => {
             
             /* and then we fill the gallery with these releases */
-            fillGallery(similarReleases)
+            if(similarReleases.length>1){
+                showfunction("hideShowSecond")
+                hidefunction("hideShowThird")
+                hidefunction("hideShowFourth")
+            fillGallery(similarReleases)}
+
+            if(similarReleases.length===1){
+                hidefunction("hideShowSecond")
+                showfunction("hideShowThird")
+                hidefunction("hideShowFourth")
+                fillBestSuggestion(similarReleases[0])
+            }
+
+            if(similarReleases.length===0){
+                hidefunction("hideShowSecond")
+                hidefunction("hideShowThird")
+                showfunction("hideShowFourth")
+            }
 
             /* and customize the last slider for these releases
             that will give you the best fit whether you want something rare or not*/
@@ -205,7 +226,7 @@ function onlyKeepOtherArtists(allLabelResults, allLabelResultsWithArtist, styles
 it let's you filter all found releases for the one that fits the best to
 how rare you want a record to be */
 const filterDown = (slidervalue) => {
-    showfunction("hideShowSecond")
+    showfunction("hideShowThird")
     filteredResult = lastSearchResultsOrdered[slidervalue - 1]
     fillBestSuggestion(filteredResult)
 }

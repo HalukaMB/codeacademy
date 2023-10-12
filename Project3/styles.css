@@ -174,6 +174,12 @@ li {
   padding-top: 75%;
   perspective: 100px;
 }
+.bestSuggestionInnerDiv{
+  position: relative;
+
+  padding-top: 75%;
+  perspective: 100px;
+}
 
 .carousel__viewport {
   position: absolute;
@@ -192,10 +198,10 @@ li {
   scroll-snap-type: x mandatory;
 }
 
-.hideShowSecond {
+.hideShowThird {
   display: flex;
   justify-content: center;
-  height:500px;
+  height: 200px;
 }
 
 .carousel__slide {
@@ -210,7 +216,6 @@ li {
   position: relative;
   background-color: #f99;
   counter-increment: item;
-  height:450px;
   display: flex;
   justify-content: center;
 
@@ -388,6 +393,14 @@ li {
   display: none;
 }
 
+.hideShowThird {
+  display: none;
+}
+
+.hideShowFourth {
+  display: none;
+}
+
 @media (max-width: 720px) {
 
   #website-name {
@@ -411,4 +424,17 @@ li {
     padding-left: calc(var(--baseunitwidth)*7.5);
 
   }
+
+  .carousel__slide:before,
+  .carousel__content,
+  .bestSuggestionAText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -40%, 70px);
+    color: #fff;
+    font-size: 1em;
+    z-index: 10;
+  }
+
 }

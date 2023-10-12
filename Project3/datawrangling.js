@@ -16,17 +16,17 @@ function flattenArrays(artistAnswerJson, keyword) {
 
 /* And then we count the occurence of each value while also for certain things we do not want to count*/
 function occurenceOfPropertyCheck(array, notInList = []) {
-    const OccurenceObj = {}
+    const occurenceObj = {}
     array.forEach(element => {
         if (!notInList.includes(element)) {
-            if (OccurenceObj[element]) {
-                OccurenceObj[element] += 1
+            if (occurenceObj[element]) {
+                occurenceObj[element] += 1
             } else {
-                OccurenceObj[element] = 1
+                occurenceObj[element] = 1
             }
         }
     });
-    return OccurenceObj
+    return occurenceObj
 }
 
 function sortOccurenceArray(occurenceOfProperty) {

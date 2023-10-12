@@ -26,10 +26,10 @@
     </div>
     <div class="my-4 rounded-md bg-slate-400 p-4">
 
-      <form class="rounded-md bg-slate-400 p-4" id="requestToDiscogs">
+      <form class="rounded-md bg-slate-400" id="requestToDiscogs">
         <div id="start-question">Who is an artist that you like?</div>
         <input type="text" name="artistname"
-          class="artist-entry block w-full rounded-md border-solid bg-slate-200 indent-3 text-slate-500 drop-shadow-lg"
+          class="artist-entry block w-full rounded-md border-solid bg-slate-200 indent-3 text-slate-500 drop-shadow-lg px-4"
           placeholder="Ricardo Villalobos" />
       </form>
       <button id="sendDiscogsButton" class="my-3 w-60 rounded-md bg-emerald-200">
@@ -37,25 +37,25 @@
       </button>
     </div>
     <div id="clarifierArtist" class="hideShowFirst my-4 rounded-md bg-slate-400 p-4">
-      <div>Just to clarify, you meant</div>
-      <select id="selectArtists"></select>
+      <div>Just to clarify, you meant:</div>
+      <select class="bg-slate-200 rounded-md text-slate-500 drop-shadow-lg px-4" id="selectArtists"></select>
       <div>who according to Discogs is characterized as follows:</div>
-      <div id="profileOfArtist"></div>
+      <div id="profileOfArtist" class="bg-red-300 p-3 rounded-md"></div>
 
     </div>
 
-    <div class="hideShowFirst" id="carousel-div">
+    <div class="hideShowSecond" id="carousel-div">
       <section class="carousel" id="carousel_ol" aria-label="Gallery"></section>
     </div>
 
-  <div class="hideShowFirst my-4 rounded-md bg-slate-400 p-4" id="filter-div" class="my-4 rounded-md bg-slate-400 p-4">
-    <div id="rare-option">
+  <div class="hideShowSecond my-4 rounded-md bg-slate-400 p-4" id="filter-div" class="my-4 rounded-md bg-slate-400 p-4">
+    <div id="rare-option" class="pb-5">
       And do you rather want suggestions for easier to get releases? Or the
       rare ones?
     </div>
     <div id="slider-legend" class="slider-label">
-      <div class="slider-start">Rare</div>
-      <div class="slider-end">Ubiquous</div>
+      <div class="slider-start bg-emerald-100 px-1 rounded-md">Rare</div>
+      <div class="slider-end  bg-emerald-100 px-2 rounded-md">Ubiquous</div>
     </div>
 
     <div class="slidecontainer">
@@ -63,8 +63,11 @@
     </div>
 
   </div>
-  <div class="hideShowSecond">Which means the perfect match of giving a listen to is:
+  <div class="hideShowThird">
+    <div class="my-4 rounded-md bg-slate-400 p-4">Which means the perfect match of giving a listen to is:</div>
     <section id="bestSuggestion"></section>
+  </div>
+  <div class="hideShowFourth">Try again. Because we have not found any listening suggestions for the artist that you typed in.
   </div>
 </div>
 
