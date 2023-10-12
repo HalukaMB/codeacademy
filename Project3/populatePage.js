@@ -26,13 +26,16 @@ const fillGallery = (filteredItems) => {
     second_gallery.appendChild(orderedListForSlides)
 }
 
-customizeSlider=(length)=>{
-    slider=document.getElementById("myRangeSlider")
-    slider.setAttribute("max",length)
-    let half=Math.round(length/2)
-    slider.setAttribute("value",half)
+customizeSlider = (similarReleases) => {
+    lengthForSlider=similarReleases.length
+    slider = document.getElementById("myRangeSlider")
+    slider.setAttribute("max", lengthForSlider)
+    let half = Math.round(lengthForSlider / 2)
+    slider.setAttribute("value", half)
+    resortSearchResults(similarReleases)
 
 }
+
 function addSlide(entry) {
     let carouselSlide = document.createElement("div")
     carouselSlide.classList.add("carousel__snapper")
@@ -92,13 +95,14 @@ function increaseopacity(img) {
     }, 100);
 }
 
-function addEventListenerForDropdown(eventtype, parentElementId){
+function addEventListenerForDropdown(eventtype, parentElementId) {
     const container = document.querySelector(parentElementId);
     container.addEventListener(eventtype, function (e) {
-        
-        let selectedArtist=((container.options[e.target.selectedIndex]).getAttribute("artistid"))
 
-        let selectedArtistUrl=((container.options[e.target.selectedIndex]).getAttribute("resource"))
+        let selectedArtist = ((container.options[e.target.selectedIndex]).getAttribute("artistid"))
+
+        let selectedArtistUrl = ((container.options[e.target.selectedIndex]).getAttribute("resource"))
+        hidefunction("hideShowSecond")
         artistToSimilarChain(selectedArtist)
         getBioDataForArtist(selectedArtistUrl)
 
@@ -136,18 +140,17 @@ function appendEventListener(eventtype, parentElementId, newElementClass) {
 }
 appendEventListener("mouseover", "#carousel-div", "carousel__content");
 
-function populateBioDiv(profileBio){
-    const divForBio=document.getElementById("profileOfArtist")
-    divForBio.innerHTML=""
+function populateBioDiv(profileBio) {
+    const divForBio = document.getElementById("profileOfArtist")
+    divForBio.innerHTML = ""
     divForBio.innerHTML = profileBio
 }
 
 function createArtistChoicesDropdpown(artistnames) {
     selectArtistClarifier = document.querySelector("#clarifierArtist")
     selectArtistClarifier.style.display = "block";
-
     selectArtist = document.querySelector("#selectArtists")
-    selectArtist.innerHTML=""
+    selectArtist.innerHTML = ""
     artistnames.map((element) => {
         aOption = document.createElement("option")
         aOption.innerHTML = element.title
@@ -161,35 +164,45 @@ function createArtistChoicesDropdpown(artistnames) {
     return artistnames[0]
 }
 
-const fillBestSuggestion=(entry)=>{
+const fillBestSuggestion = (entry) => {
     console.log(entry)
-    let divToAddBestSuggestion=document.querySelector("#bestSuggestion")
-    divToAddBestSuggestion.innerHTML=""
+    let divToAddBestSuggestion = document.querySelector("#bestSuggestion")
+    divToAddBestSuggestion.innerHTML = ""
 
-    let bestSuggestionOuterDiv=document.createElement("div")
+    let bestSuggestionOuterDiv = document.createElement("div")
     bestSuggestionOuterDiv.classList.add("bestSuggestionOuterDiv")
 
-    
-    let bestSuggestionInnerDiv=document.createElement("div")
+
+    let bestSuggestionInnerDiv = document.createElement("div")
     bestSuggestionInnerDiv.classList.add("bestSuggestionInnerDiv")
     bestSuggestionInnerDiv.setAttribute("cover_image", entry.cover_image)
     bestSuggestionInnerDiv.setAttribute("load_status", "false")
 
-    let bestSuggestionInnerA=document.createElement("a")
+    let bestSuggestionInnerA = document.createElement("a")
     bestSuggestionInnerA.classList.add("bestSuggestionAText")
     bestSuggestionInnerA.innerHTML = entry.title
     bestSuggestionInnerA.href = "https://www.discogs.com" + entry.uri
     bestSuggestionInnerA.setAttribute("target", "_blank")
     bestSuggestionInnerA.setAttribute("rel", "noopener noreferrer")
 
-
-
-
     bestSuggestionInnerDiv.appendChild(bestSuggestionInnerA)
     bestSuggestionOuterDiv.appendChild(bestSuggestionInnerDiv)
     divToAddBestSuggestion.appendChild(bestSuggestionOuterDiv)
-
-
     appendEventListener("mouseover", "#bestSuggestion", "bestSuggestionAText");
 
+}
+
+
+const hidefunction = (className) => {
+    elementsToHide = document.querySelectorAll(`[class*='${className}']`)
+    elementsToHide.forEach(element => {
+        element.style.display = "none"
+    })
+}
+
+const showfunction = (className) => {
+    elementsToShow = document.querySelectorAll(`[class*='${className}']`)
+    elementsToShow.forEach(element => {
+        element.style.display = "block"
+    })
 }
