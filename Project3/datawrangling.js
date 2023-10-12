@@ -51,6 +51,7 @@ function creatingFilterArray(arrayWithNesting, cutOff, nestedIndex) {
     return arrayToCheckAgainst
 }
 
+/* this function is necessary to resort the releases by rarity */
 const resortSearchResults = (similarReleases) => {
     similarReleases.sort(function (a, b) {
         return (a.community.have - a.community.want) - (b.community.have - b.community.want);
