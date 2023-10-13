@@ -536,6 +536,10 @@ video {
 
 @tailwind component;
 
+.m-1 {
+  margin: 0.25rem;
+}
+
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
@@ -578,19 +582,24 @@ video {
   border-style: solid;
 }
 
-.bg-emerald-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 250 229 / var(--tw-bg-opacity));
-}
-
 .bg-emerald-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(167 243 208 / var(--tw-bg-opacity));
 }
 
+.bg-emerald-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 253 245 / var(--tw-bg-opacity));
+}
+
 .bg-red-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(252 165 165 / var(--tw-bg-opacity));
+}
+
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 
 .bg-slate-200 {
@@ -608,12 +617,20 @@ video {
   background-color: rgb(148 163 184 / var(--tw-bg-opacity));
 }
 
+.p-1 {
+  padding: 0.25rem;
+}
+
 .p-3 {
   padding: 0.75rem;
 }
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-5 {
+  padding: 1.25rem;
 }
 
 .px-1 {
@@ -631,8 +648,8 @@ video {
   padding-right: 1rem;
 }
 
-.pb-5 {
-  padding-bottom: 1.25rem;
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 
 .indent-3 {
@@ -764,7 +781,7 @@ label {
 }
 
 footer {
-  margin-bottom: calc(var(--baseunitheight)*30);
+  padding-top: calc(var(--baseunitheight)*50);
   font-style: italic;
 }
 
@@ -820,9 +837,8 @@ li {
   perspective: 100px;
 }
 
-.bestSuggestionInnerDiv{
+#best-suggestion{
   position: relative;
-  padding-top: 75%;
   perspective: 100px;
 }
 
@@ -854,14 +870,17 @@ li {
   width: 100%;
   background-color: #f99;
   counter-increment: item;
+  border-radius: 5px;
 }
 
 .bestSuggestionInnerDiv {
   position: relative;
   background-color: #f99;
   counter-increment: item;
+  height: 250px;
   display: flex;
   justify-content: center;
+  border-radius: 5px;
 }
 
 .carousel__image__placeholder {
@@ -995,7 +1014,7 @@ li {
   background-repeat: no-repeat;
   background-position: center center;
   color: #fff;
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 4rem;
   text-align: center;
   pointer-events: none;
@@ -1071,7 +1090,7 @@ li {
     left: 50%;
     transform: translate3d(-50%, -40%, 70px);
     color: #fff;
-    font-size: 1em;
+    font-size: 1.2em;
     z-index: 10;
   }
 }

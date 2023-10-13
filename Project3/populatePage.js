@@ -1,3 +1,21 @@
+
+const fillIdElement=(arrayOrElement,elementId)=>{
+    console.log(arrayOrElement)
+    console.log(typeof(arrayOrElement))
+
+    let stringToFillIn=""
+    if (Array.isArray(arrayOrElement)){
+        arrayOrElement
+        stringToFillIn= arrayOrElement.join(", ")
+    }
+    if (typeof(arrayOrElement)=="string"){
+        stringToFillIn=arrayOrElement
+    }
+    let elementToFill=document.getElementById(elementId)
+    elementToFill.innerHTML=""
+    elementToFill.innerHTML=stringToFillIn
+}
+
 /* this is the function used to fill the gallery with the results from the fetch*/
 const fillGallery = (filteredItems) => {
     const gallery = document.getElementById("carousel_ol")
@@ -167,8 +185,17 @@ function addEventListenerForDropdown(eventtype, parentElementId) {
 /* this is the function that populates the bio div for the artist */
 function populateBioDiv(profileBio) {
     const divForBio = document.getElementById("profileOfArtist")
+    const characterizingIntro=document.getElementById("characterizingIntro")
+    divForBio.style.display="block"
+    characterizingIntro.style.display="block"
+
     divForBio.innerHTML = ""
     divForBio.innerHTML = profileBio
+    console.log(profileBio)
+    if (profileBio===""){
+        characterizingIntro.style.display="none"
+        divForBio.style.display="none"
+        }
 }
 
 /* this function creates the slider for the releases so that the user can select one

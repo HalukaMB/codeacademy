@@ -61,7 +61,8 @@ const readOutForm = (formBlob) => {
     args["artistName"] = artistName
     callDiscogs(args).then(
         (artistnames) => {
-
+            console.log(artistnames)
+            if(artistnames.length>0){
             /* this creates a dropdown for different artist names */
             createArtistChoicesDropdpown(artistnames);
 
@@ -73,21 +74,30 @@ const readOutForm = (formBlob) => {
             search chain for similar releases to the artist's ones */
             const artistId = artistnames[0].uri.slice(8)
             artistToSimilarChain(artistId)
+        } else{
+            console.log("empty")
+            hidefunction("hideShowFirst")
+            hidefunction("hideShowSecond")
+            hidefunction("hideShowThird")
+
+            showfunction("hideShowFourth")
+        }
+
         }
     )
 }
 
 const getBioDataForArtist = (artistResourcesUrl) => {
-    console.log(artistResourcesUrl)
     fetch(artistResourcesUrl).then(response => response.json()).then(result => {
         /* this retrieves the profile of the artist */
         const roughBio = result.profile
         /* but we want to clean it from the cross references */
         const roughBioArray = roughBio.split(".")
-        const reducedRoughBioArray = roughBioArray.filter(sentence => {
+        let reducedRoughBioArray = roughBioArray.filter(sentence => {
             return (!sentence.includes("["))
         })
         /* and then join it together */
+        reducedRoughBioArray=reducedRoughBioArray.slice(0, 5);
         const bioString = reducedRoughBioArray.join(".")
         populateBioDiv(bioString)
     })
@@ -143,6 +153,9 @@ const searchForSimilar = (artistinfo, args) => {
     const randomIndex = Math.floor(Math.random() * artistinfo["labels"].length);
     const labelToSearch = artistinfo["labels"][randomIndex]
     const stylesToFilter = artistinfo["styles"]
+    fillIdElement(labelToSearch, "labelname");
+    fillIdElement(stylesToFilter, "styles");
+    
 
     /* and we will once retrieve all releases from this label */
     let labelSearchArgs = {}

@@ -29,7 +29,7 @@
       <form class="rounded-md bg-slate-400" id="requestToDiscogs">
         <div id="start-question">Who is an artist that you like?</div>
         <input type="text" name="artistname"
-          class="artist-entry block w-full rounded-md border-solid bg-slate-200 indent-3 text-slate-500 drop-shadow-lg px-4"
+          class="artist-entry block w-full rounded-md border-solid bg-emerald-50 indent-3 text-slate-500 drop-shadow-lg px-4"
           placeholder="Ricardo Villalobos" />
       </form>
       <button id="sendDiscogsButton" class="my-3 w-60 rounded-md bg-emerald-200">
@@ -38,38 +38,47 @@
     </div>
     <div id="clarifierArtist" class="hideShowFirst my-4 rounded-md bg-slate-400 p-4">
       <div>Just to clarify, you meant:</div>
-      <select class="bg-slate-200 rounded-md text-slate-500 drop-shadow-lg px-4" id="selectArtists"></select>
-      <div>who according to Discogs is characterized as follows:</div>
-      <div id="profileOfArtist" class="bg-red-300 p-3 rounded-md"></div>
-
+      <select class="bg-emerald-50 rounded-md text-slate-500 drop-shadow-lg px-4" id="selectArtists"></select>
+      <div id="characterizingIntro">who according to Discogs is characterized as follows:</div>
     </div>
+    <div id="profileOfArtist" class="bg-red-300 p-3 rounded-md hideShowFirst"></div>
 
+    <div class="hideShowSecond pb-2">We found something! There are releases from other artists on the label <span
+        id="labelname" class=" bg-red-300 p-1 m-1 rounded-md"></span>.
+    </div>
     <div class="hideShowSecond" id="carousel-div">
       <section class="carousel" id="carousel_ol" aria-label="Gallery"></section>
     </div>
+    <div class="hideShowSecond">Even more so, the music should fall into one of the following styles:</div>
+    <div class="hideShowSecond bg-red-300 p-3 rounded-md" id="styles"></div>
+    <div class="hideShowSecond">that your favourite artist is linked to as well.</div>
+  </div>
+  <div class="hideShowSecond my-4" id="filter-div">
+    <div>And let's find the perfect match for you by figuring out how rare a release should be:</div>
+    <div id="rare-option" class="p-5 rounded-md bg-slate-400">
+      Do you want a rare release or one that is easily
+      available?
+      <div id="slider-legend" class="slider-label">
+        <div class="slider-start bg-slate-100 px-1 rounded-md">Rare</div>
+        <div class="slider-end  bg-slate-100 px-2 rounded-md">Ubiquous</div>
+      </div>
 
-  <div class="hideShowSecond my-4 rounded-md bg-slate-400 p-4" id="filter-div" class="my-4 rounded-md bg-slate-400 p-4">
-    <div id="rare-option" class="pb-5">
-      And do you rather want suggestions for easier to get releases? Or the
-      rare ones?
-    </div>
-    <div id="slider-legend" class="slider-label">
-      <div class="slider-start bg-emerald-100 px-1 rounded-md">Rare</div>
-      <div class="slider-end  bg-emerald-100 px-2 rounded-md">Ubiquous</div>
-    </div>
 
     <div class="slidecontainer">
       <input type="range" min="0" max="100" value="50" class="slider w-full accent-emerald-200" id="myRangeSlider" />
     </div>
+  </div>
+
 
   </div>
   <div class="hideShowThird">
-    <div class="my-4 rounded-md bg-slate-400 p-4">Which means the perfect match of giving a listen to is:</div>
+    <div class="my-4 rounded-md p-1">Which means the perfect match of giving a listen to is:</div>
     <section id="bestSuggestion"></section>
   </div>
-  <div class="hideShowFourth">Try again. Because we have not found any listening suggestions for the artist that you typed in.
+  <div class="hideShowFourth">Try again. Because we have not found any listening suggestions for the artist that you
+    typed in.
   </div>
-</div>
+  </div>
 
 </body>
 <footer>
