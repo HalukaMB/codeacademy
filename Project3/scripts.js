@@ -75,11 +75,9 @@ const readOutForm = (formBlob) => {
             const artistId = artistnames[0].uri.slice(8)
             artistToSimilarChain(artistId)
         } else{
-            console.log("empty")
             hidefunction("hideShowFirst")
             hidefunction("hideShowSecond")
             hidefunction("hideShowThird")
-
             showfunction("hideShowFourth")
         }
 

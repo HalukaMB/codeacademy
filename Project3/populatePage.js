@@ -1,3 +1,5 @@
+/* this is the function used in general to fill in arrays of string into a element
+that is defined by its id*/
 
 const fillIdElement=(arrayOrElement,elementId)=>{
     console.log(arrayOrElement)
@@ -100,7 +102,6 @@ function addNavigator(direction, index, lastindex) {
             }
         }
         return slideNavigator
-
     }
 }
 
@@ -150,7 +151,6 @@ function increaseopacity(img) {
 /* this function creates a dropdown for the artist to allow the user
 to clarify which artist he meant */
 function createArtistChoicesDropdpown(artistnames) {
-
     selectArtist = document.querySelector("#selectArtists")
     selectArtist.innerHTML = ""
     /* for each possible artist selection, it creates another option */
@@ -246,7 +246,8 @@ const fillBestSuggestion = (entry) => {
 
 }
 
-/* these are just two helper functions that will make elements of certain classes show up or not */
+/* these are just two helper functions that 
+will make elements of certain classes show up or not */
 const hidefunction = (className) => {
     elementsToHide = document.querySelectorAll(`[class*='${className}']`)
     elementsToHide.forEach(element => {

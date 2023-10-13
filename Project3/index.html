@@ -22,9 +22,9 @@
   </header>
   <div class="content">
     <div class="upper-section">
-      <div>Let's find releases similar to the artists that you like.</div>
+      <div>Let's find records similar to the artists that you like.</div>
     </div>
-    <div class="my-4 rounded-md bg-slate-400 p-4">
+    <div class="my-2 rounded-md bg-slate-400 p-4">
 
       <form class="rounded-md bg-slate-400" id="requestToDiscogs">
         <div id="start-question">Who is an artist that you like?</div>
@@ -36,22 +36,22 @@
         Send
       </button>
     </div>
-    <div id="clarifierArtist" class="hideShowFirst my-4 rounded-md bg-slate-400 p-4">
+    <div id="clarifierArtist" class="hideShowFirst my-2 rounded-md bg-slate-400 p-4">
       <div>Just to clarify, you meant:</div>
       <select class="bg-emerald-50 rounded-md text-slate-500 drop-shadow-lg px-4" id="selectArtists"></select>
       <div id="characterizingIntro">who according to Discogs is characterized as follows:</div>
     </div>
     <div id="profileOfArtist" class="bg-red-300 p-3 rounded-md hideShowFirst"></div>
 
-    <div class="hideShowSecond pb-2">We found something! There are releases from other artists on the label <span
+    <div class="hideShowSecond p-2">We found something! There are releases from other artists on the label <span
         id="labelname" class=" bg-red-300 p-1 m-1 rounded-md"></span>.
     </div>
     <div class="hideShowSecond" id="carousel-div">
       <section class="carousel" id="carousel_ol" aria-label="Gallery"></section>
     </div>
-    <div class="hideShowSecond">Even more so, the music should fall into one of the following styles:</div>
-    <div class="hideShowSecond bg-red-300 p-3 rounded-md" id="styles"></div>
-    <div class="hideShowSecond">that your favourite artist is linked to as well.</div>
+    <div class="hideShowSecond p-2">Even more so, the music should fall into one of the following styles:</div>
+    <div class="hideShowSecond bg-red-300 p-2 rounded-md" id="styles"></div>
+    <div class="hideShowSecond pb-2">that your favourite artist is linked to as well.</div>
   </div>
   <div class="hideShowSecond my-4" id="filter-div">
     <div>And let's find the perfect match for you by figuring out how rare a release should be:</div>
@@ -64,10 +64,10 @@
       </div>
 
 
-    <div class="slidecontainer">
-      <input type="range" min="0" max="100" value="50" class="slider w-full accent-emerald-200" id="myRangeSlider" />
+      <div class="slidecontainer">
+        <input type="range" min="0" max="100" value="50" class="slider w-full accent-emerald-200" id="myRangeSlider" />
+      </div>
     </div>
-  </div>
 
 
   </div>
@@ -89,9 +89,7 @@
 </footer>
 <script src="response.js" async></script>
 <script src="dataWrangling.js" async></script>
-
 <script src="populatePage.js" async></script>
-
 <script src="scripts.js" async></script>
 
 
