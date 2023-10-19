@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
+function MyComponent (){
 
-  
 const fetchData = <T,>(url: string) => {
   fetch(url)
     .then((response) => response.json())
@@ -10,4 +10,12 @@ const fetchData = <T,>(url: string) => {
     console.log(data)});
 };
 
-export default fetchData
+
+    return(
+        <div></div>
+    )
+}
+export default MyComponent
+  
+
+
