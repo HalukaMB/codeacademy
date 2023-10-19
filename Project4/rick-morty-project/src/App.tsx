@@ -3,7 +3,6 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import Characters from "./Characters";
-import CreateCard from "./Card";
 
 interface CatData {
   fact: string;
@@ -39,10 +38,9 @@ function App() {
       });
   };
   useEffect(() => {
-    fetchData(rickMortyUrl)
-   
+    fetchData(rickMortyUrl);
+    console.log(rickAndMortyCharacters)   
   }, [])
-  console.log(rickAndMortyCharacters)
   
   const someData = {
     name:"asdasd",
@@ -52,7 +50,6 @@ function App() {
     <>
       <div>
         <Characters favNumber={5}someInfo={someData}/>
-        <CreateCard elements={rickAndMortyCharacters}/>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>

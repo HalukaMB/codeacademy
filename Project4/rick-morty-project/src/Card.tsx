@@ -13,11 +13,10 @@ interface Character {
   created: string
 }
 
-  const CreateCard = (elements:Character[])=>{
-    console.log(elements)
-    elements.map(()=>{
-    return(<div>element</div>)}
-    )
+  const CreateCard = (element:Character)=>{
+    console.log(element)
+    return(<div>jicj</div>)
+  
   }
   export default CreateCard
   
