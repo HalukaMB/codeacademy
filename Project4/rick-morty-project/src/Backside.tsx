@@ -14,14 +14,21 @@ interface Character {
     url: string
     created: string
   }
-export default function BacksideCreate(character: Character) {
+  interface CharacterProps{
+    character: Character
+
+  }
+export default function BacksideCreate({character}:Character) {
     const moreInfo=()=>{
         
     }
+  function showMoreInfo(idOfCharacter){
+    const moreInfoDiv=document.getElementById("moreInfo-" + String(idOfCharacter))
+  }
   return (
     <>
     <div>{character.name}</div>
-    <div onClick={()=>{console.log(character.name)}}>More Info</div>
+    <div onClick={()=>{}}>More Info</div>
     </>
   )
 }

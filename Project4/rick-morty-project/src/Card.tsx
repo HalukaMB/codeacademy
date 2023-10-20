@@ -1,3 +1,4 @@
+import { useState } from "react"
 import BacksideCreate from "./Backside"
 import Backside from "./Backside"
 import FrontsideCreate from "./Frontside"
@@ -23,12 +24,23 @@ interface CardProps {
 }
 /* How do I have to declare here the interface definition */
   const CreateCard = ({character}: CardProps)=>{
-    const {id}=character
-    return(<div id={String(id)}>
-      {FrontsideCreate(character)}
-      {BacksideCreate(character)}
-      {MoreInfoCreate(character)}
+    const value = true
+    
+    const buildClassName=()=>{
+      return 
+    }
 
+    const {id}=character
+    return(<div className={buildClassName} id={String(id)}>
+      <FrontsideCreate character={character}/>
+      <br></br>
+      <BacksideCreate character={character}/>
+      <br></br>
+
+{/*       {FrontsideCreate(character)}
+{BacksideCreate(character)}
+ */}      
+      <br></br>
     </div>)
   
   }

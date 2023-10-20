@@ -14,7 +14,12 @@ interface Character {
     url: string
     created: string
   }
-export default function FrontsideCreate(character: Character) {
+  interface CharacterProps{
+    character: Character
+
+  }
+export default function FrontsideCreate({character}:CharacterProps) {
+  console.log(character.name)
   return (
     <>
     <img src={character.image}></img>
