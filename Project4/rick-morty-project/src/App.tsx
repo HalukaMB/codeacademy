@@ -2,13 +2,21 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import Characters from "./Characters";
+import CreateCard from "./Card";
 
-interface CatData {
-  fact: string;
-  length: number;
+export interface Root {
+  info: Info
+  results: Character[]
 }
-interface Character {
+
+export interface Info {
+  count: number
+  pages: number
+  next: string
+  prev: any
+}
+
+export interface Character {
   id: number
   name: string
   status: string
@@ -22,11 +30,23 @@ interface Character {
   url: string
   created: string
 }
+
+export interface Origin {
+  name: string
+  url: string
+}
+
+export interface Location {
+  name: string
+  url: string
+}
+
 function App() {
   const [count, setCount] = useState(0);
   const [rickAndMortyCharacters, setRickAndMortyCharacters]= useState<Character[]>([])
-  const catUrl = "https://catfact.ninja/fact";
+
   const rickMortyUrl = "https://rickandmortyapi.com/api/character/"
+
   const fetchData = (url: string) => {
     console.log("fetchData is running")
     fetch(url)
@@ -42,14 +62,14 @@ function App() {
     console.log(rickAndMortyCharacters)   
   }, [])
   
-  const someData = {
-    name:"asdasd",
-    age:34
-  }
+
   return (
     <>
-      <div>
-        <Characters favNumber={5}someInfo={someData}/>
+      <div>{rickAndMortyCharacters.length&&rickAndMortyCharacters.map((singleCharacter)=>
+      {return(
+        <CreateCard key={singleCharacter.id} character={singleCharacter}/>)
+      })
+        }
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -59,7 +79,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount(count + 1)}>
+        <button className="bg-orange-600" onClick={() => setCount(count + 1)}>
           count is by one {count}
         </button>
        
