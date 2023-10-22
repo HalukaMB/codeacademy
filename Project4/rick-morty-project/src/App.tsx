@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import CreateCard from "./Card";
+import CreateModal from "./Modal";
 
 export interface Root {
   info: Info
@@ -42,8 +43,15 @@ export interface Location {
 }
 
 function App() {
-  const [rickAndMortyCharacters, setRickAndMortyCharacters]= useState<Character[]>([])
-  const [showModal, setShowModal] = useState(false)
+  const [rickAndMortyCharacters, setRickAndMortyCharacters] = useState<Character[]>([])
+  const [showModalCharacter, setShowModalCharacter] = useState<Character>(null)
+  const [searchWord, setSearchWord] = useState<String>("")
+
+
+  const toggleModal = (selectedCharacter: Character) => {
+    setShowModalCharacter(selectedCharacter)
+  }
+
 
   const rickMortyUrl = "https://rickandmortyapi.com/api/character/"
 
@@ -52,44 +60,49 @@ function App() {
     fetch(url)
       .then((response) => response.json())
       .then((result) => {
-        const characters=(result["results"]) as Character[];
+        const characters = (result["results"]) as Character[];
         console.log(characters);
         setRickAndMortyCharacters(characters)
       });
   };
   useEffect(() => {
     fetchData(rickMortyUrl);
-    console.log(rickAndMortyCharacters)   
+    console.log(rickAndMortyCharacters)
   }, [])
 
 
-  const toggleModal =()=>{
-setShowModal(!showModal)
+
+  const chosenCharacter = {
+    name: "hola"
   }
-  
+
+
 
   return (
     <>
-      <div>{rickAndMortyCharacters.length&&rickAndMortyCharacters.map((singleCharacter)=>
-      {return(
-        <CreateCard key={singleCharacter.id} character={singleCharacter}/>)
-      })
-        }
-
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div>
+        <input id="searchBar" type="text" placeholder="Search.." onChange={(e)=>{
+          let searchWord=(e.target.value)
+          setSearchWord(searchWord)
+          }} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
 
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div className="grid">{rickAndMortyCharacters.length && rickAndMortyCharacters.map((singleCharacter) => {
+        if(singleCharacter.name.toLowerCase().includes(searchWord)){
+
+        return (
+          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={toggleModal} />
+          
+          )}
+      })}
+      
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div>
+
+        {showModalCharacter !== null && <CreateModal character={showModalCharacter} />}
+      </div>
+
+
     </>
   );
 }

@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface Character {
     id: number
     name: string
@@ -14,15 +12,15 @@ interface Character {
     url: string
     created: string
   }
-  interface CharacterProps{
+  
+  interface ModalProps {
     character: Character
-
   }
-export default function FrontsideCreate({character}:CharacterProps) {
-  console.log(character.name)
-  return (
-    <div className='frontSide'>
-    <img src={character.image}></img>
-    </div>
-  )
+const CreateModal=({character}:ModalProps)=>{
+    console.log(character)
+    return(<div className="modal">
+           {character.name}
+      
+</div>)
 }
+export default CreateModal

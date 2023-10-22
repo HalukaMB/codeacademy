@@ -14,15 +14,15 @@ interface Character {
     url: string
     created: string
   }
-  interface CharacterProps{
+  
+  interface SearchbarProps {
     character: Character
-
   }
-export default function FrontsideCreate({character}:CharacterProps) {
-  console.log(character.name)
+
+const Searchbar = (Characters) => {
   return (
-    <div className='frontSide'>
-    <img src={character.image}></img>
-    </div>
+    <div>Searchbar</div>
   )
 }
+
+export default Searchbar

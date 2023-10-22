@@ -1,8 +1,7 @@
 import { useState } from "react"
 import BacksideCreate from "./Backside"
-import Backside from "./Backside"
 import FrontsideCreate from "./Frontside"
-import MoreInfoCreate from "./MoreInfo"
+import CreateModal from "./Modal"
 
 interface Character {
   id: number
@@ -23,20 +22,18 @@ interface CardProps {
   character: Character
 }
 /* How do I have to declare here the interface definition */
-  const CreateCard = ({character}: CardProps)=>{
+  const CreateCard = ({character}: CardProps, {functionToBeUsed})=>{
     const value = true
-    
     const buildClassName=()=>{
       return 
     }
 
     const {id}=character
-    return(<div className={buildClassName} id={String(id)}>
+    return(<div className="singleCard" id={String(id)}>
+      <div className="innerSingleCard">
       <FrontsideCreate character={character}/>
-      <br></br>
       <BacksideCreate character={character}/>
-      <br></br>
-
+      </div>
 {/*       {FrontsideCreate(character)}
 {BacksideCreate(character)}
  */}      
