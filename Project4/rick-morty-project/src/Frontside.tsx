@@ -19,7 +19,6 @@ interface Character {
 
   }
 export default function FrontsideCreate({character}:CharacterProps) {
-  console.log(character.name)
   return (
     <div className='frontSide'>
     <img src={character.image}></img>

@@ -45,7 +45,11 @@ export interface Location {
 function App() {
   const [rickAndMortyCharacters, setRickAndMortyCharacters] = useState<Character[]>([])
   const [showModalCharacter, setShowModalCharacter] = useState<Character>(null)
-  const [searchWord, setSearchWord] = useState<String>("")
+  const [searchWord, setSearchWord] = useState<string>("")
+  const [pageNumber,setPageNumber]=useState<number>(1)
+
+  const rickMortyUrl="https://rickandmortyapi.com/api/character/"
+
 
 
   const toggleModal = (selectedCharacter: Character) => {
@@ -53,7 +57,6 @@ function App() {
   }
 
 
-  const rickMortyUrl = "https://rickandmortyapi.com/api/character/"
 
   const fetchData = (url: string) => {
     console.log("fetchData is running")
@@ -66,9 +69,9 @@ function App() {
       });
   };
   useEffect(() => {
-    fetchData(rickMortyUrl);
+    fetchData(rickMortyUrl+"?page="+String(pageNumber));
     console.log(rickAndMortyCharacters)
-  }, [])
+  }, [pageNumber])
 
 
 
@@ -98,8 +101,12 @@ function App() {
       
       </div>
       <div>
-
         {showModalCharacter !== null && <CreateModal character={showModalCharacter} />}
+      </div>
+      <div className="buttonBar">
+      {(pageNumber>2)?<button className="pagebutton bg-orange-400" id="prev" onClick={()=>setPageNumber(pageNumber-1)}>Previous</button>:<button className="pagebutton bg-orange-400 opacity-50" id="prev" disabled>Previous</button>}
+      {(pageNumber<42)?<button className="pagebutton  bg-orange-400"id="next" onClick={()=>setPageNumber(pageNumber+1)}>Next</button>:<button className="pagebutton bg-orange-400 opacity-50" id="prev" disabled>Next</button>}
+
       </div>
 
 
