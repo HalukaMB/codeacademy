@@ -46,17 +46,23 @@ function App() {
   const [pageNumber,setPageNumber]=useState<number>(1)
   const [showModalCharacter, setShowModalCharacter] = useState<Character>(null)
   const rickMortyUrl="https://rickandmortyapi.com/api/character/"
+  const [counter,setCounter]=useState(0)
   /* what has to be done with this function? */
+  let count = 0
   const setInToBackGround=()=>{
     console.log("intoBackground")
-  }
+/*     setCounter((prevValue)=>prevValue+1)
+ */  }
+  console.log(counter)
 
 
   const fetchData = (url: string) => {
     console.log("fetchData is running")
+    console.log(url)
     fetch(url)
       .then((response) => response.json())
       .then((result) => {
+        console.log(result)
         const characters = (result["results"]) as Character[];
         console.log(characters);
         setRickAndMortyCharacters(characters)
@@ -68,6 +74,7 @@ function App() {
   }, [pageNumber])
 
 
+  console.log(rickAndMortyCharacters)
 
   const chosenCharacter = {
     name: "This is what should be displayed"

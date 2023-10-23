@@ -23,8 +23,8 @@ export default function BacksideCreate({character,functionToBeUsed}) {
  
   return (
     <div className='backSide'>
-      <h1>{character.name}</h1>
-      <button onClick={() => {console.log(character.name);
+      <div className="text-2xl mt-4">{character.name}</div>
+      <button className="mt-4" onClick={() => {console.log(character.name);
       functionToBeUsed(character)
       }}>More Info</button>
 </div>
