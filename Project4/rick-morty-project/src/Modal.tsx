@@ -16,10 +16,15 @@ interface Character {
   interface ModalProps {
     character: Character
   }
-const CreateModal=({character}:ModalProps)=>{
+const CreateModal=({character, functionToReset})=>{
     console.log(character)
     return(<div className="modal">
-           {character.name}
+           <h1>{character.name}</h1>
+           <div>{character.species}</div>
+           <div>{character.location.name}</div>
+           <button onClick={()=>functionToReset(null)}>Show Less</button>
+
+
       
 </div>)
 }

@@ -95,15 +95,13 @@ function App() {
         if(singleCharacter.name.toLowerCase().includes(searchWord)){
         return (
 
-          /* 
-          ! I should be able to pass it on in the props. This does not work however. */
-          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={toggleModal} />
+          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} />
           )}
       })}
       
       </div>
       <div>
-        {showModalCharacter !== null && <CreateModal character={showModalCharacter} />}
+        {showModalCharacter !== null && <CreateModal character={showModalCharacter} functionToReset={setShowModalCharacter} />}
       </div>
       <div className="buttonBar">
       {(pageNumber>2)?<button className="pagebutton bg-orange-400" id="prev" onClick={()=>setPageNumber(pageNumber-1)}>Previous</button>:<button className="pagebutton bg-orange-400 opacity-50" id="prev" disabled>Previous</button>}

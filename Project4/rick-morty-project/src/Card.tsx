@@ -22,9 +22,8 @@ interface CardProps {
   character: Character
 }
 /* How do I have to declare here the interface definition */
-  const CreateCard = ({character}: CardProps, {functionToBeUsed})=>{
+  const CreateCard = ({character, functionToBeUsed})=>{
     const value = true;
-    console.log(functionToBeUsed)
     const buildClassName=()=>{
       return 
     }
@@ -33,7 +32,7 @@ interface CardProps {
     return(<div className="singleCard" id={String(id)}>
       <div className="innerSingleCard">
       <FrontsideCreate character={character}/>
-      <BacksideCreate character={character}/>
+      <BacksideCreate character={character} functionToBeUsed={functionToBeUsed}/>
       </div>
 {/*       {FrontsideCreate(character)}
 {BacksideCreate(character)}

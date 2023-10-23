@@ -19,13 +19,13 @@ interface CharacterProps {
   character: Character
 
 }
-export default function BacksideCreate({ character }: CharacterProps) {
+export default function BacksideCreate({ character,functionToBeUsed}) {
  
   return (
     <div className='backSide'>
       <h1>{character.name}</h1>
       <div onClick={() => {console.log(character.name);
-      toggleModal(character)
+      functionToBeUsed(character)
       }}>More Info</div>
 </div>
   )
