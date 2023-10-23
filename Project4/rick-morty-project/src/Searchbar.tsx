@@ -16,13 +16,18 @@ interface Character {
   }
   
   interface SearchbarProps {
-    character: Character
+    searchWordUpdate: Function
   }
 
-const Searchbar = (Characters) => {
+const SearchbarCreate = ({searchWordUpdate}) => {
   return (
-    <div>Searchbar</div>
+    <div className="searchBar pb-5">
+    <input className="w-3/4 text-orange-500" id="searchBar" type="text" placeholder="Search.." onChange={(e)=>{
+      let searchWord=(e.target.value)
+      searchWordUpdate(searchWord)
+      }} />
+  </div>
   )
 }
 
-export default Searchbar
+export default SearchbarCreate

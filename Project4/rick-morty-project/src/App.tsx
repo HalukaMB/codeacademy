@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import CreateCard from "./Card";
 import CreateModal from "./Modal";
-
+import SearchbarCreate from "./Searchbar"
+import PageNav from "./PageNav";
 export interface Root {
   info: Info
   results: Character[]
@@ -53,47 +54,29 @@ function App() {
     console.log("intoBackground")
 /*     setCounter((prevValue)=>prevValue+1)
  */  }
-  console.log(counter)
 
 
   const fetchData = (url: string) => {
-    console.log("fetchData is running")
-    console.log(url)
     fetch(url)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result)
         const characters = (result["results"]) as Character[];
-        console.log(characters);
         setRickAndMortyCharacters(characters)
       });
   };
   useEffect(() => {
     fetchData(rickMortyUrl+"?page="+String(pageNumber));
-    console.log(rickAndMortyCharacters)
   }, [pageNumber])
-
-
-  console.log(rickAndMortyCharacters)
-
-  const chosenCharacter = {
-    name: "This is what should be displayed"
-  }
   return (
     <>
-      <div>
-        <input id="searchBar" type="text" placeholder="Search.." onChange={(e)=>{
-          let searchWord=(e.target.value)
-          setSearchWord(searchWord)
-          }} />
-      </div>
+      <SearchbarCreate searchWordUpdate={setSearchWord}></SearchbarCreate>
       <div className="grid">{rickAndMortyCharacters.length && rickAndMortyCharacters.map((singleCharacter) => {
         if(singleCharacter.name.toLowerCase().includes(searchWord)){
         return (
           showModalCharacter?(
-          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} setInToBackGround={setInToBackGround} classSuffixToUse="behind" />
+          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} classSuffixToUse="behind" />
           ):(
-          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} setInToBackGround={setInToBackGround} classSuffixToUse="regular" />
+          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter}  classSuffixToUse="regular" />
           )
           )}
       })}
@@ -102,11 +85,8 @@ function App() {
       <div>
         {showModalCharacter !== null && <CreateModal character={showModalCharacter} functionToReset={setShowModalCharacter} />}
       </div>
-      <div className="buttonBar">
-      {(pageNumber>2)?<button className="pagebutton bg-orange-400" id="prev" onClick={()=>setPageNumber(pageNumber-1)}>Previous</button>:<button className="pagebutton bg-orange-400 opacity-50" id="prev" disabled>Previous</button>}
-      {(pageNumber<42)?<button className="pagebutton  bg-orange-400"id="next" onClick={()=>setPageNumber(pageNumber+1)}>Next</button>:<button className="pagebutton bg-orange-400 opacity-50" id="prev" disabled>Next</button>}
-      </div>
 
+      <PageNav pageNumber={pageNumber} setPageNumber={setPageNumber}></PageNav>
 
     </>
   );

@@ -24,8 +24,10 @@
 }
 .grid{
   max-width:1080px;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
 }
 .singleCard{
@@ -92,7 +94,7 @@
 }
 
 .behind{
-  opacity: 50%;
+  opacity: ;
 }
 
 
