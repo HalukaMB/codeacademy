@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import CreateCard from "./Card";
 import CreateModal from "./Modal";
@@ -44,14 +42,20 @@ export interface Location {
 
 function App() {
   const [rickAndMortyCharacters, setRickAndMortyCharacters] = useState<Character[]>([])
-  const [showModalCharacter, setShowModalCharacter] = useState<Character>(null)
   const [searchWord, setSearchWord] = useState<string>("")
   const [pageNumber,setPageNumber]=useState<number>(1)
+  
+  /* 
+  !  so I thought, if I have a state that holds the selected character
+  */
+  const [showModalCharacter, setShowModalCharacter] = useState<Character>(null)
+
 
   const rickMortyUrl="https://rickandmortyapi.com/api/character/"
 
-
-
+  /* 
+  ! And a function that is used to put in the character of one card into the modal
+  */
   const toggleModal = (selectedCharacter: Character) => {
     setShowModalCharacter(selectedCharacter)
   }
@@ -76,11 +80,8 @@ function App() {
 
 
   const chosenCharacter = {
-    name: "hola"
+    name: "This is what should be displayed"
   }
-
-
-
   return (
     <>
       <div>
@@ -92,10 +93,11 @@ function App() {
 
       <div className="grid">{rickAndMortyCharacters.length && rickAndMortyCharacters.map((singleCharacter) => {
         if(singleCharacter.name.toLowerCase().includes(searchWord)){
-
         return (
+
+          /* 
+          ! I should be able to pass it on in the props. This does not work however. */
           <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={toggleModal} />
-          
           )}
       })}
       
@@ -106,7 +108,6 @@ function App() {
       <div className="buttonBar">
       {(pageNumber>2)?<button className="pagebutton bg-orange-400" id="prev" onClick={()=>setPageNumber(pageNumber-1)}>Previous</button>:<button className="pagebutton bg-orange-400 opacity-50" id="prev" disabled>Previous</button>}
       {(pageNumber<42)?<button className="pagebutton  bg-orange-400"id="next" onClick={()=>setPageNumber(pageNumber+1)}>Next</button>:<button className="pagebutton bg-orange-400 opacity-50" id="prev" disabled>Next</button>}
-
       </div>
 
 

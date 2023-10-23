@@ -23,7 +23,8 @@ interface CardProps {
 }
 /* How do I have to declare here the interface definition */
   const CreateCard = ({character}: CardProps, {functionToBeUsed})=>{
-    const value = true
+    const value = true;
+    console.log(functionToBeUsed)
     const buildClassName=()=>{
       return 
     }
