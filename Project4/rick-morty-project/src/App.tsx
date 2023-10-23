@@ -46,6 +46,7 @@ function App() {
   const [pageNumber,setPageNumber]=useState<number>(1)
   const [showModalCharacter, setShowModalCharacter] = useState<Character>(null)
   const rickMortyUrl="https://rickandmortyapi.com/api/character/"
+  /* what has to be done with this function? */
   const setInToBackGround=()=>{
     console.log("intoBackground")
   }
@@ -78,14 +79,14 @@ function App() {
           let searchWord=(e.target.value)
           setSearchWord(searchWord)
           }} />
-      </div>‚
+      </div>
       <div className="grid">{rickAndMortyCharacters.length && rickAndMortyCharacters.map((singleCharacter) => {
         if(singleCharacter.name.toLowerCase().includes(searchWord)){
         return (
           showModalCharacter?(
-          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} classSuffixToUse="behind" />
+          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} setInToBackGround={setInToBackGround} classSuffixToUse="behind" />
           ):(
-          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} classSuffixToUse="regular" />
+          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} setInToBackGround={setInToBackGround} classSuffixToUse="regular" />
           )
           )}
       })}
