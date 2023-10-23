@@ -87,6 +87,13 @@
   display: flex;
   justify-content: space-between;
 }
+.imageModal{
+    margin: auto;
+}
+
+.behind{
+  opacity: 50%;
+}
 
 
 @keyframes logo-spin {

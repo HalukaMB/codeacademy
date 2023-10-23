@@ -19,14 +19,14 @@ interface CharacterProps {
   character: Character
 
 }
-export default function BacksideCreate({ character,functionToBeUsed}) {
+export default function BacksideCreate({character,functionToBeUsed}) {
  
   return (
     <div className='backSide'>
       <h1>{character.name}</h1>
-      <div onClick={() => {console.log(character.name);
+      <button onClick={() => {console.log(character.name);
       functionToBeUsed(character)
-      }}>More Info</div>
+      }}>More Info</button>
 </div>
   )
 }

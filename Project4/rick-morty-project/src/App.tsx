@@ -44,22 +44,11 @@ function App() {
   const [rickAndMortyCharacters, setRickAndMortyCharacters] = useState<Character[]>([])
   const [searchWord, setSearchWord] = useState<string>("")
   const [pageNumber,setPageNumber]=useState<number>(1)
-  
-  /* 
-  !  so I thought, if I have a state that holds the selected character
-  */
   const [showModalCharacter, setShowModalCharacter] = useState<Character>(null)
-
-
   const rickMortyUrl="https://rickandmortyapi.com/api/character/"
-
-  /* 
-  ! And a function that is used to put in the character of one card into the modal
-  */
-  const toggleModal = (selectedCharacter: Character) => {
-    setShowModalCharacter(selectedCharacter)
+  const setInToBackGround=()=>{
+    console.log("intoBackground")
   }
-
 
 
   const fetchData = (url: string) => {
@@ -89,13 +78,15 @@ function App() {
           let searchWord=(e.target.value)
           setSearchWord(searchWord)
           }} />
-      </div>
-
+      </div>‚
       <div className="grid">{rickAndMortyCharacters.length && rickAndMortyCharacters.map((singleCharacter) => {
         if(singleCharacter.name.toLowerCase().includes(searchWord)){
         return (
-
-          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} />
+          showModalCharacter?(
+          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} classSuffixToUse="behind" />
+          ):(
+          <CreateCard key={singleCharacter.id} character={singleCharacter} functionToBeUsed={setShowModalCharacter} classSuffixToUse="regular" />
+          )
           )}
       })}
       
