@@ -1,61 +1,82 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { readRemoteFile } from 'react-papaparse';
 
-async function getData() {
-  const fluNetUrl="https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
-  const response = await fetch("src/data/VIW_FNT.csv")
-  const reader = response.body.getReader()
-  const result = await reader.read() // raw array
-  const decoder = new TextDecoder('utf-8')
-  const csv = decoder.decode(result.value)
-  console.log(csv)
-  const remoteFile=readRemoteFile(fluNetUrl, {
+interface Idata {
+  data: string[][];
+  errors: any;
+  meta: {
+    delimiter: string;
+    linebreak: string;
+    aborted: boolean;
+  };
+}
+function getData({setBaseData, setCountryFilter, setReducedData}) {
+  const fluNetUrl: string = "https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
+  const lastYear: number = new Date().getFullYear()-1
+  const arrayOfCountries:string[]=[]
+  const lastTwoYearsData={}
+  /* https://blog.logrocket.com/working-csv-files-react-papaparse/#parsing-local-csv-files */
+    readRemoteFile(fluNetUrl, {
     header: true,
     worker: true,
     download: true,
     complete: (results: Idata) => {
-      const value: string[][] = [];
-      const column: string[][] = [];
+      setBaseData(results.data)
+      results.data.map((element)=>{
+        const year=parseInt(element["ISO_YEAR"])
+        const week=parseInt(element["ISO_WEEK"])
+/*         const yearweek=element["ISO_YEAR"]+element["ISO_WEEK"].padStart(2, '0')
+ */        const influenzaCases=parseInt(element["INF_ALL"])
+        const allSpecimen=parseInt(element["SPEC_PROCESSED_NB"])
+        const sentinel=element["ORIGIN_SOURCE"]
+        const country = element["COUNTRY_AREA_TERRITORY"]
+        const dataarray=[year, week,influenzaCases,allSpecimen]
+       /*  const innerobject={}
+        innerobject[yearweek]=dataarray */
 
-      results.data.map((d) => {
-        value.push(Object.values(d));
-        column.push(Object.keys(d));
-      });
-      console.log(results.data);
+        if((year>=lastYear)&&(sentinel=="SENTINEL")&&(!arrayOfCountries.includes(country))){
+          arrayOfCountries.push(country)
+        }
+        }
+        
+      )
+      setCountryFilter(arrayOfCountries.sort())
+      setReducedData(lastTwoYearsData)
 
-}
-})};
+    }
+  }
+  )
+
+};
+
 function App() {
+  const [baseData, setBaseData] = useState(null)
+  const [countryFilter, setCountryFilter] = useState([])
+  const [reducedData, setReducedData] = useState(null)
 
-
-  const [count, setCount] = useState(0)
-  getData()
-
+  if (baseData){
+    console.log(baseData)
+    console.log(countryFilter)
+  }
+  useEffect(() => {
+    getData({setBaseData,setCountryFilter,setReducedData})
+  }, [])
+  
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+     
+     {countryFilter.length>0?
+      <select>
+        {countryFilter.map(element=>{
+        return(<option>{element}</option>)}
+          )}
+      </select>
+      :
+      <h1>Loading...</h1>
+      }
     </>
   )
 }
