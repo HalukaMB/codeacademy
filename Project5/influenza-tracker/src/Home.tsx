@@ -68,7 +68,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
 
 };
 
-function App() {
+function Home() {
   const [baseData, setBaseData] = useState(null)
   const [countryFilter, setCountryFilter] = useState([])
   const [reducedData, setReducedData] = useState({})
@@ -101,4 +101,4 @@ function App() {
   )
 }
 
-export default App
+export default Home
