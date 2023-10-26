@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { readRemoteFile } from 'react-papaparse';
 import CountryCardMain from './CountryCardMain';
+import Home from './Home';
 
 interface Idata {
   data: string[][];
@@ -78,26 +79,7 @@ function App() {
   }, [])
 
   return (
-    <>
-      {countryFilter.length > 0 ?
-        <select>
-          {countryFilter.map(element => {
-            return (<option>{element}</option>)
-          }
-          )}
-        </select>
-        :
-        <h1>Loading...</h1>
-      }
-      {reducedData ? Object.keys(reducedData).sort().map(country => {
-        const datapackage = reducedData[country]
-        return (
-          <CountryCardMain countryName={country} countryData={datapackage}></CountryCardMain>
-        )
-      }) :
-        <h1>Nothing</h1>
-      }
-    </>
+    <Home countryFilter={countryFilter} reducedData={reducedData}></Home>
   )
 }
 

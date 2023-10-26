@@ -9,7 +9,7 @@ import About from './About.tsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <App />,
   },
   {
     path: "/about",
