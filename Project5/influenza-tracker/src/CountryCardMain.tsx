@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { ReactComponentElement as Arrow } from 'react'
 type CardProps = {
     countryName: string
     countryData: {}
@@ -21,11 +21,10 @@ function CountryCardMain({ countryName, countryData }: CardProps) {
                 <div>{countryName}</div>
                 {trendForWeek > 0 ?
                     <div className="weekTrendUp">
-                        <img src='src/assets/diagonal-arrow-svgrepo-com.svg' width="50px" height="50px" style={{ transform: "scaleY(-1)"}></img>
+                        <img src='src/assets/arrowUp.svg' width="50px" height="50px" style={{ transform: "scaleY(-1)"}}></img>
                         UP</div>
                     : trendForWeek < 0 ?
                         <div className="weekTrendDown">
-                            <img src='src/assets/diagonal-arrow-svgrepo-com.svg' width="50px" height="50px" style={{ transform: "scaleY(-1)" }}></img>
                             DOWN</div>
                         :
                         <div className="weekTrendZero">ZERO</div>
