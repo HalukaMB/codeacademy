@@ -1,5 +1,7 @@
 import React from 'react'
 import { ReactComponentElement as Arrow } from 'react'
+import { findFlagUrlByIso3Code } from "country-flags-svg";
+
 type CardProps = {
     countryName: string
     countryData: {}
@@ -19,17 +21,22 @@ function CountryCardMain({ countryName, countryData }: CardProps) {
         return (
             <div className="countryCardMain">
                 <div>{countryName}</div>
+                <img src={findFlagUrlByIso3Code(countryName)} height="50px" />
                 {trendForWeek > 0 ?
-                    <div className="weekTrendUp">
-                        <img src='src/assets/arrowUp.svg' width="50px" height="50px" style={{ transform: "scaleY(-1)"}}></img>
-                        UP</div>
+                    <div className="weekTrend Up">
+                        <img src='src/assets/arrowUp.svg' width="50px" height="50px"></img>
+                    </div>
                     : trendForWeek < 0 ?
-                        <div className="weekTrendDown">
-                            DOWN</div>
+                        <div className="weekTrend Down">
+                            <img src='src/assets/arrowDown.svg' width="50px" height="50px"></img>
+
+                        </div>
                         :
-                        <div className="weekTrendZero">ZERO</div>
+                        <div className="weekTrend Zero">
+                            <img src='src/assets/arrowStraight.svg' width="70px" height="70px"></img>
+
+                        </div>
                 }
-                <div>{trendForWeek}</div>
 
             </div>
         )
@@ -37,6 +44,7 @@ function CountryCardMain({ countryName, countryData }: CardProps) {
         return (
             <div className="countryCardMain">
                 <div>{countryName}</div>
+                <img src={findFlagUrlByIso3Code(countryName)} height="50px" />
                 <div>Not enough data</div>
 
             </div>)

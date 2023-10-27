@@ -108,7 +108,9 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
         if ((year >= lastYear) && (sentinel == "SENTINEL")) {
           const week:number = parseInt(element["ISO_WEEK"])
 
-          const country:string = element["COUNTRY_AREA_TERRITORY"]
+          const country:string = element["COUNTRY_CODE"]
+
+          
 
           let influenzaCases:number  = element["INF_ALL"] ? element["INF_ALL"] : 0;
           let allSpecimen:number  = element["SPEC_PROCESSED_NB"] ? element["SPEC_PROCESSED_NB"] : 0;
