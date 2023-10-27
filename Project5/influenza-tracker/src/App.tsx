@@ -71,22 +71,24 @@ export interface entry {
 function App() {
   const [baseData, setBaseData] = useState<entry[]|null>(null)
   const [countryFilter, setCountryFilter] = useState<string[]>([])
+  const [countryObject, setCountryObject] = useState({})
   const [reducedData, setReducedData] = useState({})
 
   useEffect(() => {
-    getData({ setBaseData, setCountryFilter, setReducedData })
+    getData({ setBaseData, setCountryFilter, setReducedData, setCountryObject })
   }, [])
 
   return (
-    <Home countryFilter={countryFilter} reducedData={reducedData}></Home>
+    <Home countryFilter={countryFilter} reducedData={reducedData} countryObject={countryObject}></Home>
   )
 }
 /* why are the sets bits get underlined */
-function getData({ setBaseData, setCountryFilter, setReducedData }) {
+function getData({ setBaseData, setCountryFilter, setReducedData, setCountryObject }) {
   const fluNetUrl: string = "https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
   const lastYear: number = new Date().getFullYear() - 1
   const arrayOfCountries: string[] = []
   const lastTwoYearsData : Record<string, object> = {}
+  const translateCountries={}
 
 
   /* https://blog.logrocket.com/working-csv-files-react-papaparse/#parsing-local-csv-files */
@@ -108,7 +110,8 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
         if ((year >= lastYear) && (sentinel == "SENTINEL")) {
           const week:number = parseInt(element["ISO_WEEK"])
 
-          const country:string = element["COUNTRY_CODE"]
+          const countryCode:string = element["COUNTRY_CODE"]
+          const country:string = element["COUNTRY_AREA_TERRITORY"]
 
           
 
@@ -123,6 +126,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
           if (dataarray.every(e => typeof (e) === "number")) {
             if (!arrayOfCountries.includes(country)) {
               arrayOfCountries.push(country)
+              translateCountries[country]=countryCode
 /*               const lastTwoYearsData : Record<string, object> = {}
  */
               lastTwoYearsData[country] = {}
@@ -139,6 +143,9 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
       }
       )
       setCountryFilter(arrayOfCountries.sort())
+      console.log(translateCountries)
+      setCountryObject(translateCountries)
+
       setReducedData(lastTwoYearsData)
     }
   }
