@@ -5,18 +5,9 @@ import './App.css'
 import { readRemoteFile } from 'react-papaparse';
 import CountryCardMain from './CountryCardMain';
 
-interface Idata {
-  data: string[][];
-  errors: any;
-  meta: {
-    delimiter: string;
-    linebreak: string;
-    aborted: boolean;
-  };
-}
+
 
 function Home({countryFilter, reducedData}) {
-    console.log(countryFilter)
  
     return (
         <>
