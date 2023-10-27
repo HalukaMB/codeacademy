@@ -10,21 +10,25 @@ function CountryCardMain({ countryName, countryData }: CardProps) {
     const weekToWeekDataAvailable = ((arrayOfKeys[arrayOfKeys.length - 1] - arrayOfKeys[arrayOfKeys.length - 2]) < 2)
     const dataLatestWeek = (countryData[arrayOfKeys[arrayOfKeys.length - 1]])
     const dataBeforeWeek = (countryData[arrayOfKeys[arrayOfKeys.length - 2]])
-    const percentageLatestWeek=dataLatestWeek[2] / dataLatestWeek[3]*100
-    const percentageBeforeWeek=dataBeforeWeek[2] / dataBeforeWeek[3]*100
+    const percentageLatestWeek = dataLatestWeek[2] / dataLatestWeek[3] * 100
+    const percentageBeforeWeek = dataBeforeWeek[2] / dataBeforeWeek[3] * 100
 
-    const trendForWeek = percentageLatestWeek-percentageBeforeWeek
+    const trendForWeek = percentageLatestWeek - percentageBeforeWeek
 
     if ((weekToWeekDataAvailable) && (!isNaN(trendForWeek))) {
         return (
             <div className="countryCardMain">
                 <div>{countryName}</div>
-                {trendForWeek>0?
-                <div className="weekTrendUp">UP</div>
-                :trendForWeek<0?
-                <div className="weekTrendDown">DOWN</div>
-                :
-                <div className="weekTrendZero">ZERO</div>
+                {trendForWeek > 0 ?
+                    <div className="weekTrendUp">
+                        <img src='src/assets/diagonal-arrow-svgrepo-com.svg' width="50px" height="50px" style={{ transform: "scaleY(-1)"}></img>
+                        UP</div>
+                    : trendForWeek < 0 ?
+                        <div className="weekTrendDown">
+                            <img src='src/assets/diagonal-arrow-svgrepo-com.svg' width="50px" height="50px" style={{ transform: "scaleY(-1)" }}></img>
+                            DOWN</div>
+                        :
+                        <div className="weekTrendZero">ZERO</div>
                 }
                 <div>{trendForWeek}</div>
 
