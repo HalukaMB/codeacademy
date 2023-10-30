@@ -71,24 +71,22 @@ export interface entry {
 function App() {
   const [baseData, setBaseData] = useState<entry[]|null>(null)
   const [countryFilter, setCountryFilter] = useState<string[]>([])
-  const [countryObject, setCountryObject] = useState({})
   const [reducedData, setReducedData] = useState({})
 
   useEffect(() => {
-    getData({ setBaseData, setCountryFilter, setReducedData, setCountryObject })
+    getData({ setBaseData, setCountryFilter, setReducedData })
   }, [])
 
   return (
-    <Home countryFilter={countryFilter} reducedData={reducedData} countryObject={countryObject}></Home>
+    <Home countryFilter={countryFilter} reducedData={reducedData} ></Home>
   )
 }
 /* why are the sets bits get underlined */
-function getData({ setBaseData, setCountryFilter, setReducedData, setCountryObject }) {
+function getData({ setBaseData, setCountryFilter, setReducedData }) {
   const fluNetUrl: string = "https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
   const lastYear: number = new Date().getFullYear() - 1
   const arrayOfCountries: string[] = []
   const lastTwoYearsData : Record<string, object> = {}
-  const translateCountries={}
 
 
   /* https://blog.logrocket.com/working-csv-files-react-papaparse/#parsing-local-csv-files */
@@ -126,25 +124,27 @@ function getData({ setBaseData, setCountryFilter, setReducedData, setCountryObje
           if (dataarray.every(e => typeof (e) === "number")) {
             if (!arrayOfCountries.includes(country)) {
               arrayOfCountries.push(country)
-              translateCountries[country]=countryCode
 /*               const lastTwoYearsData : Record<string, object> = {}
  */
-              lastTwoYearsData[country] = {}
+              lastTwoYearsData[country] = {"info":{},"data":{}}
               const yearkey:number=parseInt(year.toString() + week.toString().padStart(2, '0'))
-              lastTwoYearsData[country][yearkey] = dataarray
+              lastTwoYearsData[country]["info"]["longname"] = country
+              lastTwoYearsData[country]["info"]["code"] = countryCode
+
+
+              lastTwoYearsData[country]["data"][yearkey] = dataarray
 
             } if (arrayOfCountries.includes(country)) {
               const yearkey:number=parseInt(year.toString() + week.toString().padStart(2, '0'))
 
-              lastTwoYearsData[country][yearkey] = dataarray
+              lastTwoYearsData[country]["data"][yearkey] = dataarray
             }
           }
         }
       }
       )
       setCountryFilter(arrayOfCountries.sort())
-      console.log(translateCountries)
-      setCountryObject(translateCountries)
+
 
       setReducedData(lastTwoYearsData)
     }

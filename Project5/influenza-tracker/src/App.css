@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+:root {
+  --baseunit_height:6px;
+  --baseunit_width:4px;}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -44,13 +48,41 @@
 .countrygrid{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .countryCardMain{
-  width:200px;
-  height:200px;
+  width:calc(var(--baseunit_width)*50);
+  height:calc(var(--baseunit_height)*45);
+margin-top:calc(var(--baseunit_height)*3);
+margin-bottom:calc(var(--baseunit_height)*2);
+padding-top:calc(var(--baseunit_height)*3);
+padding-left: calc(var(--baseunit_width)*2);
+padding-right: calc(var(--baseunit_width)*2);
+background-color: rgb(159, 159, 159);
 
 }
 
 .weekTrend{
-  padding-top: 5%;
+  padding-top: 10%;
+  font-size: calc(var(--baseunit_height)*4);
+}
+
+.weekTrend.NoData{
+  padding-top: 10%;
+}
+
+.countryName{
+  font-size: calc(var(--baseunit_height)*4);
+  min-height: calc(var(--baseunit_height)*10);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+select{
+  width: 100%;
+}
+
+option{
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

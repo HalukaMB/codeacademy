@@ -18,29 +18,30 @@ const extraFlags={
 type CardProps = {
     countryName: string
     countryData: {}
-    countryObject:{}
 }
 
-function CountryCardMain({ countryName, countryData, countryObject }: CardProps) {
-    const arrayOfKeys = (Object.keys(countryData).sort())
+function CountryCardMain({ countryName, countryData }: CardProps) {
+    console.log(countryData)
+    const arrayOfKeys = (Object.keys(countryData["data"]).sort())
     const weekToWeekDataAvailable = ((arrayOfKeys[arrayOfKeys.length - 1] - arrayOfKeys[arrayOfKeys.length - 2]) < 2)
-    const dataLatestWeek = (countryData[arrayOfKeys[arrayOfKeys.length - 1]])
-    const dataBeforeWeek = (countryData[arrayOfKeys[arrayOfKeys.length - 2]])
+    const dataLatestWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 1]])
+    const dataBeforeWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 2]])
     const percentageLatestWeek = dataLatestWeek[2] / dataLatestWeek[3] * 100
     const percentageBeforeWeek = dataBeforeWeek[2] / dataBeforeWeek[3] * 100
 
     const trendForWeek = percentageLatestWeek - percentageBeforeWeek
 
-    let flagUrl=findFlagUrlByIso3Code(countryObject[countryName])
+    console.log(countryData)
+    let flagUrl=findFlagUrlByIso3Code(countryData["info"]["code"])
     if((flagUrl==="")||(flagUrl==="https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_the_Democratic_Republic_of_the_Congo_(3-2).svg")){
-        flagUrl=extraFlags[countryObject[countryName]]
+        flagUrl=extraFlags[countryData["info"]["code"]]
     }
 
 
     if ((weekToWeekDataAvailable) && (!isNaN(trendForWeek))) {
         return (
             <div className="countryCardMain">
-                <div>{countryName}</div>
+                <div className="countryName">{countryData["info"]["longname"].replace(/\(.+?\)/, "").replace(/\)/, "")}</div>
                 <img src={flagUrl} height="50px" />
                 {trendForWeek > 0 ?
                     <div className="weekTrend Up">
@@ -63,9 +64,9 @@ function CountryCardMain({ countryName, countryData, countryObject }: CardProps)
     } else {
         return (
             <div className="countryCardMain">
-                <div>{countryName}</div>
+                <div className="countryName">{countryData["info"]["longname"].replace(/\(.+?\)/, "").replace(/\)/, "")}</div>
                 <img src={flagUrl} height="50px" />
-                <div>Not enough data</div>
+                <div className="weekTrend NoData" height="70px">Not enough data</div>
 
             </div>)
 
