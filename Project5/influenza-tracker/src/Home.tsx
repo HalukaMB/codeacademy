@@ -5,43 +5,30 @@ import './App.css'
 import { readRemoteFile } from 'react-papaparse';
 import CountryCardMain from './CountryCardMain';
 import { useNavigate } from 'react-router';
+import SelectMenu from './SelectMenu';
 
 
 
-function Home({countryFilter, reducedData}) {
-    let navigate=useNavigate()
-    return (
-        <>
-          {Object.keys(countryFilter).length > 0 ?
-            <select
-            onChange={(event) => {console.log("hey");
-            const countryCodeSelected=(reducedData[event.target.value].info.code)
-            navigate(`/${(countryCodeSelected)}`)
+function Home({ countryFilter, reducedData }) {
 
-            }}>
+  return (
+    <>
+      <SelectMenu countryFilter={countryFilter} reducedData={reducedData}></SelectMenu>
 
-              {Object.keys(countryFilter).sort().map(element => {
-                return (<option id={countryFilter[element]} onClick={()=>console.log("hey")}>{element}</option>)
-              }
-              )}
-            </select>
-            :
-            <h1>Loading...</h1>
-          }
-                  <div className='countrygrid'>
+      <div className='countrygrid'>
 
-          {reducedData ? Object.keys(reducedData).sort().map(country => {
-            const datapackage = reducedData[country]
-            return (
-              
-              <CountryCardMain countryData={datapackage}></CountryCardMain>
-            )
-          }) :
-            <h1>Nothing</h1>
-          }
-        </div>
-        </>
-      )
+        {reducedData ? Object.keys(reducedData).sort().map(country => {
+          const datapackage = reducedData[country]
+          return (
+
+            <CountryCardMain countryData={datapackage}></CountryCardMain>
+          )
+        }) :
+          <h1>Nothing</h1>
+        }
+      </div>
+    </>
+  )
 }
 
 export default Home
