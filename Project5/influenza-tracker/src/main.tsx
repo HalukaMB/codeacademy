@@ -5,6 +5,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './Home.tsx';
 import About from './About.tsx';
+import CountryCardDetail from './CountryCardDetail.tsx';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/:countryid",
+      element: <CountryCardDetail />
   },
 ]);
 

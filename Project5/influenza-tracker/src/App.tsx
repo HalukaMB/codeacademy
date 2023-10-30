@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { readRemoteFile } from 'react-papaparse';
 import Home from './Home';
+import { createContext, useContext } from 'react';
+
 
 interface Idata {
   data: string[][];
@@ -85,7 +87,7 @@ function App() {
 function getData({ setBaseData, setCountryFilter, setReducedData }) {
   const fluNetUrl: string = "https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
   const lastYear: number = new Date().getFullYear() - 1
-  const arrayOfCountries: string[] = []
+  const objectOfCountries: Record<string, object> = {}
   const lastTwoYearsData : Record<string, object> = {}
 
 
@@ -122,8 +124,8 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
           const dataarray:number[] = [year, week, influenzaCases, allSpecimen]
 
           if (dataarray.every(e => typeof (e) === "number")) {
-            if (!arrayOfCountries.includes(country)) {
-              arrayOfCountries.push(country)
+            if (!Object.keys(objectOfCountries).includes(country)) {
+              objectOfCountries[(country)]=countryCode
 /*               const lastTwoYearsData : Record<string, object> = {}
  */
               lastTwoYearsData[country] = {"info":{},"data":{}}
@@ -134,7 +136,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
 
               lastTwoYearsData[country]["data"][yearkey] = dataarray
 
-            } if (arrayOfCountries.includes(country)) {
+            } if (Object.keys(objectOfCountries).includes(country)) {
               const yearkey:number=parseInt(year.toString() + week.toString().padStart(2, '0'))
 
               lastTwoYearsData[country]["data"][yearkey] = dataarray
@@ -143,7 +145,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
         }
       }
       )
-      setCountryFilter(arrayOfCountries.sort())
+      setCountryFilter((objectOfCountries))
 
 
       setReducedData(lastTwoYearsData)

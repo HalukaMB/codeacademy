@@ -2,6 +2,7 @@ import React from 'react'
 import { ReactComponentElement as Arrow } from 'react'
 /* https://github.com/ronatskiy/country-flags-svg#findflagurlbyiso3codeiso3code */
 import { findFlagUrlByIso3Code } from "country-flags-svg";
+import { useNavigate } from 'react-router';
 
 
 const extraFlags={
@@ -20,7 +21,7 @@ type CardProps = {
     countryData: {}
 }
 
-function CountryCardMain({ countryName, countryData }: CardProps) {
+function CountryCardMain({countryData }: CardProps) {
     console.log(countryData)
     const arrayOfKeys = (Object.keys(countryData["data"]).sort())
     const weekToWeekDataAvailable = ((arrayOfKeys[arrayOfKeys.length - 1] - arrayOfKeys[arrayOfKeys.length - 2]) < 2)
@@ -30,6 +31,7 @@ function CountryCardMain({ countryName, countryData }: CardProps) {
     const percentageBeforeWeek = dataBeforeWeek[2] / dataBeforeWeek[3] * 100
 
     const trendForWeek = percentageLatestWeek - percentageBeforeWeek
+    let navigate = useNavigate();
 
     console.log(countryData)
     let flagUrl=findFlagUrlByIso3Code(countryData["info"]["code"])
@@ -40,7 +42,9 @@ function CountryCardMain({ countryName, countryData }: CardProps) {
 
     if ((weekToWeekDataAvailable) && (!isNaN(trendForWeek))) {
         return (
-            <div className="countryCardMain">
+            <div id={countryData["info"]["code"]} className="countryCardMain" onClick={()=>{console.log(countryData["info"]["code"]);
+            navigate(`/${(countryData["info"]["code"])}`)
+            }}>
                 <div className="countryName">{countryData["info"]["longname"].replace(/\(.+?\)/, "").replace(/\)/, "")}</div>
                 <img src={flagUrl} height="50px" />
                 {trendForWeek > 0 ?
@@ -63,7 +67,9 @@ function CountryCardMain({ countryName, countryData }: CardProps) {
         )
     } else {
         return (
-            <div className="countryCardMain">
+            <div id={countryData["info"]["code"]} className="countryCardMain" onClick={()=>{console.log(countryData["info"]["code"]);
+            navigate(`/${(countryData["info"]["code"])}`)
+        }}>
                 <div className="countryName">{countryData["info"]["longname"].replace(/\(.+?\)/, "").replace(/\)/, "")}</div>
                 <img src={flagUrl} height="50px" />
                 <div className="weekTrend NoData" height="70px">Not enough data</div>
