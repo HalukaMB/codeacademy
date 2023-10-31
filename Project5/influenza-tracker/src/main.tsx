@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './Home.tsx';
 import About from './About.tsx';
 import CountryCardDetail from './CountryCardDetail.tsx';
+import { ReducedDataContextProvider } from './context/reducedDataContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,10 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
+  
   <React.StrictMode>
+    <ReducedDataContextProvider>
     <RouterProvider router={router} />
+    </ReducedDataContextProvider>
   </React.StrictMode>,
 )

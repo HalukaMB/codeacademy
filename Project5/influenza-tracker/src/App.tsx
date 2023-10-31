@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { readRemoteFile } from 'react-papaparse';
 import Home from './Home';
-import { createContext, useContext } from 'react';
 
 
 interface Idata {
@@ -70,25 +69,13 @@ export interface entry {
 
 
 
-function App() {
-  const [baseData, setBaseData] = useState<entry[]|null>(null)
-  const [countryFilter, setCountryFilter] = useState<string[]>([])
-  const [reducedData, setReducedData] = useState({})
 
-  useEffect(() => {
-    getData({ setBaseData, setCountryFilter, setReducedData })
-  }, [])
-
-  return (
-    <Home countryFilter={countryFilter} reducedData={reducedData} ></Home>
-  )
-}
 /* why are the sets bits get underlined */
 function getData({ setBaseData, setCountryFilter, setReducedData }) {
   const fluNetUrl: string = "https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
   const lastYear: number = new Date().getFullYear() - 1
   const objectOfCountries: Record<string, object> = {}
-  const lastTwoYearsData : Record<string, object> = {}
+  const lastTwoYearsData: Record<string, object> = {}
 
 
   /* https://blog.logrocket.com/working-csv-files-react-papaparse/#parsing-local-csv-files */
@@ -108,28 +95,28 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
          innerobject[yearweek]=dataarray */
 
         if ((year >= lastYear) && (sentinel == "SENTINEL")) {
-          const week:number = parseInt(element["ISO_WEEK"])
+          const week: number = parseInt(element["ISO_WEEK"])
 
-          const countryCode:string = element["COUNTRY_CODE"]
-          const country:string = element["COUNTRY_AREA_TERRITORY"]
+          const countryCode: string = element["COUNTRY_CODE"]
+          const country: string = element["COUNTRY_AREA_TERRITORY"]
 
-          
 
-          let influenzaCases:number  = element["INF_ALL"] ? element["INF_ALL"] : 0;
-          let allSpecimen:number  = element["SPEC_PROCESSED_NB"] ? element["SPEC_PROCESSED_NB"] : 0;
+
+          let influenzaCases: number = element["INF_ALL"] ? element["INF_ALL"] : 0;
+          let allSpecimen: number = element["SPEC_PROCESSED_NB"] ? element["SPEC_PROCESSED_NB"] : 0;
 
           influenzaCases = parseInt(influenzaCases)
           allSpecimen = parseInt(allSpecimen)
 
-          const dataarray:number[] = [year, week, influenzaCases, allSpecimen]
+          const dataarray: number[] = [year, week, influenzaCases, allSpecimen]
 
           if (dataarray.every(e => typeof (e) === "number")) {
             if (!Object.keys(objectOfCountries).includes(country)) {
-              objectOfCountries[(country)]=countryCode
-/*               const lastTwoYearsData : Record<string, object> = {}
- */
-              lastTwoYearsData[country] = {"info":{},"data":{}}
-              const yearkey:number=parseInt(year.toString() + week.toString().padStart(2, '0'))
+              objectOfCountries[(country)] = countryCode
+              /*               const lastTwoYearsData : Record<string, object> = {}
+               */
+              lastTwoYearsData[country] = { "info": {}, "data": {} }
+              const yearkey: number = parseInt(year.toString() + week.toString().padStart(2, '0'))
               lastTwoYearsData[country]["info"]["longname"] = country
               lastTwoYearsData[country]["info"]["code"] = countryCode
 
@@ -137,7 +124,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
               lastTwoYearsData[country]["data"][yearkey] = dataarray
 
             } if (Object.keys(objectOfCountries).includes(country)) {
-              const yearkey:number=parseInt(year.toString() + week.toString().padStart(2, '0'))
+              const yearkey: number = parseInt(year.toString() + week.toString().padStart(2, '0'))
 
               lastTwoYearsData[country]["data"][yearkey] = dataarray
             }
@@ -154,7 +141,23 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
   )
 
 };
+function App() {
+  const [baseData, setBaseData] = useState<entry[] | null>(null)
+  const [countryFilter, setCountryFilter] = useState<string[]>([])
+  const [reducedData, setReducedData] = useState({})
 
+  useEffect(() => {
+    getData({ setBaseData, setCountryFilter, setReducedData })
+  }, [])
+
+  return (
+    <>
+{/*       <reducedDataContextProvider>
+ */}        <Home countryFilter={countryFilter} reducedData={reducedData} ></Home>
+{/*       </reducedDataContextProvider>
+ */}    </>
+  )
+}
 
 
 export default App

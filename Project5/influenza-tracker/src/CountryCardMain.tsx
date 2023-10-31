@@ -22,7 +22,6 @@ type CardProps = {
 }
 
 function CountryCardMain({countryData }: CardProps) {
-    console.log(countryData)
     const arrayOfKeys = (Object.keys(countryData["data"]).sort())
     const weekToWeekDataAvailable = ((arrayOfKeys[arrayOfKeys.length - 1] - arrayOfKeys[arrayOfKeys.length - 2]) < 2)
     const dataLatestWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 1]])
@@ -33,7 +32,6 @@ function CountryCardMain({countryData }: CardProps) {
     const trendForWeek = percentageLatestWeek - percentageBeforeWeek
     let navigate = useNavigate();
 
-    console.log(countryData)
     let flagUrl=findFlagUrlByIso3Code(countryData["info"]["code"])
     if((flagUrl==="")||(flagUrl==="https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_the_Democratic_Republic_of_the_Congo_(3-2).svg")){
         flagUrl=extraFlags[countryData["info"]["code"]]
