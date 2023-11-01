@@ -23,7 +23,6 @@ const CountryCardDetail = () => {
     let flagUrl = findFlagUrlByIso3Code(params.countryid)
     let countryNameToSet=""
     Object.keys(countryFilter).map(countryName=>{
-        console.log(countryFilter[countryName])
         if (params.countryid===countryFilter[countryName]){
             countryNameToSet=countryName
         }
@@ -38,7 +37,7 @@ const CountryCardDetail = () => {
 
 
         let showData=false
-        if (countryData["data"]!==undefined){
+        if (countryData!==undefined){
             const arrayOfKeys = (Object.keys(countryData["data"]).sort())
             const dataLatestWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 1]])
             const percentageLatestWeek = dataLatestWeek[2] / dataLatestWeek[3] * 100
@@ -60,6 +59,7 @@ const CountryCardDetail = () => {
     return (
         <>        <SelectMenu countryFilter={countryFilter} ></SelectMenu>
             <div className="detailed-card-container">
+                <h1>{countryNameToSet}</h1>
                 <div className="item">
                     <img src={flagUrl} height="50px" />
                 </div>
