@@ -20,39 +20,40 @@ const CountryCardDetail = () => {
     const { reducedData, countryFilter } = useContext(ReducedDataContext)
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid)
+    let arrayOfAllDots=[]
     if ((flagUrl === "") || (flagUrl === "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_the_Democratic_Republic_of_the_Congo_(3-2).svg")) {
         flagUrl = extraFlags[countryData["info"]["code"]]
     }
 
     const countryData = reducedData[params.countryid]
 
- 
+        let showData=false
+        if (countryData["data"]!==undefined){
+            const arrayOfKeys = (Object.keys(countryData["data"]).sort())
+            const dataLatestWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 1]])
+            const percentageLatestWeek = dataLatestWeek[2] / dataLatestWeek[3] * 100
+            if (!isNaN(percentageLatestWeek)){
+                const numberOfDots: number = 49
+                const infectedDots: number = Math.round(numberOfDots * (percentageLatestWeek / 100))
+                console.log(infectedDots)
+                const arrayOfInfectedDots = Array.from(new Array(infectedDots), () => "infected");
+                const healthyDots = numberOfDots - infectedDots
+                arrayOfAllDots = Array.from(new Array(healthyDots), () => "healthy");
+                arrayOfAllDots.push(...arrayOfInfectedDots)
+                arrayOfAllDots.sort((a, b) => 0.5 - Math.random());
+                showData=true}
+        }
+       
+        
 
-        const arrayOfKeys = (Object.keys(countryData["data"]).sort())
-        const weekToWeekDataAvailable = ((arrayOfKeys[arrayOfKeys.length - 1] - arrayOfKeys[arrayOfKeys.length - 2]) < 2)
-        const dataLatestWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 1]])
-        const dataBeforeWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 2]])
-        const percentageLatestWeek = dataLatestWeek[2] / dataLatestWeek[3] * 100
-        const percentageBeforeWeek = dataBeforeWeek[2] / dataBeforeWeek[3] * 100
-
-        const trendForWeek = percentageLatestWeek - percentageBeforeWeek
-
-        const numberOfDots: number = 49
-        const infectedDots: number = Math.round(numberOfDots * (percentageLatestWeek / 100))
-        const arrayOfInfectedDots = Array.from(new Array(infectedDots), () => "infected");
-        const healthyDots = numberOfDots - infectedDots
-        const arrayOfAllDots = Array.from(new Array(healthyDots), () => "healthy");
-        arrayOfAllDots.push(...arrayOfInfectedDots)
-        arrayOfAllDots.sort((a, b) => 0.5 - Math.random());
     
-    console.log(arrayOfAllDots)
     return (
         <>        <SelectMenu countryFilter={countryFilter} ></SelectMenu>
             <div className="item-container">
                 <div className="item">
                     <img src={flagUrl} height="50px" />
                 </div>
-                {(arrayOfAllDots.length>0)
+                {(showData==true)
                 ?
                     <div className="dotGrid">
                         {arrayOfAllDots.map((element, index) => {
