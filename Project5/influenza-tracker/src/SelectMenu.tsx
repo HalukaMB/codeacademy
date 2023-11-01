@@ -9,11 +9,19 @@ const SelectMenu = ({countryFilter}) => {
 console.log(countryFilter)
 const selectFunction=(event)=>{console.log("hey")
 if((event.target.value)!=="* All Countries *"){
-    console.log("change")
-    let countryName=event.target.value
+    let countryNameSelected=event.target.value
+    let countryId=""
+    console.log(countryNameSelected)
+   Object.keys(countryFilter).map(key=>{
+    const countryNameIterated=key
+    if(countryNameSelected==countryNameIterated){
+        countryId=countryFilter[key]
+        console.log(countryId)
+    }
+}
 
-    const countryId=(countryFilter[countryName])
-    navigate(`/${countryId}`)
+   )
+   navigate(`/${countryId}`)
 }
 else{
     navigate("/")

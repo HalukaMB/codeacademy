@@ -18,14 +18,24 @@ const extraFlags = {
 const CountryCardDetail = () => {
 
     const { reducedData, countryFilter } = useContext(ReducedDataContext)
+    
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid)
+    let countryNameToSet=""
+    Object.keys(countryFilter).map(countryName=>{
+        console.log(countryFilter[countryName])
+        if (params.countryid===countryFilter[countryName]){
+            countryNameToSet=countryName
+        }
+    })
+
+    const countryData = reducedData[countryNameToSet]
+
     let arrayOfAllDots=[]
     if ((flagUrl === "") || (flagUrl === "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_the_Democratic_Republic_of_the_Congo_(3-2).svg")) {
         flagUrl = extraFlags[countryData["info"]["code"]]
     }
 
-    const countryData = reducedData[params.countryid]
 
         let showData=false
         if (countryData["data"]!==undefined){
@@ -49,7 +59,7 @@ const CountryCardDetail = () => {
     
     return (
         <>        <SelectMenu countryFilter={countryFilter} ></SelectMenu>
-            <div className="item-container">
+            <div className="detailed-card-container">
                 <div className="item">
                     <img src={flagUrl} height="50px" />
                 </div>
@@ -69,7 +79,7 @@ const CountryCardDetail = () => {
                             }
                         })}
                     </div>
-                :<div>BORING</div>
+                : <div className="weekTrend NoData" height="70px">Not enough data</div>
                 }
             </div>
 

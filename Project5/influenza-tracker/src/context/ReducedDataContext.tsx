@@ -116,18 +116,18 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
               objectOfCountries[(country)] = countryCode
               /*               const lastTwoYearsData : Record<string, object> = {}
                */
-              lastTwoYearsData[countryCode] = { "info": {}, "data": {} }
+              lastTwoYearsData[country] = { "info": {}, "data": {} }
               const yearkey: number = parseInt(year.toString() + week.toString().padStart(2, '0'))
-              lastTwoYearsData[countryCode]["info"]["longname"] = country
-              lastTwoYearsData[countryCode]["info"]["code"] = countryCode
+              lastTwoYearsData[country]["info"]["longname"] = country
+              lastTwoYearsData[country]["info"]["code"] = countryCode
 
 
-              lastTwoYearsData[countryCode]["data"][yearkey] = dataarray
+              lastTwoYearsData[country]["data"][yearkey] = dataarray
 
             } if (Object.keys(objectOfCountries).includes(country)) {
               const yearkey: number = parseInt(year.toString() + week.toString().padStart(2, '0'))
 
-              lastTwoYearsData[countryCode]["data"][yearkey] = dataarray
+              lastTwoYearsData[country]["data"][yearkey] = dataarray
             }
           }
         }
