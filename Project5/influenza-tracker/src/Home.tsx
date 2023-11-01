@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -6,22 +6,24 @@ import { readRemoteFile } from 'react-papaparse';
 import CountryCardMain from './CountryCardMain';
 import { useNavigate } from 'react-router';
 import SelectMenu from './SelectMenu';
+import { ReducedDataContext } from "./context/reducedDataContext";
 
 
 
-function Home({ countryFilter, reducedData }) {
+function Home() {
 
+  const {countryFilter, reducedData}= useContext(ReducedDataContext)
   return (
     <>
-      <SelectMenu countryFilter={countryFilter} reducedData={reducedData}></SelectMenu>
+      <SelectMenu countryFilter={countryFilter}></SelectMenu>
 
       <div className='countrygrid'>
 
-        {reducedData ? Object.keys(reducedData).sort().map(country => {
+        {reducedData ? Object.keys(reducedData).sort().map((country,index) => {
           const datapackage = reducedData[country]
           return (
 
-            <CountryCardMain countryData={datapackage}></CountryCardMain>
+            <CountryCardMain countryData={datapackage} key={index}></CountryCardMain>
           )
         }) :
           <h1>Nothing</h1>
