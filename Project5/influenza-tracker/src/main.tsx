@@ -8,11 +8,16 @@ import CountryCardDetail from './CountryCardDetail.tsx';
 import { ReducedDataContextProvider } from './context/reducedDataContext.tsx';
 import { AuthenticationContext, AuthenticationContextProvider } from './context/AuthenticationContext.tsx';
 import ProtectedRoute from './ProtectedRoute.tsx';
+import Login from './Login.tsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/about",

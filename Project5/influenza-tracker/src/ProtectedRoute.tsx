@@ -3,6 +3,7 @@ import { AuthenticationContext } from "./context/AuthenticationContext";
 import SelectMenu from "./SelectMenu";
 import LoginFeature from "./LoginFeature";
 import { ReducedDataContext } from "./context/reducedDataContext";
+import Navbar from "./Navbar";
 
 function ProtectedRoute({ children }) {
   const { user } = useContext(AuthenticationContext);
@@ -10,8 +11,7 @@ function ProtectedRoute({ children }) {
 
   return <>{user ? children :
     <div>
-      <SelectMenu countryFilter={countryFilter}></SelectMenu>
-    <LoginFeature></LoginFeature>
+                <Navbar></Navbar>
   <p>You need to log in to view this page</p>
   </div>
   }</>;

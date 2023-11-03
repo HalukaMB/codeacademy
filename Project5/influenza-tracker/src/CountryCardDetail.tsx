@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { ReducedDataContext } from "./context/reducedDataContext";
 import SelectMenu from "./SelectMenu";
 import { findFlagUrlByIso3Code } from "country-flags-svg";
+import Navbar from "./Navbar";
 const extraFlags = {
     "X09": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Flag_of_England.svg/2560px-Flag_of_England.svg.png",
     "X10": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Flag_of_Wales.svg/2560px-Flag_of_Wales.svg.png",
@@ -57,7 +58,9 @@ const CountryCardDetail = () => {
 
     
     return (
-        <>        <SelectMenu countryFilter={countryFilter} ></SelectMenu>
+        <>
+        <Navbar></Navbar>
+        <SelectMenu countryFilter={countryFilter} ></SelectMenu>
             <div className="detailed-card-container">
                 <h1>{countryNameToSet}</h1>
                 <div className="item">

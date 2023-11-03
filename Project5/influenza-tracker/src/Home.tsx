@@ -5,31 +5,18 @@ import SelectMenu from './SelectMenu';
 import { ReducedDataContext } from "./context/reducedDataContext";
 import LoginFeature from './LoginFeature';
 import { NavLink } from "react-router-dom";
+import Navbar from './Navbar';
 
 
 function Home() {
 
-  const {countryFilter, reducedData}= useContext(ReducedDataContext)
+  const { countryFilter, reducedData } = useContext(ReducedDataContext)
   return (
-    <><NavLink
-    to="/"
-    className={({ isActive, isPending }) =>{console.log(isActive)}
-    }
-  >
-    HOME
-  </NavLink>;
-  <NavLink
-    to="/About"
-    className={({ isActive, isPending }) =>{console.log("are we on about?",isActive)}
-    }
-  >
-    HOME
-  </NavLink>
+    <><Navbar></Navbar>
       <SelectMenu countryFilter={countryFilter}></SelectMenu>
-      <LoginFeature></LoginFeature>
       <div className='countrygrid'>
 
-        {reducedData ? Object.keys(reducedData).sort().map((country,index) => {
+        {reducedData ? Object.keys(reducedData).sort().map((country, index) => {
           const datapackage = reducedData[country]
           return (
 

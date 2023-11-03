@@ -1,14 +1,15 @@
 
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  width: 100%;
+
 }
 
 :root {
   --baseunit_height:6px;
-  --baseunit_width:4px;}
+  --baseunit_width:4px;
+}
 
 .logo {
   height: 6em;
@@ -42,7 +43,18 @@ body{
     animation: logo-spin infinite 20s linear;
   }
 }
-
+.navBar{
+  display: flex;
+  justify-content: space-between;
+  padding-top: calc(var(--baseunit_height)*3);
+  padding-bottom: calc(var(--baseunit_height)*3);
+  padding-left: calc(var(--baseunit_width)*3);
+  padding-right: calc(var(--baseunit_width)*3);
+  background-color: slategrey;
+}
+.menuBlocks > a{
+  color:orange
+}
 .card {
   padding: 2em;
 }
@@ -86,7 +98,11 @@ background-color: rgb(159, 159, 159);
   line-height: 1;
 }
 select{
-  width: 100%;
+
+  margin-top: calc(var(--baseunit_height)*3);
+  margin-bottom: calc(var(--baseunit_height)*3);
+
+  width: 80%;
 }
 
 option{

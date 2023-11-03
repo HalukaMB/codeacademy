@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { readRemoteFile } from 'react-papaparse';
+import { CountryFilterType } from '../types/typedefinitions';
 export const ReducedDataContext = createContext({});
 
 /* Move the datawrangling to here */
@@ -136,12 +137,17 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
   )
 };
 
+interface HookReturn {
+countryFilter: CountryFilterType;
+reducedData: object
+}
 
-export const useFetchAndWrangle = () => {
+
+export const useFetchAndWrangle = (): HookReturn => {
   console.log("hook called")
 
     const [baseData, setBaseData] = useState<entry[] | null>(null)
-    const [countryFilter, setCountryFilter] = useState<string[]>([])
+    const [countryFilter, setCountryFilter] = useState<CountryFilterType>({})
     const [reducedData, setReducedData] = useState({})
 
     useEffect(() => {
