@@ -6,7 +6,7 @@ export const ReducedDataContext = createContext({});
 
 /* Move the datawrangling to here */
 
-interface Idata {
+/* interface Idata {
   data: string[][];
   errors: any;
   meta: {
@@ -72,7 +72,6 @@ export interface entry {
 
 
 
-/* why are the sets bits get underlined */
 function getData({ setBaseData, setCountryFilter, setReducedData }) {
   const fluNetUrl: string = "https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
   const lastYear: number = new Date().getFullYear() - 1
@@ -80,7 +79,6 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
   const lastTwoYearsData: Record<string, object> = {}
 
 
-  /* https://blog.logrocket.com/working-csv-files-react-papaparse/#parsing-local-csv-files */
   readRemoteFile(fluNetUrl, {
     header: true,
     worker: true,
@@ -93,8 +91,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
 
 
         const sentinel = element["ORIGIN_SOURCE"]
-        /*  const innerobject={}
-         innerobject[yearweek]=dataarray */
+
 
         if ((year >= lastYear) && (sentinel == "SENTINEL")) {
           const week: number = parseInt(element["ISO_WEEK"])
@@ -115,8 +112,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
           if (dataarray.every(e => typeof (e) === "number")) {
             if (!Object.keys(objectOfCountries).includes(country)) {
               objectOfCountries[(country)] = countryCode
-              /*               const lastTwoYearsData : Record<string, object> = {}
-               */
+
               lastTwoYearsData[country] = { "info": {}, "data": {} }
               const yearkey: number = parseInt(year.toString() + week.toString().padStart(2, '0'))
               lastTwoYearsData[country]["info"]["longname"] = country
@@ -141,7 +137,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
     }
   }
   )
-};
+}; */
 
 
 export const ReducedDataContextProvider = (props: Props) => {
@@ -151,15 +147,7 @@ export const ReducedDataContextProvider = (props: Props) => {
 /*   const test=useFetchAndWrangle()
   console.log(test)
  */
-
-
-    const [baseData, setBaseData] = useState<entry[] | null>(null)
-  const [countryFilter, setCountryFilter] = useState<string[]>([])
-  const [reducedData, setReducedData] = useState({})
-
-  useEffect(() => {
-    getData({ setBaseData, setCountryFilter, setReducedData })
-  }, [])
+  const {reducedData, countryFilter} =useFetchAndWrangle()
 
 
   return (
