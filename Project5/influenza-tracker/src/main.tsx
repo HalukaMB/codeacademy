@@ -6,6 +6,8 @@ import Home from './Home.tsx';
 import About from './About.tsx';
 import CountryCardDetail from './CountryCardDetail.tsx';
 import { ReducedDataContextProvider } from './context/reducedDataContext.tsx';
+import { AuthenticationContext, AuthenticationContextProvider } from './context/AuthenticationContext.tsx';
+import ProtectedRoute from './ProtectedRoute.tsx';
 
 const router = createBrowserRouter([
   {
@@ -18,15 +20,22 @@ const router = createBrowserRouter([
   },
   {
     path: "/:countryid",
-      element: <CountryCardDetail />
+    
+      element: 
+      <ProtectedRoute>
+      <CountryCardDetail />
+      </ProtectedRoute>
+
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   
   <React.StrictMode>
+    <AuthenticationContextProvider>
     <ReducedDataContextProvider>
     <RouterProvider router={router} />
     </ReducedDataContextProvider>
+    </AuthenticationContextProvider>
   </React.StrictMode>,
 )

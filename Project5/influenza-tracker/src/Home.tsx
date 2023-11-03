@@ -7,6 +7,8 @@ import CountryCardMain from './CountryCardMain';
 import { useNavigate } from 'react-router';
 import SelectMenu from './SelectMenu';
 import { ReducedDataContext } from "./context/reducedDataContext";
+import { AuthenticationContext } from './context/AuthenticationContext';
+import LoginFeature from './LoginFeature';
 
 
 
@@ -16,7 +18,7 @@ function Home() {
   return (
     <>
       <SelectMenu countryFilter={countryFilter}></SelectMenu>
-
+      <LoginFeature></LoginFeature>
       <div className='countrygrid'>
 
         {reducedData ? Object.keys(reducedData).sort().map((country,index) => {

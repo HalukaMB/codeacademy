@@ -1,7 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { readRemoteFile } from 'react-papaparse';
-import { useFetchAndWrangle } from '../hooks/useFetchAndWrangle';
-
 export const ReducedDataContext = createContext({});
 
 /* Move the datawrangling to here */
@@ -79,7 +77,6 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
   const objectOfCountries: Record<string, object> = {}
   const lastTwoYearsData: Record<string, object> = {}
 
-
   /* https://blog.logrocket.com/working-csv-files-react-papaparse/#parsing-local-csv-files */
   readRemoteFile(fluNetUrl, {
     header: true,
@@ -88,21 +85,18 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
     complete: (results: Idata) => {
       console.log(results.data)
       setBaseData(results.data)
-      results.data.map((element) => {
+      results.data.map((element: entry) => {
         const year = parseInt(element["ISO_YEAR"])
 
 
         const sentinel = element["ORIGIN_SOURCE"]
-        /*  const innerobject={}
-         innerobject[yearweek]=dataarray */
+
 
         if ((year >= lastYear) && (sentinel == "SENTINEL")) {
           const week: number = parseInt(element["ISO_WEEK"])
 
           const countryCode: string = element["COUNTRY_CODE"]
           const country: string = element["COUNTRY_AREA_TERRITORY"]
-
-
 
           let influenzaCases: number = element["INF_ALL"] ? element["INF_ALL"] : 0;
           let allSpecimen: number = element["SPEC_PROCESSED_NB"] ? element["SPEC_PROCESSED_NB"] : 0;
@@ -115,8 +109,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
           if (dataarray.every(e => typeof (e) === "number")) {
             if (!Object.keys(objectOfCountries).includes(country)) {
               objectOfCountries[(country)] = countryCode
-              /*               const lastTwoYearsData : Record<string, object> = {}
-               */
+
               lastTwoYearsData[country] = { "info": {}, "data": {} }
               const yearkey: number = parseInt(year.toString() + week.toString().padStart(2, '0'))
               lastTwoYearsData[country]["info"]["longname"] = country
@@ -144,27 +137,18 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
 };
 
 
-export const ReducedDataContextProvider = (props: Props) => {
-
-/*     const [reducedData, setReducedData] = useState<{}>("hello");
- */
-/*   const test=useFetchAndWrangle()
-  console.log(test)
- */
-
+export const useFetchAndWrangle = () => {
+  console.log("hook called")
 
     const [baseData, setBaseData] = useState<entry[] | null>(null)
-  const [countryFilter, setCountryFilter] = useState<string[]>([])
-  const [reducedData, setReducedData] = useState({})
+    const [countryFilter, setCountryFilter] = useState<string[]>([])
+    const [reducedData, setReducedData] = useState({})
 
-  useEffect(() => {
-    getData({ setBaseData, setCountryFilter, setReducedData })
-  }, [])
+    useEffect(() => {
+        getData({ setBaseData, setCountryFilter, setReducedData })
+    }, [])
 
 
-  return (
-    <ReducedDataContext.Provider value={{reducedData, countryFilter}}>
-            {props.children}
-    </ReducedDataContext.Provider>
-  )
+    return { reducedData, countryFilter };
+
 }
