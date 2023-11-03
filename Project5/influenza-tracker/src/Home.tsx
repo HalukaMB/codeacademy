@@ -1,22 +1,30 @@
-import { useContext, useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useContext } from 'react'
 import './App.css'
-import { readRemoteFile } from 'react-papaparse';
 import CountryCardMain from './CountryCardMain';
-import { useNavigate } from 'react-router';
 import SelectMenu from './SelectMenu';
 import { ReducedDataContext } from "./context/reducedDataContext";
-import { AuthenticationContext } from './context/AuthenticationContext';
 import LoginFeature from './LoginFeature';
-
+import { NavLink } from "react-router-dom";
 
 
 function Home() {
 
   const {countryFilter, reducedData}= useContext(ReducedDataContext)
   return (
-    <>
+    <><NavLink
+    to="/"
+    className={({ isActive, isPending }) =>{console.log(isActive)}
+    }
+  >
+    HOME
+  </NavLink>;
+  <NavLink
+    to="/About"
+    className={({ isActive, isPending }) =>{console.log("are we on about?",isActive)}
+    }
+  >
+    HOME
+  </NavLink>
       <SelectMenu countryFilter={countryFilter}></SelectMenu>
       <LoginFeature></LoginFeature>
       <div className='countrygrid'>
