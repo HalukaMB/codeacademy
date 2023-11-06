@@ -6,6 +6,7 @@ import { ReducedDataContext } from "./context/reducedDataContext";
 import LoginFeature from './LoginFeature';
 import { NavLink } from "react-router-dom";
 import Navbar from './Navbar';
+import StillLoading from './StillLoading';
 
 
 function Home() {
@@ -16,14 +17,14 @@ function Home() {
       <SelectMenu countryFilter={countryFilter}></SelectMenu>
       <div className='countrygrid'>
 
-        {reducedData ? Object.keys(reducedData).sort().map((country, index) => {
+        {Object.keys(reducedData).length>0 ? Object.keys(reducedData).sort().map((country, index) => {
           const datapackage = reducedData[country]
           return (
 
             <CountryCardMain countryData={datapackage} key={index}></CountryCardMain>
           )
         }) :
-          <h1>Nothing</h1>
+        <StillLoading></StillLoading>
         }
       </div>
     </>

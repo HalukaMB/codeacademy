@@ -4,6 +4,7 @@ import SelectMenu from "./SelectMenu";
 import LoginFeature from "./LoginFeature";
 import { ReducedDataContext } from "./context/reducedDataContext";
 import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
   const { user } = useContext(AuthenticationContext);
@@ -12,7 +13,7 @@ function ProtectedRoute({ children }) {
   return <>{user ? children :
     <div>
                 <Navbar></Navbar>
-  <p>You need to log in to view this page</p>
+  <p>You need to <Link to="/login"> log in </Link> to view this page</p>
   </div>
   }</>;
 }
