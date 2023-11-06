@@ -31,12 +31,14 @@ const CountryCardDetail = () => {
 
     const countryData = reducedData[countryNameToSet]
 
-    let arrayOfAllDots=[]
+
     if ((flagUrl === "") || (flagUrl === "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_the_Democratic_Republic_of_the_Congo_(3-2).svg")) {
         flagUrl = extraFlags[countryData["info"]["code"]]
     }
 
-
+        let arrayOfAllDots=[]
+        let matrixOfAllDots=[]
+        let objectOfInfectedDots={}
         let showData=false
         if (countryData!==undefined){
             const arrayOfKeys = (Object.keys(countryData["data"]).sort())
@@ -45,13 +47,37 @@ const CountryCardDetail = () => {
             if (!isNaN(percentageLatestWeek)){
                 const numberOfDots: number = 49
                 const infectedDots: number = Math.round(numberOfDots * (percentageLatestWeek / 100))
-                console.log(infectedDots)
                 const arrayOfInfectedDots = Array.from(new Array(infectedDots), () => "infected");
                 const healthyDots = numberOfDots - infectedDots
                 arrayOfAllDots = Array.from(new Array(healthyDots), () => "healthy");
                 arrayOfAllDots.push(...arrayOfInfectedDots)
                 arrayOfAllDots.sort((a, b) => 0.5 - Math.random());
-                showData=true}
+                showData=true
+                let row:[string]=[]
+
+                arrayOfAllDots.map((dot: string, i: number)=>{
+                row.push(dot)
+                console.log(i)
+                const remainderColumnIndex=i%7
+                const rowIndex=Math.floor(i/7)
+                if(dot=="infected"){
+                    objectOfInfectedDots[rowIndex]=remainderColumnIndex
+                }
+
+                if(((i+1)%7)==0){
+                    matrixOfAllDots.push(row)
+                    row=[]
+                }
+
+                console.log(dot)
+                console.log(matrixOfAllDots)
+                console.log(objectOfInfectedDots)
+
+            }
+
+                )
+                
+            }
         }
        
         
@@ -62,7 +88,7 @@ const CountryCardDetail = () => {
         <Navbar></Navbar>
         <SelectMenu countryFilter={countryFilter} ></SelectMenu>
             <div className="detailed-card-container">
-                <h1>{countryNameToSet}</h1>
+                <h1>{countryNameToSet.replace(/\(.+?\)/, "").replace(/\)/, "")}</h1>
                 <div className="item">
                     <img src={flagUrl} height="50px" />
                 </div>

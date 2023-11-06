@@ -1,8 +1,14 @@
+@font-face {
+  font-family: "general-fonts";
+  src: url(fonts/Gabarito-Medium.ttf);
+}
+
 
 #root {
   margin: 0 auto;
   text-align: center;
   width: 100%;
+  font-family: 'general-fonts';
 
 }
 
@@ -88,14 +94,17 @@ background-color: rgb(159, 159, 159);
 }
 
 .weekTrend.NoData{
-  padding-top: 10%;
+  padding-top: 20%;
+  color:dimgray
 }
 
 .countryName{
-  font-size: calc(var(--baseunit_height)*4);
-  min-height: calc(var(--baseunit_height)*10);
+  font-size: calc(var(--baseunit_height)*5);
+  min-height: calc(var(--baseunit_height)*12);
   letter-spacing: -1px;
   line-height: 1;
+}
+.flag{
 }
 select{
 
@@ -120,12 +129,17 @@ button{
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding-top: 10px;
+  padding-top: calc(var(--baseunit_height)*2);
+  margin-left: calc(var(--baseunit_width)*10);
+  margin-right: calc(var(--baseunit_width)*10);
+  background-color: rgb(159, 159, 159);
+min-height: calc(var(--baseunit_height)*90);
+
 
 }
 
 .dotGrid{
-  padding-top: 10px;
+  padding-top: calc(var(--baseunit_height)*2);
   display: grid;
   grid-template-columns: repeat(7, 20px);
   grid-template-rows: repeat(7, 20px);

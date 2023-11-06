@@ -11,7 +11,6 @@ const selectFunction=(event)=>{console.log("hey")
 if((event.target.value)!=="* All Countries *"){
     let countryNameSelected=event.target.value
     let countryId=""
-    console.log(countryNameSelected)
    Object.keys(countryFilter).map(key=>{
     const countryNameIterated=key
     if(countryNameSelected==countryNameIterated){

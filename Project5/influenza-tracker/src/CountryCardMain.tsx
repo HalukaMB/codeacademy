@@ -17,7 +17,6 @@ const extraFlags={
 }
 
 type CardProps = {
-    countryName: string
     countryData: {}
 }
 
@@ -69,7 +68,7 @@ function CountryCardMain({countryData }: CardProps) {
             navigate(`/${(countryData["info"]["code"])}`)
         }}>
                 <div className="countryName">{countryData["info"]["longname"].replace(/\(.+?\)/, "").replace(/\)/, "")}</div>
-                <img src={flagUrl} height="50px" />
+                <img className="flag" src={flagUrl} height="50px" />
                 <div className="weekTrend NoData" height="70px">Not enough data</div>
 
             </div>)

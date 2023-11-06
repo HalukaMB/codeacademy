@@ -3,8 +3,6 @@ import './App.css'
 import CountryCardMain from './CountryCardMain';
 import SelectMenu from './SelectMenu';
 import { ReducedDataContext } from "./context/reducedDataContext";
-import LoginFeature from './LoginFeature';
-import { NavLink } from "react-router-dom";
 import Navbar from './Navbar';
 import StillLoading from './StillLoading';
 
