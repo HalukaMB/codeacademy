@@ -1,6 +1,8 @@
+import { User, createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { createContext, useState } from 'react'
+import { auth } from '../settings/firebaseConfig';
+import { Navigate } from 'react-router';
 
-type User = boolean;
 
 type Props = {
     children: ReactNode;
@@ -8,7 +10,7 @@ type Props = {
 
 interface AuthenticationContextType {
     user: User | "No provider";
-    login: () => void;
+    signup: () => void;
     logout: () => void;  }
 
 const defaultValue:AuthenticationContextType = {
@@ -25,17 +27,36 @@ export const AuthenticationContext = createContext(defaultValue);
 
 
 export const AuthenticationContextProvider = (props: Props) => {
-    const [user, setUser] = useState<User>(false);
-    const login = () => {
-        setUser(true);
-      };
-    
-      const logout = () => {
-        setUser(false);
-      };
+    const [user, setUser] = useState<User|null>(null);
+    const signin = (email: string, password: string) => {
+      // signin logic goes here
+      
+      console.log("Signin called with:", email, password);
+      // After successful signin, logic that handles our return goes here
+    };
+  
+    const signup = (email: string, password: string) => {
+      // signup logic goes here
+      createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed up
+      const user = userCredential.user;
+      console.log("user :>> ", user);
+      setUser(user);
+      // ...
+    })
+    ;
+      console.log("Signup called with:", email, password);
+Navigate("/")    };
+  
+    const logout = () => {
+      // logout logic here
+      // refactor when we are dealing with a real authentication provider
+      setUser(null);
+    };
 
     return(
-        <AuthenticationContext.Provider value={{user, login, logout}}>
+        <AuthenticationContext.Provider value={{ user, signin, signup, logout }}>
             {props.children}
         </AuthenticationContext.Provider>
     )

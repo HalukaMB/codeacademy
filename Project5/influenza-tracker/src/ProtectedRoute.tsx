@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 function ProtectedRoute({ children }) {
   const { user } = useContext(AuthenticationContext);
   const {countryFilter, reducedData}= useContext(ReducedDataContext)
-
-  return <>{user ? children :
+  console.log(user)
+  return <>{(user!=null) ? children :
     <div>
                 <Navbar></Navbar>
   <p>You need to <Link to="/login"> log in </Link> to view this page</p>
