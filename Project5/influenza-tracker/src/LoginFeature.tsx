@@ -31,7 +31,7 @@ const LoginFeature = () => {
     
       useEffect(() => {
         if (user) {
-          navigate("/account");
+          navigate("/Logout");
         }
       }, [user, navigate]);
 

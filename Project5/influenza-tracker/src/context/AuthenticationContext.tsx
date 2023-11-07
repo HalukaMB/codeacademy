@@ -47,7 +47,7 @@ export const AuthenticationContextProvider = (props: Props) => {
     })
     ;
       console.log("Signup called with:", email, password);
-Navigate("/")    };
+  };
   
     const logout = () => {
       // logout logic here

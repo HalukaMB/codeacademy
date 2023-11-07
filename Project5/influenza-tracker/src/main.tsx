@@ -9,6 +9,7 @@ import { ReducedDataContextProvider } from './context/reducedDataContext.tsx';
 import { AuthenticationContext, AuthenticationContextProvider } from './context/AuthenticationContext.tsx';
 import ProtectedRoute from './ProtectedRoute.tsx';
 import Login from './Login.tsx';
+import Logout from './Logout.tsx';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   },
   {
     path: "/about",
