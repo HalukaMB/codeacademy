@@ -126,10 +126,58 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
             }
           }
         }
-      }
-      )
+      })
+
+
+
+
+
+
+
+
       setCountryFilter((objectOfCountries))
 
+      Object.keys(lastTwoYearsData).map(country=>{
+        console.log(lastTwoYearsData[country]["data"])
+        let matrixOfAllDots=[]
+        let objectOfInfectedDots={}
+        let showData=false
+        if (lastTwoYearsData[country]["data"]!==undefined){
+
+        const arrayOfKeys = (Object.keys(lastTwoYearsData[country]["data"]).sort())
+
+        const dataLatestWeek = (lastTwoYearsData[country]["data"][arrayOfKeys[arrayOfKeys.length - 1]])
+        const percentageLatestWeek = dataLatestWeek[2] / dataLatestWeek[3] * 100
+        if (!isNaN(percentageLatestWeek)&&(percentageLatestWeek!==Infinity)){
+            const numberOfDots: number = 49
+
+            const infectedDots: number = Math.round(numberOfDots * (percentageLatestWeek / 100))
+            const arrayOfInfectedDots = Array.from(new Array(infectedDots), () => "infected");
+            const healthyDots = numberOfDots - infectedDots
+            const arrayOfAllDots = Array.from(new Array(healthyDots), () => "healthy");
+            arrayOfAllDots.push(...arrayOfInfectedDots)
+            arrayOfAllDots.sort((a, b) => 0.5 - Math.random());
+            showData=true
+            let row:[string]=[]
+
+            arrayOfAllDots.map((dot: string, i: number)=>{
+            row.push(dot)
+            const remainderColumnIndex=i%7
+            const rowIndex=Math.floor(i/7)
+            if(dot=="infected"){
+                objectOfInfectedDots[rowIndex]=remainderColumnIndex
+            }
+
+            if(((i+1)%7)==0){
+                matrixOfAllDots.push(row)
+                row=[]
+            }
+            })
+          }
+          lastTwoYearsData[country]["matrixDots"]=matrixOfAllDots
+          lastTwoYearsData[country]["objectInfected"]=objectOfInfectedDots
+        }
+        })
 
       setReducedData(lastTwoYearsData)
     }
@@ -138,23 +186,23 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
 };
 
 interface HookReturn {
-countryFilter: CountryFilterType;
-reducedData: object
+  countryFilter: CountryFilterType;
+  reducedData: object
 }
 
 
 export const useFetchAndWrangle = (): HookReturn => {
   console.log("hook called")
 
-    const [baseData, setBaseData] = useState<entry[] | null>(null)
-    const [countryFilter, setCountryFilter] = useState<CountryFilterType>({})
-    const [reducedData, setReducedData] = useState({})
+  const [baseData, setBaseData] = useState<entry[] | null>(null)
+  const [countryFilter, setCountryFilter] = useState<CountryFilterType>({})
+  const [reducedData, setReducedData] = useState({})
 
-    useEffect(() => {
-        getData({ setBaseData, setCountryFilter, setReducedData })
-    }, [])
+  useEffect(() => {
+    getData({ setBaseData, setCountryFilter, setReducedData })
+  }, [])
 
 
-    return { reducedData, countryFilter };
+  return { reducedData, countryFilter };
 
 }
