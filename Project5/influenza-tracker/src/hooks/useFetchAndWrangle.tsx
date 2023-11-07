@@ -84,7 +84,6 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
     worker: true,
     download: true,
     complete: (results: Idata) => {
-      console.log(results.data)
       setBaseData(results.data)
       results.data.map((element: entry) => {
         const year = parseInt(element["ISO_YEAR"])
@@ -128,17 +127,9 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
         }
       })
 
-
-
-
-
-
-
-
       setCountryFilter((objectOfCountries))
 
       Object.keys(lastTwoYearsData).map(country=>{
-        console.log(lastTwoYearsData[country]["data"])
         let matrixOfAllDots=[]
         let objectOfInfectedDots={}
         let showData=false
