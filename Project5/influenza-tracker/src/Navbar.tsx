@@ -6,11 +6,11 @@ const Navbar = props => {
     <div className="navBar">
         <div className="menuBlocks">
           <NavLink
-            to="/Login"
+            to="/Signup"
             className={({ isActive, isPending }) => { console.log(isActive) }
             }
           >
-            Login
+            Signup
           </NavLink>
         </div>
         <div className="menuBlocks">

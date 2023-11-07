@@ -5,16 +5,13 @@ import { useNavigate } from 'react-router';
 
 
 const LoginFeature = () => {
-    const { user, signin, logout } = useContext(AuthenticationContext);
+    const { user, login, logout } = useContext(AuthenticationContext);
     const navigate = useNavigate();
     const authenticationContext=useContext(AuthenticationContext)
     console.log("authenticationContext :>> ", authenticationContext);
     const userstate=authenticationContext.user
 
-    const validatePassword = (password: string, repeatPassword: string) => {
-        return password === repeatPassword;
-      };
-    
+
 
     const changeStatus=()=>{
         console.log("status checked: ",user)
@@ -24,6 +21,7 @@ const LoginFeature = () => {
         }
         if(user!=null){
             authenticationContext.logout()
+            navigate("/signup");
         }
     }
     

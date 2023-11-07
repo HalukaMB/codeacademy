@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthenticationContext } from './context/AuthenticationContext'
 import { useNavigate } from 'react-router';
+import Login from './Login';
 
 
 
-const LoginFeature = () => {
-    const { user, signup } = useContext(AuthenticationContext);
+const SignUpFeature = () => {
+    const { user, signup, login } = useContext(AuthenticationContext);
     const navigate = useNavigate();
     const authenticationContext=useContext(AuthenticationContext)
     console.log("authenticationContext :>> ", authenticationContext);
@@ -35,6 +36,19 @@ const LoginFeature = () => {
         }
       }, [user, navigate]);
 
+
+      const handleLogIn = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        login(email, password);
+
+      };
+    
+      useEffect(() => {
+        if (user) {
+          navigate("/logout");
+        }
+      }, [user, navigate]);
+
       const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
       };
@@ -50,23 +64,13 @@ const LoginFeature = () => {
       };
     
 
-    const changeStatus=()=>{
-        console.log("status checked: ",user)
-
-        if(user==false){
-            authenticationContext.signup()
-        }
-        if(user==true){
-            authenticationContext.logout()
-        }
-    }
-    
+   
     console.log(user)
   return (
     <>
     <div>Here is the current state: {String(authenticationContext.user)} </div>
 
-
+<div className="signUpForm">
 <form onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
         <input
@@ -98,8 +102,34 @@ const LoginFeature = () => {
           Sign Up
         </button>
       </form>
+      </div>
+      <div className="logInForm">
+<form onSubmit={handleLogIn}>
+        <h1>Log In</h1>
+        <input
+          type="email"
+          className="form-control"
+          id="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={handleEmailChange}
+        />
+        <input
+          type="password"
+          className="form-control"
+          id="password"
+          placeholder="Password"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+
+        <button type="submit" className="btn btn-primary">
+          Log In
+        </button>
+      </form>
+      </div>
     </>
   )
 }
 
-export default LoginFeature
+export default SignUpFeature

@@ -10,6 +10,8 @@ import { AuthenticationContext, AuthenticationContextProvider } from './context/
 import ProtectedRoute from './ProtectedRoute.tsx';
 import Login from './Login.tsx';
 import Logout from './Logout.tsx';
+import SignUpFeature from './SignUpFeature.tsx';
+import SignUp from './SignUp.tsx';
 
 const router = createBrowserRouter([
   {
@@ -17,8 +19,8 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/login",
-    element: <Login />,
+    path: "/signup",
+    element: <SignUp />,
   },
   {
     path: "/logout",
