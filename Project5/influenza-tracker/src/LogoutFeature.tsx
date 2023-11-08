@@ -31,7 +31,7 @@ const LoginFeature = () => {
     <div>Here is the current state: {String(authenticationContext.user)} </div>
     <button onClick={()=>{console.log("CLICKED");
     changeStatus()}
-}>Change Status</button>
+}>Log Out</button>
 
     </>
   )

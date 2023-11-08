@@ -19,12 +19,12 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/signup",
-    element: <SignUp />,
-  },
-  {
     path: "/logout",
     element: <Logout />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/about",

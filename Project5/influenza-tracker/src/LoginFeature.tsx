@@ -3,9 +3,9 @@ import { AuthenticationContext } from './context/AuthenticationContext'
 import { useNavigate } from 'react-router';
 
 
-
+type loginOrSignUpType = 'signup' | 'login';
 const LoginFeature = () => {
-    const { user, signup } = useContext(AuthenticationContext);
+    const { user, signup, login } = useContext(AuthenticationContext);
     const navigate = useNavigate();
     const authenticationContext=useContext(AuthenticationContext)
     console.log("authenticationContext :>> ", authenticationContext);
@@ -13,6 +13,9 @@ const LoginFeature = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
+    const [loginOrSignUp, setLoginOrSignUp] = useState<loginOrSignUpType>("login")
+    
+    console.log(loginOrSignUp)
 
     const validatePassword = (password: string, repeatPassword: string) => {
         return password === repeatPassword;
@@ -20,6 +23,8 @@ const LoginFeature = () => {
     
       const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log("triggered")
+        if(loginOrSignUp==="signup"){
         const validPassword = validatePassword(password, repeatPassword);
         if (validPassword) {
           console.log("Attempting to sign up with: ", email, password);
@@ -27,6 +32,12 @@ const LoginFeature = () => {
         } else {
           console.log("Passwords do not match");
         }
+      }
+      if(loginOrSignUp==="login"){
+        login(email, password);
+
+      }
+
       };
     
       useEffect(() => {
@@ -62,13 +73,21 @@ const LoginFeature = () => {
     }
     
     console.log(user)
+    const handleFormToggle=()=>{if(loginOrSignUp=="login"){setLoginOrSignUp("signup")}
+  if(loginOrSignUp=="signup"){setLoginOrSignUp("login")} }
   return (
     <>
     <div>Here is the current state: {String(authenticationContext.user)} </div>
 
 
+{loginOrSignUp=="signup"?
+<div className="signUpForm">
+<h1>Sign Up</h1>
+<button onClick={handleFormToggle}>Switch to Log In</button>
+
+
 <form onSubmit={handleSubmit}>
-        <h1>Sign Up</h1>
+
         <input
           type="email"
           className="form-control"
@@ -97,7 +116,40 @@ const LoginFeature = () => {
         <button type="submit" className="btn btn-primary">
           Sign Up
         </button>
-      </form>
+        </form>
+        </div>
+        
+        :
+        
+        <div>
+        <form onSubmit={handleSubmit}>
+
+        <h1>Log In</h1>
+        <button onClick={handleFormToggle}>Switch to Sign Up</button>
+
+        <input
+          type="email"
+          className="form-control"
+          id="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={handleEmailChange}
+        />
+        <input
+          type="password"
+          className="form-control"
+          id="password"
+          placeholder="Password"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+        <button type="submit" className="btn btn-primary">
+          Log In
+        </button>
+        </form>
+        </div>
+        
+  }
     </>
   )
 }
