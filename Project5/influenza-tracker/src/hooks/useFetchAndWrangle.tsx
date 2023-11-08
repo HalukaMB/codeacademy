@@ -67,7 +67,10 @@ export interface entry {
   MMWRYW: number
 }
 
-
+interface HookReturn {
+  countryFilter: CountryFilterType;
+  reducedData: object
+}
 
 
 
@@ -85,7 +88,7 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
     download: true,
     complete: (results: Idata) => {
       setBaseData(results.data)
-      results.data.map((element: entry) => {
+      results.data.map((element:entry) => {
         const year = parseInt(element["ISO_YEAR"])
 
 
@@ -176,15 +179,11 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
   )
 };
 
-interface HookReturn {
-  countryFilter: CountryFilterType;
-  reducedData: object
-}
+
 
 
 export const useFetchAndWrangle = (): HookReturn => {
   console.log("hook called")
-
   const [baseData, setBaseData] = useState<entry[] | null>(null)
   const [countryFilter, setCountryFilter] = useState<CountryFilterType>({})
   const [reducedData, setReducedData] = useState({})

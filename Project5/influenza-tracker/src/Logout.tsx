@@ -1,4 +1,3 @@
-import React from 'react'
 import LogoutFeature from './LogoutFeature'
 import Navbar from './Navbar'
 

@@ -1,7 +1,6 @@
 import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { createContext, useState } from 'react'
 import { auth } from '../settings/firebaseConfig';
-import { Navigate } from 'react-router';
 
 
 type Props = {
@@ -9,13 +8,13 @@ type Props = {
   };
 
 interface AuthenticationContextType {
-    user: User | "No provider";
+    user: User | null;
     signup: (email: string, password: string) => void;
     logout: () => void; 
     login: (email: string, password: string) => void;  }
 
 const defaultValue:AuthenticationContextType = {
-    user: "No provider",
+    user: null,
   signup: () => {
     throw Error("No provider");
   },
@@ -48,9 +47,9 @@ export const AuthenticationContextProvider = (props: Props) => {
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+    console.log("error>>", errorCode, ":", errorMessage)
   });
 
-      console.log("Signin called with:", email, password);
       // After successful signin, logic that handles our return goes here
     };
   
@@ -61,12 +60,10 @@ export const AuthenticationContextProvider = (props: Props) => {
     .then((userCredential) => {
       // Signed up
       const user = userCredential.user;
-      console.log("user :>> ", user);
       setUser(user);
       // ...
     })
     ;
-      console.log("Signup called with:", email, password);
   };
   
     const logout = () => {

@@ -1,6 +1,3 @@
-import React from 'react'
-import { ReactComponentElement as Arrow } from 'react'
-/* https://github.com/ronatskiy/country-flags-svg#findflagurlbyiso3codeiso3code */
 import { findFlagUrlByIso3Code } from "country-flags-svg";
 import { useNavigate } from 'react-router';
 

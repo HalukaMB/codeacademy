@@ -9,7 +9,6 @@ const LoginFeature = () => {
     const navigate = useNavigate();
     const authenticationContext=useContext(AuthenticationContext)
     console.log("authenticationContext :>> ", authenticationContext);
-    const userstate=authenticationContext.user
 
 
 

@@ -36,7 +36,7 @@ const CountryCardDetail = () => {
         flagUrl = extraFlags[countryData["info"]["code"]]
     }
     function buildingMatrix(countryData){
-        let matrixOfAllDots=[]
+        let matrixOfAllDots=[[]]
         let objectOfInfectedDots={}
         let showData=false
         if (countryData!==undefined){
@@ -50,7 +50,7 @@ const CountryCardDetail = () => {
                 const healthyDots = numberOfDots - infectedDots
                 const arrayOfAllDots = Array.from(new Array(healthyDots), () => "healthy");
                 arrayOfAllDots.push(...arrayOfInfectedDots)
-                arrayOfAllDots.sort((a, b) => 0.5 - Math.random());
+                arrayOfAllDots.sort(() => 0.5 - Math.random());
                 showData=true
                 let row:[string]=[]
 
@@ -64,7 +64,7 @@ const CountryCardDetail = () => {
 
                 if(((i+1)%7)==0){
                     matrixOfAllDots.push(row)
-                    row=[]
+                    row:[]=[]
                 }
 
             }
