@@ -23,7 +23,6 @@ const LoginFeature = () => {
     
       const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("triggered")
         if(loginOrSignUp==="signup"){
         const validPassword = validatePassword(password, repeatPassword);
         if (validPassword) {
@@ -81,6 +80,7 @@ const LoginFeature = () => {
 
 
 {loginOrSignUp=="signup"?
+
 <div className="signUpForm">
 <h1>Sign Up</h1>
 <button onClick={handleFormToggle}>Switch to Log In</button>

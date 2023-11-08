@@ -10,9 +10,9 @@ type Props = {
 
 interface AuthenticationContextType {
     user: User | "No provider";
-    signup: () => void;
+    signup: (email: string, password: string) => void;
     logout: () => void; 
-    login: () => void;  }
+    login: (email: string, password: string) => void;  }
 
 const defaultValue:AuthenticationContextType = {
     user: "No provider",
