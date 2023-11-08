@@ -59,19 +59,27 @@ const LoginFeature = () => {
   if(loginOrSignUp=="signup"){setLoginOrSignUp("login")} }
   return (
     <>
-    <div>Here is the current state: {String(authenticationContext.user)} </div>
 
 <div className="signUpForm">
 
 {(loginOrSignUp=="signup")?
-<div>
+<>
+<div className="toggleLogSign">
 <button onClick={handleFormToggle}>Switch to Log In</button>
 <button onClick={handleFormToggle} disabled>Switch to Sign Up</button>
-<h1>Sign Up</h1></div>:
-<div>
+</div>
+
+
+<h1>Sign Up</h1></>
+:
+<>
+<div className="toggleLogSign">
 <button onClick={handleFormToggle} disabled>Switch to Log In</button>
 <button onClick={handleFormToggle}>Switch to Sign Up</button>
-<h1>Log In</h1></div>}
+</div>
+<h1>Log In</h1>
+</>
+}
 
 <form onSubmit={handleSubmit}>
         <input

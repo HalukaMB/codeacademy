@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {  } from 'react'
 import { NavLink } from 'react-router-dom'
 
 const Navbar = props => {
@@ -13,6 +13,7 @@ const Navbar = props => {
             Signup/Login
           </NavLink>
         </div>
+
         <div className="menuBlocks">
           <NavLink
             to="/"

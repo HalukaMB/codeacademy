@@ -21,7 +21,7 @@ const CountryCardDetail = () => {
     const { reducedData, countryFilter } = useContext(ReducedDataContext)
     
     const params = useParams();
-    let flagUrl = findFlagUrlByIso3Code(params.countryid)
+    let flagUrl = findFlagUrlByIso3Code(params.countryid as string)
     let countryNameToSet=""
     Object.keys(countryFilter).map(countryName=>{
         if (params.countryid===countryFilter[countryName]){
@@ -33,7 +33,7 @@ const CountryCardDetail = () => {
 
 
     if ((flagUrl === "") || (flagUrl === "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_the_Democratic_Republic_of_the_Congo_(3-2).svg")) {
-        flagUrl = extraFlags[countryData["info"]["code"]]
+        flagUrl = extraFlags[countryData["info"]["code"]] 
     }
     function buildingMatrix(countryData){
         let matrixOfAllDots=[[]]
@@ -64,7 +64,7 @@ const CountryCardDetail = () => {
 
                 if(((i+1)%7)==0){
                     matrixOfAllDots.push(row)
-                    row:[]=[]
+                    row=[]
                 }
 
             }

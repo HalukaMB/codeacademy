@@ -123,6 +123,33 @@ option{
 button{
   background-color: orange;
 }
+.signUpForm{
+  margin: auto;
+  margin-top: 5%;
+  display: block;
+  align-items: center;
+  background-color: slategray;
+  max-width: calc(var(--baseunit_width)*120);
+
+
+}
+.toggleLogSign{
+  margin: auto;
+  padding: 1%;
+  display:flex;
+  justify-content: space-between;
+  max-width: calc(var(--baseunit_width)*100);
+}
+
+div.toggleLogSign button{
+  background-color:rgb(85, 85, 85)
+}
+form{
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+  justify-content: space-between;
+}
 
 .detailed-card-container{
   display: flex;
@@ -134,8 +161,6 @@ button{
   margin-right: calc(var(--baseunit_width)*10);
   background-color: rgb(159, 159, 159);
 min-height: calc(var(--baseunit_height)*90);
-
-
 }
 
 .dotGrid{
