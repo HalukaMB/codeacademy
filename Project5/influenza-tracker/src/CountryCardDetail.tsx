@@ -19,7 +19,7 @@ const extraFlags = {
 const CountryCardDetail = () => {
 
     const { reducedData, countryFilter } = useContext(ReducedDataContext)
-    
+    console.log(reducedData)
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid as string)
     let countryNameToSet=""
@@ -35,51 +35,7 @@ const CountryCardDetail = () => {
     if ((flagUrl === "") || (flagUrl === "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_the_Democratic_Republic_of_the_Congo_(3-2).svg")) {
         flagUrl = extraFlags[countryData["info"]["code"]] 
     }
-    function buildingMatrix(countryData){
-        let matrixOfAllDots=[[]]
-        let objectOfInfectedDots={}
-        let showData=false
-        if (countryData!==undefined){
-            const arrayOfKeys = (Object.keys(countryData["data"]).sort())
-            const dataLatestWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 1]])
-            const percentageLatestWeek = dataLatestWeek[2] / dataLatestWeek[3] * 100
-            if (!isNaN(percentageLatestWeek)){
-                const numberOfDots: number = 49
-                const infectedDots: number = Math.round(numberOfDots * (percentageLatestWeek / 100))
-                const arrayOfInfectedDots = Array.from(new Array(infectedDots), () => "infected");
-                const healthyDots = numberOfDots - infectedDots
-                const arrayOfAllDots = Array.from(new Array(healthyDots), () => "healthy");
-                arrayOfAllDots.push(...arrayOfInfectedDots)
-                arrayOfAllDots.sort(() => 0.5 - Math.random());
-                showData=true
-                let row:[string]=[]
-
-                arrayOfAllDots.map((dot: string, i: number)=>{
-                row.push(dot)
-                const remainderColumnIndex=i%7
-                const rowIndex=Math.floor(i/7)
-                if(dot=="infected"){
-                    objectOfInfectedDots[rowIndex]=remainderColumnIndex
-                }
-
-                if(((i+1)%7)==0){
-                    matrixOfAllDots.push(row)
-                    row=[]
-                }
-
-            }
-
-                )
-                
-            }
-        
-    }console.log(showData, matrixOfAllDots, objectOfInfectedDots)
-    return({showData, matrixOfAllDots, objectOfInfectedDots})
-       
-        }
-       
-    const returnedData=buildingMatrix(countryData)
-    console.log(returnedData)
+   
         
 
     
@@ -92,10 +48,10 @@ const CountryCardDetail = () => {
                 <div className="item">
                     <img src={flagUrl} height="50px" />
                 </div>
-                {(returnedData.showData==true)
+                {(countryData.matrixDots.length>0)
                 ?
                     <div className="dotGrid">
-                        {returnedData.matrixOfAllDots.flat().map((element, index) => {
+                        {countryData.matrixDots.flat().map((element, index) => {
                             if (element == "healthy") {
                                 return (
                                     <div className="circle healthy" key={index} />

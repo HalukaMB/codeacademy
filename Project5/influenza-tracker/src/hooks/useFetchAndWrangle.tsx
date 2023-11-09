@@ -23,7 +23,7 @@ export interface entry {
   COUNTRY_CODE: string
   COUNTRY_AREA_TERRITORY: string
   ISO_WEEKSTARTDATE: string
-  ISO_YEAR: number
+  ISO_YEAR: number|string
   ISO_WEEK: number
   MMWR_WEEKSTARTDATE: string
   MMWR_YEAR: number
@@ -153,7 +153,7 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
           }
           console.log(matrixOfAllDots)
           lastTwoYearsData[country]["matrixDots"]=matrixOfAllDots
-          console.log(matrixOfAllDots)
+          console.log(lastTwoYearsData[country]["matrixDots"])
 
           lastTwoYearsData[country]["objectInfected"]=objectOfInfectedDots
         }
