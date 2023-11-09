@@ -10,8 +10,6 @@ import { AuthenticationContext, AuthenticationContextProvider } from './context/
 import ProtectedRoute from './ProtectedRoute.tsx';
 import Login from './Login.tsx';
 import Logout from './Logout.tsx';
-import SignUpFeature from './SignUpFeature.tsx';
-import SignUp from './SignUp.tsx';
 
 const router = createBrowserRouter([
   {

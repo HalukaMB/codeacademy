@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { readRemoteFile } from 'react-papaparse';
 import { CountryFilterType } from '../types/typedefinitions';
 export const ReducedDataContext = createContext({});
@@ -6,7 +6,7 @@ export const ReducedDataContext = createContext({});
 /* Move the datawrangling to here */
 
 interface Idata {
-  data: string[][];
+  data: entry[];
   errors: any;
   meta: {
     delimiter: string;
@@ -30,41 +30,12 @@ export interface entry {
   MMWR_WEEK: number
   ORIGIN_SOURCE: string
   SPEC_PROCESSED_NB: number
-  SPEC_RECEIVED_NB: any
-  AH1N12009: any
-  AH1: any
-  AH3: any
-  AH5: any
-  AH7N9: any
-  ANOTSUBTYPED: any
-  ANOTSUBTYPABLE: any
-  AOTHER_SUBTYPE: any
-  AOTHER_SUBTYPE_DETAILS: any
-  INF_A: any
-  BVIC_2DEL: any
-  BVIC_3DEL: any
-  BVIC_NODEL: any
-  BVIC_DELUNK: any
-  BYAM: any
-  BNOTDETERMINED: any
-  INF_B: any
-  INF_ALL: any
+  SPEC_RECEIVED_NB: number | string
+  INF_A: number | string
+  INF_B: number | string
+  INF_ALL: number | string
   INF_NEGATIVE: number
-  ILI_ACTIVITY: any
-  ADENO: any
-  BOCA: any
-  HUMAN_CORONA: any
-  METAPNEUMO: any
-  PARAINFLUENZA: any
-  RHINO: any
-  RSV: number
-  OTHERRESPVIRUS: any
-  OTHER_RESPVIRUS_DETAILS: any
-  LAB_RESULT_COMMENT: any
-  WCR_COMMENT: any
-  ISO2: string
-  ISOYW: number
-  MMWRYW: number
+// Partial type
 }
 
 interface HookReturn {
@@ -73,7 +44,8 @@ interface HookReturn {
 }
 
 interface GetDataProps{
-  setBaseData: React.SetStateAction<Replace[]>;
+  // setBaseData: React.SetStateAction<entry[]|null>;
+  updateBaseDataState: (results: entry[])=> void
   setCountryFilter: React.SetStateAction<Replace[]>;
   setReducedData: React.SetStateAction<Replace[]>;
 }
@@ -81,7 +53,7 @@ interface GetDataProps{
 
 
 /* why are the sets bits get underlined */
-function getData({ setBaseData, setCountryFilter, setReducedData }:GetDataProps) {
+function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDataProps) {
   const fluNetUrl: string = "https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
   const lastYear: number = new Date().getFullYear() - 1
   const objectOfCountries: Record<string, object> = {}
@@ -93,11 +65,12 @@ function getData({ setBaseData, setCountryFilter, setReducedData }:GetDataProps)
     worker: true,
     download: true,
     complete: (results: Idata) => {
+      console.log(results.data)
 
       /* 
       !From here ownards setBaseData gets marked as well as element
       */
-      setBaseData(results.data)
+      updateBaseDataState(results.data)
       results.data.map((element:entry) => {
         const year = parseInt(element["ISO_YEAR"])
 
@@ -178,7 +151,10 @@ function getData({ setBaseData, setCountryFilter, setReducedData }:GetDataProps)
             }
             })
           }
+          console.log(matrixOfAllDots)
           lastTwoYearsData[country]["matrixDots"]=matrixOfAllDots
+          console.log(matrixOfAllDots)
+
           lastTwoYearsData[country]["objectInfected"]=objectOfInfectedDots
         }
         })
@@ -198,8 +174,15 @@ export const useFetchAndWrangle = (): HookReturn => {
   const [countryFilter, setCountryFilter] = useState<CountryFilterType>({})
   const [reducedData, setReducedData] = useState({})
 
+
+  
+
+  function updateBaseDataState(results: entry[]): void{
+    setBaseData(results)
+  }
+
   useEffect(() => {
-    getData({ setBaseData, setCountryFilter, setReducedData })
+    getData({ updateBaseDataState, setCountryFilter, setReducedData })
   }, [])
 
 
