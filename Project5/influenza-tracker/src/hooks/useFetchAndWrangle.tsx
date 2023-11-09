@@ -72,10 +72,16 @@ interface HookReturn {
   reducedData: object
 }
 
+interface GetDataProps{
+  setBaseData: React.SetStateAction<Replace[]>;
+  setCountryFilter: React.SetStateAction<Replace[]>;
+  setReducedData: React.SetStateAction<Replace[]>;
+}
+
 
 
 /* why are the sets bits get underlined */
-function getData({ setBaseData, setCountryFilter, setReducedData }) {
+function getData({ setBaseData, setCountryFilter, setReducedData }:GetDataProps) {
   const fluNetUrl: string = "https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
   const lastYear: number = new Date().getFullYear() - 1
   const objectOfCountries: Record<string, object> = {}
@@ -87,6 +93,10 @@ function getData({ setBaseData, setCountryFilter, setReducedData }) {
     worker: true,
     download: true,
     complete: (results: Idata) => {
+
+      /* 
+      !From here ownards setBaseData gets marked as well as element
+      */
       setBaseData(results.data)
       results.data.map((element:entry) => {
         const year = parseInt(element["ISO_YEAR"])
