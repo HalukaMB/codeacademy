@@ -4,6 +4,7 @@ import { ReducedDataContext } from "./context/reducedDataContext";
 import SelectMenu from "./SelectMenu";
 import { findFlagUrlByIso3Code } from "country-flags-svg";
 import Navbar from "./Navbar";
+import { AuthenticationContext } from "./context/AuthenticationContext";
 const extraFlags:Record<string, string> = {
     "X09": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Flag_of_England.svg/2560px-Flag_of_England.svg.png",
     "X10": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Flag_of_Wales.svg/2560px-Flag_of_Wales.svg.png",
@@ -25,7 +26,8 @@ const CountryCardDetail = () => {
 
     const { reducedData } = useContext(ReducedDataContext) as Record<string, OuterObject>
     const { countryFilter } = useContext(ReducedDataContext) as Record<string, string>
-
+    const { favorites } = useContext(AuthenticationContext)
+    console.log(favorites)
     console.log(reducedData)
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid as string)
@@ -35,8 +37,18 @@ const CountryCardDetail = () => {
             countryNameToSet=countryName
         }
     })
-
     const countryData = reducedData[countryNameToSet]
+    const addToFavourites = ()=>{
+        const countryCode:string=countryData["info"]["code"]
+        console.log(favorites)
+        if (!favorites.includes(countryCode)){
+            console.log("running to add")
+
+            favorites.push(countryCode)
+            console.log(favorites)
+        }
+
+    }
 
 
     if ((flagUrl === "") || (flagUrl === "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_the_Democratic_Republic_of_the_Congo_(3-2).svg")) {
@@ -74,6 +86,7 @@ const CountryCardDetail = () => {
                     </div>
                 : <div className="weekTrend NoData">Not enough data</div>
                 }
+            <button onClick={addToFavourites}>Add to Favs</button>
             </div>
 
         </>

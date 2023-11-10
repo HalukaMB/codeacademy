@@ -10,14 +10,14 @@ const Navbar = props => {
         <div className="menuBlocks">
         {!user? <NavLink
             to="/login"
-            className={({ isActive, isPending }) => { console.log(isActive) }
+            className={({ isActive, isPending }) => { }
             }
           >
             Login
           </NavLink>:
            <NavLink
            to="/logout"
-           className={({ isActive, isPending }) => { console.log(isActive) }
+           className={({ isActive, isPending }) => {  }
            }
          >
            Log Out
@@ -28,7 +28,7 @@ const Navbar = props => {
         <div className="menuBlocks">
           <NavLink
             to="/"
-            className={({ isActive, isPending }) => { console.log(isActive) }
+            className={({ isActive, isPending }) => { }
             }
           >
             Home

@@ -1,7 +1,8 @@
-import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react'
 import { auth } from '../settings/firebaseConfig';
 import { setUserId } from 'firebase/analytics';
+import { Navigate } from 'react-router';
 
 
 type Props = {
@@ -12,7 +13,9 @@ interface AuthenticationContextType {
     user: User | null;
     signup: (email: string, password: string) => void;
     logout: () => void; 
-    login: (email: string, password: string) => void;  }
+    login: (email: string, password: string) => void;  
+    favorites:string[]
+  }
 
 const defaultValue:AuthenticationContextType = {
     user: null,
@@ -33,7 +36,11 @@ export const AuthenticationContext = createContext(defaultValue);
 
 
 export const AuthenticationContextProvider = (props: Props) => {
-    const [user, setUser] = useState<User|null>(null);
+  
+  const [user, setUser] = useState<User | null>(null);
+  const [userChecked, setUserChecked] = useState<boolean>(false);
+  const [favorites, setFavorites] = useState<string[]>([])
+  console.log(favorites)
 
     const getActiveUser = () => {
       onAuthStateChanged(auth, (user) => {
@@ -44,9 +51,11 @@ export const AuthenticationContextProvider = (props: Props) => {
           console.log("no active user");
         }
       });
+      setUserChecked(true);
     };
-    
+  
     useEffect(() => {
+      setUserChecked(false);
       getActiveUser();
     }, []);
 
@@ -84,14 +93,18 @@ export const AuthenticationContextProvider = (props: Props) => {
     ;
   };
   
-    const logout = () => {
-      // logout logic here
-      // refactor when we are dealing with a real authentication provider
-      setUser(null);
-    };
-
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+        Navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
     return(
-        <AuthenticationContext.Provider value={{ user, login, signup, logout }}>
+        <AuthenticationContext.Provider value={{ user, login, signup, logout, favorites, setFavorites }}>
             {props.children}
         </AuthenticationContext.Provider>
     )
