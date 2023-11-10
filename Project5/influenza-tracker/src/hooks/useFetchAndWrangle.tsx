@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { readRemoteFile } from 'react-papaparse';
-import { CountryFilterType } from '../types/typedefinitions';
 export const ReducedDataContext = createContext({});
 
 /* Move the datawrangling to here */
@@ -43,21 +42,27 @@ interface HookReturn {
   reducedData: object
 }
 
-interface GetDataProps{
-  // setBaseData: React.SetStateAction<entry[]|null>;
-  updateBaseDataState: (results: entry[])=> void
-  setCountryFilter: React.SetStateAction<Replace[]>;
-  setReducedData: React.SetStateAction<Replace[]>;
+
+interface InnerObject{
+  info: {"longname":string, "code":string}
+  data: Record<number|string, number[]>
+  matrixDots: number[][]
+  objectInfected: Record<number|string, number>
 }
 
 
-
+interface GetDataProps{
+  // setBaseData: React.SetStateAction<entry[]|null>;
+  updateBaseDataState: (results: entry[])=> void
+  setCountryFilter: ({})=> void
+  setReducedData: ({})=>void
+}
 /* why are the sets bits get underlined */
 function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDataProps) {
   const fluNetUrl: string = "https://frontdoor-l4uikgap6gz3m.azurefd.net/FLUMART/VIW_FNT?$format=csv_inline"
   const lastYear: number = new Date().getFullYear() - 1
-  const objectOfCountries: Record<string, object> = {}
-  const lastTwoYearsData: Record<string, object> = {}
+  const objectOfCountries: Record<string, string> = {}
+  const lastTwoYearsData: Record<string, InnerObject> = {}
 
   /* https://blog.logrocket.com/working-csv-files-react-papaparse/#parsing-local-csv-files */
   readRemoteFile(fluNetUrl, {
@@ -72,23 +77,32 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
       */
       updateBaseDataState(results.data)
       results.data.map((element:entry) => {
-        const year = parseInt(element["ISO_YEAR"])
-
-
+        let year = element["ISO_YEAR"]
+        if (typeof year=== "string"){
+          year = parseInt(year)
+        }
         const sentinel = element["ORIGIN_SOURCE"]
 
 
         if ((year >= lastYear) && (sentinel == "SENTINEL")) {
-          const week: number = parseInt(element["ISO_WEEK"])
 
+           
+          let week =element["ISO_WEEK"]
           const countryCode: string = element["COUNTRY_CODE"]
           const country: string = element["COUNTRY_AREA_TERRITORY"]
 
-          let influenzaCases: number = element["INF_ALL"] ? element["INF_ALL"] : 0;
-          let allSpecimen: number = element["SPEC_PROCESSED_NB"] ? element["SPEC_PROCESSED_NB"] : 0;
+          let influenzaCases = element["INF_ALL"] ? element["INF_ALL"] : 0;
+          let allSpecimen = element["SPEC_PROCESSED_NB"] ? element["SPEC_PROCESSED_NB"] : 0;
+          if (typeof week=== "string"){
+            week = parseInt(week)
+          }
+          if (typeof influenzaCases=== "string"){
+            influenzaCases = parseInt(influenzaCases)
+          }
+          if (typeof allSpecimen=== "string"){
+            allSpecimen = parseInt(allSpecimen)
+          }
 
-          influenzaCases = parseInt(influenzaCases)
-          allSpecimen = parseInt(allSpecimen)
 
           const dataarray: number[] = [year, week, influenzaCases, allSpecimen]
 
@@ -96,7 +110,7 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
             if (!Object.keys(objectOfCountries).includes(country)) {
               objectOfCountries[(country)] = countryCode
 
-              lastTwoYearsData[country] = { "info": {}, "data": {} }
+              lastTwoYearsData[country] = { "info": {"longname":"","code":""}, "data": {}, "matrixDots":[], "objectInfected":{} }
               const yearkey: number = parseInt(year.toString() + week.toString().padStart(2, '0'))
               lastTwoYearsData[country]["info"]["longname"] = country
               lastTwoYearsData[country]["info"]["code"] = countryCode
@@ -116,8 +130,8 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
       setCountryFilter((objectOfCountries))
 
       Object.keys(lastTwoYearsData).map(country=>{
-        let matrixOfAllDots=[]
-        let objectOfInfectedDots={}
+        let matrixOfAllDots: number[][]=[]
+        let objectOfInfectedDots:Record<number|string, number> ={}
         let showData=false
         if (lastTwoYearsData[country]["data"]!==undefined){
 
@@ -135,7 +149,7 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
             arrayOfAllDots.push(...arrayOfInfectedDots)
             arrayOfAllDots.sort((a, b) => 0.5 - Math.random());
             showData=true
-            let row:[string]=[]
+            let row:[number]|[]=[]
 
             arrayOfAllDots.map((dot: string, i: number)=>{
             row.push(dot)
@@ -151,9 +165,7 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
             }
             })
           }
-          console.log(matrixOfAllDots)
           lastTwoYearsData[country]["matrixDots"]=matrixOfAllDots
-          console.log(lastTwoYearsData[country]["matrixDots"])
 
           lastTwoYearsData[country]["objectInfected"]=objectOfInfectedDots
         }
@@ -173,13 +185,12 @@ export const useFetchAndWrangle = (): HookReturn => {
   const [baseData, setBaseData] = useState<entry[] | null>(null)
   const [countryFilter, setCountryFilter] = useState<CountryFilterType>({})
   const [reducedData, setReducedData] = useState({})
-
-
   
 
   function updateBaseDataState(results: entry[]): void{
     setBaseData(results)
   }
+
 
   useEffect(() => {
     getData({ updateBaseDataState, setCountryFilter, setReducedData })
