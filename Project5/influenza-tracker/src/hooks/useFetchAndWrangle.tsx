@@ -46,7 +46,7 @@ interface HookReturn {
 interface InnerObject{
   info: {"longname":string, "code":string}
   data: Record<number|string, number[]>
-  matrixDots: number[][]
+  matrixDots: string[][]
   objectInfected: Record<number|string, number>
 }
 
@@ -130,7 +130,7 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
       setCountryFilter((objectOfCountries))
 
       Object.keys(lastTwoYearsData).map(country=>{
-        let matrixOfAllDots: number[][]=[]
+        let matrixOfAllDots: string[][]=[]
         let objectOfInfectedDots:Record<number|string, number> ={}
         let showData=false
         if (lastTwoYearsData[country]["data"]!==undefined){
@@ -149,7 +149,7 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
             arrayOfAllDots.push(...arrayOfInfectedDots)
             arrayOfAllDots.sort((a, b) => 0.5 - Math.random());
             showData=true
-            let row:[number]|[]=[]
+            let row:[string]|[]=[]
 
             arrayOfAllDots.map((dot: string, i: number)=>{
             row.push(dot)
