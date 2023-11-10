@@ -54,8 +54,8 @@ body{
   justify-content: space-between;
   padding-top: calc(var(--baseunit_height)*3);
   padding-bottom: calc(var(--baseunit_height)*3);
-  padding-left: calc(var(--baseunit_width)*3);
-  padding-right: calc(var(--baseunit_width)*3);
+  padding-left: calc(var(--baseunit_width)*7);
+  padding-right: calc(var(--baseunit_width)*7);
   background-color: slategrey;
 }
 .menuBlocks > a{
@@ -125,7 +125,7 @@ button{
 }
 .signUpForm{
   margin: auto;
-  margin-top: 5%;
+  margin-top: %;
   display: block;
   align-items: center;
   background-color: slategray;

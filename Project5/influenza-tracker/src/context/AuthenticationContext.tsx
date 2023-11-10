@@ -1,6 +1,7 @@
-import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import React, { createContext, useState } from 'react'
+import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { createContext, useEffect, useState } from 'react'
 import { auth } from '../settings/firebaseConfig';
+import { setUserId } from 'firebase/analytics';
 
 
 type Props = {
@@ -26,11 +27,28 @@ const defaultValue:AuthenticationContextType = {
   }, // By default, the user is set to indicate no provider is present.
   };
 
+
+
 export const AuthenticationContext = createContext(defaultValue);
 
 
 export const AuthenticationContextProvider = (props: Props) => {
     const [user, setUser] = useState<User|null>(null);
+
+    const getActiveUser = () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log("active user", user);
+          setUser(user);
+        } else {
+          console.log("no active user");
+        }
+      });
+    };
+    
+    useEffect(() => {
+      getActiveUser();
+    }, []);
 
     const login = (email: string, password: string) => {
       // signin logic goes here

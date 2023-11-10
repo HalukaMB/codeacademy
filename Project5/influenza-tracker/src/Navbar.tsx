@@ -1,17 +1,28 @@
-import React, {  } from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { AuthenticationContext } from './context/AuthenticationContext';
 
 const Navbar = props => {
+  const { user, signup, login } = useContext(AuthenticationContext);
+
   return (
     <div className="navBar">
         <div className="menuBlocks">
-          <NavLink
+        {!user? <NavLink
             to="/login"
             className={({ isActive, isPending }) => { console.log(isActive) }
             }
           >
-            Signup/Login
-          </NavLink>
+            Login
+          </NavLink>:
+           <NavLink
+           to="/logout"
+           className={({ isActive, isPending }) => { console.log(isActive) }
+           }
+         >
+           Log Out
+         </NavLink>}
+         
         </div>
 
         <div className="menuBlocks">
