@@ -40,7 +40,6 @@ const CountryCardDetail = () => {
     const countryData = reducedData[countryNameToSet]
     const addToFavourites = ()=>{
         const countryCode:string=countryData["info"]["code"]
-        console.log(favorites)
         if (!favorites.includes(countryCode)){
             console.log("running to add")
 
