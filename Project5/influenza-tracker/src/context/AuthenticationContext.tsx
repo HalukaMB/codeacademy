@@ -40,6 +40,10 @@ export const AuthenticationContextProvider = (props: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const [userChecked, setUserChecked] = useState<boolean>(false);
   const [favorites, setFavorites] = useState<string[]>([])
+
+  const changeFavorites = (newValue:string[]) => {
+    setFavorites(newValue);
+  };
   console.log(favorites)
 
     const getActiveUser = () => {
@@ -104,7 +108,7 @@ export const AuthenticationContextProvider = (props: Props) => {
       });
   };
     return(
-        <AuthenticationContext.Provider value={{ user, login, signup, logout, favorites, setFavorites }}>
+        <AuthenticationContext.Provider value={{ user, login, signup, logout, favorites, changeFavorites }}>
             {props.children}
         </AuthenticationContext.Provider>
     )

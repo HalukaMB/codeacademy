@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 
 const LoginFeature = () => {
     const { user, login, logout } = useContext(AuthenticationContext);
-    const { favorites } = useContext(AuthenticationContext)
+    const { favorites, changeFavorites } = useContext(AuthenticationContext)
     
 
     const navigate = useNavigate();
@@ -14,8 +14,14 @@ const LoginFeature = () => {
     console.log("authenticationContext :>> ", authenticationContext);
     const removeCountry=(e)=>{
         console.log(e.target)
-        favorites.pop(e.target)
-        console.log(favorites)
+        const item = e.target.value
+
+        const newFaves = favorites.filter((favourite)=>{
+            console.log('favourite', favourite,' item',item)
+            return favourite !=item;
+        })
+        console.log('newFaves', newFaves)
+        changeFavorites(newFaves)
     }
 
     console.log(favorites)
@@ -39,7 +45,7 @@ const LoginFeature = () => {
     changeStatus()}
 }>Log Out</button>
 {favorites.map((element)=>{
-    return(<button onClick={(removeCountry)}>{element}</button>)
+    return(<button value={element} onClick={(removeCountry)}>{element}</button>)
 })}
 
     </>
