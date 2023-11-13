@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router';
 
 
 
-const LoginFeature = () => {
+const LogoutFeature = () => {
     const { user, login, logout } = useContext(AuthenticationContext);
     const { favorites, changeFavorites } = useContext(AuthenticationContext)
-    
+    const { updateFavoritesChangeTime } = useContext(AuthenticationContext)
+
 
     const navigate = useNavigate();
     const authenticationContext=useContext(AuthenticationContext)
@@ -22,6 +23,7 @@ const LoginFeature = () => {
         })
         console.log('newFaves', newFaves)
         changeFavorites(newFaves)
+        updateFavoritesChangeTime()
     }
 
     console.log(favorites)
@@ -37,7 +39,6 @@ const LoginFeature = () => {
         }
     }
     
-    console.log(user)
   return (
     <>
     <div>Here is the current state: {String(authenticationContext.user)} </div>
@@ -52,4 +53,4 @@ const LoginFeature = () => {
   )
 }
 
-export default LoginFeature
+export default LogoutFeature

@@ -27,8 +27,11 @@ const CountryCardDetail = () => {
     const { reducedData } = useContext(ReducedDataContext) as Record<string, OuterObject>
     const { countryFilter } = useContext(ReducedDataContext) as Record<string, string>
     const { favorites } = useContext(AuthenticationContext)
+    const { updateFavoritesChangeTime } = useContext(AuthenticationContext)
+
     console.log(favorites)
     console.log(reducedData)
+    const currentTime= Date.now()
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid as string)
     let countryNameToSet=""
@@ -38,13 +41,12 @@ const CountryCardDetail = () => {
         }
     })
     const countryData = reducedData[countryNameToSet]
+    
     const addToFavourites = ()=>{
         const countryCode:string=countryData["info"]["code"]
         if (!favorites.includes(countryCode)){
-            console.log("running to add")
-
             favorites.push(countryCode)
-            console.log(favorites)
+            updateFavoritesChangeTime()
         }
 
     }

@@ -3,7 +3,8 @@ import React, { createContext, useEffect, useState } from 'react'
 import { auth } from '../settings/firebaseConfig';
 import { setUserId } from 'firebase/analytics';
 import { Navigate } from 'react-router';
-
+import { db } from "../settings/firebaseConfig";
+import { collection, doc, setDoc, adddoc } from 'firebase/firestore';
 
 type Props = {
     children: ReactNode;
@@ -14,7 +15,7 @@ interface AuthenticationContextType {
     signup: (email: string, password: string) => void;
     logout: () => void; 
     login: (email: string, password: string) => void;  
-    favorites:string[]
+    updateFavoritesChangeTime: ()=>void;
   }
 
 const defaultValue:AuthenticationContextType = {
@@ -28,6 +29,9 @@ const defaultValue:AuthenticationContextType = {
   logout: () => {
     throw Error("No provider");
   }, // By default, the user is set to indicate no provider is present.
+  updateFavoritesChangeTime: () => {
+    throw Error("No provider");
+  }, 
   };
 
 
@@ -40,11 +44,48 @@ export const AuthenticationContextProvider = (props: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const [userChecked, setUserChecked] = useState<boolean>(false);
   const [favorites, setFavorites] = useState<string[]>([])
-
+  const [lastFavoritesChange, setLastFavoritesChange] = useState<Date|null>(null)
   const changeFavorites = (newValue:string[]) => {
     setFavorites(newValue);
   };
   console.log(favorites)
+  console.log(lastFavoritesChange)
+
+  const updateUserPref= async()=>{
+    if(user?.email && db){
+    let userObject={
+      user: user.email,
+      favorites: favorites,
+      lastUpdate: lastFavoritesChange
+    }
+    const userId: string=user.email
+    console.log(userObject)
+    try {
+      const preferencesDocRef = doc(
+        db, // db is the Firestore instance
+        "users", // 'users' is the collection name
+        userId // 'userId' is the doc ID
+      );
+      await setDoc(preferencesDocRef, userObject);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+  }
+
+  useEffect(()=>{
+    updateUserPref()
+},[user, favorites, lastFavoritesChange]);
+
+
+  const updateFavoritesChangeTime=()=>{
+    const currentTime=Date.now()
+    const lastFavoritesChange=new Date(currentTime)
+    setLastFavoritesChange(lastFavoritesChange)
+    console.log(lastFavoritesChange)
+
+  }
+
 
     const getActiveUser = () => {
       onAuthStateChanged(auth, (user) => {
@@ -61,7 +102,9 @@ export const AuthenticationContextProvider = (props: Props) => {
     useEffect(() => {
       setUserChecked(false);
       getActiveUser();
+      setLastFavoritesChange(null)
     }, []);
+
 
     const login = (email: string, password: string) => {
       // signin logic goes here
@@ -108,7 +151,7 @@ export const AuthenticationContextProvider = (props: Props) => {
       });
   };
     return(
-        <AuthenticationContext.Provider value={{ user, login, signup, logout, favorites, changeFavorites }}>
+        <AuthenticationContext.Provider value={{ user, login, signup, logout, favorites, changeFavorites, updateFavoritesChangeTime}}>
             {props.children}
         </AuthenticationContext.Provider>
     )
