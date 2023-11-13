@@ -41,6 +41,21 @@ const CountryCardDetail = () => {
     })
     const countryData = reducedData[countryNameToSet]
     
+    const changeCircle=(e)=>{
+        const classNameOfDot=String(e.target.className)
+        if (classNameOfDot.includes("healthy")){
+            const newClassName=(classNameOfDot).replace("healthy","infected")
+            console.log(newClassName)
+            e.target.className=newClassName
+        }
+        if (classNameOfDot.includes("infected")){
+            const newClassName=(classNameOfDot).replace("infected","healthy")
+            console.log(newClassName)
+            e.target.className=newClassName
+        }
+
+    }
+
     const addToFavourites = ()=>{
         const countryCode:string=countryData["info"]["code"]
         if (!favorites.includes(countryCode)){
@@ -75,12 +90,12 @@ const CountryCardDetail = () => {
                         {countryData.matrixDots.flat().map((element, index) => {
                             if (element == "healthy") {
                                 return (
-                                    <div className="circle healthy" key={index} />
+                                    <div className="circle healthy" key={index} onClick={changeCircle} />
                                 )
                             }
                             if (element == "infected") {
                                 return (
-                                    <div className="circle infected" key={index} />
+                                    <div className="circle infected" key={index} onClick={changeCircle} />
                                 )
                             }
                         })}
