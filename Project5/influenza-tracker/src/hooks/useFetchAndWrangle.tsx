@@ -70,7 +70,6 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
     worker: true,
     download: true,
     complete: (results: Idata) => {
-      console.log(results.data)
 
       /* 
       !From here ownards setBaseData gets marked as well as element
@@ -181,7 +180,6 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
 
 
 export const useFetchAndWrangle = (): HookReturn => {
-  console.log("hook called")
   const [baseData, setBaseData] = useState<entry[] | null>(null)
   const [countryFilter, setCountryFilter] = useState<CountryFilterType>({})
   const [reducedData, setReducedData] = useState({})

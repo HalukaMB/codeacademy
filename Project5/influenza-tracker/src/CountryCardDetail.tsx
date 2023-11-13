@@ -30,8 +30,6 @@ const CountryCardDetail = () => {
     const { updateFavoritesChangeTime } = useContext(AuthenticationContext)
     const { changeFavorites } = useContext(AuthenticationContext)
 
-    console.log(favorites)
-    console.log(reducedData)
     const currentTime= Date.now()
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid as string)

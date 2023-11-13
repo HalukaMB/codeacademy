@@ -12,24 +12,17 @@ const LogoutFeature = () => {
 
     const navigate = useNavigate();
     const authenticationContext=useContext(AuthenticationContext)
-    console.log("authenticationContext :>> ", authenticationContext);
     const removeCountry=(e)=>{
-        console.log(e.target)
         const item = e.target.value
 
         const newFaves = favorites.filter((favourite)=>{
-            console.log('favourite', favourite,' item',item)
             return favourite !=item;
         })
-        console.log('newFaves', newFaves)
         changeFavorites(newFaves)
         updateFavoritesChangeTime()
     }
 
-    console.log(favorites)
     const changeStatus=()=>{
-        console.log("status checked: ",user)
-
         if(user==null){
             authenticationContext.signin()
         }
@@ -42,7 +35,7 @@ const LogoutFeature = () => {
   return (
     <>
     <div>Here is the current state: {String(authenticationContext.user)} </div>
-    <button onClick={()=>{console.log("CLICKED");
+    <button onClick={()=>{
     changeStatus()}
 }>Log Out</button>
 {favorites.map((element, index)=>{

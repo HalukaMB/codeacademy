@@ -46,16 +46,11 @@ export const AuthenticationContextProvider = (props: Props) => {
   const [favorites, setFavorites] = useState<string[]>([])
   const [lastFavoritesChange, setLastFavoritesChange] = useState<Date|null>(null)
   const changeFavorites = (newValue:string[]) => {
-    console.log("CHANGEFAVROITES")
     setFavorites(newValue);
     updateUserPref(newValue)
   };
-  console.log(favorites)
-  console.log(lastFavoritesChange)
 
   const getUserPref = async(user)=>{
-    console.warn("getUser executed", user)
-
     if(user?.email && db){
     const userId: string=user.email
     const docRef =  doc(
@@ -64,19 +59,16 @@ export const AuthenticationContextProvider = (props: Props) => {
       userId // 'userId' is the doc ID
     );
     const docSnap = await getDoc(docRef);
-    console.log(docSnap)
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
       setFavorites(docSnap.data().favorites)
     } else {
       // docSnap.data() will be undefined in this case
-      console.log("No such document!");
+      console.log("Have no data from previous sessions");
     }
     }
   }
 
   const updateUserPref= async(newValue)=>{
-    console.log("THIS AS WELL")
     if(user?.email && db){
     let userObject={
       user: user.email,
@@ -84,7 +76,6 @@ export const AuthenticationContextProvider = (props: Props) => {
       lastUpdate: lastFavoritesChange
     }
     const userId: string=user.email
-    console.log(userObject)
     try {
       const preferencesDocRef = doc(
         db, // db is the Firestore instance
@@ -102,7 +93,6 @@ export const AuthenticationContextProvider = (props: Props) => {
     const currentTime=Date.now()
     const lastFavoritesChange=new Date(currentTime)
     setLastFavoritesChange(lastFavoritesChange)
-    console.log(lastFavoritesChange)
 
   }
 
@@ -137,10 +127,7 @@ export const AuthenticationContextProvider = (props: Props) => {
       signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Logged in 
-    console.log("userCredential :>> ", userCredential);
-
     const user = userCredential.user;
-    console.log("user :>> ", user);
     setUser(user);
     // ...
   })

@@ -42,7 +42,7 @@ function CountryCardMain({countryData }: CardProps) {
 
     if ((weekToWeekDataAvailable) && (!isNaN(trendForWeek))) {
         return (
-            <div id={countryData["info"]["code"]} className="countryCardMain" onClick={()=>{console.log(countryData["info"]["code"]);
+            <div id={countryData["info"]["code"]} className="countryCardMain" onClick={()=>{
             navigate(`/${(countryData["info"]["code"])}`)
             }}>
                 <div className="countryName">{countryData["info"]["longname"].replace(/\(.+?\)/, "").replace(/\)/, "")}</div>
@@ -67,7 +67,7 @@ function CountryCardMain({countryData }: CardProps) {
         )
     } else {
         return (
-            <div id={countryData["info"]["code"]} className="countryCardMain" onClick={()=>{console.log(countryData["info"]["code"]);
+            <div id={countryData["info"]["code"]} className="countryCardMain" onClick={()=>{
             navigate(`/${(countryData["info"]["code"])}`)
         }}>
                 <div className="countryName">{countryData["info"]["longname"].replace(/\(.+?\)/, "").replace(/\)/, "")}</div>
