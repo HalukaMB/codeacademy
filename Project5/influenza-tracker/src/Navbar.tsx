@@ -37,7 +37,7 @@ const Navbar = props => {
         <div className="menuBlocks">
           <NavLink
             to="/About"
-            className={({ isActive, isPending }) => { console.log("are we on about?", isActive) }
+            className={({ isActive, isPending }) => {  }
             }
           >
             About

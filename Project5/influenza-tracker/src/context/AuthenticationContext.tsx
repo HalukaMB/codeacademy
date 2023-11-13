@@ -100,7 +100,6 @@ export const AuthenticationContextProvider = (props: Props) => {
     const getActiveUser = () => {
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          console.log("active user", user);
           setUser(user);
           getUserPref(user)
 

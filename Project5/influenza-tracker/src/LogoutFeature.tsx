@@ -25,10 +25,11 @@ const LogoutFeature = () => {
     const changeStatus=()=>{
         if(user==null){
             authenticationContext.signin()
+
         }
         if(user!=null){
             authenticationContext.logout()
-            navigate("/signup");
+            console.log("logging out")
         }
     }
     
