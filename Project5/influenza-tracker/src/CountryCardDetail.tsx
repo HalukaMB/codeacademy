@@ -57,7 +57,7 @@ const CountryCardDetail = () => {
    
         
 
-    
+    if (countryData){
     return (
         <>
         <Navbar></Navbar>
@@ -91,6 +91,7 @@ const CountryCardDetail = () => {
         </>
 
     );
+}
 };
 
 export default CountryCardDetail;
