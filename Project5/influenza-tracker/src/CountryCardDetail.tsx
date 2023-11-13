@@ -28,6 +28,7 @@ const CountryCardDetail = () => {
     const { countryFilter } = useContext(ReducedDataContext) as Record<string, string>
     const { favorites } = useContext(AuthenticationContext)
     const { updateFavoritesChangeTime } = useContext(AuthenticationContext)
+    const { changeFavorites } = useContext(AuthenticationContext)
 
     console.log(favorites)
     console.log(reducedData)
@@ -47,6 +48,7 @@ const CountryCardDetail = () => {
         if (!favorites.includes(countryCode)){
             favorites.push(countryCode)
             updateFavoritesChangeTime()
+            changeFavorites(favorites)
         }
 
     }

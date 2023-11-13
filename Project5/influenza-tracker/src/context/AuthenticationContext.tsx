@@ -4,7 +4,7 @@ import { auth } from '../settings/firebaseConfig';
 import { setUserId } from 'firebase/analytics';
 import { Navigate } from 'react-router';
 import { db } from "../settings/firebaseConfig";
-import { collection, doc, setDoc, adddoc } from 'firebase/firestore';
+import { collection, doc, setDoc, adddoc, getDoc } from 'firebase/firestore';
 
 type Props = {
     children: ReactNode;
@@ -46,16 +46,41 @@ export const AuthenticationContextProvider = (props: Props) => {
   const [favorites, setFavorites] = useState<string[]>([])
   const [lastFavoritesChange, setLastFavoritesChange] = useState<Date|null>(null)
   const changeFavorites = (newValue:string[]) => {
+    console.log("CHANGEFAVROITES")
     setFavorites(newValue);
+    updateUserPref(newValue)
   };
   console.log(favorites)
   console.log(lastFavoritesChange)
 
-  const updateUserPref= async()=>{
+  const getUserPref = async(user)=>{
+    console.warn("getUser executed", user)
+
+    if(user?.email && db){
+    const userId: string=user.email
+    const docRef =  doc(
+      db, // db is the Firestore instance
+      "users", // 'users' is the collection name
+      userId // 'userId' is the doc ID
+    );
+    const docSnap = await getDoc(docRef);
+    console.log(docSnap)
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      setFavorites(docSnap.data().favorites)
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    }
+  }
+
+  const updateUserPref= async(newValue)=>{
+    console.log("THIS AS WELL")
     if(user?.email && db){
     let userObject={
       user: user.email,
-      favorites: favorites,
+      favorites: newValue,
       lastUpdate: lastFavoritesChange
     }
     const userId: string=user.email
@@ -73,11 +98,6 @@ export const AuthenticationContextProvider = (props: Props) => {
   }
   }
 
-  useEffect(()=>{
-    updateUserPref()
-},[user, favorites, lastFavoritesChange]);
-
-
   const updateFavoritesChangeTime=()=>{
     const currentTime=Date.now()
     const lastFavoritesChange=new Date(currentTime)
@@ -92,18 +112,24 @@ export const AuthenticationContextProvider = (props: Props) => {
         if (user) {
           console.log("active user", user);
           setUser(user);
+          getUserPref(user)
+
         } else {
           console.log("no active user");
         }
-      });
+      })
+      
       setUserChecked(true);
+
     };
   
-    useEffect(() => {
-      setUserChecked(false);
-      getActiveUser();
-      setLastFavoritesChange(null)
-    }, []);
+    useEffect(()=>{
+      getActiveUser()
+
+  },[]);
+  
+  
+  
 
 
     const login = (email: string, password: string) => {

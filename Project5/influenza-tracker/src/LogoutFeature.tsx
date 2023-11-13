@@ -45,8 +45,8 @@ const LogoutFeature = () => {
     <button onClick={()=>{console.log("CLICKED");
     changeStatus()}
 }>Log Out</button>
-{favorites.map((element)=>{
-    return(<button value={element} onClick={(removeCountry)}>{element}</button>)
+{favorites.map((element, index)=>{
+    return(<button value={element} key={index} onClick={(removeCountry)}>{element}</button>)
 })}
 
     </>
