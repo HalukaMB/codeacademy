@@ -18,6 +18,9 @@ interface InnerObject{
     data: Record<number|string, number[]>
     matrixDots: string[][]
     objectInfected: Record<number|string, number>
+    latestRatio: number
+    weekBeforeRatio: number
+  
   }
 
 interface OuterObject{[key:string]:InnerObject}
@@ -42,7 +45,7 @@ const CountryCardDetail = () => {
         }
     })
     const countryData = reducedData[countryNameToSet]
-    
+    const percentageLatestWeek = countryData["latestRatio"]
     const changeCircle=(e)=>{
         console.log(e.target.getAttribute("index"))
         const classNameOfDot=String(e.target.className)
@@ -87,6 +90,8 @@ const CountryCardDetail = () => {
                 <div className="item">
                     <img src={flagUrl} height="50px" />
                 </div>
+                {!isNaN(percentageLatestWeek)?<div>{(Math.round(percentageLatestWeek*10))/10}% of tested people had influenza. Which means out of 49 people, it looks like this:</div>:<div className="LatestWeek">No Data on latest week</div>}
+
                 {(countryData.matrixDots.length>0)
                 ?
                     <div className="dotGrid">
@@ -105,7 +110,7 @@ const CountryCardDetail = () => {
                     </div>
                 : <div className="weekTrend NoData">Not enough data</div>
                 }
-            <button onClick={addToFavourites}>Add to Favs</button>
+            <button className="addFavs" onClick={addToFavourites}>Bookmark this country</button>
             </div>
 
         </>

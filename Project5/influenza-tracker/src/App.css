@@ -97,9 +97,15 @@ background-color: rgb(159, 159, 159);
 
 }
 
+.LatestWeek{
+  padding-top: 10%;
+  font-size: calc(var(--baseunit_height)*2.5);
+}
+
+
 .weekTrend{
   padding-top: 10%;
-  font-size: calc(var(--baseunit_height)*4);
+  font-size: calc(var(--baseunit_height)*2.5);
 }
 
 .weekTrend.NoData{
@@ -150,7 +156,7 @@ form{
 
 .detailed-card-container{
   display: flex;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   align-items: center;
   padding-top: calc(var(--baseunit_height)*2);
@@ -191,4 +197,8 @@ img{
   max-width: 100%;
   object-fit: contain;
 
+}
+
+.addFavs{
+  margin-top: calc(var(--baseunit_height)*3);
 }

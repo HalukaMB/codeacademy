@@ -1,5 +1,6 @@
 import { findFlagUrlByIso3Code } from "country-flags-svg";
 import { useNavigate } from 'react-router';
+import TrendIndicator from "./TrendIndicator";
 
 
 const extraFlags:Record<string, string> = {
@@ -12,25 +13,24 @@ const extraFlags:Record<string, string> = {
 }
 
 interface InnerObject{
-    info: {"longname":string, "code":string}
-    data: Record<number|string, number[]>
-    matrixDots: string[][]
-    objectInfected: Record<number|string, number>
-  }
+  info: {"longname":string, "code":string}
+  data: Record<number|string, number[]>
+  matrixDots: string[][]
+  objectInfected: Record<number|string, number>
+  latestRatio: number
+  weekBeforeRatio: number
+
+}
 
 type CardProps = {
     countryData:InnerObject
 }
 
 function CountryCardMain({countryData }: CardProps) {
-    const arrayOfKeys:string[] = (Object.keys(countryData["data"]).sort())
-    const weekToWeekDataAvailable = ((parseInt(arrayOfKeys[arrayOfKeys.length - 1]) - parseInt(arrayOfKeys[arrayOfKeys.length - 2])) < 2)
-    const dataLatestWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 1]])
-    const dataBeforeWeek = (countryData["data"][arrayOfKeys[arrayOfKeys.length - 2]])
-    const percentageLatestWeek = dataLatestWeek[2] / dataLatestWeek[3] * 100
-    const percentageBeforeWeek = dataBeforeWeek[2] / dataBeforeWeek[3] * 100
+    const percentageBeforeWeek = countryData["weekBeforeRatio"]
+    const percentageLatestWeek = countryData["latestRatio"]
+    const trendForWeek: number = percentageLatestWeek - percentageBeforeWeek
 
-    const trendForWeek = percentageLatestWeek - percentageBeforeWeek
     let navigate = useNavigate();
 
     let flagUrl=findFlagUrlByIso3Code(countryData["info"]["code"])
@@ -38,43 +38,20 @@ function CountryCardMain({countryData }: CardProps) {
         let keyForFlag=countryData["info"]["code"]
         flagUrl = extraFlags[keyForFlag] 
     }
-    if ((weekToWeekDataAvailable) && (!isNaN(trendForWeek))) {
         return (
             <div id={countryData["info"]["code"]} className="countryCardMain" onClick={()=>{
             navigate(`/${(countryData["info"]["code"])}`)
             }}>
                 <div className="countryName">{countryData["info"]["longname"].replace(/\(.+?\)/, "").replace(/\)/, "")}</div>
                 <img src={flagUrl} height="50px" />
-                {trendForWeek > 0 ?
-                    <div className="weekTrend Up">
-                        <img src='src/assets/arrowUp.svg' width="50px" height="50px"></img>
-                    </div>
-                    : trendForWeek < 0 ?
-                        <div className="weekTrend Down">
-                            <img src='src/assets/arrowDown.svg' width="50px" height="50px"></img>
 
-                        </div>
-                        :
-                        <div className="weekTrend Zero">
-                            <img src='src/assets/arrowStraight.svg' width="70px" height="70px"></img>
+                {!isNaN(percentageLatestWeek)?<div>{(Math.round(percentageLatestWeek*10))/10}% of tested people had influenza</div>:<div className="LatestWeek">No Data on latest week</div>}
 
-                        </div>
-                }
-
+                <TrendIndicator trendForWeek={trendForWeek}></TrendIndicator>
             </div>
         )
-    } else {
-        return (
-            <div id={countryData["info"]["code"]} className="countryCardMain" onClick={()=>{
-            navigate(`/${(countryData["info"]["code"])}`)
-        }}>
-                <div className="countryName">{countryData["info"]["longname"].replace(/\(.+?\)/, "").replace(/\)/, "")}</div>
-                <img className="flag" src={flagUrl} height="50px" />
-                <div className="weekTrend NoData">Not enough data</div>
-
-            </div>)
-
-    }
+       
+    
 
 }
 

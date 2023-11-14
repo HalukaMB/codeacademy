@@ -43,6 +43,8 @@ interface InnerObject{
   matrixDots: string[][]
   objectInfected: Record<number|string, number>
   latestRatio: number|null
+  weekBeforeRatio: number|null
+
 }
 
 interface GetDataProps{
@@ -97,7 +99,9 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
           if (dataarray.every(e => typeof (e) === "number")) {
             if (!Object.keys(objectOfCountries).includes(country)) {
               objectOfCountries[(country)] = countryCode
-              lastTwoYearsData[country] = { "info": {"longname":"","code":""}, "data": {}, "matrixDots":[], "objectInfected":{}, "latestRatio": null}
+              lastTwoYearsData[country] = { "info": {"longname":"","code":""}, "data": {}, "matrixDots":[], 
+              "objectInfected":{}, "latestRatio": null,  "weekBeforeRatio": null
+            }
 
               lastTwoYearsData[country]["info"]["longname"] = country
               lastTwoYearsData[country]["info"]["code"] = countryCode
@@ -122,6 +126,8 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
         const arrayOfKeys = (Object.keys(lastTwoYearsData[country]["data"]).sort())
         const dataLatestWeek = (lastTwoYearsData[country]["data"][arrayOfKeys[arrayOfKeys.length - 1]])
         const percentageLatestWeek = dataLatestWeek[2] / dataLatestWeek[3] * 100
+        const dataWeekBefore = (lastTwoYearsData[country]["data"][arrayOfKeys[arrayOfKeys.length - 2]])
+        const percentageWeekBefore = dataWeekBefore[2] / dataWeekBefore[3] * 100
         if (!isNaN(percentageLatestWeek)&&(percentageLatestWeek!==Infinity)){
             const numberOfDots: number = 49
             const infectedDots: number = Math.round(numberOfDots * (percentageLatestWeek / 100))
@@ -150,6 +156,8 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
           lastTwoYearsData[country]["matrixDots"]=matrixOfAllDots
           lastTwoYearsData[country]["objectInfected"]=objectOfInfectedDots
           lastTwoYearsData[country]["latestRatio"]=percentageLatestWeek
+          lastTwoYearsData[country]["weekBeforeRatio"]=percentageWeekBefore
+
 
         }
         })

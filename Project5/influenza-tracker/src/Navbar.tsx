@@ -20,7 +20,7 @@ const Navbar = () => {
            className={({ isActive, isPending }) => {  }
            }
          >
-           Log Out
+           Your Account
          </NavLink>}
          
         </div>
