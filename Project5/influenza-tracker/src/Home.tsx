@@ -12,6 +12,7 @@ function Home() {
   const { countryFilter, reducedData } = useContext(ReducedDataContext)
   return (
     <><Navbar></Navbar>
+    <div className="explainerBlock">See whether influenza activity is rising or falling in your country/countries of interest</div>
       <SelectMenu countryFilter={countryFilter}></SelectMenu>
       <div className='countrygrid'>
 

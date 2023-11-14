@@ -31,7 +31,7 @@ const Navbar = props => {
             className={({ isActive, isPending }) => { }
             }
           >
-            Home
+            Influenza Tracker
           </NavLink>
         </div>
         <div className="menuBlocks">

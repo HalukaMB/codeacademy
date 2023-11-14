@@ -38,8 +38,6 @@ function CountryCardMain({countryData }: CardProps) {
         let keyForFlag=countryData["info"]["code"]
         flagUrl = extraFlags[keyForFlag] 
     }
-
-
     if ((weekToWeekDataAvailable) && (!isNaN(trendForWeek))) {
         return (
             <div id={countryData["info"]["code"]} className="countryCardMain" onClick={()=>{

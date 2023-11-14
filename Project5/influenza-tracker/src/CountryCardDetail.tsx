@@ -42,6 +42,7 @@ const CountryCardDetail = () => {
     const countryData = reducedData[countryNameToSet]
     
     const changeCircle=(e)=>{
+        console.log(e.target.getAttribute("index"))
         const classNameOfDot=String(e.target.className)
         if (classNameOfDot.includes("healthy")){
             const newClassName=(classNameOfDot).replace("healthy","infected")
@@ -90,12 +91,12 @@ const CountryCardDetail = () => {
                         {countryData.matrixDots.flat().map((element, index) => {
                             if (element == "healthy") {
                                 return (
-                                    <div className="circle healthy" key={index} onClick={changeCircle} />
+                                    <div className="circle healthy" key={index} index={index} onClick={changeCircle} />
                                 )
                             }
                             if (element == "infected") {
                                 return (
-                                    <div className="circle infected" key={index} onClick={changeCircle} />
+                                    <div className="circle infected" key={index} index={index} onClick={changeCircle} />
                                 )
                             }
                         })}
