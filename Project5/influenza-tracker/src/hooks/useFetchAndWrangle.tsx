@@ -3,7 +3,6 @@ import { readRemoteFile } from 'react-papaparse';
 export const ReducedDataContext = createContext({});
 
 /* This is a custom hook that turns a csv into a reduced object of objects  */
-
 interface Idata {
   data: entry[];
   errors: any;
@@ -43,14 +42,14 @@ interface InnerObject{
   data: Record<number|string, number[]>
   matrixDots: string[][]
   objectInfected: Record<number|string, number>
-  latestRatio: number
+  latestRatio: number|null
 
 }
 
 interface GetDataProps{
   updateBaseDataState: (results: entry[])=> void
-  setCountryFilter: ({})=> void
-  setReducedData: ({})=>void
+  setCountryFilter: (array: Record<string, string>)=> void
+  setReducedData: (array: Record<string, InnerObject>)=>void
 }
 /* why are the sets bits get underlined */
 function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDataProps) {
@@ -99,7 +98,7 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
           if (dataarray.every(e => typeof (e) === "number")) {
             if (!Object.keys(objectOfCountries).includes(country)) {
               objectOfCountries[(country)] = countryCode
-              lastTwoYearsData[country] = { "info": {"longname":"","code":""}, "data": {}, "matrixDots":[], "objectInfected":{} }
+              lastTwoYearsData[country] = { "info": {"longname":"","code":""}, "data": {}, "matrixDots":[], "objectInfected":{}, "latestRatio": null}
 
               lastTwoYearsData[country]["info"]["longname"] = country
               lastTwoYearsData[country]["info"]["code"] = countryCode
@@ -162,9 +161,7 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
   )
 };
 
-
-
-
+/* here we call the  */
 export const useFetchAndWrangle = (): HookReturn => {
   const [baseData, setBaseData] = useState<entry[] | null>(null)
   const [countryFilter, setCountryFilter] = useState<Record<string, string>>({})

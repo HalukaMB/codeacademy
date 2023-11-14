@@ -6,7 +6,7 @@ import Home from './Home.tsx';
 import About from './About.tsx';
 import CountryCardDetail from './CountryCardDetail.tsx';
 import { ReducedDataContextProvider } from './context/reducedDataContext.tsx';
-import { AuthenticationContext, AuthenticationContextProvider } from './context/AuthenticationContext.tsx';
+import { AuthenticationContextProvider } from './context/AuthenticationContext.tsx';
 import ProtectedRoute from './ProtectedRoute.tsx';
 import Login from './Login.tsx';
 import Logout from './Logout.tsx';

@@ -1,16 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { AuthenticationContext } from './context/AuthenticationContext'
-import { useNavigate } from 'react-router';
 
 
 
 const LogoutFeature = () => {
-    const { user, login, logout } = useContext(AuthenticationContext);
+    const { user } = useContext(AuthenticationContext);
     const { favorites, changeFavorites } = useContext(AuthenticationContext)
     const { updateFavoritesChangeTime } = useContext(AuthenticationContext)
 
 
-    const navigate = useNavigate();
     const authenticationContext=useContext(AuthenticationContext)
     const removeCountry=(e)=>{
         const item = e.target.value
@@ -35,7 +33,7 @@ const LogoutFeature = () => {
     
   return (
     <>
-    <div>Here is the current state: {String(authenticationContext.user)} </div>
+    <div className="explainerBlock">Here is your list of favorite countries:</div>
     <button onClick={()=>{
     changeStatus()}
 }>Log Out</button>

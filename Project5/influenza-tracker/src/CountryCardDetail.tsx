@@ -34,8 +34,11 @@ const CountryCardDetail = () => {
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid as string)
     let countryNameToSet=""
-    Object.keys(countryFilter).map(countryName=>{
-        if (params.countryid===countryFilter[countryName]){
+
+    Object.keys(countryFilter).map((countryName:string)=>{
+
+/* HOW TO FIX THIS? */
+        if (params.countryid==countryFilter[countryName]){
             countryNameToSet=countryName
         }
     })

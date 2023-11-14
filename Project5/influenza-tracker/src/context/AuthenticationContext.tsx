@@ -1,10 +1,8 @@
 import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import React, { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { auth } from '../settings/firebaseConfig';
-import { setUserId } from 'firebase/analytics';
-import { Navigate } from 'react-router';
 import { db } from "../settings/firebaseConfig";
-import { collection, doc, setDoc, adddoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 type Props = {
     children: ReactNode;
@@ -16,10 +14,13 @@ interface AuthenticationContextType {
     logout: () => void; 
     login: (email: string, password: string) => void;  
     updateFavoritesChangeTime: ()=>void;
+    favorites: string[];
+    changeFavorites: (favorites:string[])=> void;
   }
 
 const defaultValue:AuthenticationContextType = {
     user: null,
+    favorites: [],
   signup: () => {
     throw Error("No provider");
   },
@@ -30,6 +31,9 @@ const defaultValue:AuthenticationContextType = {
     throw Error("No provider");
   }, // By default, the user is set to indicate no provider is present.
   updateFavoritesChangeTime: () => {
+    throw Error("No provider");
+  }, 
+  changeFavorites: () => {
     throw Error("No provider");
   }, 
   };
@@ -50,7 +54,7 @@ export const AuthenticationContextProvider = (props: Props) => {
     updateUserPref(newValue)
   };
 
-  const getUserPref = async(user)=>{
+  const getUserPref = async(user:any)=>{
     if(user?.email && db){
     const userId: string=user.email
     const docRef =  doc(
@@ -68,7 +72,7 @@ export const AuthenticationContextProvider = (props: Props) => {
     }
   }
 
-  const updateUserPref= async(newValue)=>{
+  const updateUserPref= async(newValue:string[])=>{
     if(user?.email && db){
     let userObject={
       user: user.email,
@@ -156,7 +160,6 @@ export const AuthenticationContextProvider = (props: Props) => {
     signOut(auth)
       .then(() => {
         setUser(null);
-        Navigate("/");
       })
       .catch((error) => {
         console.log(error);
