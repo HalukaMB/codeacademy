@@ -20,7 +20,7 @@ interface InnerObject{
     objectInfected: Record<number|string, number>
   }
 
-  interface OuterObject{[key:string]:InnerObject}
+interface OuterObject{[key:string]:InnerObject}
 
 const CountryCardDetail = () => {
 
@@ -30,7 +30,6 @@ const CountryCardDetail = () => {
     const { updateFavoritesChangeTime } = useContext(AuthenticationContext)
     const { changeFavorites } = useContext(AuthenticationContext)
 
-    const currentTime= Date.now()
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid as string)
     let countryNameToSet=""

@@ -10,7 +10,7 @@ const LogoutFeature = () => {
 
 
     const authenticationContext=useContext(AuthenticationContext)
-    const removeCountry=(e)=>{
+    const removeCountry=(e:any)=>{
         const item = e.target.value
 
         const newFaves = favorites.filter((favourite)=>{
@@ -18,13 +18,11 @@ const LogoutFeature = () => {
         })
         changeFavorites(newFaves)
         updateFavoritesChangeTime()
+    
     }
 
     const changeStatus=()=>{
-        if(user==null){
-            authenticationContext.signin()
 
-        }
         if(user!=null){
             authenticationContext.logout()
             console.log("logging out")

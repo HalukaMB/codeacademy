@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AuthenticationContext } from './context/AuthenticationContext';
 
-const Navbar = props => {
+const Navbar = () => {
   const { user, signup, login } = useContext(AuthenticationContext);
 
   return (

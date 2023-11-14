@@ -43,7 +43,6 @@ interface InnerObject{
   matrixDots: string[][]
   objectInfected: Record<number|string, number>
   latestRatio: number|null
-
 }
 
 interface GetDataProps{

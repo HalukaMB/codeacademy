@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 const SelectMenu = ({countryFilter}) => {
     let navigate=useNavigate()
     countryFilter["* All Countries *"]="* All Countries *"
-const selectFunction=(event)=>{
+const selectFunction=(event:any)=>{
 if((event.target.value)!=="* All Countries *"){
     let countryNameSelected=event.target.value
     let countryId=""
