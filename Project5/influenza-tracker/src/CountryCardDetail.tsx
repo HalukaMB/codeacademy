@@ -32,7 +32,6 @@ const CountryCardDetail = () => {
     const { favorites } = useContext(AuthenticationContext)
     const { updateFavoritesChangeTime } = useContext(AuthenticationContext)
     const { changeFavorites } = useContext(AuthenticationContext)
-
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid as string)
     let countryNameToSet=""
@@ -45,7 +44,7 @@ const CountryCardDetail = () => {
         }
     })
     const countryData = reducedData[countryNameToSet]
-    const percentageLatestWeek = countryData["latestRatio"]
+   
     const changeCircle=(e)=>{
         console.log(e.target.getAttribute("index"))
         const classNameOfDot=String(e.target.className)
@@ -59,11 +58,10 @@ const CountryCardDetail = () => {
             console.log(newClassName)
             e.target.className=newClassName
         }
-
     }
 
     const addToFavourites = ()=>{
-        const countryCode:string=countryData["info"]["code"]
+        const countryCode:string=countryData["info"]["longname"]
         if (!favorites.includes(countryCode)){
             favorites.push(countryCode)
             updateFavoritesChangeTime()
@@ -81,6 +79,7 @@ const CountryCardDetail = () => {
         
 
     if (countryData){
+        const percentageLatestWeek = countryData["latestRatio"]
     return (
         <>
         <Navbar></Navbar>

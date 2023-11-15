@@ -1,7 +1,11 @@
 import LogoutFeature from './LogoutFeature'
 import Navbar from './Navbar'
 
+
+
+
 const Logout = () => {
+
   return (
     
     <>

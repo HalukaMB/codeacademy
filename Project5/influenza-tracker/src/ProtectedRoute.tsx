@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
   const { user } = useContext(AuthenticationContext);
+  
   console.log(user)
   return <>{(user!=null) ? children :
     <div>
