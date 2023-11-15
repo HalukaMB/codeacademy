@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 
 
-const SelectMenu = ({countryFilter}:{[string]:string}) => {
+const SelectMenu = ({countryFilter}:{[key:string]:string}) => {
     let navigate=useNavigate()
     countryFilter["* All Countries *"]="* All Countries *"
 const selectFunction=(event)=>{

@@ -39,7 +39,7 @@ const CountryCardDetail = () => {
     Object.keys(countryFilter).map((countryName:string)=>{
 
 /* HOW TO FIX THIS? */
-        if (params.countryid==countryFilter[countryName]){
+        if (params.countryid==countryFilter as Record<string, string>[countryName]){
             countryNameToSet=countryName
         }
     })

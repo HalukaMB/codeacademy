@@ -10,7 +10,6 @@ interface InnerObject{
     objectInfected: Record<number|string, number>
     latestRatio: number
     weekBeforeRatio: number
-  
   }
 
   interface GetDataProps{
@@ -24,10 +23,11 @@ function LogoutFeature(){
     const { reducedData } = useContext(ReducedDataContext) as GetDataProps
     
 
-
+    console.log(reducedData)
     const authenticationContext=useContext(AuthenticationContext)
-    const removeCountry=(e:any)=>{
-        const item = e.target.value
+    const removeCountry=(countryToRemove:string)=>{
+  
+        const item = countryToRemove
 
         const newFaves = favorites.filter((favourite)=>{
             return favourite !=item;
@@ -48,7 +48,7 @@ function LogoutFeature(){
 	.filter(key => favorites.includes(key))
 	.reduce((obj, key) => {
 		obj[key] = reducedData[key];
-		return obj;}, {});
+		return obj;}, {} as  Record<string, InnerObject>);
 
     console.log(favoriteCountries)
 
@@ -68,7 +68,7 @@ function LogoutFeature(){
 
         <CountryCardMain  countryData={favoriteCountries[element]} key={"A"+index}></CountryCardMain>
 
-    <button value={element} key={index} onClick={(removeCountry)}>Remove {element}</button>
+    <button value={element} key={index} onClick={()=>removeCountry(element)}>Remove {element}</button>
     </div>
     )
 })}
