@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import { AuthenticationContext } from "./context/AuthenticationContext";
 
-import { ReducedDataContext } from "./context/reducedDataContext";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute({ children }:any) {
   const { user } = useContext(AuthenticationContext);
   
   console.log(user)

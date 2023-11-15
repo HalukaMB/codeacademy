@@ -7,13 +7,14 @@ type TrendProps = {
 const TrendIndicator = ({trendForWeek}:TrendProps) => {
   return (
     <>
+    <div>The current trend is:</div>
     {trendForWeek > 0 ?
         <div className="weekTrend Up">
-            <img src='src/assets/arrowUp.svg' width="50px" height="50px"></img>
+            <img src='src/assets/arrowUp.svg' width="50px" height="40px"></img>
         </div>
         : trendForWeek < 0 ?
             <div className="weekTrend Down">
-                <img src='src/assets/arrowDown.svg' width="50px" height="50px"></img>
+                <img src='src/assets/arrowDown.svg' width="50px" height="40px"></img>
 
             </div>
             :  trendForWeek ==0?
