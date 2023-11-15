@@ -28,25 +28,23 @@ interface OuterObject{[key:string]:InnerObject}
 const CountryCardDetail = () => {
 
     const { reducedData } = useContext(ReducedDataContext) as Record<string, OuterObject>
-    const { countryFilter } = useContext(ReducedDataContext) as Record<string, string>
+    const { countryFilter } = useContext(ReducedDataContext) as {[key:string]:string}
     const { favorites } = useContext(AuthenticationContext)
     const { updateFavoritesChangeTime } = useContext(AuthenticationContext)
     const { changeFavorites } = useContext(AuthenticationContext)
     const params = useParams();
     let flagUrl = findFlagUrlByIso3Code(params.countryid as string)
     let countryNameToSet=""
-
     Object.keys(countryFilter).map((countryName:string)=>{
 
 /* HOW TO FIX THIS? */
-        if (params.countryid==countryFilter as Record<string, string>[countryName]){
+        if (params.countryid==countryFilter[countryName as keyof typeof countryFilter]){
             countryNameToSet=countryName
         }
     })
     const countryData = reducedData[countryNameToSet]
    
-    const changeCircle=(e)=>{
-        console.log(e.target.getAttribute("index"))
+    const changeCircle=(e: HTMLElementEvent)=>{
         const classNameOfDot=String(e.target.className)
         if (classNameOfDot.includes("healthy")){
             const newClassName=(classNameOfDot).replace("healthy","infected")

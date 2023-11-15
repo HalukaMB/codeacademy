@@ -25,9 +25,12 @@ function LogoutFeature(){
 
     console.log(reducedData)
     const authenticationContext=useContext(AuthenticationContext)
-    const removeCountry=(countryToRemove:string)=>{
-  
-        const item = countryToRemove
+    const removeCountry=(event:React.MouseEvent<HTML>)=>{
+        console.log(event)
+        console.log(event.target)
+        console.log(event.target.value)
+
+        const item = event.target.value
 
         const newFaves = favorites.filter((favourite)=>{
             return favourite !=item;
@@ -68,7 +71,7 @@ function LogoutFeature(){
 
         <CountryCardMain  countryData={favoriteCountries[element]} key={"A"+index}></CountryCardMain>
 
-    <button value={element} key={index} onClick={()=>removeCountry(element)}>Remove {element}</button>
+    <button value={element} key={index} onClick={removeCountry}>Remove {element}</button>
     </div>
     )
 })}

@@ -27,7 +27,6 @@ type CardProps = {
 }
 
 function CountryCardMain({countryData }: CardProps) {
-    console.log(countryData)
     const percentageBeforeWeek = countryData["weekBeforeRatio"]
     const percentageLatestWeek = countryData["latestRatio"]
     const trendForWeek: number = percentageLatestWeek - percentageBeforeWeek

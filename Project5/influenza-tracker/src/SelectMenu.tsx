@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router';
 const SelectMenu = ({countryFilter}:{[key:string]:string}) => {
     let navigate=useNavigate()
     countryFilter["* All Countries *"]="* All Countries *"
-const selectFunction=(event)=>{
+const selectFunction=(event: HTMLElementEvent)=>{
 if((event.target.value)!=="* All Countries *"){
     let countryNameSelected=event.target.value
     let countryId=""
    Object.keys(countryFilter).map(key=>{
     const countryNameIterated=key
     if(countryNameSelected==countryNameIterated){
-        countryId=countryFilter[key]
+        countryId=countryFilter[key as keyof typeof countryFilter]
     }
 }
 
