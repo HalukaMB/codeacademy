@@ -89,7 +89,7 @@ const CountryCardDetail = () => {
                 <div className="item">
                     <img src={flagUrl} height="50px" />
                 </div>
-                {!isNaN(percentageLatestWeek)?<div>{(Math.round(percentageLatestWeek*10))/10}% of tested people had influenza. Which means out of 49 people, it looks like this:</div>:<div className="LatestWeek">No Data on latest week</div>}
+                {!isNaN(percentageLatestWeek)?<div>{(Math.round(percentageLatestWeek*10))/10}% of tested people had influenza. Which means out of 49 people, it looks like this* :</div>:<div className="LatestWeek">No Data on latest week</div>}
 
                 {(countryData.matrixDots.length>0)
                 ?
@@ -109,6 +109,7 @@ const CountryCardDetail = () => {
                     </div>
                 : <div className="weekTrend NoData">Not enough data</div>
                 }
+                <div className="explanation">* We assume that there is always the chance of at least one person being infected.</div>
             <button className="addFavs" onClick={addToFavourites}>Bookmark this country</button>
             </div>
 

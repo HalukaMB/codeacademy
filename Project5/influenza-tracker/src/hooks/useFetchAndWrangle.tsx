@@ -130,7 +130,10 @@ function getData({ updateBaseDataState, setCountryFilter, setReducedData }:GetDa
         const percentageWeekBefore = dataWeekBefore[2] / dataWeekBefore[3] * 100
         if (!isNaN(percentageLatestWeek)&&(percentageLatestWeek!==Infinity)){
             const numberOfDots: number = 49
-            const infectedDots: number = Math.round(numberOfDots * (percentageLatestWeek / 100))
+            let infectedDots: number = Math.round(numberOfDots * (percentageLatestWeek / 100))
+            if (infectedDots==0){
+              infectedDots=1
+            }
             const arrayOfInfectedDots = Array.from(new Array(infectedDots), () => "infected");
             const healthyDots = numberOfDots - infectedDots
             const arrayOfAllDots = Array.from(new Array(healthyDots), () => "healthy");

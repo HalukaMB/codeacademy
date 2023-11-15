@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { AuthenticationContext } from './context/AuthenticationContext'
 import { ReducedDataContext } from './context/ReducedDataContext';
 import CountryCardMain from './CountryCardMain';

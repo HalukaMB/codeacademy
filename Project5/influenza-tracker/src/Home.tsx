@@ -11,7 +11,9 @@ interface InnerObject{
   data: Record<number|string, number[]>
   matrixDots: string[][]
   objectInfected: Record<number|string, number>
-  latestRatio: number|null
+  latestRatio: number
+  weekBeforeRatio: number
+
 }
 interface GetDataProps{
   countryFilter: Record<string, string>

@@ -215,3 +215,7 @@ img{
 .logOutButton{
   margin: calc(var(--baseunit_height)*3) calc(var(--baseunit_width)*3)
 }
+
+.explanation{
+  margin: calc(var(--baseunit_height)*3) calc(var(--baseunit_width)*3)
+}
