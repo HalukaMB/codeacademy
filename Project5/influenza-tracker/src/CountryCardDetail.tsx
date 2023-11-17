@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { MouseEventHandler, useContext, useState } from "react";
 import { useParams } from "react-router";
 import { ReducedDataContext } from "./context/ReducedDataContext";
 import SelectMenu from "./SelectMenu";
@@ -39,20 +39,20 @@ const CountryCardDetail = () => {
     let countryNameToSet = ""
     Object.keys(countryFilter).map((countryName: string) => {
 
-        /* HOW TO FIX THIS? */
         if (params.countryid == countryFilter[countryName]) {
             countryNameToSet = countryName
         }
     })
     const countryData = reducedData[countryNameToSet]
 
-    const changeCircle = (e: HTMLElementEvent) => {
+    const changeCircle = (e: MouseEventHandler<HTMLDivElement>) => {
         const classNameOfDot = String(e.target.className)
         if (classNameOfDot.includes("healthy")) {
             const newClassName = (classNameOfDot).replace("healthy", "infected")
             console.log(newClassName)
             e.target.className = newClassName
             console.log(e.target.getAttribute("data-index"))
+            console.log(countryData.matrixDots)
 
         }
         if (classNameOfDot.includes("infected")) {
@@ -69,7 +69,6 @@ const CountryCardDetail = () => {
             updateFavoritesChangeTime()
             changeFavorites(favorites)
         }
-
     }
 
 
