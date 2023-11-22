@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import getTrashLocations from '../hooks/getTrashLocations';
 
 const MapElement = () => {
 
     const [trashLocation, setTrashLocation] = useState([])
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0,0]);
-
+    const result=getTrashLocations()
+    console.log(result)
     const NewMarker = () => {
         const map = useMapEvents({
             click(e) {     
@@ -31,7 +33,7 @@ const MapElement = () => {
     }
 
     return (
-    <div><div>MAP ELEMENT</div>
+    <div><div>Put the pin on where you found the trash. Please be as accurate as possible.</div>
         <div id="mapid">
         <MapContainer center={[52.52, 13.41]} zoom={10}scrollWheelZoom={false}>
         <NewMarker />

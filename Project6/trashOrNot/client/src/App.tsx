@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
-import MapElement from './Components/MapElement'
-import { Navbar } from './Components/Navbar'
+import { Navbar } from './components/Navbar'
+import { TrashLocationForm } from './components/TrashLocationForm'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,11 +15,8 @@ function App() {
       </div>
       <div className='reportField'>
         <div>Report us a place where you found some trash</div>
-        <form>
-        <input></input>
-        <MapElement></MapElement>
-        </form>
       </div>
+      <TrashLocationForm></TrashLocationForm>
     </>
   )
 }
