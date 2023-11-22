@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import router from "./routes/locations.js";
+import router from "./routes/locationRoutes.js";
 import mongoose from "mongoose";
 
 console.log(dotenv.config());

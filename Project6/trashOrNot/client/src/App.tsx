@@ -15,7 +15,7 @@ function App() {
         <h1>Clean Berlin</h1>
       </div>
       <div className='reportField'>
-        <div>Report us a place where you found some</div>
+        <div>Report us a place where you found some trash</div>
         <form>
         <input></input>
         <MapElement></MapElement>

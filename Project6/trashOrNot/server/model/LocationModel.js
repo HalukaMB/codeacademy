@@ -2,11 +2,6 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const locationSchema = new Schema({
-  _id: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   lat: {
     type: Number,
     required: true,
