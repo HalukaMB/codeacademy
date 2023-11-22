@@ -22,8 +22,8 @@ const locationSchema = new Schema({
     required: true,
     unique: false,
   },
-  rating: {
-    type: Number,
+  category: {
+    type: String,
     required: true,
     unique: false,
   }

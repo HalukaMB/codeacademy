@@ -37,6 +37,12 @@
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
+.topSection{
+  display: grid;
+  grid-template-columns: 20% 60% 20%
+}
+
+.leaflet-container {
+  width: 50vw;
+  height: 50vh;
 }
