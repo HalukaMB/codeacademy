@@ -10,7 +10,17 @@ const MapElement = () => {
     getTrashLocations().then(
     (previousPoints:[])=>{
         console.log(previousPoints)
+        previousPoints.map((element,index)=>{
+        console.log(element["lat"],element["long"])
+        return(
+            <Marker           
+                key={index}
+                position={(element["lat"],element["long"])}
+                interactive={false} 
+                />
 
+        )}
+        )
        
     })
 
