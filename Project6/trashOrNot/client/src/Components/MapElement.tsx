@@ -7,8 +7,15 @@ const MapElement = () => {
 
     const [trashLocation, setTrashLocation] = useState([])
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0,0]);
-    const result=getTrashLocations()
-    console.log(result)
+    getTrashLocations().then(
+    (previousPoints:[])=>{
+        console.log(previousPoints)
+
+       
+    })
+
+   
+
     const NewMarker = () => {
         const map = useMapEvents({
             click(e) {     
