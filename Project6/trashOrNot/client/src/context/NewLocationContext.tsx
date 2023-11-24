@@ -9,18 +9,18 @@ interface NewLocationDataType {
 
 
 export const NewLocationContext = createContext({});
+
+
+
+
+export const NewLocationContextProvider = (props: Props) => {
 const defaultNewLocation: NewLocationDataType = {
     locationname: "",
     lat: null,
     long: null,
     category: "trash"
 }
-
-
-
-export const NewLocationContextProvider = (props: Props) => {
-
-
+console.log("context")
 
     let [newLocation, setNewLocation] = useState(defaultNewLocation)
 

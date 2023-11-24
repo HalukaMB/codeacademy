@@ -5,12 +5,12 @@ import getTrashLocations from '../hooks/getTrashLocations';
 import { NewLocationContext } from '../context/NewLocationContext';
 
 const MapElement = () => {
-
+    // const{setNewLocation, newLocation}=props
     const [previousPositions, setPreviousPositions] = useState<[number, number][] | null>(null);
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
 
-    const { newLocation, setNewLocation } = useContext(NewLocationContext)
-    let locallocation = {}
+  const { newLocation, setNewLocation } = useContext(NewLocationContext)
+  let locallocation = {}
 
 
 
@@ -54,7 +54,10 @@ const MapElement = () => {
                 newLocation.lat=e.latlng.lat;
                 newLocation.long=e.latlng.lng;
 
-                setNewLocation(newLocation)
+                setNewLocation((prev) => {
+                  return {...prev,lat:e.latlng.lat,long:e.latlng.lng }})
+
+                console.log(newLocation)
 
                 
             },
