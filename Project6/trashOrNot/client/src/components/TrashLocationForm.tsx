@@ -6,9 +6,9 @@ import { NewLocationContext } from '../context/NewLocationContext'
  
 
 export const TrashLocationForm = () => {
-    const { NewLocation, setNewLocation } = useContext(NewLocationContext)
+    const { newLocation, changeNewLocationData } = useContext(NewLocationContext)
 
-    console.log(NewLocation)
+    console.log(newLocation)
     return (
         <div>
             <form>

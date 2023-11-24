@@ -9,8 +9,8 @@ const MapElement = () => {
     const [previousPositions, setPreviousPositions] = useState<[number, number][] | null>(null);
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
 
-    const { NewLocation, setNewLocation } = useContext(NewLocationContext)
-    let localLocation=NewLocation
+    const { newLocation, setNewLocation } = useContext(NewLocationContext)
+    let localLocation=newLocation
 
 
 
@@ -54,7 +54,7 @@ const MapElement = () => {
                 localLocation.lat=e.latlng.lat;
                 localLocation.long=e.latlng.lng;
                 setNewLocation(localLocation)
-                console.log(NewLocation)
+                console.log(newLocation)
 
                 
             },

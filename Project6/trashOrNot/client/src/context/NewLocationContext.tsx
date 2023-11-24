@@ -27,10 +27,10 @@ export const NewLocationContextProvider = (props: Props) => {
 
 
 
-    let [NewLocation, setNewLocation] = useState(defaultNewLocation)
+    let [newLocation, setNewLocation] = useState(defaultNewLocation)
 
     return (
-        <NewLocationContext.Provider value={{ NewLocation, setNewLocation}}>
+        <NewLocationContext.Provider value={{ newLocation, setNewLocation}}>
             {props.children}
         </NewLocationContext.Provider>
     )
