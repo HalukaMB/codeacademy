@@ -1,8 +1,8 @@
-import Location from "../model/LocationModel.js";
+import LocationModel from "../model/LocationModel.js";
 
 const getAllLocations = async(req, res) => {
     try {
-        const locations = await Location.find({});
+        const locations = await LocationModel.find({});
         console.log('locations', locations)
         if (locations) {
           return res.send(locations)
@@ -16,7 +16,7 @@ const getAllLocations = async(req, res) => {
 
     const getCleanedLocations = async(req, res) => {
         try {
-            const locations = await Location.find({
+            const locations = await LocationModel.find({
                 category: "clean"
             });
             console.log('locations', locations)
@@ -33,7 +33,7 @@ const getAllLocations = async(req, res) => {
 
         const getTrashLocations = async(req, res) => {
             try {
-                const locations = await Location.find({
+                const locations = await LocationModel.find({
                     category: "trash"
                 });
                 console.log('locations', locations)
@@ -46,4 +46,40 @@ const getAllLocations = async(req, res) => {
                 return res.send({ error: err.message })
               }
             };
-    export { getAllLocations, getCleanedLocations, getTrashLocations};
+
+            const postLocations = async (req, res) => {
+              console.log("register controller working");
+              console.log("req.body :>> ", req.body);
+              try {
+                if ((req.body.lat & req.body.lang)!=null)
+               {
+                console.log("writing new")
+                console.log(req.body.locationname)
+                const newLocation = new LocationModel({
+                  locationname: req.body.locationname,
+                  lat: req.body.lat,
+                  long: req.body.long,
+                  category: req.body.category,
+               })
+               console.log("newLocation",newLocation)
+               const savedLocation = await newLocation.save();
+               console.log(savedLocation)
+               res.status(201).json({
+                message: "place registered!!",
+                user: {
+                  locationname: savedLocation.locationname,
+                  lat: savedLocation.lat,
+                  long: savedLocation.long,
+         
+                },
+              });
+            } else {
+              res.status(500).json({
+                message: "something went wrong",
+              });
+              }} catch (error) {
+              }
+            }
+            
+            
+    export { getAllLocations, getCleanedLocations, getTrashLocations, postLocations};

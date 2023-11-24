@@ -10,7 +10,7 @@ const MapElement = () => {
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
 
     const { newLocation, setNewLocation } = useContext(NewLocationContext)
-    let localLocation=newLocation
+    let locallocation = {}
 
 
 
@@ -51,10 +51,10 @@ const MapElement = () => {
                     e.latlng.lat,
                     e.latlng.lng
                 ])
-                localLocation.lat=e.latlng.lat;
-                localLocation.long=e.latlng.lng;
-                setNewLocation(localLocation)
-                console.log(newLocation)
+                newLocation.lat=e.latlng.lat;
+                newLocation.long=e.latlng.lng;
+
+                setNewLocation(newLocation)
 
                 
             },

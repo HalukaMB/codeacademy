@@ -2,23 +2,18 @@ import { createContext, useState } from "react";
 
 
 interface NewLocationDataType {
-    data:{
-    context: string | null;
+    locationname: string | null;
     lat: number | null;
     long: number | null;
-    category: string};
-    changeNewLocationData: ()=>void;
-}
+    category: string}
 
 
 export const NewLocationContext = createContext({});
 const defaultNewLocation: NewLocationDataType = {
-    data:{
-    context: "",
+    locationname: "",
     lat: null,
     long: null,
-    category: ""},
-    changeNewLocationData: ()=>{}
+    category: "trash"
 }
 
 
