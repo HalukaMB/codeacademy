@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import getTrashLocations from '../hooks/getTrashLocations';
+import { NewLocationContext } from '../context/NewLocationContext';
 
 const MapElement = () => {
 
     const [previousPositions, setPreviousPositions] = useState<[number, number][] | null>(null);
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+
+    const { NewLocation, setNewLocation } = useContext(NewLocationContext)
+    let localLocation=NewLocation
+
+
+
+
 
     const getPreviousLocations = () => {
         getTrashLocations().then(
@@ -42,10 +50,15 @@ const MapElement = () => {
                 setSelectedPosition([
                     e.latlng.lat,
                     e.latlng.lng
-                ]);
+                ])
+                localLocation.lat=e.latlng.lat;
+                localLocation.long=e.latlng.lng;
+                setNewLocation(localLocation)
+                console.log(NewLocation)
+
+                
             },
         })
-        console.log(selectedPosition)
         return (
             selectedPosition ?
                 <Marker
