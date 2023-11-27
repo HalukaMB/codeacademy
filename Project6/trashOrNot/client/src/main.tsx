@@ -5,6 +5,7 @@ import './index.css'
 import { NewLocationContextProvider } from './context/NewLocationContext.tsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import About from './About.tsx'
+import { LoginLogout } from './LoginLogout.tsx'
 
 
 const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/loginlogout",
+    element: <LoginLogout />,
   },
  
 ]

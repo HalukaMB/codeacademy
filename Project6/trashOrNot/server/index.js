@@ -4,6 +4,7 @@ import cors from "cors";
 import router from "./routes/locationRoutes.js";
 import mongoose from "mongoose";
 import { getTrashLocations } from "./controller/locationController.js";
+import userrouter from "./routes/userRoutes.js";
 
 dotenv.config()
 const app = express();
@@ -17,7 +18,10 @@ const addMiddlewares = () => {
 
 const addRoutes = () => {
   app.use("/locations", router);
+  app.use("/users", userrouter);
+
 };
+
 
 const startServer = () => {
 

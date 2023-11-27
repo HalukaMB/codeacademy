@@ -1,5 +1,4 @@
 import express from "express";
-import Location from "../model/LocationModel.js";
 import { getAllLocations, getCleanedLocations, getTrashLocations, postLocations } from "../controller/locationController.js";
 const router = express.Router();
 router.get("/all", getAllLocations)
