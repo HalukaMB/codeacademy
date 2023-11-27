@@ -30,7 +30,7 @@ export const LoginLogout = () => {
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     
         const urlencoded = new URLSearchParams();
-        urlencoded.append("userName", newUser!.userName);
+        urlencoded.append("username", newUser!.username);
         urlencoded.append("email", newUser!.email);
         urlencoded.append("password", newUser!.password);
 
@@ -57,21 +57,21 @@ export const LoginLogout = () => {
     <div>
       <div className="input-container">
         <form onSubmit={register} action="" className="input-container">
-        <label htmlFor="userName">User Name</label>
+        <label htmlFor="username">User Name</label>
           <input
             type="text"
-            name="userName"
-            id="userName"
+            name="username"
+            id="username"
             onChange={handleRegisterInputChange}
           />
-          <label htmlFor="userName">Mailadress</label>
+          <label htmlFor="email">Mailadress</label>
           <input
             type="text"
             name="email"
             id="email"
             onChange={handleRegisterInputChange}
           />
-          <label htmlFor="email">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="text"
             name="password"

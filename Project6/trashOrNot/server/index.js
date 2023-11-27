@@ -1,9 +1,8 @@
 import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import router from "./routes/locationRoutes.js";
 import mongoose from "mongoose";
-import { getTrashLocations } from "./controller/locationController.js";
+import router from "./routes/locationRoutes.js";
 import userrouter from "./routes/userRoutes.js";
 
 dotenv.config()

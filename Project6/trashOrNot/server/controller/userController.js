@@ -8,8 +8,8 @@ const register = async (req, res) => {
     //Check if the user already exist in our DB
     const exisitingUser = await userModel.findOne({$or: [
         {email: req.body.email},
-        {phone: req.body.username}
-    ]})
+        {username: req.body.username}]
+    })
     if (exisitingUser) {
       res.status(200).json({
         message: "email or username already exist",
@@ -22,9 +22,8 @@ const register = async (req, res) => {
         // creating the user
   
         const newUser = new userModel({
-          userName: req.body.userName,
+        username: req.body.username,
           email: req.body.email,
-          userImage: req.body.image,
           password: hashedPassword,
         });
   
