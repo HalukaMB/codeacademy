@@ -4,7 +4,10 @@
   padding: 2rem;
   text-align: center;
 }
-
+:root {
+  --baseunitheight: 4px;
+  --baseunitlength: 6px;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -57,4 +60,78 @@
 .success{
   background-color: rgb(136, 226, 0);
   color:black
+}
+/* And the specific hamburger nav */
+.hamburger-logo {
+  float: left;
+  padding-left: calc(var(--baseunitlength)*3);
+  padding-right: calc(var(--baseunitlength)*3);
+}
+
+.hamburger-logo span {
+  width: calc(var(--baseunitlength)*5.5);
+  height: calc(var(--baseunitheight)*1);
+  border-radius: 25%;
+  background: #000000; border-radius: var(--baseunitheight);
+  display: block;
+  margin: 25% 0;
+  transform-origin: center; 
+  transition: transform 0.3s ease-in-out, top 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* And we spread the logo out using nth */
+.hamburger-logo span:nth-child(1) { top:  calc(var(--baseunitheight)*3); }
+.hamburger-logo span:nth-child(2) { top: calc(var(--baseunitheight)*6); }
+.hamburger-logo span:nth-child(3) { top: calc(var(--baseunitheight)*9); }
+
+/*Lastly we design the nav-bar that will only appear once the menu is clicked*/
+nav {
+  background-color: rgb(216, 216, 216);
+  width: 100%;
+  margin: calc(var(--baseunitheight)*15) 0px 0px 0px;
+  position: fixed;
+  left: -100%;
+  border: var(--baseunitheight);
+  border-style: solid;
+  border-color: #000;
+  box-sizing: border-box;
+  transition: left 0.3s ease-in-out;
+}
+
+label {
+  cursor: pointer;
+}
+
+/* And then we build together the whole trigger logic. If it is checked */
+
+/* if the trigger is checked, we turn outer ones of the spans */
+#trigger:checked + .hamburger-logo span:nth-child(1){
+  transform: translateY(calc(var(--baseunitlength)*2)) rotate(45deg);
+  top: calc(var(--baseunitheight)*-4);
+
+  }
+#trigger:checked + .hamburger-logo span:nth-child(3){
+  transform: translateY(calc(var(--baseunitlength)*-2)) rotate(-45deg);
+  top: calc(var(--baseunitheight)*2);
+
+   }
+   /* and erase the middle one */
+#trigger:checked + .hamburger-logo span:nth-child(2){
+  opacity: 0%;
+ }
+
+   /* and we let the nav appear */
+
+#trigger:checked~nav {
+  left: calc(var(--baseunitlength)*2);
+  width: calc(100vw - (var(--baseunitlength)*4));
+}
+
+li {
+  margin-bottom: calc(var(--baseunitheight)*3);
+  color: #000
+}
+/* And lastly we hide the trigger itself */
+#trigger{
+  display: none;
 }

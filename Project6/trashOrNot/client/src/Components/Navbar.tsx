@@ -46,6 +46,23 @@ Login
           </NavLink>
 
           </div>
+          <div className="headerelements">
+            <input type="checkbox" id="trigger" />
+            <label htmlFor="trigger" className="hamburger-logo">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Lost</a></li>
+                        <li><a href="found.html">Found</a></li>
+                        <li><a href="connected.html">Connected</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+        </div>
 
     </div>
   )

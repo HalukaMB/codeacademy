@@ -19,7 +19,6 @@ const MapElement = () => {
     const getPreviousLocations = () => {
         getTrashLocations().then(
             (previousPoints: []) => {
-                console.log(previousPoints)
                 setPreviousPositions(previousPoints)
             })
     }
