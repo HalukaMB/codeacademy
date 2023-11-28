@@ -35,8 +35,12 @@ const MapElement = () => {
             {previousPositions.map((element) => (
                 <Marker key={element["lat"]}
                 position={[element["lat"],element["long"]]}
-                interactive={false}
-            />
+                >
+                    <Popup>
+                        {element["locationname"]}
+                    </Popup>
+                </Marker>
+            
               ))
             }
             </>
@@ -77,8 +81,8 @@ const MapElement = () => {
         <div><div>Put the pin on where you found the trash. Please be as accurate as possible.</div>
             <div id="mapid">
                 <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
-                    <NewMarker />
                     <PreviousMarkers />
+                    <NewMarker />
 
 
                     <TileLayer
