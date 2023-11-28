@@ -5,7 +5,7 @@ type UserImageType = {
   };
   
   interface User extends UserImageType {
-    userName: string;
+    username: string;
     email: string;
     password: string;
   }
@@ -13,18 +13,31 @@ type UserImageType = {
 export const LoginLogout = () => {
 
     const [newUser, setNewUser] = useState<User | null>(null);
-
+    const [warnings,setWarnings] = useState<string[]|[]>([])
     
       const handleRegisterInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         console.log("e.target.name :>> ", e.target.name);
         console.log("e.target.value :>> ", e.target.value);
+
     
         setNewUser({ ...newUser!, [e.target.name]: e.target.value });
       };
 
     const register = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(e)
+        setWarnings([])
+        if (!newUser?.email.includes("@")){
+            console.log("@ missing")
+            setWarnings([...warnings, // that contains all the old items
+            "It does not seem like this is a proper e-mail address"]
+            )
+        }
+        if ((!newUser?.password) || (newUser?.password.length<6)){
+            setWarnings([...warnings, // that contains all the old items
+            "The password needs to be at least 6 characters long"]
+            )
+        }
+        if (warnings.length==0){
         console.log("newUser :>> ", newUser);
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -51,6 +64,7 @@ export const LoginLogout = () => {
           .then((response) => response.json())
           .then((result) => console.log("result", result))
           .catch((error) => console.log("error", error));
+        }
       };
 
   return (
@@ -80,7 +94,14 @@ export const LoginLogout = () => {
           />
           <button>register</button>
         </form>
-
+        {warnings&&warnings.map(element=>{
+            console.log(element)
+            return(
+        <div className="warnings">
+            {element}
+        </div>)}
+        )
+    }
       </div>
     </div>
   )
