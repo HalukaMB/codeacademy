@@ -50,6 +50,11 @@
 .inputLocationName{
   width: 40vw;
   height: 5vh;
-
-
+}
+.warnings{
+  background-color: red;
+}
+.success{
+  background-color: rgb(136, 226, 0);
+  color:black
 }

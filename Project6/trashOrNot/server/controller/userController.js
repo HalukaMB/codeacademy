@@ -32,6 +32,7 @@ const register = async (req, res) => {
         console.log("savedUser :>> ", savedUser);
   
         res.status(201).json({
+        status:"201",
           message: "user registered!!",
           user: {
             userName: savedUser.userName,

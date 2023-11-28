@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react'
+import { Navbar } from './components/Navbar';
 
 type UserImageType = {
     userImage: string;
@@ -14,6 +15,8 @@ export const LoginLogout = () => {
 
     const [newUser, setNewUser] = useState<User | null>(null);
     const [warnings, setWarnings] = useState<string[] | []>([])
+    const [success, setSuccess] = useState<string|null>(null)
+
 
     const handleRegisterInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         console.log("e.target.name :>> ", e.target.name);
@@ -67,9 +70,12 @@ export const LoginLogout = () => {
                     console.log(result.status)
                     console.log(result.message)
                     if (result.status == "409") {
-                        console.log("oi")
                         localwarnings.push((result.message))
                         setWarnings(localwarnings)
+                    }
+                    if (result.status == "201") {
+                        setWarnings([])
+                        setSuccess(result.message)
                     }
                 })
                 .catch((error) => {
@@ -84,6 +90,10 @@ export const LoginLogout = () => {
 
     return (
         <div>
+                  <div className="topSection">
+        <Navbar></Navbar>
+        <h1>Clean Berlin</h1>
+      </div>
             <div className="input-container">
                 <form onSubmit={register} action="" className="input-container">
                     <label htmlFor="username">User Name</label>
@@ -109,6 +119,7 @@ export const LoginLogout = () => {
                     />
                     <button>register</button>
                 </form>
+                {success&& <div className='success'>{success}</div>}
                 {warnings && warnings.map((element, index) => {
                     console.log(element)
                     return (
