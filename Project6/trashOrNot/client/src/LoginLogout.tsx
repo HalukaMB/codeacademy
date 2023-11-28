@@ -109,10 +109,10 @@ export const LoginLogout = () => {
                     />
                     <button>register</button>
                 </form>
-                {warnings && warnings.map(element => {
+                {warnings && warnings.map((element, index) => {
                     console.log(element)
                     return (
-                        <div className="warnings">
+                        <div className="warnings" key={index}>
                             {element}
                         </div>)
                 }
