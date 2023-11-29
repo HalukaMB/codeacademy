@@ -72,7 +72,7 @@
   width: calc(var(--baseunitlength)*5.5);
   height: calc(var(--baseunitheight)*1);
   border-radius: 25%;
-  background: #000000; border-radius: var(--baseunitheight);
+  background: mediumaquamarine; border-radius: var(--baseunitheight);
   display: block;
   margin: 25% 0;
   transform-origin: center; 
@@ -85,12 +85,12 @@
 .hamburger-logo span:nth-child(3) { top: calc(var(--baseunitheight)*9); }
 
 /*Lastly we design the nav-bar that will only appear once the menu is clicked*/
-nav {
+.navbarHideShow{
   background-color: rgb(216, 216, 216);
   width: 100%;
   margin: calc(var(--baseunitheight)*15) 0px 0px 0px;
   position: fixed;
-  left: -100%;
+  left: -50%;
   border: var(--baseunitheight);
   border-style: solid;
   border-color: #000;
@@ -120,14 +120,14 @@ label {
   opacity: 0%;
  }
 
+ #trigger:checked + .navbarHideShow{
+  left:100px
+  
+ }
    /* and we let the nav appear */
 
-#trigger:checked~nav {
-  left: calc(var(--baseunitlength)*2);
-  width: calc(100vw - (var(--baseunitlength)*4));
-}
 
-li {
+.navlink{
   margin-bottom: calc(var(--baseunitheight)*3);
   color: #000
 }

@@ -30,7 +30,6 @@ export const LoginLogout = () => {
         e.preventDefault();
         let localwarnings: string[] = []
         if (!newUser?.email.includes("@")) {
-            console.log("@ missing")
             localwarnings.push(
                 "It does not seem like this is a proper e-mail address"
             )
