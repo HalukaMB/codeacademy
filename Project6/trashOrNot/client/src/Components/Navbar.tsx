@@ -4,16 +4,13 @@ import { NavLink } from 'react-router-dom'
 export const Navbar = () => {
   return (
     <div className="headernav">
-      <div className="headerelements">
-        <input type="checkbox" id="trigger" />
-        <label htmlFor="trigger" className="hamburger-logo">
-          <span></span>
-          <span></span>
-          <span></span>
-        </label>
-      </div>
+      <input type="checkbox" id="trigger" />
+      <label htmlFor="trigger" className="hamburger-logo">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
       <div className="navbarHideShow">
-
         <div className='navlink'>
           <NavLink
             to="/"
@@ -24,7 +21,6 @@ export const Navbar = () => {
           </NavLink>
         </div>
         <div className='navlink'>
-
           <NavLink
             to="/loginlogout"
             className={({ isActive, isPending }) => { }
@@ -33,9 +29,7 @@ export const Navbar = () => {
             Login
           </NavLink>
         </div>
-
         <div className='navlink'>
-
           <NavLink
             to="/about"
             className={({ isActive, isPending }) => { }
@@ -44,9 +38,7 @@ export const Navbar = () => {
             Cleaned
           </NavLink>
         </div>
-
         <div className='navlink'>
-
           <NavLink
             to="/about"
             className={({ isActive, isPending }) => { }
@@ -55,7 +47,6 @@ export const Navbar = () => {
             About
           </NavLink>
         </div>
-
       </div>
 
 

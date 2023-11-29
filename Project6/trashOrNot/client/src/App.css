@@ -90,7 +90,7 @@
   width: 100%;
   margin: calc(var(--baseunitheight)*15) 0px 0px 0px;
   position: fixed;
-  left: -50%;
+  left: -100%;
   border: var(--baseunitheight);
   border-style: solid;
   border-color: #000;
@@ -120,10 +120,10 @@ label {
   opacity: 0%;
  }
 
- #trigger:checked + .navbarHideShow{
-  left:100px
-  
- }
+ #trigger:checked~.navbarHideShow {
+  left: calc(var(--baseunitlength)*2);
+  width: calc(100vw - (var(--baseunitlength)*4));
+}
    /* and we let the nav appear */
 
 
