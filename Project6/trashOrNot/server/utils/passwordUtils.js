@@ -11,4 +11,13 @@ const encryptPassword = async (password) => {
   }
 };
 
-export { encryptPassword };
+const verifyPassword = async (rawPassword,hashedPassword)=>{
+  try {
+   const doPasswordsMatch= bcrypt.compare(rawPassword, hashedPassword)
+    return doPasswordsMatch
+  } catch (error) {
+    
+  }
+}
+
+export { encryptPassword, verifyPassword };

@@ -1,5 +1,6 @@
+import { response } from "express";
 import userModel from "../model/UserModel.js";
-import { encryptPassword } from "../utils/encryptPassword.js";
+import { encryptPassword, verifyPassword } from "../utils/passwordUtils.js";
 
 const register = async (req, res) => {
     console.log("register controller working");
@@ -48,4 +49,41 @@ const register = async (req, res) => {
     }
   };
   
-  export { register };
+const login = async(req, res)=>{
+    const {email, password}=req.body
+    console.log("first")
+    console.log(email, password)
+    if (!email && !password){
+        res.status(400).json({
+            message: "password or email are missing"
+        })
+    }else{
+        try {
+            const exisitingUser = await userModel.findOne({email:email})
+            console.log(exisitingUser)
+            if (!exisitingUser){
+                res.status(400).json({
+                    message:"email not found"
+                })
+            }
+            if (exisitingUser){
+                const isPasswordMatch=await verifyPassword(password, exisitingUser.password)
+                if (!isPasswordMatch){
+                    res.status(400).json({
+                        message:"wrong password"
+                    })
+                }
+                if (isPasswordMatch){
+                    res.status(200).json({
+                        message:"password matches"
+                    })
+
+            }
+        }
+        } catch (error) {
+            
+        }
+    }
+}
+
+  export { register, login };
