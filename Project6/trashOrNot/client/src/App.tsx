@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import './App.css'
-
 import { Navbar } from './components/Navbar'
 import { TrashLocationForm } from './components/TrashLocationForm'
 import { TopSection } from './components/topSection'

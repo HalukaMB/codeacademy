@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import getTrashLocations from '../hooks/getTrashLocations';
 import { NewLocationContext } from '../context/NewLocationContext';
-
 const MapElement = () => {
     // const{setNewLocation, newLocation}=props
     const [previousPositions, setPreviousPositions] = useState<[number, number][] | null>(null);

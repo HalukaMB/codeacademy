@@ -95,7 +95,9 @@ button:focus-visible {
   box-sizing: border-box;
   transition: left 0.3s ease-in-out;
   z-index:10
-
+}
+#mapid{
+  z-index: -10;
 }
 
 label {
@@ -139,13 +141,11 @@ label {
   font-size: calc(var(--baseunitheight)*5);
 }
 
-.mapid{
-  z-index:0
-}
 .leaflet-container {
   width: 95%;
   height: calc(var(--baseunitheight)*50);
-  margin:auto
+  margin:auto;
+  z-index: -10;
 }
 
 .inputLocationName{
