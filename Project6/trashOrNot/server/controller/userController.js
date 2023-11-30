@@ -1,6 +1,7 @@
 import { response } from "express";
 import userModel from "../model/UserModel.js";
 import { encryptPassword, verifyPassword } from "../utils/passwordUtils.js";
+import { issueToken } from "../utils/jwt.js";
 
 const register = async (req, res) => {
     console.log("register controller working");
@@ -52,7 +53,7 @@ const register = async (req, res) => {
 const login = async(req, res)=>{
     const {email, password}=req.body
     console.log("first")
-    console.log(email, password)
+
     if (!email && !password){
         res.status(400).json({
             message: "password or email are missing"
@@ -60,7 +61,6 @@ const login = async(req, res)=>{
     }else{
         try {
             const exisitingUser = await userModel.findOne({email:email})
-            console.log(exisitingUser)
             if (!exisitingUser){
                 res.status(400).json({
                     message:"email not found"
@@ -74,9 +74,20 @@ const login = async(req, res)=>{
                     })
                 }
                 if (isPasswordMatch){
+                    const token = issueToken(exisitingUser._id)
+                    console.log(token)
+                if (token){
                     res.status(200).json({
-                        message:"password matches"
+                        message: "user successfully logged in",
+                        user:{
+                            username: exisitingUser.username,
+                            email: exisitingUser.email,
+                            id:exisitingUser._id
+
+                        }
                     })
+
+                }
 
             }
         }
