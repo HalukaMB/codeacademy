@@ -1,11 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import './index.css'
 import { NewLocationContextProvider } from './context/NewLocationContext.tsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import About from './About.tsx'
-import { LoginLogout } from './LoginLogout.tsx'
+import { LoginOrRegister } from './LoginOrRegister.tsx'
 
 
 const router = createBrowserRouter([
@@ -19,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/loginlogout",
-    element: <LoginLogout />,
+    element: <LoginOrRegister />,
   },
  
 ]

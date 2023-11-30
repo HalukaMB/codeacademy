@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Navbar } from './components/Navbar';
+import { Navbar } from './Navbar';
 
 type UserImageType = {
     userImage: string;
@@ -11,11 +11,12 @@ interface User extends UserImageType {
     password: string;
 }
 
-export const LoginLogout = () => {
+export const Register = () => {
 
     const [newUser, setNewUser] = useState<User | null>(null);
     const [warnings, setWarnings] = useState<string[] | []>([])
     const [success, setSuccess] = useState<string|null>(null)
+
 
 
     const handleRegisterInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,18 +83,13 @@ export const LoginLogout = () => {
                     console.log((error.message))
                 }
                 )
-
-
         };
     }
 
     return (
         <div>
-                  <div className="topSection">
-        <Navbar></Navbar>
-        <h1>Clean Berlin</h1>
-      </div>
-            <div className="input-container">
+       
+            <div className="input-container-register">
                 <form onSubmit={register} action="" className="input-container">
                     <label htmlFor="username">User Name</label>
                     <input

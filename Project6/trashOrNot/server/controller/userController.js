@@ -84,7 +84,8 @@ const login = async(req, res)=>{
                             email: exisitingUser.email,
                             id:exisitingUser._id
 
-                        }
+                        },
+                        token:token
                     })
 
                 }
