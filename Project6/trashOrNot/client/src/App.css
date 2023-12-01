@@ -171,4 +171,25 @@ label {
   background-color: rgb(136, 226, 0);
   color:black
 }
+.loginSection{
+  margin-top: calc(var(--baseunitheight)*7);
+}
+.toggleRegisterLogin{
+  display: flex;
+  flex-direction: column;
+  margin: calc(var(--baseunitheight)*2);
 
+}
+.input-container-loginlogout{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: calc(var(--baseunitheight)*2);
+
+}
+.input-container-register{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: calc(var(--baseunitheight)*2);
+}

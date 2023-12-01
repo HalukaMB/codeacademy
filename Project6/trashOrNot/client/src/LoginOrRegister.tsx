@@ -13,12 +13,11 @@ export const LoginOrRegister = () => {
 
     return (
         <>  <TopSection></TopSection>
-            <div>
+            <div className="loginSection">
                 <div className="toggleRegisterLogin">
                     <Register></Register>
                 </div>
                 <div className="toggleRegisterLogin">
-
                     <LoginLogout></LoginLogout>
                 </div>
             </div>

@@ -89,8 +89,9 @@ export const Register = () => {
     return (
         <div>
        
-            <div className="input-container-register">
                 <form onSubmit={register} action="" className="input-container">
+                <div className="input-container-register">
+
                     <label htmlFor="username">User Name</label>
                     <input
                         type="text"
@@ -98,6 +99,9 @@ export const Register = () => {
                         id="username"
                         onChange={handleRegisterInputChange}
                     />
+                    </div>
+                    <div className="input-container-register">
+
                     <label htmlFor="email">Mailadress</label>
                     <input
                         type="text"
@@ -105,6 +109,9 @@ export const Register = () => {
                         id="email"
                         onChange={handleRegisterInputChange}
                     />
+                    </div>
+                    <div className="input-container-register">
+
                     <label htmlFor="password">Password</label>
                     <input
                         type="text"
@@ -112,6 +119,7 @@ export const Register = () => {
                         id="password"
                         onChange={handleRegisterInputChange}
                     />
+                    </div>
                     <button>register</button>
                 </form>
                 {success&& <div className='success'>{success}</div>}
@@ -125,6 +133,5 @@ export const Register = () => {
                 )
                 }
             </div>
-        </div>
     )
 }

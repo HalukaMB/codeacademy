@@ -1,5 +1,6 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import { Navbar } from './Navbar';
+import { AuthenticationContext } from '../context/AuthenticationContext';
 
 type UserImageType = {
     userImage: string;
@@ -12,7 +13,8 @@ interface User extends UserImageType {
 }
 
 export const LoginLogout = () => {
-
+    const { userChecked, loginOrLogout } = useContext(AuthenticationContext)
+    console.log(userChecked)
     const [existingUser, setExistingUser] = useState<User | null>(null);
     const [warnings, setWarnings] = useState<string[] | []>([])
     const [success, setSuccess] = useState<string | null>(null)
@@ -49,11 +51,11 @@ export const LoginLogout = () => {
             if (response.ok) {
                 const result = await response.json()
                 console.log(result)
-                if (result.token){
-                    localStorage.setItem("token",result.token)
+                if (result.token) {
+                    localStorage.setItem("token", result.token)
                 }
             }
-            if (!response.ok){
+            if (!response.ok) {
                 const result = await response.json()
                 console.log(result)
             }
@@ -62,55 +64,60 @@ export const LoginLogout = () => {
 
         }
     }
-    const getToken=()=>{
-        const localtoken=localStorage.getItem("token")
+    const getToken = () => {
+        const localtoken = localStorage.getItem("token")
         return localtoken
     }
 
-    const isUserLoggedIn=()=>{
+    const isUserLoggedIn = () => {
         const token = getToken()
 
-        return token? true: false
+        return token ? true : false
 
     }
-    const userLogout=()=>{
+    const userLogout = () => {
         localStorage.removeItem("token")
     }
- 
 
-    useEffect(()=>{
+
+    useEffect(() => {
         const userIn = isUserLoggedIn()
-        if (userIn){
+        if (userIn) {
             console.log("logged in")
         }
-        else{
+        else {
             console.log("token not found")
         }
-        
+
     }, [])
 
     return (
         <div>
             <div className="input-container-login">
                 <form onSubmit={login} action="" className="input-container">
+                    <div className="input-container-loginlogout">
 
-                    <label htmlFor="email">Mailadress</label>
-                    <input
-                        type="text"
-                        name="email"
-                        id="email"
-                        onChange={handleLoginInputChange}
-                    />
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="text"
-                        name="password"
-                        id="password"
-                        onChange={handleLoginInputChange}
-                    />
-                    <button>Login</button>
+                        <label htmlFor="email">Mailadress</label>
+                        <input
+                            type="text"
+                            name="email"
+                            id="email"
+                            onChange={handleLoginInputChange}
+                        />
+                    </div>
+                    <div className="input-container-loginlogout">
+
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="text"
+                            name="password"
+                            id="password"
+                            onChange={handleLoginInputChange}
+                        />
+                    </div>
+                {!userChecked?<button>Login</button>:<button onClick={userLogout}>Logout</button>}
+                    
                 </form>
-                <button onClick={userLogout}>Logout</button>
 
                 {success && <div className='success'>{success}</div>}
                 {warnings && warnings.map((element, index) => {
