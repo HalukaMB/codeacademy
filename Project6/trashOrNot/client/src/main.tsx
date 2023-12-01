@@ -5,6 +5,7 @@ import { NewLocationContextProvider } from './context/NewLocationContext.tsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import About from './About.tsx'
 import { LoginOrRegister } from './LoginOrRegister.tsx'
+import { AuthenticationContextProvider } from './context/AuthenticationContext.tsx'
 
 
 const router = createBrowserRouter([
@@ -26,8 +27,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <AuthenticationContextProvider>
     <NewLocationContextProvider>
     <RouterProvider router={router} />
     </NewLocationContextProvider>
+    </AuthenticationContextProvider>
   </React.StrictMode>,
 )

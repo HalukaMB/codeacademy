@@ -17,8 +17,6 @@ export const LoginLogout = () => {
     const [warnings, setWarnings] = useState<string[] | []>([])
     const [success, setSuccess] = useState<string | null>(null)
 
-
-
     const handleLoginInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         console.log("e.target.name :>> ", e.target.name);
         console.log("e.target.value :>> ", e.target.value);

@@ -25,32 +25,23 @@ const defaultValue:AuthenticationContextType = {
 
 }
 
-
-export const AuthenticationContext= (props: Props)=> {
-    const [user, setUser] = useState<User | null>(null);
+export const AuthenticationContext = createContext({})
+export const AuthenticationContextProvider= (props: Props)=> {
     const [userChecked, setUserChecked] = useState<boolean>(false);
 
 
 
     
   
-      const signup = (email: string, password: string) => {
-        // signup logic goes here
-        createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        setUser(user);
-        // ...
-      })
-      ;
+      const loginOrLogout = (prevCheck:boolean) => {
+        setUserChecked(prevCheck => !prevCheck);
     };
     
 
 
 
     return(
-        <AuthenticationContext.Provider value={{ user, login, signup, logout}}>
+        <AuthenticationContext.Provider value={{ userChecked, loginOrLogout}}>
             {props.children}
         </AuthenticationContext.Provider>
     )

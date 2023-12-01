@@ -86,7 +86,7 @@ button:focus-visible {
 .navbarHideShow{
   background-color: rgb(216, 216, 216);
   width: 100%;
-  margin: calc(var(--baseunitheight)*15) 0px 0px 0px;
+  margin: calc(var(--baseunitheight)*12) 0px 0px 0px;
   position: absolute;
   left: -100%;
   border: var(--baseunitheight);
@@ -139,6 +139,14 @@ label {
 
 .centerTop{
   font-size: calc(var(--baseunitheight)*5);
+}
+
+.reportSection{
+  margin-top: calc(var(--baseunitheight)*7);
+}
+.formPlusMap{
+  margin-top: calc(var(--baseunitheight)*3);
+
 }
 
 .leaflet-container {
