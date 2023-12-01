@@ -4,8 +4,15 @@ import { encryptPassword, verifyPassword } from "../utils/passwordUtils.js";
 import { issueToken } from "../utils/jwt.js";
 
 const register = async (req, res) => {
-    console.log("register controller working");
     console.log("req.body :>> ", req.body);
+
+    if (!req.body.email.includes("@") && req.body.length()<6){
+        res.status(422).json({
+            status:"422",
+            message: "email does not seem proper or password is too short",
+          });
+
+    }
   
     //Check if the user already exist in our DB
     const exisitingUser = await userModel.findOne({$or: [
@@ -23,7 +30,6 @@ const register = async (req, res) => {
       const hashedPassword = await encryptPassword(req.body.password);
       if (hashedPassword) {
         // creating the user
-  
         const newUser = new userModel({
         username: req.body.username,
           email: req.body.email,
@@ -31,6 +37,8 @@ const register = async (req, res) => {
         });
   
         const savedUser = await newUser.save();
+        const token = issueToken(savedUser._id)
+
         console.log("savedUser :>> ", savedUser);
   
         res.status(201).json({
@@ -39,8 +47,10 @@ const register = async (req, res) => {
           user: {
             userName: savedUser.userName,
             email: savedUser.email,
-            userImage: savedUser.userImage,
+            id:savedUser._id
+
           },
+          token: token
         });
       } else {
         res.status(500).json({
@@ -52,8 +62,6 @@ const register = async (req, res) => {
   
 const login = async(req, res)=>{
     const {email, password}=req.body
-    console.log("first")
-
     if (!email && !password){
         res.status(400).json({
             message: "password or email are missing"
@@ -83,7 +91,6 @@ const login = async(req, res)=>{
                             username: exisitingUser.username,
                             email: exisitingUser.email,
                             id:exisitingUser._id
-
                         },
                         token:token
                     })

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { LoginLogout } from './components/LoginLogout'
 import { Register } from './components/Register'
-import { Navbar } from './components/Navbar'
 import { TopSection } from './components/topSection'
 
 export const LoginOrRegister = () => {
