@@ -98,6 +98,7 @@ button:focus-visible {
 }
 #mapid{
   z-index: -10;
+  margin: calc(var(--baseunitheight)*3) 0
 }
 
 label {
@@ -144,10 +145,7 @@ label {
 .reportSection{
   margin-top: calc(var(--baseunitheight)*7);
 }
-.formPlusMap{
-  margin-top: calc(var(--baseunitheight)*3);
 
-}
 
 .leaflet-container {
   width: 95%;
@@ -157,9 +155,15 @@ label {
 }
 
 .inputLocationName{
-  width: 40vw;
+  width: 60vw;
   height: 5vh;
+  margin: calc(var(--baseunitheight)*3) 0;
 }
+
+#submitNewLocation{
+  width: 50vw;
+}
+
 .warnings{
   background-color: red;
 }
