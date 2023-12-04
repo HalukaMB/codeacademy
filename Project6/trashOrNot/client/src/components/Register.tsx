@@ -1,5 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
-import { Navbar } from './Navbar';
+import { ChangeEvent, useState } from 'react'
 
 type UserImageType = {
     userImage: string;

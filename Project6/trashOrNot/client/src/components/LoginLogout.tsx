@@ -1,5 +1,4 @@
-import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
-import { Navbar } from './Navbar';
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import { AuthenticationContext } from '../context/AuthenticationContext';
 
 type UserImageType = {

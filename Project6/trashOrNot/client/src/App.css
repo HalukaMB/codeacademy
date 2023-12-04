@@ -171,14 +171,28 @@ label {
   background-color: rgb(136, 226, 0);
   color:black
 }
+
+.toggleSection{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.toggleSection div{
+  border: 1px solid transparent;
+  border-color: blanchedalmond;
+  padding: 0.6em 4em;
+}
+
 .loginSection{
   margin-top: calc(var(--baseunitheight)*7);
+  border: 1px solid transparent;
+  border-color: blanchedalmond;
+
 }
 .toggleRegisterLogin{
   display: flex;
   flex-direction: column;
   margin: calc(var(--baseunitheight)*2);
-
 }
 
 .input-container-loginlogout{
