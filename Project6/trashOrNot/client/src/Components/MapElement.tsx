@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import getTrashLocations from '../hooks/getTrashLocations';
 import { NewLocationContext } from '../context/NewLocationContext';
+import trashicon from "../assets/trash.svg";
+
 const MapElement = () => {
     // const{setNewLocation, newLocation}=props
     const [previousPositions, setPreviousPositions] = useState<[number, number][] | null>(null);
@@ -11,7 +13,14 @@ const MapElement = () => {
   const { newLocation, setNewLocation } = useContext(NewLocationContext)
   let locallocation = {}
 
-
+  let trash = L.icon({
+    iconUrl: trashicon,
+    iconRetinaUrl: trashicon,
+    iconAnchor: [5, 55],
+    popupAnchor: [10, -44],
+    iconSize: [25, 55],
+  });
+  
 
 
 
@@ -31,7 +40,7 @@ const MapElement = () => {
         return (
             <>
             {previousPositions.map((element) => (
-                <Marker key={element["lat"]}
+                <Marker icon={trash} key={element["lat"]}
                 position={[element["lat"],element["long"]]}
                 >
                     <Popup>
@@ -90,6 +99,7 @@ const MapElement = () => {
 
                 </MapContainer>
             </div>
+            <a target="_blank" href="https://icons8.com/icon/1942/trash">Trash</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 
         </div>
     )
