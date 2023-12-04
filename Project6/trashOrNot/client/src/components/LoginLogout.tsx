@@ -14,7 +14,6 @@ interface User extends UserImageType {
 
 export const LoginLogout = () => {
     const { userChecked, loginOrLogout } = useContext(AuthenticationContext)
-    console.log(userChecked)
     const [existingUser, setExistingUser] = useState<User | null>(null);
     const [warnings, setWarnings] = useState<string[] | []>([])
     const [success, setSuccess] = useState<string | null>(null)

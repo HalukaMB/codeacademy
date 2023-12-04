@@ -11,7 +11,6 @@ const register = async (req, res) => {
             status:"422",
             message: "email does not seem proper or password is too short",
           });
-
     }
   
     //Check if the user already exist in our DB
@@ -99,10 +98,14 @@ const login = async(req, res)=>{
 
             }
         }
-        } catch (error) {
-            
+        } catch (error) {       
         }
     }
+}
+
+const getUserProfile= async(req, res)=>{
+    console.log
+
 }
 
   export { register, login };

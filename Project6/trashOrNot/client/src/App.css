@@ -180,16 +180,26 @@ label {
   margin: calc(var(--baseunitheight)*2);
 
 }
+
 .input-container-loginlogout{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   margin: calc(var(--baseunitheight)*2);
 
 }
 .input-container-register{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content:center;
   margin: calc(var(--baseunitheight)*2);
+}
+
+.input-container-loginlogout label{
+  min-width:calc(var(--baseunitlength)*20);
+}
+
+
+.input-container-register label{
+  min-width:calc(var(--baseunitlength)*20);
 }
