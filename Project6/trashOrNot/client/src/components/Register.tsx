@@ -25,6 +25,10 @@ export const Register = () => {
     const register = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let localwarnings: string[] = []
+        if (newUser==null){
+            localwarnings.push(
+                "You have not typed anything yet")
+        }
         if (!newUser?.email.includes("@")) {
             localwarnings.push(
                 "It does not seem like this is a proper e-mail address")
@@ -33,7 +37,7 @@ export const Register = () => {
             localwarnings.push(
                 "The password needs to be at least 6 characters long")
         }
-
+        setWarnings(localwarnings)
         if (!(localwarnings.length > 0)) {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/x-www-form-urlencoded");

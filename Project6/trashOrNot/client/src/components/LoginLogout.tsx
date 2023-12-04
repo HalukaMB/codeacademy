@@ -26,6 +26,21 @@ export const LoginLogout = () => {
     };
     const login = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        let localwarnings: string[] = []
+        if (existingUser==null){
+            localwarnings.push(
+                "You have not typed anything yet")
+        }
+        if (!existingUser?.email.includes("@")) {
+            localwarnings.push(
+                "It does not seem like this is a proper e-mail address")
+        }
+        if ((!existingUser?.password) || (newUser?.password.length < 6)) {
+            localwarnings.push(
+                "The password needs to be at least 6 characters long")
+        }
+        setWarnings(localwarnings)
+        if (!(localwarnings.length > 0)) {
 
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -61,7 +76,7 @@ export const LoginLogout = () => {
             console.log(error)
 
         }
-    }
+    }}
     const getToken = () => {
         const localtoken = localStorage.getItem("token")
         return localtoken

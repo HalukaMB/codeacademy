@@ -177,18 +177,27 @@ label {
   justify-content: space-evenly;
 }
 
-.toggleSection div{
+.toggleSection button{
   border: 1px solid transparent;
   border-color: blanchedalmond;
   padding: 0.6em 4em;
 }
 
-.loginSection{
+.loginRegisterSection{
+  padding-top: calc(var(--baseunitheight)*5);
   margin-top: calc(var(--baseunitheight)*7);
   border: 1px solid transparent;
+  max-width: 360px;
+  margin:auto;
+  
+}
+.loginRegisterSectionLow{
+  border: 1px solid transparent;
+
   border-color: blanchedalmond;
 
 }
+
 .toggleRegisterLogin{
   display: flex;
   flex-direction: column;

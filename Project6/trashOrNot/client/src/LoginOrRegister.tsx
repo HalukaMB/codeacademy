@@ -16,11 +16,12 @@ export const LoginOrRegister = () => {
     return (
         <>  <TopSection></TopSection>
 
-            <div className="loginSection">
+            <div className="loginRegisterSection">
                 <div className="toggleSection">
-                    <div onClick={clickToggle}>Register</div>
-                    <div onClick={clickToggle}>Login</div>
+                    <button onClick={clickToggle}>Register</button>
+                    <button onClick={clickToggle}>Login</button>
                 </div>
+                <div className="loginRegisterSectionLow">
                 {(registerOrLogin == "register") ?
                     <div className="toggleRegisterLogin">
                         <Register></Register>
@@ -28,6 +29,7 @@ export const LoginOrRegister = () => {
                     <div className="toggleRegisterLogin">
                         <LoginLogout></LoginLogout>
                     </div>}
+                    </div>
             </div>
 
         </>
