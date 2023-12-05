@@ -150,8 +150,6 @@ label {
 .leaflet-container {
   width: 95%;
   height: calc(var(--baseunitheight)*50);
-  margin:auto;
-  z-index: -10;
 }
 
 .inputLocationName{
