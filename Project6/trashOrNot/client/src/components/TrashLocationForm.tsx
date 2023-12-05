@@ -42,7 +42,7 @@ export const TrashLocationForm = () => {
     return (
         <div className="formPlusMap">
             <form>
-                <input className="inputLocationName" type="text" onChange={e=>descriptionTracker(e)} placeholder='How would you describe the place?'></input>
+            <input className="inputLocationName" type="text" onChange={e=>descriptionTracker(e)} placeholder='How would you describe the place?'></input>
                 <MapElement newLocation={newLocation} setNewLocation={setNewLocation}></MapElement>
                 <input id="submitNewLocation"type="submit" onClick={e=>submitNewLocation(e)}></input>
             </form>
