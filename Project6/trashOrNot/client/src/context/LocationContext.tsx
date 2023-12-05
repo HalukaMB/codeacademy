@@ -8,25 +8,25 @@ interface NewLocationDataType {
     category: string}
 
 
-export const NewLocationContext = createContext({});
+export const LocationContext = createContext({});
 
 
 
 
-export const NewLocationContextProvider = (props: Props) => {
+export const LocationContextProvider = (props: Props) => {
 const defaultNewLocation: NewLocationDataType = {
     locationname: "",
     lat: null,
     long: null,
     category: "trash"
 }
-console.log("context")
 
     let [newLocation, setNewLocation] = useState(defaultNewLocation)
+    let [deleteLocation, setDeleteLocation] = useState(defaultNewLocation)
 
     return (
-        <NewLocationContext.Provider value={{ newLocation, setNewLocation}}>
+        <LocationContext.Provider value={{ newLocation, setNewLocation, deleteLocation, setDeleteLocation}}>
             {props.children}
-        </NewLocationContext.Provider>
+        </LocationContext.Provider>
     )
 }

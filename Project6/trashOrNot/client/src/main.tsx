@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import { NewLocationContextProvider } from './context/NewLocationContext.tsx'
+import { LocationContextProvider } from './context/LocationContext.tsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import About from './About.tsx'
 import { LoginOrRegister } from './LoginOrRegister.tsx'
@@ -33,9 +33,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AuthenticationContextProvider>
-    <NewLocationContextProvider>
+    <LocationContextProvider>
     <RouterProvider router={router} />
-    </NewLocationContextProvider>
+    </LocationContextProvider>
     </AuthenticationContextProvider>
   </React.StrictMode>,
 )

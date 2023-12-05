@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import getTrashLocations from '../hooks/getTrashLocations';
-import { NewLocationContext } from '../context/NewLocationContext';
+import { LocationContext } from '../context/LocationContext';
 import trashicon from "../assets/trash.svg";
 
 const MapElement = ({foundCleaned}) => {
@@ -11,7 +11,10 @@ const MapElement = ({foundCleaned}) => {
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
 
 
-  const { newLocation, setNewLocation } = useContext(NewLocationContext)
+  const { newLocation, setNewLocation } = useContext(LocationContext)
+  const {  deleteLocation, setDeleteLocation } = useContext(LocationContext)
+
+ 
   let locallocation = {}
 
   let trash = L.icon({
@@ -50,10 +53,13 @@ const MapElement = ({foundCleaned}) => {
         return (
             <>
             {previousPositions.map((element) => (
-                <Marker icon={trash} key={element["lat"]}
+                <Marker icon={trash} key={element["_id"]} databaseid={element["_id"]}
                 position={[element["lat"],element["long"]]}
                 eventHandlers={{
                     click: (e) => {
+                        console.log(e.target);
+                        console.log(e.target.options);
+
                       console.log(e.target._latlng);  // will print 'FooBar' in console
                     },
                   }}
