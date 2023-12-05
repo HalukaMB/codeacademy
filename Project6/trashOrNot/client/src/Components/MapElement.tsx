@@ -13,6 +13,7 @@ const MapElement = ({foundCleaned}) => {
 
   const { newLocation, setNewLocation } = useContext(LocationContext)
   const {  deleteLocation, setDeleteLocation } = useContext(LocationContext)
+console.log(deleteLocation)
  
   let locallocation = {}
 
@@ -23,7 +24,12 @@ const MapElement = ({foundCleaned}) => {
     popupAnchor: [10, -44],
     iconSize: [25, 55],
   });
-  
+const clickToDelete=(e)=>{console.log(e)
+    console.log(deleteLocation)
+/*   setDeleteLocation((prev)=>{return {...prev,[e.lat]:e.target._latlng.lat,[e.target._latlng.lng]:e.target._latlng.lng}})
+ */
+
+}
 
 
 
@@ -56,10 +62,11 @@ const MapElement = ({foundCleaned}) => {
                 position={[element["lat"],element["long"]]}
                 eventHandlers={{
                     click: (e) => {
+                        console.log(e.target);
+                        console.log(e.target.options.databaseid)
+                        console.log(e.target._latlng)
+                        clickToDelete(e)
 
-                        setDeleteLocation((prev)=>{return {...prev,["id"]:e.target.options.databaseid,
-                        ["lat"]:e.target._latlng.lat,["long"]:e.target._latlng.lng,
-                    ["locationname"]:element["locationname"]}})
 
                       console.log(e.target._latlng);  // will print 'FooBar' in console
                     },
@@ -109,7 +116,7 @@ const MapElement = ({foundCleaned}) => {
     }
 
     return (
-        <div>
+        <div><div>Put the pin on where you found the trash. Please be as accurate as possible.</div>
             <div id="mapid">
                 <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
                     <PreviousMarkers />
