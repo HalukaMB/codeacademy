@@ -7,10 +7,11 @@ import { LocationContext } from '../context/LocationContext'
 
 export const TrashLocationForm = () => {
     const { newLocation, setNewLocation } = useContext(LocationContext)
-    console.log(newLocation)
     const baseUrl=(import.meta.env.VITE_BASE_URL_API)
     const descriptionTracker=(e)=>{
         newLocation.locationname=e.target.value
+        newLocation.category="trash"
+
         setNewLocation(newLocation)
     }
 

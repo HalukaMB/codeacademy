@@ -1,23 +1,28 @@
 import React, { useContext } from 'react'
 import MapElement from './MapElement'
+import { LocationContext } from '../context/LocationContext'
 
 
 
 
 export const CleanedLocationForm = () => {
-
+    const { deleteLocation, setDeleteLocation } = useContext(LocationContext)
+    console.log(deleteLocation)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
-    console.log(baseUrl)
+    const radioChange=(event)=>{
+        const locationCategory=(event.target.value)
+        setDeleteLocation(prev=>({...prev,["category"]:locationCategory}))
 
+    }
     const submitNewLocation = (e) => {
         e.preventDefault()
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
-        urlencoded.append("locationname", newLocation.locationname);
-        urlencoded.append("lat", newLocation.lat);
-        urlencoded.append("long", newLocation.long);
-        urlencoded.append("category", newLocation.category);
+        urlencoded.append("locationname", deleteLocation.locationname);
+        urlencoded.append("lat", deleteLocation.lat);
+        urlencoded.append("long", deleteLocation.long);
+        urlencoded.append("category", deleteLocation.category);
         const requestOptions = {
             method: "POST",
             headers: myHeaders,
@@ -37,7 +42,7 @@ export const CleanedLocationForm = () => {
         <div className="formPlusMap">
             <form>
             <fieldset>
-            <div className="containerOptionsCleanedOrSeen">
+            <div className="containerOptionsCleanedOrSeen" onChange={(event)=>radioChange(event)}>
                 <div className="optionsCleanedOrSeen">
                     <input className="inputCleanedSeen" name="cleanedOrSeen" type="radio" id="cleanedOption" value="cleaned" />
                     <label htmlFor="cleanOption">I cleaned it.</label>
@@ -50,7 +55,7 @@ export const CleanedLocationForm = () => {
                 </div>
 
                 </fieldset>
-                <MapElement></MapElement>
+                <MapElement foundCleaned="cleaned"></MapElement>
                 <input id="submitNewLocation" type="submit" onClick={e => submitNewLocation(e)}></input>
 
             </form>

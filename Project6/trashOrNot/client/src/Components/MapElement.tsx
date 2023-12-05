@@ -13,7 +13,6 @@ const MapElement = ({foundCleaned}) => {
 
   const { newLocation, setNewLocation } = useContext(LocationContext)
   const {  deleteLocation, setDeleteLocation } = useContext(LocationContext)
-
  
   let locallocation = {}
 
@@ -57,8 +56,10 @@ const MapElement = ({foundCleaned}) => {
                 position={[element["lat"],element["long"]]}
                 eventHandlers={{
                     click: (e) => {
-                        console.log(e.target);
-                        console.log(e.target.options);
+
+                        setDeleteLocation((prev)=>{return {...prev,["id"]:e.target.options.databaseid,
+                        ["lat"]:e.target._latlng.lat,["long"]:e.target._latlng.lng,
+                    ["locationname"]:element["locationname"]}})
 
                       console.log(e.target._latlng);  // will print 'FooBar' in console
                     },
@@ -78,6 +79,8 @@ const MapElement = ({foundCleaned}) => {
     const NewMarker = () => {
         const map = useMapEvents({
             click(e) {
+                if((foundCleaned=="found")){
+
                 console.log(e)
                 setSelectedPosition([
                     e.latlng.lat,
@@ -91,7 +94,7 @@ const MapElement = ({foundCleaned}) => {
 
                 console.log(newLocation)
 
-                
+            }
             },
         })
         return (
@@ -106,19 +109,15 @@ const MapElement = ({foundCleaned}) => {
     }
 
     return (
-        <div><div>Put the pin on where you found the trash. Please be as accurate as possible.</div>
+        <div>
             <div id="mapid">
                 <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
                     <PreviousMarkers />
-                    {(foundCleaned=="found")&&                   <NewMarker />}
-
-
-
+                    <NewMarker />
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     />
-
                 </MapContainer>
             </div>
 
