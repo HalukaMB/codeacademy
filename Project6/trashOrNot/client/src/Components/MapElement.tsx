@@ -5,10 +5,11 @@ import getTrashLocations from '../hooks/getTrashLocations';
 import { NewLocationContext } from '../context/NewLocationContext';
 import trashicon from "../assets/trash.svg";
 
-const MapElement = () => {
+const MapElement = ({foundCleaned}) => {
     // const{setNewLocation, newLocation}=props
     const [previousPositions, setPreviousPositions] = useState<[number, number][] | null>(null);
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+
 
   const { newLocation, setNewLocation } = useContext(NewLocationContext)
   let locallocation = {}
@@ -35,13 +36,27 @@ const MapElement = () => {
         getPreviousLocations()
     }, [])
 
+    const handleClick = event => {
+        const { lat, lng } = event.latlng
+        console.log(`Clicked at ${lat}, ${lng}`)
+      }
+
     const PreviousMarkers = () => {
         if (previousPositions!=null){
+            const map = useMapEvents({
+                click(e) {
+                    console.log(e)
+                }})
         return (
             <>
             {previousPositions.map((element) => (
                 <Marker icon={trash} key={element["lat"]}
                 position={[element["lat"],element["long"]]}
+                eventHandlers={{
+                    click: (e) => {
+                      console.log(e.target._latlng);  // will print 'FooBar' in console
+                    },
+                  }}
                 >
                     <Popup>
                         {element["locationname"]}
@@ -89,7 +104,8 @@ const MapElement = () => {
             <div id="mapid">
                 <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
                     <PreviousMarkers />
-                    <NewMarker />
+                    {(foundCleaned=="found")&&                   <NewMarker />}
+
 
 
                     <TileLayer

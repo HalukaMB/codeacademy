@@ -70,7 +70,7 @@ button:focus-visible {
   width: calc(var(--baseunitlength)*5.5);
   height: calc(var(--baseunitheight)*1);
   border-radius: 25%;
-  background: mediumaquamarine; border-radius: var(--baseunitheight);
+  background: #66cdaa; border-radius: var(--baseunitheight);
   display: block;
   margin: 25% 0;
   transform-origin: center; 
@@ -142,8 +142,37 @@ label {
   font-size: calc(var(--baseunitheight)*5);
 }
 
+.loginLogoutIcon{
+  height: auto;
+}
+
 .reportSection{
   margin-top: calc(var(--baseunitheight)*7);
+}
+.containerOptionsCleanedOrSeen{
+  display:flex;
+  flex-direction: column;
+}
+.containerOptionsCleanedOrSeen label{
+  padding-left: calc(var(--baseunitlength)*2);
+}
+
+.loginLogoutIcon{
+
+}
+.svglogout{
+  height: calc(var(--baseunitheight)*7);
+  fill: aqua;
+  margin:auto;
+  vertical-align: middle
+}
+.svglogin{
+  height: calc(var(--baseunitheight)*7);
+  fill: aqua;
+  margin:auto;
+  vertical-align: middle
+
+
 }
 
 
@@ -192,7 +221,6 @@ label {
 }
 .loginRegisterSectionLow{
   border: 1px solid transparent;
-
   border-color: blanchedalmond;
 
 }

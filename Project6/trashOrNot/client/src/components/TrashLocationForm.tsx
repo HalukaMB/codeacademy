@@ -9,7 +9,6 @@ export const TrashLocationForm = () => {
     const { newLocation, setNewLocation } = useContext(NewLocationContext)
     console.log(newLocation)
     const baseUrl=(import.meta.env.VITE_BASE_URL_API)
-    console.log(baseUrl)
     const descriptionTracker=(e)=>{
         newLocation.locationname=e.target.value
         setNewLocation(newLocation)
@@ -43,7 +42,7 @@ export const TrashLocationForm = () => {
         <div className="formPlusMap">
             <form>
             <input className="inputLocationName" type="text" onChange={e=>descriptionTracker(e)} placeholder='How would you describe the place?'></input>
-                <MapElement newLocation={newLocation} setNewLocation={setNewLocation}></MapElement>
+                <MapElement foundCleaned="found" newLocation={newLocation} setNewLocation={setNewLocation}></MapElement>
                 <input id="submitNewLocation"type="submit" onClick={e=>submitNewLocation(e)}></input>
             </form>
         </div>

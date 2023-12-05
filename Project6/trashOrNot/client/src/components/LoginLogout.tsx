@@ -35,7 +35,7 @@ export const LoginLogout = () => {
             localwarnings.push(
                 "It does not seem like this is a proper e-mail address")
         }
-        if ((!existingUser?.password) || (newUser?.password.length < 6)) {
+        if ((!existingUser?.password) || (existingUser?.password.length < 6)) {
             localwarnings.push(
                 "The password needs to be at least 6 characters long")
         }
@@ -66,6 +66,8 @@ export const LoginLogout = () => {
                 console.log(result)
                 if (result.token) {
                     localStorage.setItem("token", result.token)
+                    setSuccess("Login Successful")
+                    loginOrLogout(userChecked)
                 }
             }
             if (!response.ok) {

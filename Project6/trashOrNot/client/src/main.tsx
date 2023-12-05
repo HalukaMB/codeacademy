@@ -6,12 +6,17 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import About from './About.tsx'
 import { LoginOrRegister } from './LoginOrRegister.tsx'
 import { AuthenticationContextProvider } from './context/AuthenticationContext.tsx'
+import { Cleaned } from './Cleaned.tsx'
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/cleaned",
+    element: <Cleaned/>,
   },
   {
     path: "/about",

@@ -22,16 +22,7 @@ export const Navbar = () => {
           </div>
           <div className='navlink'>
             <NavLink
-              to="/loginlogout"
-              className={({ isActive, isPending }) => { }
-              }
-            >
-              Login
-            </NavLink>
-          </div>
-          <div className='navlink'>
-            <NavLink
-              to="/about"
+              to="/cleaned"
               className={({ isActive, isPending }) => { }
               }
             >
