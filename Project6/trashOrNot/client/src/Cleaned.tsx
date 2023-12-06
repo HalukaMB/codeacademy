@@ -11,7 +11,7 @@ export const Cleaned = () => {
 
 <TopSection></TopSection>
       <div className='reportSection'>
-        <div>You have picked up some trash or see that someone has cleaned it up?</div>
+        <div>You want to report that there is no trash at a particular corner anymore. Have you... </div>
         <CleanedLocationForm></CleanedLocationForm>
 
       </div>    
