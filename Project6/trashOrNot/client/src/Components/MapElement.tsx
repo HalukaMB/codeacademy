@@ -13,7 +13,6 @@ const MapElement = ({foundCleaned}) => {
 
   const { newLocation, setNewLocation } = useContext(LocationContext)
   const {  deleteLocation, setDeleteLocation } = useContext(LocationContext)
-console.log(deleteLocation)
  
   let locallocation = {}
 
@@ -24,10 +23,9 @@ console.log(deleteLocation)
     popupAnchor: [10, -44],
     iconSize: [25, 55],
   });
-const clickToDelete=(e)=>{console.log(e)
-    console.log(deleteLocation)
-/*   setDeleteLocation((prev)=>{return {...prev,[e.lat]:e.target._latlng.lat,[e.target._latlng.lng]:e.target._latlng.lng}})
- */
+const clickToDelete=(e)=>{console.log(e.options)
+/   setDeleteLocation((prev)=>{return {...prev,["lat"]:e._latlng.lat,["long"]:e._latlng.lng,["id"]:e.options.databaseid,["locationname"]:e.options.extrainfo}})
+ 
 
 }
 
@@ -58,17 +56,20 @@ const clickToDelete=(e)=>{console.log(e)
         return (
             <>
             {previousPositions.map((element) => (
-                <Marker icon={trash} key={element["_id"]} databaseid={element["_id"]}
+                <Marker icon={trash} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
                 position={[element["lat"],element["long"]]}
                 eventHandlers={{
                     click: (e) => {
-                        console.log(e.target);
-                        console.log(e.target.options.databaseid)
-                        console.log(e.target._latlng)
-                        clickToDelete(e)
+                        clickToDelete(e.target)
+                        map.setView(
+                            [
+                              e.target._latlng.lat,
+                              e.target._latlng.lng
+                            ],
+                            13
+                          );
 
 
-                      console.log(e.target._latlng);  // will print 'FooBar' in console
                     },
                   }}
                 >
