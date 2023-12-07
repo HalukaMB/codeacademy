@@ -4,6 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import router from "./routes/locationRoutes.js";
 import userrouter from "./routes/userRoutes.js";
+import passportConfig from "./config/passport.js";
+import passport from "passport";
 
 dotenv.config()
 const app = express();
@@ -11,8 +13,8 @@ const app = express();
 const addMiddlewares = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use(cors()
-  );
+  app.use(cors());
+  passportConfig(passport)
 };
 
 const addRoutes = () => {

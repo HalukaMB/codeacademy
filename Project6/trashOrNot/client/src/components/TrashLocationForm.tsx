@@ -18,7 +18,13 @@ export const TrashLocationForm = () => {
 
     const submitNewLocation=(e)=>{
         e.preventDefault()
+        const token = localStorage.getItem("token")
+        if (!token){
+            console.log("error")
+        }
+        else{
         const myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
         urlencoded.append("locationname", newLocation.locationname);
@@ -37,7 +43,7 @@ export const TrashLocationForm = () => {
             .then((response) => response.json())
             .then((result) => console.log("result", result))
             .catch((error) => console.log("error", error));
-        };
+        };}
     
 
     return (

@@ -67,7 +67,6 @@ export const LoginLogout = () => {
                 if (result.token) {
                     localStorage.setItem("token", result.token)
                     setSuccess("Login Successful")
-                    loginOrLogout(userChecked)
                 }
             }
             if (!response.ok) {
@@ -99,6 +98,8 @@ export const LoginLogout = () => {
         const userIn = isUserLoggedIn()
         if (userIn) {
             console.log("logged in")
+            loginOrLogout(userChecked)
+
         }
         else {
             console.log("token not found")
