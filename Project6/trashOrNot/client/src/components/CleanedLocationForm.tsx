@@ -18,15 +18,21 @@ export const CleanedLocationForm = () => {
     }
     const submitCleanedLocation = (e) => {
         console.log(e)
+        const token = localStorage.getItem("token")
+
         e.preventDefault()
         let warningsLocally=[]
-
         if((deleteLocation.id=="") || (deleteLocation.category=="")){
             warningsLocally.push("You have forgotten to say whethere you cleaned up the trash.")
         }
+        if (!token){
+            console.log("error")
+        }
+        else{
 
         const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+/*         myHeaders.append("Authorization", `Bearer ${token}`);
+ */        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
         urlencoded.append("locationname", deleteLocation.locationname);
         urlencoded.append("id", deleteLocation.id);
@@ -45,7 +51,7 @@ export const CleanedLocationForm = () => {
             .catch((error) => console.log("error", error));
         }else{
             setWarnings(warningsLocally)
-        }
+        }}
     };
 
 
