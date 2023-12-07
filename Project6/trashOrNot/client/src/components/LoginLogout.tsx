@@ -12,7 +12,7 @@ interface User extends UserImageType {
 }
 
 export const LoginLogout = () => {
-    const { userChecked, loginOrLogout } = useContext(AuthenticationContext)
+    const { userChecked, setUserChecked } = useContext(AuthenticationContext)
     const [existingUser, setExistingUser] = useState<User | null>(null);
     const [warnings, setWarnings] = useState<string[] | []>([])
     const [success, setSuccess] = useState<string | null>(null)
@@ -20,12 +20,13 @@ export const LoginLogout = () => {
     const handleLoginInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         console.log("e.target.name :>> ", e.target.name);
         console.log("e.target.value :>> ", e.target.value);
-
-
         setExistingUser({ ...existingUser!, [e.target.name]: e.target.value });
     };
+    
     const login = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        console.log("login triggered")
+
         let localwarnings: string[] = []
         if (existingUser==null){
             localwarnings.push(
@@ -67,6 +68,7 @@ export const LoginLogout = () => {
                 if (result.token) {
                     localStorage.setItem("token", result.token)
                     setSuccess("Login Successful")
+                    setUserChecked(true)
                 }
             }
             if (!response.ok) {
@@ -85,12 +87,16 @@ export const LoginLogout = () => {
 
     const isUserLoggedIn = () => {
         const token = getToken()
-
         return token ? true : false
 
     }
     const userLogout = () => {
         localStorage.removeItem("token")
+        setWarnings([])
+        setSuccess(null)
+        setUserChecked(false)
+
+
     }
 
 
@@ -98,7 +104,9 @@ export const LoginLogout = () => {
         const userIn = isUserLoggedIn()
         if (userIn) {
             console.log("logged in")
-            loginOrLogout(userChecked)
+            console.log(userChecked)
+            setUserChecked(true)
+
 
         }
         else {
@@ -110,6 +118,7 @@ export const LoginLogout = () => {
     return (
         <div>
             <div className="input-container-login">
+                {!userChecked?
                 <form onSubmit={login} action="" className="input-container">
                     <div className="input-container-loginlogout">
 
@@ -131,9 +140,10 @@ export const LoginLogout = () => {
                             onChange={handleLoginInputChange}
                         />
                     </div>
-                {!userChecked?<button>Login</button>:<button onClick={userLogout}>Logout</button>}
+               <button>Login</button>
+               </form>
+               :<button onClick={userLogout}>Logout</button>}
                     
-                </form>
 
                 {success && <div className='success'>{success}</div>}
                 {warnings && warnings.map((element, index) => {

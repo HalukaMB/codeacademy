@@ -32,16 +32,12 @@ export const AuthenticationContextProvider= (props: Props)=> {
 
 
     
-  
-      const loginOrLogout = (prevCheck:boolean) => {
-        setUserChecked(prevCheck => !prevCheck);
-    };
-    
+
 
 
 
     return(
-        <AuthenticationContext.Provider value={{ userChecked, loginOrLogout}}>
+        <AuthenticationContext.Provider value={{ userChecked, setUserChecked}}>
             {props.children}
         </AuthenticationContext.Provider>
     )
