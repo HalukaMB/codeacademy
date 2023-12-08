@@ -16,9 +16,6 @@ const MapElement = ({foundCleaned}) => {
   const {  deleteLocation, setDeleteLocation } = useContext(LocationContext)
   const {   trigger, setTrigger } = useContext(UpdateContext)
 
-
-  let locallocation = {}
-
   let trash = L.icon({
     iconUrl: trashicon,
     iconRetinaUrl: trashicon,
@@ -31,8 +28,6 @@ const clickToDelete=(e)=>{console.log(e.options)
  
 
 }
-
-
 
     const getPreviousLocations = () => {
         getTrashLocations().then(
@@ -61,8 +56,8 @@ const clickToDelete=(e)=>{console.log(e.options)
         return (
             <>
             {previousPositions.map((element) => (
-                <Marker icon={trash} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
-                position={[element["lat"],element["long"]]}
+                <Marker icon={trash} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"] }
+                position={[element["lat"],element["long"]]} 
                 eventHandlers={{
                     click: (e) => {
                         clickToDelete(e.target)

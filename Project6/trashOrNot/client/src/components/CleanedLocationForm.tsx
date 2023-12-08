@@ -57,7 +57,7 @@ export const CleanedLocationForm = () => {
         }else{
             setWarnings(warningsLocally)
         }
-        setTrigger("cleaned")
+        setTrigger((prev)=>{return(prev+1)})
 
     }
     };
