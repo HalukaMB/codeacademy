@@ -39,29 +39,31 @@ const clickToDelete=(e)=>{console.log(e.options)
     useEffect(() => {
         getPreviousLocations()
         console.log("use effect runs")
-        if (previousPositions!=null){
-        console.log(previousPositions)
-        if (foundCleaned=="found"){
-            setPreviousPositions([...previousPositions,newLocation])
-        }
-        if (foundCleaned=="cleaned"){
-            console.log("CLEANER")
-
-            const reducedPositions = previousPositions.filter(element=> {
-                return element["_id"] !== deleteLocation["id"];
-              });
-              console.log(reducedPositions)
-              setPreviousPositions(reducedPositions)
-            }
-              
-
-        }
-
-        console.log(newLocation)
-        console.log(deleteLocation)
-        console.log(previousPositions)
 
     }, [trigger])
+
+/*     useEffect(() => {
+        if (previousPositions!=null){
+            console.log(previousPositions)
+            if (foundCleaned=="found"){
+                setPreviousPositions([...previousPositions,newLocation])
+            }
+            if (foundCleaned=="cleaned"){
+                console.log("CLEANER")
+    
+                const reducedPositions = previousPositions.filter(element=> {
+                    return element["_id"] !== deleteLocation["id"];
+                  });
+                  console.log(reducedPositions)
+                  setPreviousPositions(reducedPositions)
+                }
+            }
+            console.log(newLocation)
+            console.log(deleteLocation)
+            console.log(previousPositions)
+    
+    }, [third]) */
+    
 
     const handleClick = event => {
         const { lat, lng } = event.latlng
@@ -69,6 +71,7 @@ const clickToDelete=(e)=>{console.log(e.options)
       }
 
     const PreviousMarkers = () => {
+        console.log(previousPositions)
         if (previousPositions!=null){
             const map = useMapEvents({
                 click(e) {
