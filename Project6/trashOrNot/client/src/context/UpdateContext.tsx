@@ -6,7 +6,7 @@ type Props = {
 
 export const UpdateContext = createContext({})
 export const UpdateContextProvider= (props: Props)=> {
-    const [trigger, setTrigger] = useState<string|null>(null);
+    const [trigger, setTrigger] = useState<number>(0);
 
     return(
         <UpdateContext.Provider value={{ trigger, setTrigger}}>

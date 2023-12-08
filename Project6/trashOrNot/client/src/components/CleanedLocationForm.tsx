@@ -20,9 +20,7 @@ export const CleanedLocationForm = () => {
 
     }
     const submitCleanedLocation = (e) => {
-        console.log(e)
         const token = localStorage.getItem("token")
-
         e.preventDefault()
         let warningsLocally=[]
         if((deleteLocation.id=="") || (deleteLocation.category=="")){
@@ -45,7 +43,6 @@ export const CleanedLocationForm = () => {
             body: urlencoded,
         };
         const postUrl = baseUrl + "locations/delete"
-        setTrigger(null)
 
         if (warningsLocally.length==0){
         setWarnings([])
