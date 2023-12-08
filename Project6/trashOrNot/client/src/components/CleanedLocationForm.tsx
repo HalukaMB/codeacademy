@@ -1,12 +1,15 @@
 import React, { useContext, useState } from 'react'
 import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
+import UpdateContext from '../context/UpdateContext'
 
 
 
 
 export const CleanedLocationForm = () => {
     const { deleteLocation, setDeleteLocation } = useContext(LocationContext)
+    const {   trigger, setTrigger } = useContext(UpdateContext)
+
     const [warnings, setWarnings] = useState([""])
     console.log(warnings)
 
@@ -42,16 +45,21 @@ export const CleanedLocationForm = () => {
             body: urlencoded,
         };
         const postUrl = baseUrl + "locations/delete"
+        setTrigger(null)
 
         if (warningsLocally.length==0){
         setWarnings([])
         fetch(postUrl, requestOptions)
             .then((response) => response.json())
-            .then((result) => console.log("result", result))
+            .then((result) => console.log("result", result),
+            )
             .catch((error) => console.log("error", error));
         }else{
             setWarnings(warningsLocally)
-        }}
+        }
+        setTrigger("cleaned")
+
+    }
     };
 
 

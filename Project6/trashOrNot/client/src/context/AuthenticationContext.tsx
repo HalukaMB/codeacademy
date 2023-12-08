@@ -29,13 +29,6 @@ export const AuthenticationContext = createContext({})
 export const AuthenticationContextProvider= (props: Props)=> {
     const [userChecked, setUserChecked] = useState<boolean>(false);
 
-
-
-    
-
-
-
-
     return(
         <AuthenticationContext.Provider value={{ userChecked, setUserChecked}}>
             {props.children}

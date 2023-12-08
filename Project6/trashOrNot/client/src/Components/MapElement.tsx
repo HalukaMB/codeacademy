@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import getTrashLocations from '../hooks/getTrashLocations';
 import { LocationContext } from '../context/LocationContext';
 import trashicon from "../assets/trash.svg";
+import UpdateContext from '../context/UpdateContext';
 
 const MapElement = ({foundCleaned}) => {
     // const{setNewLocation, newLocation}=props
@@ -13,7 +14,9 @@ const MapElement = ({foundCleaned}) => {
 
   const { newLocation, setNewLocation } = useContext(LocationContext)
   const {  deleteLocation, setDeleteLocation } = useContext(LocationContext)
- 
+  const {   trigger, setTrigger } = useContext(UpdateContext)
+
+
   let locallocation = {}
 
   let trash = L.icon({
@@ -34,13 +37,15 @@ const clickToDelete=(e)=>{console.log(e.options)
     const getPreviousLocations = () => {
         getTrashLocations().then(
             (previousPoints: []) => {
+                console.log("previous positions")
                 setPreviousPositions(previousPoints)
             })
     }
 
     useEffect(() => {
         getPreviousLocations()
-    }, [])
+        console.log("use effect runs")
+    }, [trigger])
 
     const handleClick = event => {
         const { lat, lng } = event.latlng
