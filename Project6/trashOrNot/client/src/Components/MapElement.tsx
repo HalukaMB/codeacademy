@@ -12,7 +12,7 @@ const MapElement = ({foundCleaned}) => {
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
 
 
-  const { newLocation, setNewLocation } = useContext(LocationContext)
+  const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
   const {  deleteLocation, setDeleteLocation } = useContext(LocationContext)
   const {   trigger, setTrigger } = useContext(UpdateContext)
   let trash = L.icon({
@@ -40,13 +40,13 @@ const clickToDelete=(e)=>{console.log(e.options)
         getPreviousLocations()
         console.log("use effect runs")
 
-    }, [trigger])
+    }, [])
 
-/*     useEffect(() => {
+    useEffect(() => {
         if (previousPositions!=null){
-            console.log(previousPositions)
             if (foundCleaned=="found"){
                 setPreviousPositions([...previousPositions,newLocation])
+                setNewLocation(defaultNewLocation)
             }
             if (foundCleaned=="cleaned"){
                 console.log("CLEANER")
@@ -54,7 +54,6 @@ const clickToDelete=(e)=>{console.log(e.options)
                 const reducedPositions = previousPositions.filter(element=> {
                     return element["_id"] !== deleteLocation["id"];
                   });
-                  console.log(reducedPositions)
                   setPreviousPositions(reducedPositions)
                 }
             }
@@ -62,7 +61,7 @@ const clickToDelete=(e)=>{console.log(e.options)
             console.log(deleteLocation)
             console.log(previousPositions)
     
-    }, [third]) */
+    }, [trigger])
     
 
     const handleClick = event => {

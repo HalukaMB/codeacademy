@@ -27,7 +27,7 @@ const defaultNewLocation: NewLocationDataType = {
     let [deleteLocation, setDeleteLocation] = useState(defaultNewLocation)
 
     return (
-        <LocationContext.Provider value={{ newLocation, setNewLocation, deleteLocation, setDeleteLocation}}>
+        <LocationContext.Provider value={{ newLocation, setNewLocation, deleteLocation, setDeleteLocation, defaultNewLocation}}>
             {props.children}
         </LocationContext.Provider>
     )
