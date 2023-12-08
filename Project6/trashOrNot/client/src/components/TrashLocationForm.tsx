@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
 import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
+import UpdateContext from '../context/UpdateContext'
 
 
  
 
 export const TrashLocationForm = () => {
     const { newLocation, setNewLocation } = useContext(LocationContext)
+    const {   trigger, setTrigger } = useContext(UpdateContext)
 
     const baseUrl=(import.meta.env.VITE_BASE_URL_API)
     const descriptionTracker=(e)=>{
@@ -43,6 +45,9 @@ export const TrashLocationForm = () => {
             .then((response) => response.json())
             .then((result) => console.log("result", result))
             .catch((error) => console.log("error", error));
+
+            setTrigger((prev)=>{return(prev+1)})
+
         };}
     
 
