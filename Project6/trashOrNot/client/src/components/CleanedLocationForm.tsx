@@ -31,8 +31,8 @@ export const CleanedLocationForm = () => {
         else{
 
         const myHeaders = new Headers();
-/*         myHeaders.append("Authorization", `Bearer ${token}`);
- */        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+         myHeaders.append("Authorization", `Bearer ${token}`);
+         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
         urlencoded.append("locationname", deleteLocation.locationname);
         urlencoded.append("id", deleteLocation.id);

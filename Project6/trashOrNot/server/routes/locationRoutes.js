@@ -6,7 +6,7 @@ router.get("/all", getAllLocations)
 router.get("/clean", getCleanedLocations)
 router.get("/trash", getTrashLocations)
 router.post("/post", jwtAuthorization, postLocations);
-router.post("/delete", deleteLocations);
+router.post("/delete", jwtAuthorization, deleteLocations);
 
 
 export default router
