@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import App from './pages/App.tsx'
 import { LocationContextProvider } from './context/LocationContext.tsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import About from './About.tsx'
-import { LoginOrRegister } from './LoginOrRegister.tsx'
+import About from './pages/About.tsx'
+import { LoginOrRegister } from './pages/LoginOrRegister.tsx'
 import { AuthenticationContextProvider } from './context/AuthenticationContext.tsx'
-import { Cleaned } from './Cleaned.tsx'
+import { Cleaned } from './pages/Cleaned.tsx'
 import { UpdateContextProvider } from './context/UpdateContext.tsx'
 
 

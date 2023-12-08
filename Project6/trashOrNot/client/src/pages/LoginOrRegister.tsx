@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { LoginLogout } from './components/LoginLogout'
-import { Register } from './components/Register'
-import { TopSection } from './components/topSection'
+import { LoginLogout } from '../components/LoginLogout'
+import { Register } from '../components/Register'
+import { TopSection } from '../components/topSection'
 
 export const LoginOrRegister = () => {
 

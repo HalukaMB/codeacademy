@@ -171,8 +171,6 @@ label {
   fill: aqua;
   margin:auto;
   vertical-align: middle
-
-
 }
 
 
@@ -252,4 +250,15 @@ label {
 
 .input-container-register label{
   min-width:calc(var(--baseunitlength)*20);
+}
+
+.cleanedReportStart{
+  padding-bottom: calc(var(--baseunitheight)*3);
+}
+
+#putPin{
+  padding-top: calc(var(--baseunitheight)*5);
+
+  padding-bottom: calc(var(--baseunitheight)*1);
+
 }

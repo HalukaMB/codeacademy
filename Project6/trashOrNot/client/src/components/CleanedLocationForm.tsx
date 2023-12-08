@@ -37,6 +37,8 @@ export const CleanedLocationForm = () => {
         const urlencoded = new URLSearchParams();
         urlencoded.append("locationname", deleteLocation.locationname);
         urlencoded.append("id", deleteLocation.id);
+        urlencoded.append("category", deleteLocation.category);
+
         const requestOptions = {
             method: "POST",
             headers: myHeaders,
@@ -86,7 +88,12 @@ export const CleanedLocationForm = () => {
             }
                 <MapElement foundCleaned="cleaned"></MapElement>
                 {(deleteLocation.locationname!="")&&
-        <div id="putPin">This is the extra info that users have provided: {deleteLocation.locationname}</div>
+                <>
+        <div id="putPin">This is the extra info that users have provided:</div>
+
+          <div id="extraInfo"> {deleteLocation.locationname}     </div>
+          </>
+
     
             }
 

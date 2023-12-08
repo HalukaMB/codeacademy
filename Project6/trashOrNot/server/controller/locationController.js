@@ -86,10 +86,17 @@ const deleteLocations = async (req, res) => {
     {_id: req.body.id})
     if(exisitingLocation.locationname==req.body.locationname){
       console.log("double checked")
-      const deleted=await LocationModel.deleteOne({ _id: req.body.id });
-      if(deleted.acknowledged){
+
+      const filter = { _id: req.body.id};
+      const update = { category: req.body.category };
+      const updated = await LocationModel.findOneAndUpdate(filter, update, {
+        new: true
+      });
+
+      if(updated.acknowledged){
+
         res.status(201).json({
-          message: "place deleted!!"
+          message: "place updated!!"
         });
       }
     }

@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react'
 
 import './App.css'
-import { Navbar } from './components/Navbar'
-import { TrashLocationForm } from './components/TrashLocationForm'
-import { TopSection } from './components/topSection'
-import { AuthenticationContext } from './context/AuthenticationContext'
+import { Navbar } from '../components/Navbar'
+import { TrashLocationForm } from '../components/TrashLocationForm'
+import { TopSection } from '../components/topSection'
+import { AuthenticationContext } from '../context/AuthenticationContext'
 
 function App() {
   const [count, setCount] = useState(0)

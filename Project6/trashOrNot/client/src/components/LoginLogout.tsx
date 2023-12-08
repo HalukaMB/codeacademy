@@ -22,7 +22,7 @@ export const LoginLogout = () => {
         console.log("e.target.value :>> ", e.target.value);
         setExistingUser({ ...existingUser!, [e.target.name]: e.target.value });
     };
-    
+
     const login = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         console.log("login triggered")
@@ -88,15 +88,12 @@ export const LoginLogout = () => {
     const isUserLoggedIn = () => {
         const token = getToken()
         return token ? true : false
-
     }
     const userLogout = () => {
         localStorage.removeItem("token")
         setWarnings([])
         setSuccess(null)
         setUserChecked(false)
-
-
     }
 
 

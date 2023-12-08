@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { TopSection } from './components/topSection'
-import { CleanedLocationForm } from './components/CleanedLocationForm';
+import { TopSection } from '../components/topSection'
+import { CleanedLocationForm } from '../components/CleanedLocationForm';
 
 export const Cleaned = () => {
 
@@ -11,7 +11,7 @@ export const Cleaned = () => {
 
 <TopSection></TopSection>
       <div className='reportSection'>
-        <div>You want to report that there is no trash at a particular corner anymore. Have you... </div>
+        <div className="cleanedReportStart">You want to report that there is no trash at a particular corner anymore. Have you... </div>
         <CleanedLocationForm></CleanedLocationForm>
 
       </div>    

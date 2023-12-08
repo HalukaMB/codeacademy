@@ -1,5 +1,5 @@
-import { Navbar } from "./components/Navbar"
-import { TopSection } from "./components/topSection"
+import { Navbar } from "../components/Navbar"
+import { TopSection } from "../components/topSection"
 
 const About = () => {
   return (
