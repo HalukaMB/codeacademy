@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useRef, useState } from "react";
 
 
 interface NewLocationDataType {
@@ -25,9 +25,11 @@ const defaultNewLocation: NewLocationDataType = {
 
     let [newLocation, setNewLocation] = useState(defaultNewLocation)
     let [deleteLocation, setDeleteLocation] = useState(defaultNewLocation)
+    let deleteRef = useRef(defaultNewLocation)
+
 
     return (
-        <LocationContext.Provider value={{ newLocation, setNewLocation, deleteLocation, setDeleteLocation, defaultNewLocation}}>
+        <LocationContext.Provider value={{ newLocation, setNewLocation, deleteLocation, setDeleteLocation, defaultNewLocation, deleteRef}}>
             {props.children}
         </LocationContext.Provider>
     )

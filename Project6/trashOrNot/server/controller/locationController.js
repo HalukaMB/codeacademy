@@ -82,6 +82,7 @@ const postLocations = async (req, res) => {
 
 const deleteLocations = async (req, res) => {
   console.log("req.body :>> ", req.body);
+  if (req.body.id!="undefined"){
   const exisitingLocation = await LocationModel.findOne(
     {_id: req.body.id})
     if(exisitingLocation.locationname==req.body.locationname){
@@ -100,7 +101,7 @@ const deleteLocations = async (req, res) => {
         });
       }
     }
-      
+  }
 }
 
 

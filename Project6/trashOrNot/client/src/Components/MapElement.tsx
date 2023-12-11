@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import getTrashLocations from '../hooks/getTrashLocations';
@@ -13,7 +13,8 @@ const MapElement = ({foundCleaned}) => {
 
 
   const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
-  const {  deleteLocation, setDeleteLocation } = useContext(LocationContext)
+/*   const {  deleteLocation, setDeleteLocation } = useContext(LocationContext)
+ */  let {deleteRef} =useContext(LocationContext)
   const {   trigger, setTrigger } = useContext(UpdateContext)
   let trash = L.icon({
     iconUrl: trashicon,
@@ -22,9 +23,12 @@ const MapElement = ({foundCleaned}) => {
     popupAnchor: [10, -44],
     iconSize: [25, 55],
   });
-const clickToDelete=(e)=>{console.log(e.options)
-/   setDeleteLocation((prev)=>{return {...prev,["lat"]:e._latlng.lat,["long"]:e._latlng.lng,["id"]:e.options.databaseid,["locationname"]:e.options.extrainfo}})
- 
+const clickToDelete=(e)=>{
+    console.log(deleteRef)
+
+    deleteRef.current = {"lat":e._latlng.lat,"long":e._latlng.lng,"id":e.options.databaseid,"locationname":e.options.extrainfo}
+
+    console.log(deleteRef)
 
 }
 
@@ -52,13 +56,12 @@ const clickToDelete=(e)=>{console.log(e.options)
                 console.log("CLEANER")
     
                 const reducedPositions = previousPositions.filter(element=> {
-                    return element["_id"] !== deleteLocation["id"];
+                    return element["_id"] !== deleteRef["id"];
                   });
                   setPreviousPositions(reducedPositions)
                 }
             }
             console.log(newLocation)
-            console.log(deleteLocation)
             console.log(previousPositions)
     
     }, [trigger])
@@ -103,7 +106,6 @@ const clickToDelete=(e)=>{console.log(e.options)
             
               ))
             }
-            {previousPositions.map(element=>{console.log(element)})}
 
             </>
         )}
