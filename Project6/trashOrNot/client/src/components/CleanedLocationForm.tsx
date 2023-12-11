@@ -91,19 +91,11 @@ export const CleanedLocationForm = () => {
             <div id="putPin">Is this the correct place?</div>
             }
                 <MapElement foundCleaned="cleaned"></MapElement>
-                {(deleteRef.current.locationname!="")&&
-                <>
-        <div id="putPin">This is the extra info that users have provided:</div>
 
-          <div id="extraInfo"> {deleteRef.current.locationname}     </div>
-          </>
-
-    
-            }
 
             {warnings.length>0&&warnings.map((element:string, index:number)=>{return(<div key={index}>{element}</div>)}
             )}
-            <input id="submitNewLocation" type="submit" onClick={e => submitCleanedLocation(e)}></input>
+            <input id="submitNewLocation" type="submit" onClick={e => submitCleanedLocation(e)} value="Delete" ></input>
 
             </form>
         </div>

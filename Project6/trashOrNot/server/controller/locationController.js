@@ -80,6 +80,22 @@ const postLocations = async (req, res) => {
   }
 }
 
+const modifyLocations=async(req,res)=>{
+  console.log("req.body :>> ", req.body);
+
+  if (req.body.id!="undefined"){
+    const exisitingLocation = await LocationModel.findOneAndUpdate(
+      {_id :req.body.id}, {$inc : {'likes' : 1}})
+        console.log(exisitingLocation)
+        if(exisitingLocation.acknowledged){
+  
+          res.status(201).json({
+            message: "place increased!!"
+          });
+        }
+      }
+    }
+
 const deleteLocations = async (req, res) => {
   console.log("req.body :>> ", req.body);
   if (req.body.id!="undefined"){
@@ -105,4 +121,4 @@ const deleteLocations = async (req, res) => {
 }
 
 
-export { getAllLocations, getCleanedLocations, getTrashLocations, postLocations, deleteLocations };
+export { getAllLocations, getCleanedLocations, getTrashLocations, postLocations,modifyLocations, deleteLocations };
