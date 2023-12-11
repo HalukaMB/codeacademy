@@ -35,14 +35,12 @@ const clickToDelete=(e)=>{
     const getPreviousLocations = () => {
         getTrashLocations().then(
             (previousPoints: []) => {
-                console.log("previous positions")
                 setPreviousPositions(previousPoints)
             })
     }
 
     useEffect(() => {
         getPreviousLocations()
-        console.log("use effect runs")
 
     }, [])
 
@@ -56,13 +54,11 @@ const clickToDelete=(e)=>{
                 console.log("CLEANER")
     
                 const reducedPositions = previousPositions.filter(element=> {
-                    return element["_id"] !== deleteRef["id"];
+                    return element["_id"] !== deleteRef.current["id"];
                   });
                   setPreviousPositions(reducedPositions)
                 }
             }
-            console.log(newLocation)
-            console.log(previousPositions)
     
     }, [trigger])
     
@@ -99,7 +95,7 @@ const clickToDelete=(e)=>{
                     },
                   }}
                 >
-                    <Popup>
+                    <Popup key={element["_id"]+"_popup"}>
                         {element["locationname"]}
                     </Popup>
                 </Marker>
