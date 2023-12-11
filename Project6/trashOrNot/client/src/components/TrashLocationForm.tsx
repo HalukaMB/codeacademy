@@ -29,6 +29,7 @@ export const TrashLocationForm = () => {
         myHeaders.append("Authorization", `Bearer ${token}`);
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
+        let suffix=""
         if (addRef.current.type == "new") {
             if (newLocation.lat == undefined) {
                 console.log("nothing selected")
@@ -39,18 +40,21 @@ export const TrashLocationForm = () => {
                 urlencoded.append("lat", newLocation.lat);
                 urlencoded.append("long", newLocation.long);
                 urlencoded.append("category", newLocation.category);
+                suffix="post"
+
                
             }
         };
         if (addRef.current.type == "existing") {            
                 urlencoded.append("id", addRef.current.id);
+                suffix="modify"
             }
             const requestOptions = {
                 method: "POST",
                 headers: myHeaders,
                 body: urlencoded,
             };
-            const postUrl = baseUrl + "locations/modify"
+            const postUrl = baseUrl + "locations/"+suffix
             console.log(postUrl)
             fetch(postUrl, requestOptions)
                 .then((response) => response.json())

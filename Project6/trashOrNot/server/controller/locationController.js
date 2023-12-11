@@ -82,17 +82,19 @@ const postLocations = async (req, res) => {
 
 const modifyLocations=async(req,res)=>{
   console.log("req.body :>> ", req.body);
-
+  console.log("modify")
   if (req.body.id!="undefined"){
-    const exisitingLocation = await LocationModel.findOneAndUpdate(
-      {_id :req.body.id}, {$inc : {'likes' : 1}})
-        console.log(exisitingLocation)
-        if(exisitingLocation.acknowledged){
-  
+
+    const filter = { _id: req.body.id};
+      const update = {  $inc: { likes: 1 } };
+      const exisitingLocation = await LocationModel.findOneAndUpdate(filter, update, {
+        new: true
+      });
+        console.log(exisitingLocation.acknowledged)
           res.status(201).json({
             message: "place increased!!"
           });
-        }
+        
       }
     }
 
