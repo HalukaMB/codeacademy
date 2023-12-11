@@ -31,19 +31,13 @@ export const TrashLocationForm = () => {
         const urlencoded = new URLSearchParams();
         let suffix=""
         if (addRef.current.type == "new") {
-            if (newLocation.lat == undefined) {
-                console.log("nothing selected")
-            }
-            else {
+            
 
                 urlencoded.append("locationname", newLocation.locationname);
                 urlencoded.append("lat", newLocation.lat);
                 urlencoded.append("long", newLocation.long);
                 urlencoded.append("category", newLocation.category);
                 suffix="post"
-
-               
-            }
         };
         if (addRef.current.type == "existing") {            
                 urlencoded.append("id", addRef.current.id);

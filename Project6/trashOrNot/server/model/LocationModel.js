@@ -21,6 +21,11 @@ const locationSchema = new Schema({
     type: String,
     required: true,
     unique: false,
+  },
+  likes:{
+    type:Number,
+    required:true,
+    unique:false
   }
   }
 );
