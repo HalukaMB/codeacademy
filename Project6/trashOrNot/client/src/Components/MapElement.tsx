@@ -47,8 +47,10 @@ const MapElement = ({ foundCleaned }) => {
     useEffect(() => {
         if (previousPositions != null) {
             if (foundCleaned == "found") {
+                if (newLocation.lat!=null){
                 setPreviousPositions([...previousPositions, newLocation])
                 setNewLocation(defaultNewLocation)
+            }
             }
             if (foundCleaned == "cleaned") {
                 console.log("CLEANER")
@@ -73,7 +75,8 @@ const MapElement = ({ foundCleaned }) => {
             })
             return (
                 <>
-                    {previousPositions.map((element) => (
+                    {(previousPositions!=null)&&previousPositions.map((element) => (
+                        
                         <Marker icon={trash} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
                             position={[element["lat"], element["long"]]}
                             eventHandlers={{
