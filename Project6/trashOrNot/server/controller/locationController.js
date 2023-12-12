@@ -58,6 +58,7 @@ const postLocations = async (req, res) => {
         lat: req.body.lat,
         long: req.body.long,
         category: req.body.category,
+        likes: 0
       })
       console.log("newLocation", newLocation)
       const savedLocation = await newLocation.save();
