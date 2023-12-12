@@ -24,12 +24,12 @@ const defaultNewLocation: NewLocationDataType = {
 }
 
     let [newLocation, setNewLocation] = useState(defaultNewLocation)
-    const [foundInfo,setFoundInfo] = useState({type:"",id:""})
+    let addRef = useRef({})
     let deleteRef = useRef(defaultNewLocation)
 
 
     return (
-        <LocationContext.Provider value={{ newLocation, setNewLocation, defaultNewLocation, foundInfo, setFoundInfo,deleteRef}}>
+        <LocationContext.Provider value={{ newLocation, setNewLocation, defaultNewLocation, addRef,deleteRef}}>
             {props.children}
         </LocationContext.Provider>
     )

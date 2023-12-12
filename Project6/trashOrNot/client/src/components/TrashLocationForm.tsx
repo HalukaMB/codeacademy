@@ -9,7 +9,7 @@ import UpdateContext from '../context/UpdateContext'
 export const TrashLocationForm = () => {
     const { newLocation, setNewLocation } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
-    let { foundInfo, setFoundInfo } = useContext(LocationContext)
+    let { addRef } = useContext(LocationContext)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
     const descriptionTracker = (e) => {
         newLocation.locationname = e.target.value
@@ -20,6 +20,7 @@ export const TrashLocationForm = () => {
 
     const submitNewLocation = (e) => {
         e.preventDefault()
+        console.log(addRef)
         const token = localStorage.getItem("token")
         if (!token) {
             console.log("error")
@@ -29,17 +30,23 @@ export const TrashLocationForm = () => {
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
         let suffix=""
-        if (foundInfo["type"] == "new") {
-            
+        if (addRef.current.type == "new") {
+            if (newLocation.lat == undefined) {
+                console.log("nothing selected")
+            }
+            else {
 
                 urlencoded.append("locationname", newLocation.locationname);
                 urlencoded.append("lat", newLocation.lat);
                 urlencoded.append("long", newLocation.long);
                 urlencoded.append("category", newLocation.category);
                 suffix="post"
+
+               
+            }
         };
-        if (foundInfo["type"] == "existing") {            
-                urlencoded.append("id", foundInfo["id"]);
+        if (addRef.current.type == "existing") {            
+                urlencoded.append("id", addRef.current.id);
                 suffix="modify"
             }
             const requestOptions = {

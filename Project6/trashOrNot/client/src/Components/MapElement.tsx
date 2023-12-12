@@ -14,7 +14,7 @@ const MapElement = ({ foundCleaned }) => {
 
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
     let { deleteRef } = useContext(LocationContext)
-    let { foundInfo, setFoundInfo } = useContext(LocationContext)
+    let { addRef } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
     let trash = L.icon({
         iconUrl: trashicon,
@@ -26,22 +26,11 @@ const MapElement = ({ foundCleaned }) => {
     const clickToDelete = (e) => {
         deleteRef.current = { "lat": e._latlng.lat, "long": e._latlng.lng, "id": e.options.databaseid, "locationname": e.options.extrainfo }
     }
-    const clickToAddInfoExisting = (e) => {
-
-        setFoundInfo((prev) => {
-            return {type: "existing", id: e.options.databaseid}
-        })
-    
+    const clickToAddInfo = (e) => {
+        console.log(e.options.databaseid)
+        addRef.current.type ="existing"
+        addRef.current.id = e.options.databaseid
     }
-    const clickToAddInfoNew = () =>{
-        
-        setFoundInfo((prev) => {
-            return {type: "new", id: ""}
-        })
-
-
-    }
-    console.log(foundInfo)
 
     const getPreviousLocations = () => {
         getTrashLocations().then(
@@ -93,10 +82,10 @@ const MapElement = ({ foundCleaned }) => {
                             eventHandlers={{
                                 click: (e) => {
                                     if (foundCleaned == "cleaned") {
-                                        clickToDelete
+                                        clickToDelete(e.target)
                                     }
                                     if (foundCleaned == "found") {
-                                        clickToAddInfoExisting
+                                        clickToAddInfo(e.target)
                                     }
                                     map.setView(
                                         [
@@ -112,6 +101,11 @@ const MapElement = ({ foundCleaned }) => {
                         >
                             <Popup key={element["_id"] + "_popup"}>
                                 {element["locationname"]}
+                                <br></br>
+                                <br></br>
+                                and
+                                {" "+element["likes"]+" "}
+                                others were annoyed by the trash here
                             </Popup>
                         </Marker>
 
@@ -131,7 +125,7 @@ const MapElement = ({ foundCleaned }) => {
                         e.latlng.lat,
                         e.latlng.lng
                     ])
-                    clickToAddInfoNew
+                    addRef.current.type = "new"
                     newLocation.lat = e.latlng.lat;
                     newLocation.long = e.latlng.lng;
                     setNewLocation((prev) => {
