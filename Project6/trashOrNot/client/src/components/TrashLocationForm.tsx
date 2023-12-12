@@ -9,7 +9,7 @@ import UpdateContext from '../context/UpdateContext'
 export const TrashLocationForm = () => {
     const { newLocation, setNewLocation } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
-    let { addRef } = useContext(LocationContext)
+    let { foundInfo, setFoundInfo } = useContext(LocationContext)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
     const descriptionTracker = (e) => {
         newLocation.locationname = e.target.value
@@ -20,7 +20,6 @@ export const TrashLocationForm = () => {
 
     const submitNewLocation = (e) => {
         e.preventDefault()
-        console.log(addRef)
         const token = localStorage.getItem("token")
         if (!token) {
             console.log("error")
@@ -30,7 +29,7 @@ export const TrashLocationForm = () => {
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
         let suffix=""
-        if (addRef.current.type == "new") {
+        if (foundInfo["type"] == "new") {
             
 
                 urlencoded.append("locationname", newLocation.locationname);
@@ -39,8 +38,8 @@ export const TrashLocationForm = () => {
                 urlencoded.append("category", newLocation.category);
                 suffix="post"
         };
-        if (addRef.current.type == "existing") {            
-                urlencoded.append("id", addRef.current.id);
+        if (foundInfo["type"] == "existing") {            
+                urlencoded.append("id", foundInfo["id"]);
                 suffix="modify"
             }
             const requestOptions = {

@@ -14,7 +14,7 @@ const MapElement = ({ foundCleaned }) => {
 
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
     let { deleteRef } = useContext(LocationContext)
-    let { addRef } = useContext(LocationContext)
+    let { foundInfo, setFoundInfo } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
     let trash = L.icon({
         iconUrl: trashicon,
@@ -26,11 +26,22 @@ const MapElement = ({ foundCleaned }) => {
     const clickToDelete = (e) => {
         deleteRef.current = { "lat": e._latlng.lat, "long": e._latlng.lng, "id": e.options.databaseid, "locationname": e.options.extrainfo }
     }
-    const clickToAddInfo = (e) => {
-        console.log(e.options.databaseid)
-        addRef.current.type ="existing"
-        addRef.current.id = e.options.databaseid
+    const clickToAddInfoExisting = (e) => {
+
+        setFoundInfo((prev) => {
+            return {type: "existing", id: e.options.databaseid}
+        })
+    
     }
+    const clickToAddInfoNew = () =>{
+        
+        setFoundInfo((prev) => {
+            return {type: "new", id: ""}
+        })
+
+
+    }
+    console.log(foundInfo)
 
     const getPreviousLocations = () => {
         getTrashLocations().then(
@@ -82,10 +93,10 @@ const MapElement = ({ foundCleaned }) => {
                             eventHandlers={{
                                 click: (e) => {
                                     if (foundCleaned == "cleaned") {
-                                        clickToDelete(e.target)
+                                        clickToDelete
                                     }
                                     if (foundCleaned == "found") {
-                                        clickToAddInfo(e.target)
+                                        clickToAddInfoExisting
                                     }
                                     map.setView(
                                         [
@@ -120,15 +131,12 @@ const MapElement = ({ foundCleaned }) => {
                         e.latlng.lat,
                         e.latlng.lng
                     ])
-                    addRef.current.type = "new"
-
+                    clickToAddInfoNew
                     newLocation.lat = e.latlng.lat;
                     newLocation.long = e.latlng.lng;
-
                     setNewLocation((prev) => {
                         return { ...prev, lat: e.latlng.lat, long: e.latlng.lng }
                     })
-
                     console.log(newLocation)
 
                 }
