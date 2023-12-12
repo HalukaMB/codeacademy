@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
 import UpdateContext from '../context/UpdateContext'
@@ -9,21 +9,23 @@ import UpdateContext from '../context/UpdateContext'
 export const TrashLocationForm = () => {
     const { newLocation, setNewLocation } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
+    const [warnings, setWarnings] = useState([""])
+
     let { addRef } = useContext(LocationContext)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
     const descriptionTracker = (e) => {
         newLocation.locationname = e.target.value
         newLocation.category = "trash"
-
         setNewLocation(newLocation)
     }
 
     const submitNewLocation = (e) => {
         e.preventDefault()
         console.log(addRef)
+        let localwarnings:[string]=[]
         const token = localStorage.getItem("token")
         if (!token) {
-            console.log("error")
+            localwarnings.push("You need to log in.")
         }
         const myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${token}`);
@@ -31,19 +33,20 @@ export const TrashLocationForm = () => {
         const urlencoded = new URLSearchParams();
         let suffix=""
         if (addRef.current.type == "new") {
-            if (newLocation.lat == undefined) {
-                console.log("nothing selected")
+            if (newLocation.lat == "") {
+                localwarnings.push("You need to select a place where you found trash.")
+            }
+            if (newLocation.category == "") {
+                localwarnings.push("You need to add information about the place.")
             }
             else {
-
                 urlencoded.append("locationname", newLocation.locationname);
                 urlencoded.append("lat", newLocation.lat);
                 urlencoded.append("long", newLocation.long);
                 urlencoded.append("category", newLocation.category);
                 suffix="post"
-
-               
             }
+            setWarnings(localwarnings)
         };
         if (addRef.current.type == "existing") {            
                 urlencoded.append("id", addRef.current.id);
