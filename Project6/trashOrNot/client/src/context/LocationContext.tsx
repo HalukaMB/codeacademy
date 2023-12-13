@@ -3,8 +3,8 @@ import { createContext, useRef, useState } from "react";
 interface NewLocationDataType {
   id: string | null;
   locationname: string | null;
-  lat: number | null;
-  long: number | null;
+  lat: string | null;
+  long: string | null;
   category: string;
   likes: number;
 }
@@ -12,7 +12,7 @@ interface NewLocationDataType {
 type StateContextType = {
     newLocation: NewLocationDataType;
     setNewLocation: React.Dispatch<React.SetStateAction<NewLocationDataType>>;
-    addRef:React.MutableRefObject< Record<string,string>| null>
+    addRef:React.MutableRefObject< Record<string,string>>
     deleteRef:React.MutableRefObject<NewLocationDataType>;
     defaultNewLocation:NewLocationDataType,
   };
@@ -28,8 +28,8 @@ export const LocationContextProvider = (props: ContextProviderProps) => {
     const defaultNewLocation: NewLocationDataType = {
         id: "",
         locationname: "",
-        lat: null,
-        long: null,
+        lat: "",
+        long: "",
         category: "",
         likes: 1,
       };

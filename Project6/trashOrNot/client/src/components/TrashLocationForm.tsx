@@ -45,11 +45,13 @@ export const TrashLocationForm = () => {
                 localwarnings.push("You need to add information about the place.")
             }
             else {
-                urlencoded.append("locationname", newLocation.locationname);
-                urlencoded.append("lat", newLocation.lat);
-                urlencoded.append("long", newLocation.long);
+                if(localwarnings.length==0){
+                urlencoded.append("locationname", newLocation.locationname!);
+                urlencoded.append("lat", newLocation.lat!);
+                urlencoded.append("long", newLocation.long!);
                 urlencoded.append("category", newLocation.category);
                 suffix="post"
+            }
             }
         };
         if (addRef.current.type == "existing") {            
@@ -72,13 +74,12 @@ export const TrashLocationForm = () => {
        
     }
 
-
     return (
         <div className="formPlusMap">
 
             <form>
                 <input className="inputLocationName" type="text" onChange={e => descriptionTracker(e)} placeholder='How would you describe the place?'></input>
-                <MapElement foundCleaned="found" newLocation={newLocation} setNewLocation={setNewLocation}></MapElement>
+                <MapElement foundCleaned="found"></MapElement>
                 <input id="submitNewLocation" type="submit" onClick={e => submitNewLocation(e)}></input>
             </form>
         </div>

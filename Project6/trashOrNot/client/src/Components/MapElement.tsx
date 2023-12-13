@@ -1,20 +1,21 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import PropTypes from 'prop-types'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import getTrashLocations from '../hooks/getTrashLocations';
 import { LocationContext } from '../context/LocationContext';
 import trashicon from "../assets/trash.svg";
 import UpdateContext from '../context/UpdateContext';
 
-const MapElement = ({ foundCleaned }) => {
-    // const{setNewLocation, newLocation}=props
+type functionProps={
+    foundCleaned:string
+}
+
+const MapElement = ({ foundCleaned}:functionProps) => {
     const [previousPositions, setPreviousPositions] = useState<[number, number][] | null>(null);
-    const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
-
-
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
+
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
+
     const { trigger, setTrigger } = useContext(UpdateContext)
     let trash = L.icon({
         iconUrl: trashicon,
@@ -121,13 +122,7 @@ const MapElement = ({ foundCleaned }) => {
         const map = useMapEvents({
             click(e) {
                 if ((foundCleaned == "found")) {
-                    setSelectedPosition([
-                        e.latlng.lat,
-                        e.latlng.lng
-                    ])
                     addRef.current.type = "new"
-                    newLocation.lat = e.latlng.lat;
-                    newLocation.long = e.latlng.lng;
                     setNewLocation((prev) => {
                         return { ...prev, lat: e.latlng.lat, long: e.latlng.lng }
                     })
@@ -137,10 +132,10 @@ const MapElement = ({ foundCleaned }) => {
             },
         })
         return (
-            selectedPosition ?
+            newLocation ?
                 <Marker
-                    key={selectedPosition[0]}
-                    position={selectedPosition}
+                    key={"New Pos"}
+                    position={[newLocation.lat,newLocation.long]}
                     interactive={false}
                 />
                 : null

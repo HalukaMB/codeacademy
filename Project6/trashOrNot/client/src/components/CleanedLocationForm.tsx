@@ -15,10 +15,10 @@ export const CleanedLocationForm = () => {
     console.log(warnings)
 
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
-    const radioChange=(event)=>{
-        locationCategory.current=(event.target.value)
+    const radioChange=(event:React.FormEvent<HTMLDivElement>)=>{
+        locationCategory.current=(event.target as HTMLInputElement).value
     }
-    const submitCleanedLocation = (e) => {
+    const submitCleanedLocation = (e:React.MouseEvent<HTMLInputElement, MouseEvent>) => {
         const token = localStorage.getItem("token")
         e.preventDefault()
         console.log(deleteRef)
@@ -39,8 +39,8 @@ export const CleanedLocationForm = () => {
          myHeaders.append("Authorization", `Bearer ${token}`);
          myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
-        urlencoded.append("locationname", deleteRef.current.locationname);
-        urlencoded.append("id", deleteRef.current.id);
+        urlencoded.append("locationname", deleteRef.current.locationname!);
+        urlencoded.append("id", deleteRef.current.id!);
         urlencoded.append("category", locationCategory.current);
 
         const requestOptions = {
