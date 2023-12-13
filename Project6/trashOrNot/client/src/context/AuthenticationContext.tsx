@@ -1,18 +1,16 @@
-import React, { createContext, useState } from 'react'
+import React, { ReactNode, createContext, useState } from 'react'
 
 type Props = {
     children: ReactNode;
   };
 
 interface AuthenticationContextType {
-    user: User | null;
     signup: (email: string, password: string) => void;
     logout: () => void; 
     login: (email: string, password: string) => void;  
   }
 
 const defaultValue:AuthenticationContextType = {
-    user: null,
   signup: () => {
     throw Error("No provider");
   },
@@ -28,6 +26,7 @@ const defaultValue:AuthenticationContextType = {
 export const AuthenticationContext = createContext({})
 export const AuthenticationContextProvider= (props: Props)=> {
     const [userChecked, setUserChecked] = useState<boolean>(false);
+
 
     return(
         <AuthenticationContext.Provider value={{ userChecked, setUserChecked}}>

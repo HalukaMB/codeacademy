@@ -4,7 +4,12 @@ type Props = {
     children: ReactNode;
   };
 
-export const UpdateContext = createContext({})
+type UpdateContextType={
+    trigger: number;
+    setTrigger: React.Dispatch<React.SetStateAction<number>>
+}
+
+export const UpdateContext = createContext<UpdateContextType>(null as unknown as UpdateContextType);
 export const UpdateContextProvider= (props: Props)=> {
     const [trigger, setTrigger] = useState<number>(0);
 

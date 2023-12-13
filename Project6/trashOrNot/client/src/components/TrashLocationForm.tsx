@@ -3,15 +3,21 @@ import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
 import UpdateContext from '../context/UpdateContext'
 
-
-
+interface NewLocationDataType {
+    id: string | null;
+    locationname: string | null;
+    lat: number | null;
+    long: number | null;
+    category: string;
+    likes: number;
+  }
 
 export const TrashLocationForm = () => {
     const { newLocation, setNewLocation } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
-
     let { addRef } = useContext(LocationContext)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
+
     const descriptionTracker = (e) => {
         newLocation.locationname = e.target.value
         newLocation.category = "trash"
@@ -21,7 +27,7 @@ export const TrashLocationForm = () => {
     const submitNewLocation = (e) => {
         e.preventDefault()
         console.log(addRef)
-        let localwarnings:[string]=[]
+        let localwarnings:string[]=[]
         const token = localStorage.getItem("token")
         if (!token) {
             localwarnings.push("You need to log in.")
@@ -45,7 +51,6 @@ export const TrashLocationForm = () => {
                 urlencoded.append("category", newLocation.category);
                 suffix="post"
             }
-            setWarnings(localwarnings)
         };
         if (addRef.current.type == "existing") {            
                 urlencoded.append("id", addRef.current.id);
