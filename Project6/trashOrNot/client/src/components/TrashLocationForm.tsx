@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
 import UpdateContext from '../context/UpdateContext'
@@ -9,7 +9,6 @@ import UpdateContext from '../context/UpdateContext'
 export const TrashLocationForm = () => {
     const { newLocation, setNewLocation } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
-    const [warnings, setWarnings] = useState([""])
 
     let { addRef } = useContext(LocationContext)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
