@@ -1,4 +1,6 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import * as L from 'leaflet';
+
+import {  useContext, useEffect, useRef, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import getTrashLocations from '../hooks/getTrashLocations';
 import { LocationContext } from '../context/LocationContext';
@@ -8,10 +10,18 @@ import UpdateContext from '../context/UpdateContext';
 type functionProps={
     foundCleaned:string
 }
+interface NewLocationDataType {
+    id: string | null;
+    locationname: string | null;
+    lat: string | null;
+    long: string | null;
+    category: string;
+    likes: number;
+  }
 
 const MapElement = ({ foundCleaned}:functionProps) => {
-    const [previousPositions, setPreviousPositions] = useState<[number, number][] | null>(null);
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
+    const [previousPositions, setPreviousPositions] = useState<NewLocationDataType[] | null>(null);
 
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
@@ -24,13 +34,16 @@ const MapElement = ({ foundCleaned}:functionProps) => {
         popupAnchor: [10, -44],
         iconSize: [25, 55],
     });
-    const clickToDelete = (e) => {
-        deleteRef.current = { "lat": e._latlng.lat, "long": e._latlng.lng, "id": e.options.databaseid, "locationname": e.options.extrainfo }
+    const clickToDelete = (e: L.LeafletMouseEvent) => {
+        const target=e.target
+        deleteRef.current = { "lat": target._latlng.lat, "long": target._latlng.lng,
+         "id": target.options.databaseid, "locationname": target.options.extrainfo, 
+        "category":"","likes":0}
     }
-    const clickToAddInfo = (e) => {
-        console.log(e.options.databaseid)
+    const clickToAddInfo = (e : L.LeafletMouseEvent) => {
+        const target=e.target
         addRef.current.type ="existing"
-        addRef.current.id = e.options.databaseid
+        addRef.current.id = target.options.databaseid
     }
 
     const getPreviousLocations = () => {
@@ -83,10 +96,10 @@ const MapElement = ({ foundCleaned}:functionProps) => {
                             eventHandlers={{
                                 click: (e) => {
                                     if (foundCleaned == "cleaned") {
-                                        clickToDelete(e.target)
+                                        clickToDelete(e)
                                     }
                                     if (foundCleaned == "found") {
-                                        clickToAddInfo(e.target)
+                                        clickToAddInfo(e)
                                     }
                                     map.setView(
                                         [

@@ -18,13 +18,13 @@ export const TrashLocationForm = () => {
     let { addRef } = useContext(LocationContext)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
 
-    const descriptionTracker = (e) => {
+    const descriptionTracker = (e:React.ChangeEvent<HTMLInputElement>) => {
         newLocation.locationname = e.target.value
         newLocation.category = "trash"
         setNewLocation(newLocation)
     }
 
-    const submitNewLocation = (e) => {
+    const submitNewLocation = (e:React.MouseEvent<HTMLInputElement>) => {
         e.preventDefault()
         console.log(addRef)
         let localwarnings:string[]=[]
