@@ -1,7 +1,7 @@
 import { createContext, useRef, useState } from "react";
 
 interface NewLocationDataType {
-  id: string | null;
+  _id: string | null;
   locationname: string | null;
   lat: string | null;
   long: string | null;
@@ -26,7 +26,7 @@ type ContextProviderProps = {
 
 export const LocationContextProvider = (props: ContextProviderProps) => {
     const defaultNewLocation: NewLocationDataType = {
-        id: "",
+        _id: "",
         locationname: "",
         lat: "",
         long: "",

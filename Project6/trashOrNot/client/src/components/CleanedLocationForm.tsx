@@ -25,7 +25,7 @@ export const CleanedLocationForm = () => {
         console.log(locationCategory)
 
         let warningsLocally=[]
-        if((deleteRef.current.id=="") || (locationCategory.current=="")){
+        if((deleteRef.current._id=="") || (locationCategory.current=="")){
             warningsLocally.push("You have forgotten to say whethere you cleaned up the trash.")
         }
         if (!token){
@@ -40,7 +40,7 @@ export const CleanedLocationForm = () => {
          myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
         urlencoded.append("locationname", deleteRef.current.locationname!);
-        urlencoded.append("id", deleteRef.current.id!);
+        urlencoded.append("id", deleteRef.current._id!);
         urlencoded.append("category", locationCategory.current);
 
         const requestOptions = {
@@ -85,7 +85,7 @@ export const CleanedLocationForm = () => {
 
                 </fieldset>
                 
-{deleteRef.current.id==""?
+{deleteRef.current._id==""?
 <div id="putPin">Click on the exact pin where the trash has been taken away.</div>
             :
             <div id="putPin">Is this the correct place?</div>

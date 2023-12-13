@@ -11,13 +11,15 @@ type functionProps={
     foundCleaned:string
 }
 interface NewLocationDataType {
-    id: string | null;
+    _id: string | null;
     locationname: string | null;
     lat: string | null;
     long: string | null;
     category: string;
     likes: number;
   }
+
+  
 
 const MapElement = ({ foundCleaned}:functionProps) => {
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
@@ -37,7 +39,7 @@ const MapElement = ({ foundCleaned}:functionProps) => {
     const clickToDelete = (e: L.LeafletMouseEvent) => {
         const target=e.target
         deleteRef.current = { "lat": target._latlng.lat, "long": target._latlng.lng,
-         "id": target.options.databaseid, "locationname": target.options.extrainfo, 
+         "_id": target.options.databaseid, "locationname": target.options.extrainfo, 
         "category":"","likes":0}
     }
     const clickToAddInfo = (e : L.LeafletMouseEvent) => {
@@ -69,8 +71,8 @@ const MapElement = ({ foundCleaned}:functionProps) => {
             if (foundCleaned == "cleaned") {
                 console.log("CLEANER")
 
-                const reducedPositions = previousPositions.filter(element => {
-                    return element["_id"] !== deleteRef.current["id"];
+                const reducedPositions = previousPositions.filter((element:NewLocationDataType) => {
+                    return element["_id"] !== deleteRef.current["_id"];
                 });
                 setPreviousPositions(reducedPositions)
             }
@@ -89,10 +91,10 @@ const MapElement = ({ foundCleaned}:functionProps) => {
             })
             return (
                 <>
-                    {(previousPositions!=null)&&previousPositions.map((element) => (
+                    {(previousPositions!=null)&&previousPositions.map((element:NewLocationDataType) => (
                         
                         <Marker icon={trash} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
-                            position={[element["lat"], element["long"]]}
+                            position={[Number(element["lat"]), Number(element["long"])]}
                             eventHandlers={{
                                 click: (e) => {
                                     if (foundCleaned == "cleaned") {
@@ -136,8 +138,8 @@ const MapElement = ({ foundCleaned}:functionProps) => {
             click(e) {
                 if ((foundCleaned == "found")) {
                     addRef.current.type = "new"
-                    setNewLocation((prev) => {
-                        return { ...prev, lat: e.latlng.lat, long: e.latlng.lng }
+                    setNewLocation((prev):NewLocationDataType => {
+                        return { ...prev, lat: String(e.latlng.lat), long: e.latlng.lng }
                     })
                     console.log(newLocation)
 
@@ -148,7 +150,7 @@ const MapElement = ({ foundCleaned}:functionProps) => {
             newLocation ?
                 <Marker
                     key={"New Pos"}
-                    position={[newLocation.lat,newLocation.long]}
+                    position={[Number(newLocation.lat),Number(newLocation.long)]}
                     interactive={false}
                 />
                 : null
