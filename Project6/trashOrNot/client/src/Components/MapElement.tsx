@@ -7,6 +7,7 @@ import { LocationContext } from '../context/LocationContext';
 import trashicon from "../assets/trash.svg";
 import UpdateContext from '../context/UpdateContext';
 import PreviousMarkers from './PreviousMarkers';
+import NewMarker from './NewMarker';
 
 type functionProps={
     foundCleaned:string
@@ -90,37 +91,16 @@ const MapElement = ({ foundCleaned}:functionProps) => {
 
     
 
-    const NewMarker = () => {
-        const map = useMapEvents({
-            click(e) {
-                if ((foundCleaned == "found")) {
-                    addRef.current.type = "new"
-                    setNewLocation((prev):NewLocationDataType => {
-                        return { ...prev, lat: String(e.latlng.lat), long: String(e.latlng.lng) }
-                    })
-                    console.log(newLocation)
-
-                }
-            },
-        })
-        return (
-            newLocation ?
-                <Marker
-                    key={"New Pos"}
-                    position={[Number(newLocation.lat),Number(newLocation.long)]}
-                    interactive={false}
-                />
-                : null
-        )
-    }
+    
 
     return (
         <div>
 
             <div id="mapid">
                 <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
-                    <PreviousMarkers foundCleaned={foundCleaned} previousPositions={previousPositions}/>
-                    <NewMarker />
+                    {previousPositions&&
+                    <PreviousMarkers foundCleaned={foundCleaned} previousPositions={previousPositions}/>}
+                    {(foundCleaned=="found")&&<NewMarker />}
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

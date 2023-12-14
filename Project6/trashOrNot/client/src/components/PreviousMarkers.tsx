@@ -19,7 +19,7 @@ interface NewLocationDataType {
   }
 interface propType{
     foundCleaned:string
-    previousPositions:[]
+    previousPositions:NewLocationDataType[]
 }
 
 const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
