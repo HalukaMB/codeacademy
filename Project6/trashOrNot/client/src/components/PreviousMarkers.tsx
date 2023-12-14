@@ -23,6 +23,8 @@ interface propType{
 }
 
 const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
+
+    const [foo, setFoo] = useState(null)
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
     let trash = L.icon({
@@ -37,6 +39,7 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
         const target=e.target
         addRef.current.type ="existing"
         addRef.current.id = target.options.databaseid
+        setFoo("false")
     }
    
     const clickToDelete = (e: L.LeafletMouseEvent) => {

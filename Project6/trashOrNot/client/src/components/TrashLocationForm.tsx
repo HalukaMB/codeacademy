@@ -16,6 +16,7 @@ export const TrashLocationForm = () => {
     const { newLocation, setNewLocation } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
     let { addRef } = useContext(LocationContext)
+    console.log("addRef state",addRef.current)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
 
     const descriptionTracker = (e:React.ChangeEvent<HTMLInputElement>) => {
