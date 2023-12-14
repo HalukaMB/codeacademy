@@ -1,15 +1,18 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import './App.css'
 import { Navbar } from '../components/Navbar'
 import { TrashLocationForm } from '../components/TrashLocationForm'
 import { TopSection } from '../components/topSection'
 import { AuthenticationContext } from '../context/AuthenticationContext'
+import checkedin from '../utils/checkedin'
 
 function App() {
   const [count, setCount] = useState(0)
-  const { userChecked, loginOrLogout } = useContext(AuthenticationContext)
+  const { userChecked, setUserChecked } = useContext(AuthenticationContext)
   console.log(userChecked)
+  checkedin()
+  
 
   return (
     <>

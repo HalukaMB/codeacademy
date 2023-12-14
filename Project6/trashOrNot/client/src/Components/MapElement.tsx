@@ -35,8 +35,8 @@ const MapElement = ({ foundCleaned}:functionProps) => {
 
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
-
     const { trigger, setTrigger } = useContext(UpdateContext)
+    
     let trash = L.icon({
         iconUrl: trashicon,
         iconRetinaUrl: trashicon,
@@ -87,11 +87,6 @@ const MapElement = ({ foundCleaned}:functionProps) => {
         }
 
     }, [trigger])
-
-
-    
-
-    
 
     return (
         <div>

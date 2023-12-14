@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { LoginLogout } from '../components/LoginLogout'
 import { Register } from '../components/Register'
 import { TopSection } from '../components/topSection'
+import checkedin from '../utils/checkedin'
 
 export const LoginOrRegister = () => {
 
     const [registerOrLogin, setRegisterOrLogin] = useState<string>("register")
+    checkedin()
 
     const clickToggle = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const clickedOnElement = (event.target as HTMLInputElement)
