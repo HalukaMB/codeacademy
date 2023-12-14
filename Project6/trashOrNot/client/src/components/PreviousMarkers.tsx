@@ -33,18 +33,18 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
         iconSize: [25, 55],
     });
     
-    const clickToDelete = (e: L.LeafletMouseEvent) => {
-        const target=e.target
-        deleteRef.current = { "lat": target._latlng.lat, "long": target._latlng.lng,
-         "_id": target.options.databaseid, "locationname": target.options.extrainfo, 
-        "category":"","likes":0}
-    }
     const clickToAddInfo = (e : L.LeafletMouseEvent) => {
         const target=e.target
         addRef.current.type ="existing"
         addRef.current.id = target.options.databaseid
     }
    
+    const clickToDelete = (e: L.LeafletMouseEvent) => {
+        const target=e.target
+        deleteRef.current = { "lat": target._latlng.lat, "long": target._latlng.lng,
+         "_id": target.options.databaseid, "locationname": target.options.extrainfo, 
+        "category":"","likes":0}
+    }
     
     if (previousPositions != null) {
         const map = useMapEvents({
@@ -60,11 +60,11 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
                         position={[Number(element["lat"]), Number(element["long"])]}
                         eventHandlers={{
                             click: (e) => {
-                                if (foundCleaned == "cleaned") {
-                                    clickToDelete(e)
-                                }
                                 if (foundCleaned == "found") {
                                     clickToAddInfo(e)
+                                }
+                                if (foundCleaned == "cleaned") {
+                                    clickToDelete(e)
                                 }
                                 map.setView(
                                     [
