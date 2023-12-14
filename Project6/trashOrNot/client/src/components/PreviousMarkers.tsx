@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { LocationContext } from '../context/LocationContext'
 import { Marker, Popup, useMapEvents } from 'react-leaflet'
 import trashicon from "../assets/trash.svg";
@@ -17,14 +17,12 @@ interface NewLocationDataType {
     category: string;
     likes: number;
   }
+interface propType{
+    foundCleaned:string
+    previousPositions:[]
+}
 
-
-const PreviousMarkers = ({foundCleaned}) => {
-
-
-
-    const [previousPositions, setPreviousPositions] = useState<NewLocationDataType[] | null>(null);
-
+const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
     let trash = L.icon({
@@ -46,37 +44,7 @@ const PreviousMarkers = ({foundCleaned}) => {
         addRef.current.type ="existing"
         addRef.current.id = target.options.databaseid
     }
-    const getPreviousLocations = () => {
-        getTrashLocations().then(
-            (previousPoints: []) => {
-                setPreviousPositions(previousPoints)
-            })
-    }
-
-    useEffect(() => {
-        getPreviousLocations()
-
-    }, [])
-
-    useEffect(() => {
-        if (previousPositions != null) {
-            if (foundCleaned == "found") {
-                if (newLocation.lat!=null){
-                setPreviousPositions([...previousPositions, newLocation])
-                setNewLocation(defaultNewLocation)
-            }
-            }
-            if (foundCleaned == "cleaned") {
-                console.log("CLEANER")
-
-                const reducedPositions = previousPositions.filter((element:NewLocationDataType) => {
-                    return element["_id"] !== deleteRef.current["_id"];
-                });
-                setPreviousPositions(reducedPositions)
-            }
-        }
-
-    }, [trigger])
+   
     
     if (previousPositions != null) {
         const map = useMapEvents({
@@ -125,6 +93,6 @@ const PreviousMarkers = ({foundCleaned}) => {
 
             </>
         )
-    }
+    } 
 }
 export default PreviousMarkers

@@ -6,6 +6,7 @@ import getTrashLocations from '../hooks/getTrashLocations';
 import { LocationContext } from '../context/LocationContext';
 import trashicon from "../assets/trash.svg";
 import UpdateContext from '../context/UpdateContext';
+import PreviousMarkers from './PreviousMarkers';
 
 type functionProps={
     foundCleaned:string
@@ -18,7 +19,13 @@ interface NewLocationDataType {
     category: string;
     likes: number;
   }
+  export class TSMarker extends L.Marker {
+    options: L.MarkerOptions
 
+    constructor(latLng: L.LatLngExpression, options?: L.MarkerOptions) {
+        super(latLng, options)
+    }
+}
   
 
 const MapElement = ({ foundCleaned}:functionProps) => {
@@ -81,57 +88,7 @@ const MapElement = ({ foundCleaned}:functionProps) => {
     }, [trigger])
 
 
-    const PreviousMarkers = () => {
-        console.log(previousPositions)
-        if (previousPositions != null) {
-            const map = useMapEvents({
-                click(e) {
-                    console.log(e)
-                }
-            })
-            return (
-                <>
-                    {(previousPositions!=null)&&previousPositions.map((element:NewLocationDataType) => (
-                        
-                        <Marker icon={trash} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
-                            position={[Number(element["lat"]), Number(element["long"])]}
-                            eventHandlers={{
-                                click: (e) => {
-                                    if (foundCleaned == "cleaned") {
-                                        clickToDelete(e)
-                                    }
-                                    if (foundCleaned == "found") {
-                                        clickToAddInfo(e)
-                                    }
-                                    map.setView(
-                                        [
-                                            e.target._latlng.lat,
-                                            e.target._latlng.lng
-                                        ],
-                                        13
-                                    );
-
-
-                                },
-                            }}
-                        >
-                            <Popup key={element["_id"] + "_popup"}>
-                                {element["locationname"]}
-                                <br></br>
-                                <br></br>
-                                and
-                                {" "+element["likes"]+" "}
-                                others were annoyed by the trash here
-                            </Popup>
-                        </Marker>
-
-                    ))
-                    }
-
-                </>
-            )
-        }
-    }
+    
 
     const NewMarker = () => {
         const map = useMapEvents({
@@ -139,7 +96,7 @@ const MapElement = ({ foundCleaned}:functionProps) => {
                 if ((foundCleaned == "found")) {
                     addRef.current.type = "new"
                     setNewLocation((prev):NewLocationDataType => {
-                        return { ...prev, lat: String(e.latlng.lat), long: e.latlng.lng }
+                        return { ...prev, lat: String(e.latlng.lat), long: String(e.latlng.lng) }
                     })
                     console.log(newLocation)
 
@@ -162,7 +119,7 @@ const MapElement = ({ foundCleaned}:functionProps) => {
 
             <div id="mapid">
                 <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
-                    <PreviousMarkers />
+                    <PreviousMarkers foundCleaned={foundCleaned} previousPositions={previousPositions}/>
                     <NewMarker />
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
