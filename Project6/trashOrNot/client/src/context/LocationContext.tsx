@@ -15,6 +15,8 @@ type StateContextType = {
     addRef:React.MutableRefObject< Record<string,string>>
     deleteRef:React.MutableRefObject<NewLocationDataType>;
     defaultNewLocation:NewLocationDataType,
+    newPlace:boolean,
+    setNewPlace: React.Dispatch<React.SetStateAction<boolean>>;
   };
 
 
@@ -36,6 +38,7 @@ export const LocationContextProvider = (props: ContextProviderProps) => {
   let [newLocation, setNewLocation] = useState<NewLocationDataType>(defaultNewLocation);
   let addRef = useRef({});
   let deleteRef = useRef(defaultNewLocation);
+  const[newPlace,setNewPlace] = useState(true)
 
   return (
     <LocationContext.Provider
@@ -45,6 +48,8 @@ export const LocationContextProvider = (props: ContextProviderProps) => {
         addRef,
         deleteRef,
         defaultNewLocation,
+        newPlace,
+        setNewPlace
       }}
     >
       {props.children}

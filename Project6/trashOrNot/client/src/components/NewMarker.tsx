@@ -14,6 +14,7 @@ const NewMarker = () => {
     const { newLocation, setNewLocation } = useContext(LocationContext)
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
+    const {newPlace, setNewPlace} = useContext(LocationContext)
 
         const map = useMapEvents({
             click(e) {
@@ -22,6 +23,8 @@ const NewMarker = () => {
                     setNewLocation((prev):NewLocationDataType => {
                         return { ...prev, lat: String(e.latlng.lat), long: String(e.latlng.lng) }
                     })
+                    setNewPlace(true)
+
                     console.log(newLocation)
             },
         })

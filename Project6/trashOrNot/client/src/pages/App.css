@@ -160,6 +160,14 @@ label {
 .loginLogoutIcon{
 
 }
+
+.reportHead{
+  font-family: Avenir;
+  font-size: calc(var(--baseunitheight)*7);
+}
+.reportSubHead{
+  font-size: calc(var(--baseunitheight)*4);
+}
 .svglogout{
   height: calc(var(--baseunitheight)*7);
   fill: aqua;
