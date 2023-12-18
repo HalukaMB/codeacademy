@@ -13,7 +13,7 @@ export const CleanedLocationForm = () => {
 
 
     let deleteCategory = useRef<string>("")
-    const [warnings, setWarnings] = useState([""])
+    const [warnings, setWarnings] = useState<string[]>([])
 
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
 
@@ -59,7 +59,9 @@ export const CleanedLocationForm = () => {
             setWarnings([])
             fetch(postUrl, requestOptions)
                 .then((response) => response.json())
-                .then((result) => console.log("result", result),
+                .then((result) => {console.log("result", result);
+                deleteRef.current._id=""
+            },
                 )
                 .catch((error) => console.log("error", error));
         } else {
@@ -90,7 +92,7 @@ export const CleanedLocationForm = () => {
                 <div id="putPin">Click on the exact pin where the trash has been taken away.</div>
                 <MapElement foundCleaned="cleaned"></MapElement>
 
-                {warnings.length > 0 && warnings.map((element: string, index: number) => { return (<div className="warnings" key={index}>{element}</div>) }
+                {(warnings.length > 0) && warnings.map((element: string, index: number) => { return (<div className="warnings" key={index}>{element}</div>) }
                 )}
                 <input id="submitNewLocation" type="submit" onClick={e => submitCleanedLocation(e)} value="Delete" ></input>
 

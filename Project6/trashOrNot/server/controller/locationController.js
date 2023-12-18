@@ -7,7 +7,7 @@ const getAllLocations = async (req, res) => {
     if (locations) {
       return res.send(locations)
     } else {
-      return res.send({ error: "No users found" })
+      return res.send({ error: "No locations found" })
     }
   } catch (err) {
     return res.send({ error: err.message })
@@ -23,7 +23,7 @@ const getCleanedLocations = async (req, res) => {
     if (locations) {
       return res.send(locations)
     } else {
-      return res.send({ error: "No users found" })
+      return res.send({ error: "No cleaned locations found" })
     }
   } catch (err) {
     return res.send({ error: err.message })
@@ -40,7 +40,7 @@ const getTrashLocations = async (req, res) => {
     if (locations) {
       return res.send(locations)
     } else {
-      return res.send({ error: "No users found" })
+      return res.send({ error: "No trash locations found" })
     }
   } catch (err) {
     return res.send({ error: err.message })
@@ -52,7 +52,6 @@ const postLocations = async (req, res) => {
   try {
     if ((req.body.lat & req.body.lang) != null) {
       console.log("writing new")
-      console.log(req.body.locationname)
       const newLocation = new LocationModel({
         locationname: req.body.locationname,
         lat: req.body.lat,
@@ -60,9 +59,7 @@ const postLocations = async (req, res) => {
         category: req.body.category,
         likes: 0
       })
-      console.log("newLocation", newLocation)
       const savedLocation = await newLocation.save();
-      console.log(savedLocation)
       res.status(201).json({
         message: "place registered!!",
         user: {
@@ -76,6 +73,7 @@ const postLocations = async (req, res) => {
       res.status(500).json({
         message: "something went wrong",
       });
+
     }
   } catch (error) {
   }

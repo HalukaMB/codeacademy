@@ -157,9 +157,6 @@ label {
   padding-left: calc(var(--baseunitlength)*2);
 }
 
-.loginLogoutIcon{
-
-}
 
 .reportHead{
   font-family: Avenir;
@@ -181,7 +178,10 @@ label {
   vertical-align: middle
 }
 
-
+#mapid{
+  display: flex;
+  justify-content: center;
+}
 .leaflet-container {
   width: 95%;
   height: calc(var(--baseunitheight)*50);
@@ -199,7 +199,11 @@ label {
 }
 
 .warnings{
-  background-color: red;
+  background-color: rgb(241, 69, 69);
+  margin: calc(var(--baseunitheight)*2) calc(var(--baseunitlength)*1);
+  padding: calc(var(--baseunitheight)*2) calc(var(--baseunitlength)*1);
+  border-radius: 2%;
+
 }
 .success{
   background-color: rgb(136, 226, 0);
