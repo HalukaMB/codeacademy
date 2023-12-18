@@ -46,7 +46,7 @@ const getTrashLocations = async (req, res) => {
     return res.send({ error: err.message })
   }
 };
-
+/* here we need to modify res send etc */
 const postLocations = async (req, res) => {
   console.log("req.body :>> ", req.body);
   if ((req.body.lat & req.body.lang) != null) {
