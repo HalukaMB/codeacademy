@@ -49,8 +49,8 @@ const getTrashLocations = async (req, res) => {
 
 const postLocations = async (req, res) => {
   console.log("req.body :>> ", req.body);
-  try {
-    if ((req.body.lat & req.body.lang) != null) {
+  if ((req.body.lat & req.body.lang) != null) {
+    try {
       console.log("writing new")
       const newLocation = new LocationModel({
         locationname: req.body.locationname,
@@ -66,52 +66,56 @@ const postLocations = async (req, res) => {
           locationname: savedLocation.locationname,
           lat: savedLocation.lat,
           long: savedLocation.long,
-
         },
       });
-    } else {
+    } catch (error) {
+      console.log("this is the error",error)
       res.status(500).json({
-        message: "something went wrong",
+        message: "Server error. Could not save the new location.",
       });
-
     }
-  } catch (error) {
+  } else {
+    res.status(500).json({
+      message: "Server error. Data on location is missing.",
+    });
+
   }
 }
 
-const modifyLocations=async(req,res)=>{
+const modifyLocations = async (req, res) => {
   console.log("req.body :>> ", req.body);
   console.log("modify")
-  if (req.body.id!="undefined"){
-
-    const filter = { _id: req.body.id};
-      const update = {  $inc: { likes: 1 } };
-      const exisitingLocation = await LocationModel.findOneAndUpdate(filter, update, {
-        new: true
-      });
-        console.log(exisitingLocation.acknowledged)
-          res.status(201).json({
-            message: "place increased!!"
-          });
-        
-      }
-    }
+  if (req.body.id != "undefined") {
+    const filter = { _id: req.body.id };
+    const update = { $inc: { likes: 1 } };
+    const exisitingLocation = await LocationModel.findOneAndUpdate(filter, update, {
+      new: true
+    });
+    console.log(exisitingLocation.acknowledged)
+    res.status(201).json({
+      message: "place increased!!"
+    });
+  }
+  res.status(500).json({
+    message: "something went wrong",
+  });
+}
 
 const deleteLocations = async (req, res) => {
   console.log("req.body :>> ", req.body);
-  if (req.body.id!="undefined"){
-  const exisitingLocation = await LocationModel.findOne(
-    {_id: req.body.id})
-    if(exisitingLocation.locationname==req.body.locationname){
+  if (req.body.id != "undefined") {
+    const exisitingLocation = await LocationModel.findOne(
+      { _id: req.body.id })
+    if (exisitingLocation.locationname == req.body.locationname) {
       console.log("double checked")
 
-      const filter = { _id: req.body.id};
+      const filter = { _id: req.body.id };
       const update = { category: req.body.category };
       const updated = await LocationModel.findOneAndUpdate(filter, update, {
         new: true
       });
 
-      if(updated.acknowledged){
+      if (updated.acknowledged) {
 
         res.status(201).json({
           message: "place updated!!"
@@ -122,4 +126,4 @@ const deleteLocations = async (req, res) => {
 }
 
 
-export { getAllLocations, getCleanedLocations, getTrashLocations, postLocations,modifyLocations, deleteLocations };
+export { getAllLocations, getCleanedLocations, getTrashLocations, postLocations, modifyLocations, deleteLocations };

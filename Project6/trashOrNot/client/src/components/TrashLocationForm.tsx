@@ -21,10 +21,10 @@ export const TrashLocationForm = () => {
 
     useEffect(() => {
         setNewPlace(true)
-    
+
 
     }, [])
-    
+
 
     console.log("addRef state", addRef.current)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
@@ -80,20 +80,26 @@ export const TrashLocationForm = () => {
                 headers: myHeaders,
                 body: urlencoded,
             };
-            const postUrl = baseUrl + "locations/" + suffix
-            console.log(postUrl)
-            fetch(postUrl, requestOptions)
-                .then((response) => response.json()  )
-                .then((result) => console.log("result", result))
-                .catch((error) => console.log("error", error));
-            setTrigger((prev) => { return (prev + 1) })
+            const postUrl = baseUrl + "locations/" + suffix;
+
+            (async () => {
+                console.log("not running")
+                console.log(postUrl)
+                const response = await fetch(postUrl, requestOptions)
+                const responsebody = await response.json()
+                const responsestatus = response.status
+                console.log(responsestatus, responsebody)
+                if (responsestatus == 201) {
+                    setWarnings([])
+                    setTrigger((prev) => { return (prev + 1) })
+                } else {
+                    setWarnings([responsebody.message])
+                }
+            }
+            )()
         } else {
             setWarnings(warningsLocally)
-
-
         }
-
-
     }
 
     return (
@@ -110,8 +116,8 @@ export const TrashLocationForm = () => {
                         {(warnings.length > 0) && warnings.map((element: string, index: number) => { return (<div className="warnings" key={index}>{element}</div>) }
                         )}
                         <input id="submitNewLocation" type="submit" value="Increase Urgency" onClick={e => submitNewLocation(e)}></input>
-                        </>}
-                    
+                    </>}
+
             </form>
         </div>
     )
