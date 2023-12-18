@@ -87,7 +87,7 @@ export const TrashLocationForm = () => {
                 <><input className="inputLocationName" type="text" onChange={e => descriptionTracker(e)} placeholder='How would you describe the place?'></input>
 
                 <input id="submitNewLocation" type="submit" value="New Location" onClick={e => submitNewLocation(e)}></input></>:
-                <input id="submitNewLocation" type="submit" value="Add Priority" onClick={e => submitNewLocation(e)}></input>}
+                <input id="submitNewLocation" type="submit" value="Increase Urgency" onClick={e => submitNewLocation(e)}></input>}
             </form>
         </div>
     )
