@@ -6,6 +6,40 @@ import UpdateContext from '../context/UpdateContext';
 import * as L from 'leaflet';
 import getTrashLocations from '../hooks/getTrashLocations';
 
+
+import {
+    type EventedProps,
+    createElementObject,
+    createLayerComponent,
+    extendContext,
+  } from '@react-leaflet/core'
+
+  import {
+    type LatLngExpression,
+    Marker as LeafletMarker,
+    type MarkerOptions,
+  } from 'leaflet'
+
+  import type { ReactNode } from 'react'
+  
+  export interface CustomMarkerProps extends MarkerOptions, EventedProps {
+    children?: ReactNode;
+    position: LatLngExpression;
+    // custom object to be associated with a leaflet's marker
+    databaseid: string
+  }
+  
+  export const CustomMarker = createLayerComponent<LeafletMarker, CustomMarkerProps>(
+    function createMarker({databaseid, position, ...options }, ctx) {
+      const instance = new LeafletMarker(position, options);
+      console.log(instance.options)
+      // add customAttr to the leaflet's instance (leaflet, not the react wrapper)
+      return { instance, context: { ...ctx, overlayContainer: instance } };
+    },
+    function updateMarker(marker, props, prevProps) {
+      // same as in the react-leaflet
+    }
+  );
 type functionProps={
     foundCleaned:string
 }
@@ -61,7 +95,7 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
             <>
                 {(previousPositions!=null)&&previousPositions.map((element:NewLocationDataType) => (
                     
-                    <Marker icon={trash} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
+                    <CustomMarker icon={trash} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
                         position={[Number(element["lat"]), Number(element["long"])]}
                         eventHandlers={{
                             click: (e) => {
@@ -91,7 +125,7 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
                             {" "+element["likes"]+" "}
                             others were annoyed by the trash here
                         </Popup>
-                    </Marker>
+                    </CustomMarker>
 
                 ))
                 }
