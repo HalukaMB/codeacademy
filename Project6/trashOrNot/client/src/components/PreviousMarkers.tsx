@@ -22,18 +22,49 @@ import {
 
   import type { ReactNode } from 'react'
   
+  export class DataMarker extends L.Marker {
+    databaseid: any;
+    extrainfo: any;
+  
+    constructor(latLng: L.LatLngExpression, databaseid: any, extrainfo: any,options?: L.MarkerOptions) {
+      super(latLng, options);
+      this.setData(databaseid);
+      this.setExtrainfo(extrainfo);
+    }
+  
+    getData() {
+      return this.databaseid;
+    }
+  
+    setData(databaseid: any) {
+      this.databaseid = databaseid;
+    }
+    getExtrainfo() {
+        return this.extrainfo;
+      }
+    
+      setExtrainfo(extrainfo: any) {
+        this.extrainfo = extrainfo;
+      }
+  }
+
+
   export interface CustomMarkerProps extends MarkerOptions, EventedProps {
     children?: ReactNode;
     position: LatLngExpression;
     // custom object to be associated with a leaflet's marker
-    databaseid: string
+    databaseid: string | null;
+    extrainfo: string | null;
+
   }
   
   export const CustomMarker = createLayerComponent<LeafletMarker, CustomMarkerProps>(
-    function createMarker({databaseid, position, ...options }, ctx) {
-      const instance = new LeafletMarker(position, options);
-      console.log(instance.options)
+    function createMarker({ databaseid, extrainfo,position, ...options }, ctx) {
+      const instance = new DataMarker(position, databaseid, extrainfo, options);
       // add customAttr to the leaflet's instance (leaflet, not the react wrapper)
+      instance.databaseid = databaseid;
+      instance.extrainfo = extrainfo;
+
       return { instance, context: { ...ctx, overlayContainer: instance } };
     },
     function updateMarker(marker, props, prevProps) {
@@ -70,7 +101,12 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
         popupAnchor: [10, -44],
         iconSize: [25, 55],
     });
-    
+/*     let customMarker = L.Marker.extend({
+        options: { 
+           databaseid: 'Custom data!',
+        }
+     }); */
+    /* https://stackoverflow.com/questions/17423261/how-to-pass-data-with-marker-in-leaflet-js */
     const clickToAddInfo = (e : L.LeafletMouseEvent) => {
         const target=e.target
         addRef.current.type ="existing"
