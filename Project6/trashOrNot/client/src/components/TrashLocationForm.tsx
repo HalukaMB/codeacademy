@@ -82,8 +82,6 @@ export const TrashLocationForm = () => {
             const postUrl = baseUrl + "locations/" + suffix;
 
             (async () => {
-                console.log("not running")
-                console.log(postUrl)
                 const response = await fetch(postUrl, requestOptions)
                 const responsestatus=response.status
 
@@ -96,12 +94,10 @@ export const TrashLocationForm = () => {
                     setWarnings([])
                     setTrigger((prev) => { return (prev + 1) })
                 } else {
-                    console.log("need to add")
                     setWarnings([responsebody.message])
                 }
             }
                 catch(e){
-                    console.log(e)
                     if(responsestatus==401){
                         setWarnings([response.statusText+". You need to login again."])
                     }

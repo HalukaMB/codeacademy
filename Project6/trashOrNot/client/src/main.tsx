@@ -8,6 +8,7 @@ import { LoginOrRegister } from './pages/LoginOrRegister.tsx'
 import { AuthenticationContextProvider } from './context/AuthenticationContext.tsx'
 import { Cleaned } from './pages/Cleaned.tsx'
 import { UpdateContextProvider } from './context/UpdateContext.tsx'
+import { Profile } from './pages/Profile.tsx'
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/loginlogout",
     element: <LoginOrRegister />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
  
 ]

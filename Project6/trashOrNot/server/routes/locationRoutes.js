@@ -7,7 +7,6 @@ router.get("/clean", getCleanedLocations)
 router.get("/trash", getTrashLocations)
 router.post("/post", jwtAuthorization, postLocations);
 router.post("/modify", modifyLocations);
-
 router.post("/delete", jwtAuthorization, deleteLocations);
 
 
