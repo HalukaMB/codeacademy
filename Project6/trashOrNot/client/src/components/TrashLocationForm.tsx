@@ -26,7 +26,6 @@ export const TrashLocationForm = () => {
     }, [])
 
 
-    console.log("addRef state", addRef.current)
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
 
     const descriptionTracker = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,14 +85,26 @@ export const TrashLocationForm = () => {
                 console.log("not running")
                 console.log(postUrl)
                 const response = await fetch(postUrl, requestOptions)
+                const responsestatus=response.status
+
+                try{
+
+                
                 const responsebody = await response.json()
-                const responsestatus = response.status
-                console.log(responsestatus, responsebody)
+               
                 if (responsestatus == 201) {
                     setWarnings([])
                     setTrigger((prev) => { return (prev + 1) })
                 } else {
+                    console.log("need to add")
                     setWarnings([responsebody.message])
+                }
+            }
+                catch(e){
+                    console.log(e)
+                    if(responsestatus==401){
+                        setWarnings([response.statusText+". You need to login again."])
+                    }
                 }
             }
             )()

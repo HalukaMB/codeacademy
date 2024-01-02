@@ -21,12 +21,12 @@ import {
   } from 'leaflet'
 
   import type { ReactNode } from 'react'
-  
+  /* https://stackoverflow.com/questions/17423261/how-to-pass-data-with-marker-in-leaflet-js */
   export class DataMarker extends L.Marker {
     databaseid: any;
     extrainfo: any;
   
-    constructor(latLng: L.LatLngExpression, databaseid: any, extrainfo: any,options?: L.MarkerOptions) {
+    constructor(latLng: L.LatLngExpression, databaseid: string, extrainfo: string,options?: L.MarkerOptions) {
       super(latLng, options);
       this.setData(databaseid);
       this.setExtrainfo(extrainfo);
@@ -52,7 +52,6 @@ import {
   export interface CustomMarkerProps extends MarkerOptions, EventedProps {
     children?: ReactNode;
     position: LatLngExpression;
-    // custom object to be associated with a leaflet's marker
     databaseid: string | null;
     extrainfo: string | null;
 
@@ -61,7 +60,6 @@ import {
   export const CustomMarker = createLayerComponent<LeafletMarker, CustomMarkerProps>(
     function createMarker({ databaseid, extrainfo,position, ...options }, ctx) {
       const instance = new DataMarker(position, databaseid, extrainfo, options);
-      // add customAttr to the leaflet's instance (leaflet, not the react wrapper)
       instance.databaseid = databaseid;
       instance.extrainfo = extrainfo;
 

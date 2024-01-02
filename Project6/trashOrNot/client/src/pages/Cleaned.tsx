@@ -18,7 +18,7 @@ export const Cleaned = () => {
 <TopSection></TopSection>
       <div className='reportSection'>
         <div className="cleanedReportStart">
-          <div className="reportHead">The city has become a bit cleaner!</div>
+          <div className="reportHead">The city has is cleaner now!</div>
           Is this because you... ?</div>
         <CleanedLocationForm></CleanedLocationForm>
 
