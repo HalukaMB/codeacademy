@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { LoginLogout } from '../components/LoginLogout'
 import { Register } from '../components/Register'
 import { TopSection } from '../components/topSection'
 import checkedin from '../utils/checkedin'
+import { AuthenticationContext } from '../context/AuthenticationContext'
 
-export const LoginOrRegister = () => {
+export const LoginOrRegister = ({ children }: any) => {
+    const { userChecked } = useContext(AuthenticationContext);
 
     const [registerOrLogin, setRegisterOrLogin] = useState<string>("register")
     checkedin()
@@ -15,25 +17,27 @@ export const LoginOrRegister = () => {
 
     }
 
-    return (
-        <>  <TopSection></TopSection>
+    return <>
+        {(userChecked == true) ? children :
 
-            <div className="loginRegisterSection">
-                <div className="toggleSection">
-                    <button onClick={clickToggle}>Register</button>
-                    <button onClick={clickToggle}>Login</button>
-                </div>
-                <div className="loginRegisterSectionLow">
-                {(registerOrLogin == "register") ?
-                    <div className="toggleRegisterLogin">
-                        <Register></Register>
-                    </div> :
-                    <div className="toggleRegisterLogin">
-                        <LoginLogout></LoginLogout>
-                    </div>}
+            <div>  <TopSection></TopSection>
+
+                <div className="loginRegisterSection">
+                    <div className="toggleSection">
+                        <button onClick={clickToggle}>Register</button>
+                        <button onClick={clickToggle}>Login</button>
                     </div>
-            </div>
+                    <div className="loginRegisterSectionLow">
+                        {(registerOrLogin == "register") ?
+                            <div className="toggleRegisterLogin">
+                                <Register></Register>
+                            </div> :
+                            <div className="toggleRegisterLogin">
+                                <LoginLogout></LoginLogout>
+                            </div>}
+                    </div>
+                </div>
 
-        </>
-    )
+            </div>
+        }</>
 }
