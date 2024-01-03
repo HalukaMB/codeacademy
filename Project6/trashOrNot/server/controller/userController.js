@@ -81,6 +81,7 @@ const login = async(req, res)=>{
                     })
                 }
                 if (isPasswordMatch){
+                  console.log(exisitingUser)
                     const token = issueToken(exisitingUser._id)
                     console.log(token)
                 if (token){
