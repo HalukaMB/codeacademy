@@ -6,7 +6,6 @@ import { TopSection } from '../components/topSection';
 export const Profile = () => {
 
   const { userChecked, setUserChecked } = useContext(AuthenticationContext)
-    const [existingUser, setExistingUser] = useState<User | null>(null);
 
 
   const getToken = () => {

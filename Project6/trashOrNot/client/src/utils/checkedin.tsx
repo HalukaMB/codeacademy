@@ -10,9 +10,14 @@ const checkedin=()=>{
     const localtoken = localStorage.getItem("token")
     if (localtoken){
       console.log("token found")
-      const timeinfo=(JSON.parse(atob(localtoken.split(".")[1])))
-      console.log(timeinfo)
-      setUserChecked(true)
+      const jwtinfo=(JSON.parse(atob(localtoken.split(".")[1])))
+      const expdate=(jwtinfo["exp"]*1000);
+      if  (Date.now()<=expdate){
+        setUserChecked(true)
+      }else{
+        setUserChecked(false)
+
+      }
     }
   }, [])
 }
