@@ -5,12 +5,12 @@ import { Navbar } from '../components/Navbar'
 import { TrashLocationForm } from '../components/TrashLocationForm'
 import { TopSection } from '../components/topSection'
 import { AuthenticationContext } from '../context/AuthenticationContext'
-import checkedinhook from '../utils/checkedin_hook'
+import checkedin from '../utils/checkedin'
 
 function App() {
   const [count, setCount] = useState(0)
 
-  checkedinhook()
+  checkedin()
 
   
 

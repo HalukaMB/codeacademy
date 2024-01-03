@@ -23,7 +23,7 @@ const userLogout = () => {
     setUserChecked(false)
 }
 
-  checkedin()
+checkedin()
   console.log(userChecked)
   return <>
       <div>
