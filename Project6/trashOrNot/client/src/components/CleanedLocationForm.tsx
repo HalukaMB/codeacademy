@@ -64,10 +64,11 @@ export const CleanedLocationForm = () => {
             },
                 )
                 .catch((error) => console.log("error", error));
+                setTrigger((prev) => { return (prev + 1) })
+
         } else {
             setWarnings(warningsLocally)
         }
-        setTrigger((prev) => { return (prev + 1) })
 
     };
 

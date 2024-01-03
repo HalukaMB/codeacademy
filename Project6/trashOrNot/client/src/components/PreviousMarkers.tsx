@@ -87,7 +87,6 @@ interface propType{
 
 const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
 
-    const [foo, setFoo] = useState(null)
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
     const {newPlace, setNewPlace} = useContext(LocationContext)
@@ -114,8 +113,9 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
    
     const clickToDelete = (e: L.LeafletMouseEvent) => {
         const target=e.target
+        console.log(target)
         deleteRef.current = { "lat": target._latlng.lat, "long": target._latlng.lng,
-         "_id": target.options.databaseid, "locationname": target.options.extrainfo, 
+         "_id": target.databaseid, "locationname": target.extrainfo, 
         "category":"","likes":0}
     }
     

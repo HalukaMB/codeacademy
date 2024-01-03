@@ -78,7 +78,7 @@ const MapElement = ({ foundCleaned}:functionProps) => {
             }
             if (foundCleaned == "cleaned") {
                 console.log("CLEANER")
-
+                
                 const reducedPositions = previousPositions.filter((element:NewLocationDataType) => {
                     return element["_id"] !== deleteRef.current["_id"];
                 });
