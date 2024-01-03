@@ -5,13 +5,13 @@ import { Navbar } from '../components/Navbar'
 import { TrashLocationForm } from '../components/TrashLocationForm'
 import { TopSection } from '../components/topSection'
 import { AuthenticationContext } from '../context/AuthenticationContext'
-import checkedin from '../utils/checkedin'
+import checkedinhook from '../utils/checkedin_hook'
 
 function App() {
   const [count, setCount] = useState(0)
-  const { userChecked, setUserChecked } = useContext(AuthenticationContext)
-  console.log(userChecked)
-  checkedin()
+
+  checkedinhook()
+
   
 
   return (

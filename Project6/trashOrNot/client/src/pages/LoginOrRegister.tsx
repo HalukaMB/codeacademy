@@ -6,10 +6,10 @@ import checkedin from '../utils/checkedin'
 import { AuthenticationContext } from '../context/AuthenticationContext'
 
 export const LoginOrRegister = ({ children }: any) => {
-    const { userChecked } = useContext(AuthenticationContext);
 
     const [registerOrLogin, setRegisterOrLogin] = useState<string>("register")
     checkedin()
+    const { userChecked } = useContext(AuthenticationContext);
 
     const clickToggle = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const clickedOnElement = (event.target as HTMLInputElement)

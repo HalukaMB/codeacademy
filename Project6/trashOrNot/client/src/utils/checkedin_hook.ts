@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { AuthenticationContext } from "../context/AuthenticationContext"
 
 
-const checkedin=()=>{
+const checkedinhook=()=>{
     
     console.log("checkin")
     const { userChecked, setUserChecked } = useContext(AuthenticationContext)
@@ -16,4 +16,4 @@ const localtoken = localStorage.getItem("token")
     }
 }
 
-export default checkedin
+export default checkedinhook
