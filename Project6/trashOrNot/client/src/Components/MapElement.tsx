@@ -59,8 +59,11 @@ const MapElement = ({ foundCleaned}:functionProps) => {
     const getPreviousLocations = () => {
         getTrashLocations().then(
             (previousPoints: []) => {
+                console.log(previousPoints);
+
                 setPreviousPositions(previousPoints)
             })
+
     }
 
     useEffect(() => {

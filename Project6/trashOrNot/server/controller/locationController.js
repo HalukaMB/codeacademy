@@ -1,8 +1,9 @@
 import LocationModel from "../model/LocationModel.js";
+import userModel from "../model/UserModel.js";
 
 const getAllLocations = async (req, res) => {
   try {
-    const locations = await LocationModel.find({});
+    const locations = await LocationModel.find({}).populate(["reportedby","cleanedby"]);
     console.log('locations', locations)
     if (locations) {
       return res.send(locations)
@@ -18,7 +19,8 @@ const getCleanedLocations = async (req, res) => {
   try {
     const locations = await LocationModel.find({
       category: "clean"
-    });
+    }).populate({path:["cleanedby"],
+  select:["name","_id"]});
     console.log('locations', locations)
     if (locations) {
       return res.send(locations)
@@ -35,7 +37,8 @@ const getTrashLocations = async (req, res) => {
   try {
     const locations = await LocationModel.find({
       category: "trash"
-    });
+    }).populate({path:"reportedby",
+    select:["name","_id"], model: userModel});
     console.log('locations', locations)
     if (locations) {
       return res.send(locations)
@@ -57,6 +60,7 @@ const postLocations = async (req, res) => {
         lat: req.body.lat,
         long: req.body.long,
         category: req.body.category,
+        reportedby: req.body.userid,
         likes: 0
       })
       const savedLocation = await newLocation.save();

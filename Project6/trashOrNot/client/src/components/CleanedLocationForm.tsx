@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
 import UpdateContext from '../context/UpdateContext'
+import { AuthenticationContext } from '../context/AuthenticationContext'
 
 
 
@@ -10,6 +11,7 @@ export const CleanedLocationForm = () => {
     let { deleteRef } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
 
+    const { userChecked } = useContext(AuthenticationContext);
 
 
     let deleteCategory = useRef<string>("")
@@ -47,6 +49,8 @@ export const CleanedLocationForm = () => {
         urlencoded.append("locationname", deleteRef.current.locationname!);
         urlencoded.append("id", deleteRef.current._id!);
         urlencoded.append("category", deleteCategory.current);
+        urlencoded.append("userid", userChecked.id);
+
 
         const requestOptions = {
             method: "POST",

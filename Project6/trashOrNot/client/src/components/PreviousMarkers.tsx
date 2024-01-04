@@ -26,7 +26,7 @@ import {
     databaseid: any;
     extrainfo: any;
   
-    constructor(latLng: L.LatLngExpression, databaseid: string, extrainfo: string,options?: L.MarkerOptions) {
+    constructor(latLng: L.LatLngExpression, databaseid: string|null, extrainfo: string|null,options?: L.MarkerOptions) {
       super(latLng, options);
       this.setData(databaseid);
       this.setExtrainfo(extrainfo);

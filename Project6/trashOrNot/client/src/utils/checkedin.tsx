@@ -12,10 +12,12 @@ const checkedin=()=>{
       console.log("token found")
       const jwtinfo=(JSON.parse(atob(localtoken.split(".")[1])))
       const expdate=(jwtinfo["exp"]*1000);
+      console.log(jwtinfo)
       if  (Date.now()<=expdate){
-        setUserChecked({"name":jwtinfo["name"]})
+
+        setUserChecked({"name":jwtinfo["name"],"id":jwtinfo["sub"]})
       }else{
-        setUserChecked({"name":""})
+        setUserChecked({"name":"", "id":""})
       }
     }
   }, [])

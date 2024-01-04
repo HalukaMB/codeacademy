@@ -16,6 +16,16 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: false,
+  },
+  reportedplaces:{
+    type:[{ type: mongoose.Schema.Types.ObjectId, ref: 'location' }],
+    required:false,
+    unique:false
+  },
+  cleanedplaces:{
+    type:[{ type: mongoose.Schema.Types.ObjectId, ref: 'location' }],
+    required:false,
+    unique:false
   }
   }
 );

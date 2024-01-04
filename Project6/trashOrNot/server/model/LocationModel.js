@@ -26,6 +26,18 @@ const locationSchema = new Schema({
     type:Number,
     required:true,
     unique:false
+  },
+  reportedby:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user' ,
+    required:false,
+    unique:false
+  },
+  cleanedby:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user' ,
+    required:false,
+    unique:false
   }
   }
 );

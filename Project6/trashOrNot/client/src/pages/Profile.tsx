@@ -10,14 +10,13 @@ export const Profile = () => {
 
 const userLogout = () => {
     localStorage.removeItem("token")
-    setUserChecked({"name":""})
+    setUserChecked({"name":"", "id":""})
 }
 
   console.log(userChecked)
   return <>
       <div>
         <TopSection></TopSection>
-
         <div>This is the profile page of {userChecked["name"]}</div>
         <button onClick={userLogout}>Logout</button>
       </div>

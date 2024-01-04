@@ -68,7 +68,11 @@ export const LoginLogout = () => {
                 if (result.token) {
                     localStorage.setItem("token", result.token)
                     setSuccess("Login Successful")
-                    setUserChecked(true)
+                    console.log(result["user"])
+                    const username = result["user"].username
+                    const userid = result["user"].id
+
+                    setUserChecked({"name":username,"id":userid})
                 }
             }
             if (!response.ok) {
@@ -80,42 +84,22 @@ export const LoginLogout = () => {
 
         }
     }}
-    const getToken = () => {
-        const localtoken = localStorage.getItem("token")
-        return localtoken
-    }
 
-    const isUserLoggedIn = () => {
-        const token = getToken()
-        return token ? true : false
-    }
+
+
     const userLogout = () => {
         localStorage.removeItem("token")
         setWarnings([])
         setSuccess(null)
-        setUserChecked(false)
+        setUserChecked({"name":"", "id":""})
     }
 
 
-    useEffect(() => {
-        const userIn = isUserLoggedIn()
-        if (userIn) {
-            console.log("logged in")
-            console.log(userChecked)
-            setUserChecked(true)
-
-
-        }
-        else {
-            console.log("token not found")
-        }
-
-    }, [])
 
     return (
         <div>
             <div className="input-container-login">
-                {!userChecked?
+                {(userChecked["name"]=="")?
                 <form onSubmit={login} action="" className="input-container">
                     <div className="input-container-loginlogout">
 

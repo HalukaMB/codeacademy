@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
 import UpdateContext from '../context/UpdateContext'
+import { AuthenticationContext } from '../context/AuthenticationContext';
 
 interface NewLocationDataType {
     id: string | null;
@@ -18,6 +19,7 @@ export const TrashLocationForm = () => {
     let { addRef } = useContext(LocationContext)
     const { newPlace, setNewPlace } = useContext(LocationContext)
     const [warnings, setWarnings] = useState<string[]>([])
+    const { userChecked } = useContext(AuthenticationContext);
 
     useEffect(() => {
         setNewPlace(true)
@@ -59,6 +61,9 @@ export const TrashLocationForm = () => {
                 urlencoded.append("lat", newLocation.lat!);
                 urlencoded.append("long", newLocation.long!);
                 urlencoded.append("category", newLocation.category);
+                urlencoded.append("userid", userChecked.id);
+
+                console.log(userChecked)
                 suffix = "post"
             }
         };
