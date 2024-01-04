@@ -38,7 +38,7 @@ const getTrashLocations = async (req, res) => {
     const locations = await LocationModel.find({
       category: "trash"
     }).populate({path:"reportedby",
-    select:["name","_id"], model: userModel});
+    select:["username","_id"], model: userModel});
     console.log('locations', locations)
     if (locations) {
       return res.send(locations)
