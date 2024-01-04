@@ -16,8 +16,8 @@ const checkedin=()=>{
         setUserChecked(true)
       }else{
         setUserChecked(false)
-
       }
+      return(jwtinfo["name"])
     }
   }, [])
 }

@@ -36,7 +36,7 @@ const register = async (req, res) => {
         });
   
         const savedUser = await newUser.save();
-        const token = issueToken(savedUser._id)
+        const token = issueToken({"UserID":savedUser._id,"name":savedUser.username})
 
         console.log("savedUser :>> ", savedUser);
   
@@ -82,7 +82,8 @@ const login = async(req, res)=>{
                 }
                 if (isPasswordMatch){
                   console.log(exisitingUser)
-                    const token = issueToken(exisitingUser._id)
+                  const argument = {"userID":exisitingUser._id,"name":exisitingUser.email}
+                    const token = issueToken(argument)
                     console.log(token)
                 if (token){
                     res.status(200).json({

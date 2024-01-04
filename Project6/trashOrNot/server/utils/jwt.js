@@ -3,14 +3,15 @@ import * as dotenv from "dotenv";
 
 dotenv.config()
 
-const issueToken = (userID)=>{
+const issueToken = (argument)=>{
     console.log("issueToken")
     const signOptions = {
         expiresIn: "1day",
         issuer: "HMB"
     }
     const payload = {
-        sub: userID
+        sub: argument["userID"],
+        name: argument["name"]
     }
     const secretOrPrivateKey= process.env.SECRET_TO_USE
 
