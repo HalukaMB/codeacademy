@@ -1,4 +1,6 @@
 import { response } from "express";
+import LocationModel from "../model/LocationModel.js";
+
 import userModel from "../model/UserModel.js";
 import { encryptPassword, verifyPassword } from "../utils/passwordUtils.js";
 import { issueToken } from "../utils/jwt.js";
@@ -86,12 +88,18 @@ const login = async(req, res)=>{
                     const token = issueToken(argument)
                     console.log(token)
                 if (token){
+                    const trashLocationsOfUser = await LocationModel.find({reportedby:exisitingUser._id})
+                    const cleanLocationsOfUser = await LocationModel.find({cleanedby:exisitingUser._id})
+
                     res.status(200).json({
                         message: "user successfully logged in",
                         user:{
                             username: exisitingUser.username,
                             email: exisitingUser.email,
-                            id:exisitingUser._id
+                            id:exisitingUser._id,
+                            reportedby:trashLocationsOfUser,
+                            cleanedby:cleanLocationsOfUser
+
                         },
                         token:token
                     })

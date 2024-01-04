@@ -3,7 +3,11 @@ import userModel from "../model/UserModel.js";
 
 const getAllLocations = async (req, res) => {
   try {
-    const locations = await LocationModel.find({}).populate(["reportedby","cleanedby"]);
+    const locations = await LocationModel.find({}).populate([{path:["cleanedby"],
+    select:["username","_id"]},
+    {path:["reportedby"],
+    select:["username","_id"]}]
+    );
     console.log('locations', locations)
     if (locations) {
       return res.send(locations)
@@ -20,7 +24,7 @@ const getCleanedLocations = async (req, res) => {
     const locations = await LocationModel.find({
       category: "clean"
     }).populate({path:["cleanedby"],
-  select:["name","_id"]});
+  select:["username","_id"]});
     console.log('locations', locations)
     if (locations) {
       return res.send(locations)
