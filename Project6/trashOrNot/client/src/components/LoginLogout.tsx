@@ -74,7 +74,7 @@ export const LoginLogout = () => {
                     const foundTrashPlaces = result["user"].reportedby
                     const cleanedTrashPlaces = result["user"].cleanedby
 
-                    setUserChecked({"name":"", "id":"","foundTrashPlaces":null,"cleanedTrashPlaces":null})
+                    setUserChecked({"name":username, "id":userid,"foundTrashPlaces":foundTrashPlaces,"cleanedTrashPlaces":cleanedTrashPlaces})
                 }
             }
             if (!response.ok) {

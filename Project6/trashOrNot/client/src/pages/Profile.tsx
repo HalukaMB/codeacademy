@@ -18,6 +18,18 @@ const userLogout = () => {
       <div>
         <TopSection></TopSection>
         <div>This is the profile page of {userChecked["name"]}</div>
+        
+       {userChecked["foundTrashPlaces"]!=null&&
+       <div> You have reported {userChecked.foundTrashPlaces.length}
+        trash places
+       </div>
+}
+{userChecked["cleanedTrashPlaces"]!=null&&
+       <div> And you have reported {userChecked.cleanedTrashPlaces.length}
+        trash places
+       </div>
+}
+
         <button onClick={userLogout}>Logout</button>
       </div>
     </>;
