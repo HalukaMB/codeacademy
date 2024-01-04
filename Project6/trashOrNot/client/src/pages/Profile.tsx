@@ -8,15 +8,6 @@ export const Profile = () => {
   const { userChecked, setUserChecked } = useContext(AuthenticationContext)
 
 
-  const getToken = () => {
-    const localtoken = localStorage.getItem("token")
-    return localtoken
-}
-
-const isUserLoggedIn = () => {
-    const token = getToken()
-    return token ? true : false
-}
 const userLogout = () => {
     localStorage.removeItem("token")
     setUserChecked({"name":""})
@@ -27,7 +18,7 @@ const userLogout = () => {
       <div>
         <TopSection></TopSection>
 
-        <div>This is the profile page</div>
+        <div>This is the profile page of {userChecked["name"]}</div>
         <button onClick={userLogout}>Logout</button>
       </div>
     </>;

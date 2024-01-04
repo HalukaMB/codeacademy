@@ -16,9 +16,9 @@ export const LoginOrRegister = ({ children }: any) => {
         setRegisterOrLogin(clickedOnElement.innerHTML.toLowerCase())
 
     }
-
+    console.log(userChecked)
     return <>
-        {(userChecked["name"] == "") ? children :
+        {(userChecked["name"] != "") ? children :
 
             <div>  <TopSection></TopSection>
 
