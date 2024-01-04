@@ -19,10 +19,9 @@ const isUserLoggedIn = () => {
 }
 const userLogout = () => {
     localStorage.removeItem("token")
-    setUserChecked(false)
+    setUserChecked({"name":""})
 }
 
-checkedin()
   console.log(userChecked)
   return <>
       <div>

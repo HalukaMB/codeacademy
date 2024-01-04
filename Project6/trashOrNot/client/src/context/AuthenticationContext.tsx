@@ -23,14 +23,18 @@ const defaultValue:AuthenticationContextType = {
 
 }
 
+interface userCheckedType {
+  name:string
+}
+
 interface userCheckContextType{
-  userChecked:boolean
-  setUserChecked:React.Dispatch<React.SetStateAction<boolean>>
+  userChecked:userCheckedType
+  setUserChecked:React.Dispatch<React.SetStateAction<userCheckedType>>
 }
 
 export const AuthenticationContext = createContext<userCheckContextType>(null as unknown as userCheckContextType);
 export const AuthenticationContextProvider= (props: Props)=> {
-    const [userChecked, setUserChecked] = useState<boolean>(false);
+    const [userChecked, setUserChecked] = useState<userCheckedType>({"name":""});
 
     
 

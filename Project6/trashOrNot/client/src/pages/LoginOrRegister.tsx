@@ -18,7 +18,7 @@ export const LoginOrRegister = ({ children }: any) => {
     }
 
     return <>
-        {(userChecked == true) ? children :
+        {(userChecked["name"] == "") ? children :
 
             <div>  <TopSection></TopSection>
 
