@@ -71,8 +71,10 @@ export const LoginLogout = () => {
                     console.log(result["user"])
                     const username = result["user"].username
                     const userid = result["user"].id
+                    const foundTrashPlaces = result["user"].reportedby
+                    const cleanedTrashPlaces = result["user"].cleanedby
 
-                    setUserChecked({"name":username,"id":userid})
+                    setUserChecked({"name":"", "id":"","foundTrashPlaces":null,"cleanedTrashPlaces":null})
                 }
             }
             if (!response.ok) {
@@ -91,7 +93,7 @@ export const LoginLogout = () => {
         localStorage.removeItem("token")
         setWarnings([])
         setSuccess(null)
-        setUserChecked({"name":"", "id":""})
+        setUserChecked({"name":"", "id":"","foundTrashPlaces":null,"cleanedTrashPlaces":null})
     }
 
 

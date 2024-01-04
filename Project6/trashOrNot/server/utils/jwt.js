@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 dotenv.config()
 
 const issueToken = (argument)=>{
+    console.log(argument)
     console.log("issueToken")
     const signOptions = {
         expiresIn: "1day",
@@ -11,7 +12,10 @@ const issueToken = (argument)=>{
     }
     const payload = {
         sub: argument["userID"],
-        name: argument["name"]
+        name: argument["name"],
+        reportedplaces: argument["reportedplaces"],
+        cleanedplaces: argument["cleanedplaces"],
+
     }
     const secretOrPrivateKey= process.env.SECRET_TO_USE
 

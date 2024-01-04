@@ -10,7 +10,7 @@ export const Profile = () => {
 
 const userLogout = () => {
     localStorage.removeItem("token")
-    setUserChecked({"name":"", "id":""})
+    setUserChecked({"name":"", "id":"","foundTrashPlaces":null,"cleanedTrashPlaces":null})
 }
 
   console.log(userChecked)

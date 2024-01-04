@@ -15,9 +15,9 @@ const checkedin=()=>{
       console.log(jwtinfo)
       if  (Date.now()<=expdate){
 
-        setUserChecked({"name":jwtinfo["name"],"id":jwtinfo["sub"]})
+        setUserChecked({"name":jwtinfo["name"],"id":jwtinfo["sub"],"foundTrashPlaces":jwtinfo["reportedplaces"],"cleanedTrashPlaces":jwtinfo["cleanedplaces"]})
       }else{
-        setUserChecked({"name":"", "id":""})
+        setUserChecked({"name":"", "id":"","foundTrashPlaces":null,"cleanedTrashPlaces":null})
       }
     }
   }, [])

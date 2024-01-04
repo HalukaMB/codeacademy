@@ -38,7 +38,10 @@ const register = async (req, res) => {
         });
   
         const savedUser = await newUser.save();
-        const token = issueToken({"UserID":savedUser._id,"name":savedUser.username})
+        const token = issueToken({"UserID":savedUser._id,
+        "name":savedUser.username,
+        "reportedplaces":savedUser.reportedplaces,
+        "cleanedplaces":savedUser.cleanedplaces})
 
         console.log("savedUser :>> ", savedUser);
   
@@ -84,7 +87,10 @@ const login = async(req, res)=>{
                 }
                 if (isPasswordMatch){
                   console.log(exisitingUser)
-                  const argument = {"userID":exisitingUser._id,"name":exisitingUser.email}
+                  const argument = {"userID":exisitingUser._id,"name":exisitingUser.email,
+                  "reportedplaces":exisitingUser.reportedplaces,
+                  "cleanedplaces":exisitingUser.cleanedplaces
+                }
                     const token = issueToken(argument)
                     console.log(token)
                 if (token){

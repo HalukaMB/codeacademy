@@ -25,7 +25,9 @@ const defaultValue:AuthenticationContextType = {
 
 interface userCheckedType {
   name:string,
-  id:string
+  id:string,
+  foundTrashPlaces:[{}]|null,
+  cleanedTrashPlaces:[{}]|null
 }
 
 interface userCheckContextType{
@@ -35,7 +37,7 @@ interface userCheckContextType{
 
 export const AuthenticationContext = createContext<userCheckContextType>(null as unknown as userCheckContextType);
 export const AuthenticationContextProvider= (props: Props)=> {
-    const [userChecked, setUserChecked] = useState<userCheckedType>({"name":"", "id":""});
+    const [userChecked, setUserChecked] = useState<userCheckedType>({"name":"", "id":"","foundTrashPlaces":null,"cleanedTrashPlaces":null});
 
     
 
