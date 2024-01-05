@@ -14,7 +14,6 @@ const register = async (req, res) => {
             message: "email does not seem proper or password is too short",
           });
     }
-  
     //Check if the user already exist in our DB
     const exisitingUser = await userModel.findOne({$or: [
         {email: req.body.email},
@@ -119,9 +118,31 @@ const login = async(req, res)=>{
     }
 }
 
-const getUserProfile= async(req, res)=>{
-    console.log
+const profile = async(req, res)=>{
+    const queryurl=req._parsedUrl.query
+    const userID=queryurl.slice(2)
+    if (userID!=""){
+      console.log(userID)
+      const exisitingUser = await userModel.findOne({_id:userID})
+      console.log(exisitingUser)
+
+      const trashLocationsOfUser = await LocationModel.find({reportedby:userID})
+      const cleanLocationsOfUser = await LocationModel.find({cleanedby:userID})
+
+
+      res.status(200).json({
+        message: "user profile",
+        user:{
+
+            username: exisitingUser.username,
+            reportedby:trashLocationsOfUser,
+            cleanedby:cleanLocationsOfUser
+
+        },
+    })
+
+    }
 
 }
 
-  export { register, login };
+  export { register, login, profile };
