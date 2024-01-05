@@ -96,6 +96,8 @@ export const TrashLocationForm = () => {
                 const responsebody = await response.json()
                
                 if (responsestatus == 201) {
+                    (document.getElementById("descriptionOfPlace")as HTMLInputElement).value=""
+
                     setWarnings([])
                     setTrigger((prev) => { return (prev + 1) })
                 } else {
@@ -121,7 +123,7 @@ export const TrashLocationForm = () => {
                 <MapElement foundCleaned="found"></MapElement>
 
                 {newPlace ?
-                    <><input className="inputLocationName" type="text" onChange={e => descriptionTracker(e)} placeholder='How would you describe the place?'></input>
+                    <><input id="descriptionOfPlace" className="inputLocationName" type="text" onChange={e => descriptionTracker(e)} placeholder='How would you describe the place?'></input>
                         {(warnings.length > 0) && warnings.map((element: string, index: number) => { return (<div className="warnings" key={index}>{element}</div>) }
                         )}
                         <input id="submitNewLocation" type="submit" value="New Location" onClick={e => submitNewLocation(e)}></input></> : <>

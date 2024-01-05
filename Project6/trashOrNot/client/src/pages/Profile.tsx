@@ -20,13 +20,11 @@ const userLogout = () => {
         <div>This is the profile page of {userChecked["name"]}</div>
         
        {userChecked["foundTrashPlaces"]!=null&&
-       <div> You have reported {userChecked.foundTrashPlaces.length}
-        trash places
+       <div> You have reported {userChecked.foundTrashPlaces.length} trash places
        </div>
 }
 {userChecked["cleanedTrashPlaces"]!=null&&
-       <div> And you have reported {userChecked.cleanedTrashPlaces.length}
-        trash places
+       <div> And you have cleaned up {userChecked.cleanedTrashPlaces.length} places
        </div>
 }
 
