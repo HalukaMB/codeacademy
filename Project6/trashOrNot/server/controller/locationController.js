@@ -118,7 +118,8 @@ const deleteLocations = async (req, res) => {
       console.log("double checked")
 
       const filter = { _id: req.body.id };
-      const update = { category: req.body.category };
+      const update = { category: req.body.category, cleanedby: req.body.userid
+      };
       const updated = await LocationModel.findOneAndUpdate(filter, update, {
         new: true
       });

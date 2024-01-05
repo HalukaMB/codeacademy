@@ -119,6 +119,7 @@ const login = async(req, res)=>{
 }
 
 const profile = async(req, res)=>{
+    console.log("ping")
     const queryurl=req._parsedUrl.query
     const userID=queryurl.slice(2)
     if (userID!=""){

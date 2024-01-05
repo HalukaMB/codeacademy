@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthenticationContext } from '../context/AuthenticationContext';
 import checkedin from '../utils/checkedin';
 import { TopSection } from '../components/topSection';
@@ -13,33 +13,44 @@ export const Profile = () => {
   }
 
 
+  const onLoad = async () => {
 
 
-  checkedin()
+    const localtoken = await localStorage.getItem("token")
+    if (localtoken) {
+      console.log("token found")
+      const jwtinfo = (JSON.parse(atob(localtoken.split(".")[1])))
+      console.log(userChecked)
 
-  console.log(userChecked)
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      const idOfUser = jwtinfo["sub"]
+      console.log(idOfUser)
 
+      const baseUrl = (import.meta.env.VITE_BASE_URL_API)
+      const profileInfoUrl = baseUrl + "users/profile?q=" + idOfUser
 
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  const idOfUser = userChecked["id"]
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
+      console.log(profileInfoUrl)
 
-  const baseUrl = (import.meta.env.VITE_BASE_URL_API)
-  const profileInfoUrl = baseUrl + "users/profile?q="+idOfUser
+      console.log(requestOptions)
+      fetch(profileInfoUrl, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result)
+          const userobject = result["user"]
 
-  const requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-  };
+          setUserChecked({ ...userChecked, "name": userobject["username"], "foundTrashPlaces": userobject["reportedby"], "cleanedTrashPlaces": userobject["cleanedby"] })
+        })
+    }
+  }
+  useEffect(() => {
+    onLoad()
+  }, [])
 
-  fetch(profileInfoUrl, requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result)
-      const userobject=result["user"]
-
-      setUserChecked({...userChecked,"name":userobject["username"],"foundTrashPlaces":userobject["reportedby"],"cleanedTrashPlaces":userobject["cleanedby"]})
-    })
 
   return <>
     <div>
