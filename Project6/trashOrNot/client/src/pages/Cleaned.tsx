@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { TopSection } from '../components/topSection'
+import { TopSection } from '../components/TopSection'
 import { CleanedLocationForm } from '../components/CleanedLocationForm';
 import checkedin from '../hooks/checkedin';
 import { LocationContext } from '../context/LocationContext';
@@ -8,9 +8,6 @@ export const Cleaned = () => {
 
   const [previousPositions, setPreviousPositions] = useState<[number, number][] | null>(null);
   checkedin()
-
-
-  
 
   return (
     <>

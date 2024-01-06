@@ -12,7 +12,6 @@ interface NewLocationDataType {
 const NewMarker = () => {
 
     const { newLocation, setNewLocation } = useContext(LocationContext)
-    let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
     const {newPlace, setNewPlace} = useContext(LocationContext)
 

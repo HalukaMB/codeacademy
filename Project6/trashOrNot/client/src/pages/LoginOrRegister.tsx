@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { LoginLogout } from '../components/LoginLogout'
 import { Register } from '../components/Register'
-import { TopSection } from '../components/topSection'
+import { TopSection } from '../components/TopSection'
 import checkedin from '../hooks/checkedin'
 import { AuthenticationContext } from '../context/AuthenticationContext'
 
@@ -16,7 +16,15 @@ export const LoginOrRegister = ({ children }: any) => {
         setRegisterOrLogin(clickedOnElement.innerHTML.toLowerCase())
 
     }
-    console.log(userChecked)
+    useEffect(() => {
+        const registerbutton=document.getElementById("registerbutton")
+        console.log(registerbutton)
+        registerbutton?.focus()
+    
+      return () => {
+        
+      }
+    }, [])
     return <>
         {(userChecked["name"] != "") ? children :
 
@@ -24,7 +32,7 @@ export const LoginOrRegister = ({ children }: any) => {
 
                 <div className="loginRegisterSection">
                     <div className="toggleSection">
-                        <button onClick={clickToggle}>Register</button>
+                        <button id="registerbutton" onClick={clickToggle}>Register</button>
                         <button onClick={clickToggle}>Login</button>
                     </div>
                     <div className="loginRegisterSectionLow">
