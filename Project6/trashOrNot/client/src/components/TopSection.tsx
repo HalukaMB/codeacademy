@@ -12,7 +12,7 @@ export const TopSection = () => {
     <div>
       <div className="topSection">
         <div className="leftTop"><Navbar></Navbar></div>
-        <div className="centerTop">Clean Berlin</div>
+        <div className="centerTop"><Link  to="/" id="headerName">Clean Berlin</Link></div>
         <div className="loginLogoutIcon"><Link to="/loginlogout">{(userChecked["name"]!="")?<img className="svglogout" src={logoutsvg}></img>:<img className="svglogin" src={loginsvg}></img>}</Link></div>
       </div>
     </div>

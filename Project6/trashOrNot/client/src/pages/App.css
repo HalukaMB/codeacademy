@@ -57,6 +57,10 @@ button:focus-visible {
   background-color: rgb(111, 140, 165);
   align-items: center;
 }
+#headerName{
+  color:rgb(0, 233, 233)
+}
+
 
 /* And the specific hamburger nav */
 .hamburger-logo {
@@ -296,4 +300,15 @@ label {
 
 .highlightStats{
   font-weight: bold;
+}
+
+.aboutPageContainer{
+  font-size:20px
+}
+.intro{
+  padding: calc(var(--baseunitheight)*5)
+}
+.redirect{
+  padding: calc(var(--baseunitheight)*5)
+
 }

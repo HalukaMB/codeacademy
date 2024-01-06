@@ -21,7 +21,6 @@ interface NewLocationDataType {
     likes: number;
   }
   export class TSMarker extends L.Marker {
-    options: L.MarkerOptions
 
     constructor(latLng: L.LatLngExpression, options?: L.MarkerOptions) {
         super(latLng, options)
