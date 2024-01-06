@@ -40,6 +40,7 @@ export const TrashLocationForm = () => {
         e.preventDefault()
         let warningsLocally: string[] = []
         const token = localStorage.getItem("token")
+        console.log(token)
         if (!token) {
             warningsLocally.push("You need to log in.")
         }

@@ -18,8 +18,7 @@ export const LoginLogout = () => {
     const [success, setSuccess] = useState<string | null>(null)
 
     const handleLoginInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log("e.target.name :>> ", e.target.name);
-        console.log("e.target.value :>> ", e.target.value);
+
         setExistingUser({ ...existingUser!, [e.target.name]: e.target.value });
     };
 
@@ -81,7 +80,9 @@ export const LoginLogout = () => {
             }
             if (!response.ok) {
                 const result = await response.json()
-                console.log(result)
+                setWarnings([result["message"]])
+
+
             }
         } catch (error) {
             console.log(error)
@@ -119,7 +120,7 @@ export const LoginLogout = () => {
 
                         <label htmlFor="password">Password</label>
                         <input
-                            type="text"
+                            type="password"
                             name="password"
                             id="password"
                             onChange={handleLoginInputChange}

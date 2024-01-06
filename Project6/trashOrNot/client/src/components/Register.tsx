@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
+import { AuthenticationContext } from '../context/AuthenticationContext';
 
 type UserImageType = {
     userImage: string;
@@ -13,6 +14,8 @@ interface User extends UserImageType {
 export const Register = () => {
 
     const [newUser, setNewUser] = useState<User | null>(null);
+    const { userChecked, setUserChecked } = useContext(AuthenticationContext)
+
     const [warnings, setWarnings] = useState<string[] | []>([])
     const [success, setSuccess] = useState<string | null>(null)
 
@@ -65,6 +68,12 @@ export const Register = () => {
                     }
                     if (result.status == "201") {
                         setWarnings([])
+                        const userinfo=result.user
+                        console.log(result)
+                        localStorage.setItem("token", result.token)
+
+                        setUserChecked({"name":userinfo.userName, "id":userinfo.id,"foundTrashPlaces":null,"cleanedTrashPlaces":null})
+
                         setSuccess(result.message)
                     }
                 })
@@ -103,8 +112,8 @@ export const Register = () => {
 
                     <label htmlFor="password">Password</label>
                     <input
-                        type="text"
-                        name="password"
+                            type="password"
+                            name="password"
                         id="password"
                         onChange={handleRegisterInputChange}
                     />

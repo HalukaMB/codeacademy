@@ -37,10 +37,8 @@ const register = async (req, res) => {
         });
   
         const savedUser = await newUser.save();
-        const token = issueToken({"UserID":savedUser._id,
-        "name":savedUser.username,
-        "reportedplaces":savedUser.reportedplaces,
-        "cleanedplaces":savedUser.cleanedplaces})
+        const token = issueToken({"userID":savedUser._id,
+        "name":savedUser.username})
 
         console.log("savedUser :>> ", savedUser);
   
@@ -48,7 +46,7 @@ const register = async (req, res) => {
         status:"201",
           message: "user registered!!",
           user: {
-            userName: savedUser.userName,
+            userName: savedUser.username,
             email: savedUser.email,
             id:savedUser._id
 
@@ -87,23 +85,18 @@ const login = async(req, res)=>{
                 if (isPasswordMatch){
                   console.log(exisitingUser)
                   const argument = {"userID":exisitingUser._id,"name":exisitingUser.email,
-                  "reportedplaces":exisitingUser.reportedplaces,
-                  "cleanedplaces":exisitingUser.cleanedplaces
                 }
                     const token = issueToken(argument)
                     console.log(token)
                 if (token){
-                    const trashLocationsOfUser = await LocationModel.find({reportedby:exisitingUser._id})
-                    const cleanLocationsOfUser = await LocationModel.find({cleanedby:exisitingUser._id})
-
+                  
                     res.status(200).json({
                         message: "user successfully logged in",
                         user:{
                             username: exisitingUser.username,
                             email: exisitingUser.email,
                             id:exisitingUser._id,
-                            reportedby:trashLocationsOfUser,
-                            cleanedby:cleanLocationsOfUser
+                            
 
                         },
                         token:token

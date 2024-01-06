@@ -20,7 +20,7 @@ export const Profile = () => {
     if (localtoken) {
       console.log("token found")
       const jwtinfo = (JSON.parse(atob(localtoken.split(".")[1])))
-      console.log(userChecked)
+      console.log(jwtinfo)
 
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
