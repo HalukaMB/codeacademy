@@ -128,7 +128,7 @@ const profile = async(req, res)=>{
       console.log(exisitingUser)
 
       const trashLocationsOfUser = await LocationModel.find({reportedby:userID})
-      const cleanLocationsOfUser = await LocationModel.find({cleanedby:userID})
+      const cleanLocationsOfUser = await LocationModel.find({cleanedby:userID,category:"cleaned"})
 
 
       res.status(200).json({

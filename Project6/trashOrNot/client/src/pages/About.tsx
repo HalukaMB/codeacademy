@@ -1,6 +1,6 @@
 import { Navbar } from "../components/Navbar"
 import { TopSection } from "../components/topSection"
-import checkedin from "../utils/checkedin"
+import checkedin from "../hooks/checkedin"
 
 const About = () => {
   checkedin()

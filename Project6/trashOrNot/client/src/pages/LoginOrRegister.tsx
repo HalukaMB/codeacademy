@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { LoginLogout } from '../components/LoginLogout'
 import { Register } from '../components/Register'
 import { TopSection } from '../components/topSection'
-import checkedin from '../utils/checkedin'
+import checkedin from '../hooks/checkedin'
 import { AuthenticationContext } from '../context/AuthenticationContext'
 
 export const LoginOrRegister = ({ children }: any) => {

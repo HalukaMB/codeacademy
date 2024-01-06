@@ -1,19 +1,11 @@
-import { useContext, useEffect, useState } from 'react'
-
 import './App.css'
-import { Navbar } from '../components/Navbar'
 import { TrashLocationForm } from '../components/TrashLocationForm'
-import { TopSection } from '../components/topSection'
-import { AuthenticationContext } from '../context/AuthenticationContext'
-import checkedin from '../utils/checkedin'
+import { TopSection } from '../components/TopSection'
+import checkedin from '../hooks/checkedin'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   checkedin()
-
-  
-
   return (
     <>
       <TopSection></TopSection>

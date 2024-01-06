@@ -272,5 +272,27 @@ label {
   padding-top: calc(var(--baseunitheight)*5);
 
   padding-bottom: calc(var(--baseunitheight)*1);
+}
 
+.profileTop{
+  padding-top: calc((var(--baseunitheight)*5));
+  font-size: 20px;
+}
+.userName{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.trashPlacesStats{
+  padding-top: calc((var(--baseunitheight)*3));
+
+}
+
+.cleanPlacesStats{
+  padding-top: calc((var(--baseunitheight)*3));
+  padding-bottom: calc((var(--baseunitheight)*3));
+}
+
+.highlightStats{
+  font-weight: bold;
 }

@@ -7,7 +7,7 @@ import logoutsvg from '../assets/logout-svgrepo-com.svg';
 import { Link } from 'react-router-dom';
 
 export const TopSection = () => {
-  const { userChecked, loginOrLogout } = useContext(AuthenticationContext)
+  const { userChecked } = useContext(AuthenticationContext)
   return (
     <div>
       <div className="topSection">

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { TopSection } from '../components/topSection'
 import { CleanedLocationForm } from '../components/CleanedLocationForm';
-import checkedin from '../utils/checkedin';
+import checkedin from '../hooks/checkedin';
 import { LocationContext } from '../context/LocationContext';
 
 export const Cleaned = () => {
@@ -18,8 +18,8 @@ export const Cleaned = () => {
 <TopSection></TopSection>
       <div className='reportSection'>
         <div className="cleanedReportStart">
-          <div className="reportHead">The city has is cleaner now!</div>
-          Is this because you... ?</div>
+          <div className="reportHead">The city is cleaner now...</div>
+          ... because you ... </div>
         <CleanedLocationForm></CleanedLocationForm>
 
       </div>    

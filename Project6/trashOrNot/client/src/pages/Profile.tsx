@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthenticationContext } from '../context/AuthenticationContext';
-import checkedin from '../utils/checkedin';
+import checkedin from '../hooks/checkedin';
 import { TopSection } from '../components/topSection';
 
 export const Profile = () => {
@@ -55,14 +55,14 @@ export const Profile = () => {
   return <>
     <div>
       <TopSection></TopSection>
-      <div>This is the profile page of {userChecked["name"]}</div>
+      <div className="profileTop">This is the profile page of: <div className="userName">{userChecked["name"]}</div> </div>
 
       {userChecked["foundTrashPlaces"] != null &&
-        <div> You have reported {userChecked.foundTrashPlaces.length} trash places
+        <div className="trashPlacesStats"> You have reported <span className="highlightStats">{userChecked.foundTrashPlaces.length} {(userChecked.foundTrashPlaces.length!=1)?"places":"place"}</span> with trash
         </div>
       }
       {userChecked["cleanedTrashPlaces"] != null &&
-        <div> And you have cleaned up {userChecked.cleanedTrashPlaces.length} places
+        <div className="cleanPlacesStats"> And you have cleaned up <span className="highlightStats"> {userChecked.cleanedTrashPlaces.length} {(userChecked.cleanedTrashPlaces.length!=1)?"cleaned places":"place"}</span>
         </div>
       }
 

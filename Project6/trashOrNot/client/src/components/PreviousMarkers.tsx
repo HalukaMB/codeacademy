@@ -69,9 +69,7 @@ import {
       // same as in the react-leaflet
     }
   );
-type functionProps={
-    foundCleaned:string
-}
+
 interface NewLocationDataType {
     _id: string | null;
     locationname: string | null;

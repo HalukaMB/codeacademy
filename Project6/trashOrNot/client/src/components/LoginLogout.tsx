@@ -61,7 +61,9 @@ export const LoginLogout = () => {
         };
 
         try {
-            const response = await fetch("http://localhost:3000/users/login", requestOptions)
+            const baseUrl = (import.meta.env.VITE_BASE_URL_API)
+            const loginUrl=baseUrl+"users/login"
+            const response = await fetch(loginUrl, requestOptions)
             if (response.ok) {
                 const result = await response.json()
                 console.log(result)
