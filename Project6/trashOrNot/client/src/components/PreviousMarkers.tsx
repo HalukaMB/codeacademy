@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { LocationContext } from '../context/LocationContext'
 import { Marker, Popup, useMapEvents } from 'react-leaflet'
 import trashicon from "../assets/trash.svg";
+import orange_trash_icon from "../assets/trash-orange.svg";
+import red_trash_icon from "../assets/trash-red.svg";
+
 import UpdateContext from '../context/UpdateContext';
 import * as L from 'leaflet';
 import getTrashLocations from '../hooks/getTrashLocations';
@@ -21,6 +24,7 @@ import {
   } from 'leaflet'
 
   import type { ReactNode } from 'react'
+import { AuthenticationContext } from '../context/AuthenticationContext';
   /* https://stackoverflow.com/questions/17423261/how-to-pass-data-with-marker-in-leaflet-js */
   export class DataMarker extends L.Marker {
     databaseid: any;
@@ -88,6 +92,13 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
     const {newPlace, setNewPlace} = useContext(LocationContext)
+    const { userChecked } = useContext(AuthenticationContext);
+
+    console.log(userChecked.id)
+    console.log(foundCleaned)
+
+
+
 
     let trash = L.icon({
         iconUrl: trashicon,
@@ -96,6 +107,23 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
         popupAnchor: [10, -44],
         iconSize: [25, 55],
     });
+
+    let orange_trash= L.icon({
+      iconUrl: orange_trash_icon,
+      iconRetinaUrl: orange_trash_icon,
+      iconAnchor: [5, 55],
+      popupAnchor: [10, -44],
+      iconSize: [25, 55],
+    })
+
+    let red_trash= L.icon({
+      iconUrl: red_trash_icon,
+      iconRetinaUrl: red_trash_icon,
+      iconAnchor: [5, 55],
+      popupAnchor: [10, -44],
+      iconSize: [25, 55],
+    })
+    
 /*     let customMarker = L.Marker.extend({
         options: { 
            databaseid: 'Custom data!',
@@ -125,10 +153,23 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
         })
         return (
             <>
-                {(previousPositions!=null)&&previousPositions.map((element:NewLocationDataType) => (
+                {(previousPositions!=null)&&previousPositions.map((element:NewLocationDataType) => {
+                    console.log(element["likes"]);
+                    const likes=element["likes"]
+                    let iconcolor=null
+                    if (likes>=0){
+                      iconcolor=orange_trash
+                    }
+                  
+                    if (likes>1){
+                      iconcolor=red_trash
+                    }
+       
+       
                     
-                    <CustomMarker icon={trash} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
-                        position={[Number(element["lat"]), Number(element["long"])]}
+                    return(
+                    <CustomMarker icon={iconcolor!} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
+                        position={[Number(element["lat"]), Number(element["long"])]} 
                         eventHandlers={{
                             click: (e) => {
                                 if (foundCleaned == "found") {
@@ -144,11 +185,8 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
                                     ],
                                     13
                                 );
-
-
                             },
-                        }}
-                    >
+                        }}>
                         <Popup key={element["_id"] + "_popup"}>
                             {element["locationname"]}
                             <br></br>
@@ -158,8 +196,9 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
                             others were annoyed by the trash here
                         </Popup>
                     </CustomMarker>
-
-                ))
+                    )
+                    }
+                )
                 }
 
             </>

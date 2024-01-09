@@ -19,8 +19,9 @@ const NewMarker = () => {
             click(e) {
                 
                     addRef.current.type = "new"
+                    const timeNow=Date.now()
                     setNewLocation((prev):NewLocationDataType => {
-                        return { ...prev, lat: String(e.latlng.lat), long: String(e.latlng.lng) }
+                        return { ...prev, lat: String(e.latlng.lat), long: String(e.latlng.lng), _id:String(timeNow) }
                     })
                     setNewPlace(true)
 

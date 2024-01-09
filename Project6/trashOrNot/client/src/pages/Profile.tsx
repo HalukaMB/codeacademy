@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthenticationContext } from '../context/AuthenticationContext';
 import checkedin from '../hooks/checkedin';
 import { TopSection } from '../components/topSection';
+import MapElement from '../components/MapElement';
 
 export const Profile = () => {
 
@@ -63,6 +64,8 @@ export const Profile = () => {
       }
       {userChecked["cleanedTrashPlaces"] != null &&
         <div className="cleanPlacesStats"> And you have cleaned up <span className="highlightStats"> {userChecked.cleanedTrashPlaces.length} {(userChecked.cleanedTrashPlaces.length!=1)?"cleaned places":"place"}</span>
+                        <MapElement foundCleaned="profile"></MapElement>
+
         </div>
       }
 
