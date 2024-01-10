@@ -3,6 +3,7 @@ import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
 import UpdateContext from '../context/UpdateContext'
 import { AuthenticationContext } from '../context/AuthenticationContext';
+import getTrashLocations from '../hooks/getTrashLocations';
 
 interface NewLocationDataType {
     id: string | null;
@@ -14,6 +15,14 @@ interface NewLocationDataType {
 }
 
 export const TrashLocationForm = () => {
+
+
+    const loadTrashData=async()=>{
+        const resultjson =await getTrashLocations()
+        return resultjson
+        }
+    loadTrashData().then((resultjson)=>console.log(resultjson))
+
     const { newLocation, setNewLocation } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
     let { addRef } = useContext(LocationContext)

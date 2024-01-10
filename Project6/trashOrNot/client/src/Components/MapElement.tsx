@@ -59,7 +59,7 @@ const MapElement = ({ foundCleaned}:functionProps) => {
         getTrashLocations().then(
             (previousPoints: []) => {
                 console.log(previousPoints);
-
+   
                 setPreviousPositions(previousPoints)
             })
 

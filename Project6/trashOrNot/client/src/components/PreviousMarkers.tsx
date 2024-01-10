@@ -92,10 +92,8 @@ const PreviousMarkers = ({foundCleaned,previousPositions}:propType) => {
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
     const {newPlace, setNewPlace} = useContext(LocationContext)
-    const { userChecked } = useContext(AuthenticationContext);
 
-    console.log(userChecked.id)
-    console.log(foundCleaned)
+  
 
 
 
