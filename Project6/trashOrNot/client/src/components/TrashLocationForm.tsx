@@ -17,11 +17,8 @@ interface NewLocationDataType {
 export const TrashLocationForm = () => {
 
 
-    const loadTrashData=async()=>{
-        const resultjson =await getTrashLocations()
-        return resultjson
-        }
-    loadTrashData().then((resultjson)=>console.log(resultjson))
+
+
 
     const { newLocation, setNewLocation } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
@@ -29,9 +26,13 @@ export const TrashLocationForm = () => {
     const { newPlace, setNewPlace } = useContext(LocationContext)
     const [warnings, setWarnings] = useState<string[]>([])
     const { userChecked } = useContext(AuthenticationContext);
+    const [locationsToPass, setLocationsToPass] = useState([])
+
 
     useEffect(() => {
         setNewPlace(true)
+        getTrashLocations().then((resultjson2)=>setLocationsToPass(resultjson2))
+
 
 
     }, [])
@@ -130,7 +131,7 @@ export const TrashLocationForm = () => {
         <div className="formPlusMap">
 
             <form>
-                <MapElement foundCleaned="found"></MapElement>
+                <MapElement foundCleaned="found" pointsPassed={locationsToPass}></MapElement>
 
                 {newPlace ?
                     <><input id="descriptionOfPlace" className="inputLocationName" type="text" onChange={e => descriptionTracker(e)} placeholder='How would you describe the place?'></input>

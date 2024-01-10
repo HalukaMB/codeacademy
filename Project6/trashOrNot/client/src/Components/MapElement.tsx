@@ -9,9 +9,7 @@ import UpdateContext from '../context/UpdateContext';
 import PreviousMarkers from './PreviousMarkers';
 import NewMarker from './NewMarker';
 
-type functionProps={
-    foundCleaned:string
-}
+
 interface NewLocationDataType {
     _id: string | null;
     locationname: string | null;
@@ -20,6 +18,10 @@ interface NewLocationDataType {
     category: string;
     likes: number;
   }
+  type functionProps={
+    foundCleaned:string;
+    pointsPassed:NewLocationDataType[]
+}
   export class TSMarker extends L.Marker {
 
     constructor(latLng: L.LatLngExpression, options?: L.MarkerOptions) {
@@ -28,7 +30,8 @@ interface NewLocationDataType {
 }
   
 
-const MapElement = ({ foundCleaned}:functionProps) => {
+const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
+    console.log(pointsPassed)
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
     const [previousPositions, setPreviousPositions] = useState<NewLocationDataType[] | null>(null);
 
