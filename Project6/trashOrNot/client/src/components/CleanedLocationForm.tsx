@@ -3,6 +3,7 @@ import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
 import UpdateContext from '../context/UpdateContext'
 import { AuthenticationContext } from '../context/AuthenticationContext'
+import getTrashLocations from '../hooks/getTrashLocations'
 
 
 
@@ -12,6 +13,7 @@ export const CleanedLocationForm = () => {
     const { trigger, setTrigger } = useContext(UpdateContext)
 
     const { userChecked } = useContext(AuthenticationContext);
+    const [locationsToPass, setLocationsToPass] = useState([])
 
 
     let deleteCategory = useRef<string>("")
@@ -20,6 +22,8 @@ export const CleanedLocationForm = () => {
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
 
     useEffect(() => {
+        getTrashLocations().then((resultjson2)=>setLocationsToPass(resultjson2))
+
         deleteRef.current._id = ""
     }, [])
 
@@ -95,7 +99,7 @@ export const CleanedLocationForm = () => {
                     </div>
                 </fieldset>
                 <div id="putPin">Click on the exact pin where the trash has been taken away.</div>
-                <MapElement foundCleaned="cleaned"></MapElement>
+                <MapElement foundCleaned="cleaned"pointsPassed={locationsToPass}></MapElement>
 
                 {(warnings.length > 0) && warnings.map((element: string, index: number) => { return (<div className="warnings" key={index}>{element}</div>) }
                 )}

@@ -32,6 +32,7 @@ export const TrashLocationForm = () => {
     useEffect(() => {
         setNewPlace(true)
         getTrashLocations().then((resultjson2)=>setLocationsToPass(resultjson2))
+        
 
 
 

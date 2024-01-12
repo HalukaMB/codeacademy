@@ -1,32 +1,29 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthenticationContext } from '../context/AuthenticationContext';
 import checkedin from '../hooks/checkedin';
-import { TopSection } from '../components/topSection';
+import { TopSection } from '../components/TopSection';
 import MapElement from '../components/MapElement';
 
 export const Profile = () => {
 
   const { userChecked, setUserChecked } = useContext(AuthenticationContext)
 
+  checkedin()
   const userLogout = () => {
     localStorage.removeItem("token")
     setUserChecked({ "name": "", "id": "", "foundTrashPlaces": null, "cleanedTrashPlaces": null })
   }
+  
 
 
   const onLoad = async () => {
-
-
     const localtoken = await localStorage.getItem("token")
     if (localtoken) {
-      console.log("token found")
       const jwtinfo = (JSON.parse(atob(localtoken.split(".")[1])))
-      console.log(jwtinfo)
 
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
       const idOfUser = jwtinfo["sub"]
-      console.log(idOfUser)
 
       const baseUrl = (import.meta.env.VITE_BASE_URL_API)
       const profileInfoUrl = baseUrl + "users/profile?q=" + idOfUser
@@ -35,13 +32,10 @@ export const Profile = () => {
         method: "GET",
         headers: myHeaders,
       };
-      console.log(profileInfoUrl)
 
-      console.log(requestOptions)
       fetch(profileInfoUrl, requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          console.log(result)
           const userobject = result["user"]
 
           setUserChecked({ ...userChecked, "name": userobject["username"], "foundTrashPlaces": userobject["reportedby"], "cleanedTrashPlaces": userobject["cleanedby"] })
@@ -60,11 +54,13 @@ export const Profile = () => {
 
       {userChecked["foundTrashPlaces"] != null &&
         <div className="trashPlacesStats"> You have reported <span className="highlightStats">{userChecked.foundTrashPlaces.length} {(userChecked.foundTrashPlaces.length!=1)?"places":"place"}</span> with trash
+                                {(userChecked["foundTrashPlaces"]!=null)&&<MapElement foundCleaned="profile" pointsPassed={userChecked["foundTrashPlaces"]}></MapElement>}
+
         </div>
       }
       {userChecked["cleanedTrashPlaces"] != null &&
         <div className="cleanPlacesStats"> And you have cleaned up <span className="highlightStats"> {userChecked.cleanedTrashPlaces.length} {(userChecked.cleanedTrashPlaces.length!=1)?"cleaned places":"place"}</span>
-                        <MapElement foundCleaned="profile"></MapElement>
+                        {(userChecked["cleanedTrashPlaces"]!=null)&&<MapElement foundCleaned="profile" pointsPassed={userChecked["cleanedTrashPlaces"]}></MapElement>}
 
         </div>
       }

@@ -31,7 +31,8 @@ interface NewLocationDataType {
   
 
 const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
-    console.log(pointsPassed)
+    console.log("pointsPassed:",(pointsPassed.length!=0))
+ 
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
     const [previousPositions, setPreviousPositions] = useState<NewLocationDataType[] | null>(null);
 
@@ -58,47 +59,43 @@ const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
         addRef.current.id = target.options.databaseid
     }
 
-    const getPreviousLocations = () => {
-        getTrashLocations().then(
-            (previousPoints: []) => {
-                console.log(previousPoints);
    
-                setPreviousPositions(previousPoints)
-            })
-
-    }
 
     useEffect(() => {
-        getPreviousLocations()
+        if (pointsPassed.length!=0){
+            console.log("run")
+            setPreviousPositions(pointsPassed)
 
+        }
     }, [])
 
     useEffect(() => {
-        if (previousPositions != null) {
+        if (pointsPassed.length != 0) {
             if (foundCleaned == "found") {
                 if (newLocation.lat!=null){
-                setPreviousPositions([...previousPositions, newLocation])
+                setPreviousPositions([...pointsPassed, newLocation])
                 setNewLocation(defaultNewLocation)
             }
             }
             if (foundCleaned == "cleaned") {
                 console.log("CLEANER")
                 
-                const reducedPositions = previousPositions.filter((element:NewLocationDataType) => {
+                const reducedPositions = pointsPassed.filter((element:NewLocationDataType) => {
                     return element["_id"] !== deleteRef.current["_id"];
                 });
                 setPreviousPositions(reducedPositions)
             }
         }
 
-    }, [trigger])
+    }, [trigger
+    ])
 
     return (
         <div>
 
             <div id="mapid">
                 <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
-                    {previousPositions&&
+                    {(previousPositions)&&
                     <PreviousMarkers foundCleaned={foundCleaned} previousPositions={previousPositions}/>}
                     {(foundCleaned=="found")&&<NewMarker />}
                     <TileLayer

@@ -22,12 +22,28 @@ const defaultValue:AuthenticationContextType = {
   } // By default, the user is set to indicate no provider is present.
 
 }
+interface NewLocationDataType {
+  _id: string | null;
+  locationname: string | null;
+  lat: string | null;
+  long: string | null;
+  category: string;
+  likes: number;
+}
+
 
 interface userCheckedType {
   name:string,
   id:string,
-  foundTrashPlaces:[{}]|null,
-  cleanedTrashPlaces:[{}]|null
+  foundTrashPlaces:NewLocationDataType[]|null,
+  cleanedTrashPlaces:NewLocationDataType[]|null
+}
+type MyType = {
+  id: number;
+  name: string;
+}
+type MyGroupType = {
+  [key:string]: MyType;
 }
 
 interface userCheckContextType{

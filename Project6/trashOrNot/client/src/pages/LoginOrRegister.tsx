@@ -18,7 +18,6 @@ export const LoginOrRegister = ({ children }: any) => {
     }
     useEffect(() => {
         const registerbutton=document.getElementById("registerbutton")
-        console.log(registerbutton)
         registerbutton?.focus()
     
       return () => {
