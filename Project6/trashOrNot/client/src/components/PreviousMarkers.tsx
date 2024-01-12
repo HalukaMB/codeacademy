@@ -83,7 +83,7 @@ const PreviousMarkers = ({ foundCleaned, previousPositions }: propType) => {
   let { deleteRef } = useContext(LocationContext)
   let { addRef } = useContext(LocationContext)
   const { newPlace, setNewPlace } = useContext(LocationContext)
-
+  console.log(previousPositions)
   let trash = L.icon({
     iconUrl: trashicon,
     iconRetinaUrl: trashicon,

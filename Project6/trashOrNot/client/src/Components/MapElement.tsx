@@ -31,7 +31,7 @@ interface NewLocationDataType {
   
 
 const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
-    console.log("pointsPassed:",(pointsPassed.length!=0))
+    console.log("pointsPassed:",(pointsPassed.length!=0, pointsPassed))
  
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
     const [previousPositions, setPreviousPositions] = useState<NewLocationDataType[] | null>(null);
@@ -39,6 +39,9 @@ const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
     let { deleteRef } = useContext(LocationContext)
     let { addRef } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
+
+    console.log("previousPositions:", previousPositions)
+
     
     let trash = L.icon({
         iconUrl: trashicon,
@@ -67,7 +70,7 @@ const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
             setPreviousPositions(pointsPassed)
 
         }
-    }, [])
+    }, [pointsPassed])
 
     useEffect(() => {
         if (pointsPassed.length != 0) {
