@@ -33,7 +33,8 @@ interface NewLocationDataType {
 
 const MapElement = ({ foundCleaned, gpsPoint,pointsPassed}:functionProps) => {
     console.log("pointsPassed:",(pointsPassed.length!=0, pointsPassed))
- 
+    console.log(gpsPoint)
+
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
     const [previousPositions, setPreviousPositions] = useState<NewLocationDataType[] | null>(null);
 
