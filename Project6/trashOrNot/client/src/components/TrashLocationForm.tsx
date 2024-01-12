@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import MapElement from './MapElement'
 import { LocationContext } from '../context/LocationContext'
 import UpdateContext from '../context/UpdateContext'
@@ -17,8 +17,8 @@ interface NewLocationDataType {
 export const TrashLocationForm = () => {
 
 
-
-
+        
+   
 
     const { newLocation, setNewLocation } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
@@ -27,17 +27,37 @@ export const TrashLocationForm = () => {
     const [warnings, setWarnings] = useState<string[]>([])
     const { userChecked } = useContext(AuthenticationContext);
     const [locationsToPass, setLocationsToPass] = useState([])
+    const [gpsavailable, setGpsavailabe] = useState(false)
+    const [gpsParameter, setGPSParameter] = useState<L.LatLngExpression|null>(null)
+
 
 
     useEffect(() => {
+        checkIfGpsAvailable()
         setNewPlace(true)
         getTrashLocations().then((resultjson2)=>setLocationsToPass(resultjson2))
-        
-
-
-
     }, [])
 
+
+    const useGPSLocation=(e: React.MouseEvent<HTMLButtonElement>)=>{
+        e.preventDefault()
+
+        console.log ("supported",navigator.geolocation)
+        const printfunction=(position:any)=> {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            setGPSParameter([latitude,longitude])
+        
+    }
+        navigator.geolocation.getCurrentPosition(printfunction)
+    }
+
+    const checkIfGpsAvailable=()=>{
+        if (navigator.geolocation!=null){
+            setGpsavailabe(true)
+        }
+
+    }
 
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
 
@@ -132,7 +152,11 @@ export const TrashLocationForm = () => {
         <div className="formPlusMap">
 
             <form>
-                <MapElement foundCleaned="found" pointsPassed={locationsToPass}></MapElement>
+                <MapElement foundCleaned="found" pointsPassed={locationsToPass} gpsPoint={gpsParameter}></MapElement>
+                <div id="shareLocationDiv">
+                    {(gpsavailable)&&<button onClick={useGPSLocation}>Enable the use of your GPS Location</button>
+}
+                </div>
 
                 {newPlace ?
                     <><input id="descriptionOfPlace" className="inputLocationName" type="text" onChange={e => descriptionTracker(e)} placeholder='How would you describe the place?'></input>

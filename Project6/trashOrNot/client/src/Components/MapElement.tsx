@@ -21,6 +21,7 @@ interface NewLocationDataType {
   type functionProps={
     foundCleaned:string;
     pointsPassed:NewLocationDataType[]
+    gpsPoint:L.LatLngExpression|null
 }
   export class TSMarker extends L.Marker {
 
@@ -30,7 +31,7 @@ interface NewLocationDataType {
 }
   
 
-const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
+const MapElement = ({ foundCleaned, gpsPoint,pointsPassed}:functionProps) => {
     console.log("pointsPassed:",(pointsPassed.length!=0, pointsPassed))
  
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
@@ -41,6 +42,9 @@ const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
     const { trigger, setTrigger } = useContext(UpdateContext)
 
     console.log("previousPositions:", previousPositions)
+
+    const [centerParameter, setCenterParameter] = useState<L.LatLngExpression>([52.52, 13.41])
+    const [zoomdepth, setZoomdepth] = useState(10)
 
     
     let trash = L.icon({
@@ -63,7 +67,18 @@ const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
     }
 
    
+   /*  useEffect(() => {
+        if(gpsPoint!=null){
+            console.log("settingParameter")
+            console.log(gpsPoint)
+         
 
+     setCenterParameter(gpsPoint)
+    setZoomdepth(13)
+    }
+      }
+    , [gpsPoint]) */
+    
     useEffect(() => {
         if (pointsPassed.length!=0){
             console.log("run")
@@ -90,14 +105,13 @@ const MapElement = ({ foundCleaned, pointsPassed}:functionProps) => {
             }
         }
 
-    }, [trigger
-    ])
+    }, [trigger])
 
     return (
         <div>
 
             <div id="mapid">
-                <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
+            <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
                     {(previousPositions)&&
                     <PreviousMarkers foundCleaned={foundCleaned} previousPositions={previousPositions}/>}
                     {(foundCleaned=="found")&&<NewMarker />}
