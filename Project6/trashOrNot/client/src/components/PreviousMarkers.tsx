@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { LocationContext } from '../context/LocationContext'
-import {  Popup } from 'react-leaflet'
+import {  Popup, useMapEvents } from 'react-leaflet'
 import trashicon from "../assets/trash.svg";
 import orange_trash_icon from "../assets/trash-orange.svg";
 import red_trash_icon from "../assets/trash-red.svg";
@@ -131,54 +131,63 @@ const PreviousMarkers = ({ foundCleaned, previousPositions }: propType) => {
   }
 
   if (previousPositions != null) {
+    const map = useMapEvents({
+        click(e) {
+            console.log(e)
+        }
+    })
     return (
-      <>
-        {(previousPositions != null) && previousPositions.map((element: NewLocationDataType) => {
-          console.log(element["likes"]);
-          const likes = element["likes"]
-          let iconcolor = null
-          if (likes >= 0) {
-            iconcolor = orange_trash
-          }
-          if (likes > 1) {
-            iconcolor = red_trash
-          }
-          return (
-            <CustomMarker icon={iconcolor!} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
-              position={[Number(element["lat"]), Number(element["long"])]}
-              eventHandlers={{
-                click: (e) => {
-                  if (foundCleaned == "found") {
-                    clickToAddInfo(e)
-                  }
-                  if (foundCleaned == "cleaned") {
-                    clickToDelete(e)
-                  }
-                  map.setView(
-                    [
-                      e.target._latlng.lat,
-                      e.target._latlng.lng
-                    ],
-                    13
-                  );
-                },
-              }}>
-              <Popup key={element["_id"] + "_popup"}>
-                {element["locationname"]}
-                <br></br>
-                <br></br>
-                and
-                {" " + element["likes"] + " "}
-                others were annoyed by the trash here
-              </Popup>
-            </CustomMarker>
-          )
-        }
-        )
-        }
+        <>
+            {(previousPositions!=null)&&previousPositions.map((element:NewLocationDataType) => {
+                console.log(element["likes"]);
+                const likes=element["likes"]
+                let iconcolor=null
+                if (likes>=0){
+                  iconcolor=orange_trash
+                }
+              
+                if (likes>1){
+                  iconcolor=red_trash
+                }
+   
+   
+                
+                return(
+                <CustomMarker icon={iconcolor!} key={element["_id"]} databaseid={element["_id"]} extrainfo={element["locationname"]}
+                    position={[Number(element["lat"]), Number(element["long"])]} 
+                    eventHandlers={{
+                        click: (e) => {
+                            if (foundCleaned == "found") {
+                                clickToAddInfo(e)
+                            }
+                            if (foundCleaned == "cleaned") {
+                                clickToDelete(e)
+                            }
+                            map.setView(
+                                [
+                                    e.target._latlng.lat,
+                                    e.target._latlng.lng
+                                ],
+                                13
+                            );
+                        },
+                    }}>
+                    <Popup key={element["_id"] + "_popup"}>
+                        {element["locationname"]}
+                        <br></br>
+                        <br></br>
+                        and
+                        {" "+element["likes"]+" "}
+                        others were annoyed by the trash here
+                    </Popup>
+                </CustomMarker>
+                )
+                }
+            )
+            }
 
-      </>
+        </>
     )
-  }
+} 
 }
 export default PreviousMarkers
