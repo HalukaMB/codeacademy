@@ -114,7 +114,8 @@ const PreviousMarkers = ({ foundCleaned, previousPositions, gpsPoint }: propType
   const clickToAddInfo = (e: L.LeafletMouseEvent) => {
     const target = e.target
     addRef.current.type = "existing"
-    addRef.current.id = target.options.databaseid
+    console.log(target)
+    addRef.current.id = target.databaseid
     setNewPlace(false)
   }
 

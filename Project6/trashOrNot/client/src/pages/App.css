@@ -33,7 +33,7 @@ body {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -183,13 +183,19 @@ label {
   vertical-align: middle
 }
 
+.shareLocationButton{
+  border:solid;
+  border-color: blanchedalmond;
+
+}
+
 #mapid{
   display: flex;
   justify-content: center;
 }
 .leaflet-container {
   width: 95%;
-  height: calc(var(--baseunitheight)*50);
+  height: calc(var(--baseunitheight)*75);
   z-index: 0;
 }
 

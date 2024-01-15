@@ -29,6 +29,7 @@ export const TrashLocationForm = () => {
     const [locationsToPass, setLocationsToPass] = useState([])
     const [gpsavailable, setGpsavailabe] = useState(false)
     const [gpsParameter, setGPSParameter] = useState<L.LatLngExpression|null>(null)
+    const [success, setSuccess] = useState<string | null>(null)
 
 
 
@@ -42,7 +43,6 @@ export const TrashLocationForm = () => {
     const useGPSLocation=(e: React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault()
 
-        console.log ("supported",navigator.geolocation)
         const printfunction=(position:any)=> {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
@@ -68,19 +68,26 @@ export const TrashLocationForm = () => {
     }
 
     const submitNewLocation = (e: React.MouseEvent<HTMLInputElement>) => {
+
+        setSuccess(null)
+
         e.preventDefault()
         let warningsLocally: string[] = []
         const token = localStorage.getItem("token")
-        console.log(token)
         if (!token) {
             warningsLocally.push("You need to log in.")
         }
+
+
 
         const myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${token}`);
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         const urlencoded = new URLSearchParams();
         let suffix = ""
+        if (addRef.current.type == undefined){
+            warningsLocally.push("You need to select a place on the map.")
+        }
         if (addRef.current.type == "new") {
             if (newLocation.lat == "") {
                 warningsLocally.push("You need to select a place where you found trash.")
@@ -126,11 +133,15 @@ export const TrashLocationForm = () => {
 
                 
                 const responsebody = await response.json()
-               
+                console.log(responsebody)
+                console.log(responsestatus)
+
+
                 if (responsestatus == 201) {
                     (document.getElementById("descriptionOfPlace")as HTMLInputElement).value=""
 
                     setWarnings([])
+                    setSuccess("You successfully added information")
                     setTrigger((prev) => { return (prev + 1) })
                 } else {
                     setWarnings([responsebody.message])
@@ -154,7 +165,7 @@ export const TrashLocationForm = () => {
             <form>
                 <MapElement foundCleaned="found" pointsPassed={locationsToPass} gpsPoint={gpsParameter}></MapElement>
                 <div id="shareLocationDiv">
-                    {(gpsavailable)&&<button onClick={useGPSLocation}>Enable the use of your GPS Location</button>
+                    {(gpsavailable)&&<button id="shareLocationButton" onClick={useGPSLocation}>Enable the use of your GPS Location</button>
 }
                 </div>
 
@@ -169,6 +180,9 @@ export const TrashLocationForm = () => {
                     </>}
 
             </form>
+            {success && <div className='success'>{success}</div>}
+
         </div>
+        
     )
 }

@@ -11,13 +11,11 @@ import getTrashLocations from '../hooks/getTrashLocations'
 export const CleanedLocationForm = () => {
     let { deleteRef } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
-
     const { userChecked } = useContext(AuthenticationContext);
     const [locationsToPass, setLocationsToPass] = useState([])
-
-
     let deleteCategory = useRef<string>("")
     const [warnings, setWarnings] = useState<string[]>([])
+    const [success, setSuccess] = useState<string | null>(null)
 
     const baseUrl = (import.meta.env.VITE_BASE_URL_API)
 
@@ -44,7 +42,7 @@ export const CleanedLocationForm = () => {
             warningsLocally.push("You have not selected whether you have cleaned up the trash or you just noticed that it is cleaned up now.")
         }
         if ((deleteRef.current._id == "")) {
-            warningsLocally.push("You have forgotten to click on the pin where you cleaned up the trash.")
+            warningsLocally.push("You have forgotten to click on the pin where you or someone else has cleaned up the trash.")
         }
         const myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${token}`);
@@ -106,6 +104,7 @@ export const CleanedLocationForm = () => {
                 <input id="submitNewLocation" type="submit" onClick={e => submitCleanedLocation(e)} value="Delete" ></input>
 
             </form>
+
         </div>
     )
 }

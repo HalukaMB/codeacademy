@@ -8,7 +8,6 @@ const getAllLocations = async (req, res) => {
     {path:["reportedby"],
     select:["username","_id"]}]
     );
-    console.log('locations', locations)
     if (locations) {
       return res.send(locations)
     } else {
@@ -25,7 +24,6 @@ const getCleanedLocations = async (req, res) => {
       category: "clean"
     }).populate({path:["cleanedby"],
   select:["username","_id"]});
-    console.log('locations', locations)
     if (locations) {
       return res.send(locations)
     } else {
@@ -43,7 +41,6 @@ const getTrashLocations = async (req, res) => {
       category: "trash"
     }).populate({path:"reportedby",
     select:["username","_id"], model: userModel});
-    console.log('locations', locations)
     if (locations) {
       return res.send(locations)
     } else {
@@ -55,10 +52,8 @@ const getTrashLocations = async (req, res) => {
 };
 /* here we need to modify res send etc */
 const postLocations = async (req, res) => {
-  console.log("req.body :>> ", req.body);
   if ((req.body.lat & req.body.lang) != null) {
     try {
-      console.log("writing new")
       const newLocation = new LocationModel({
         locationname: req.body.locationname,
         lat: req.body.lat,
@@ -91,31 +86,28 @@ const postLocations = async (req, res) => {
 }
 
 const modifyLocations = async (req, res) => {
-  console.log("req.body :>> ", req.body);
-  console.log("modify")
+
   if (req.body.id != "undefined") {
     const filter = { _id: req.body.id };
     const update = { $inc: { likes: 1 } };
     const exisitingLocation = await LocationModel.findOneAndUpdate(filter, update, {
       new: true
     });
-    console.log(exisitingLocation.acknowledged)
+
     res.status(201).json({
       message: "place increased!!"
     });
-  }
+  }else
   res.status(500).json({
     message: "something went wrong",
   });
 }
 
 const deleteLocations = async (req, res) => {
-  console.log("req.body :>> ", req.body);
   if (req.body.id != "undefined") {
     const exisitingLocation = await LocationModel.findOne(
       { _id: req.body.id })
     if (exisitingLocation.locationname == req.body.locationname) {
-      console.log("double checked")
 
       const filter = { _id: req.body.id };
       const update = { category: req.body.category, cleanedby: req.body.userid
