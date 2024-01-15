@@ -32,9 +32,8 @@ interface NewLocationDataType {
   
 
 const MapElement = ({ foundCleaned, gpsPoint,pointsPassed}:functionProps) => {
-    console.log("pointsPassed:",(pointsPassed.length!=0, pointsPassed))
-    console.log(gpsPoint)
 
+    
     const { newLocation, setNewLocation, defaultNewLocation } = useContext(LocationContext)
     const [previousPositions, setPreviousPositions] = useState<NewLocationDataType[] | null>(null);
 
@@ -42,7 +41,6 @@ const MapElement = ({ foundCleaned, gpsPoint,pointsPassed}:functionProps) => {
     let { addRef } = useContext(LocationContext)
     const { trigger, setTrigger } = useContext(UpdateContext)
 
-    console.log("previousPositions:", previousPositions)
 
     const [centerParameter, setCenterParameter] = useState<L.LatLngExpression>([52.52, 13.41])
     const [zoomdepth, setZoomdepth] = useState(10)
@@ -67,22 +65,10 @@ const MapElement = ({ foundCleaned, gpsPoint,pointsPassed}:functionProps) => {
         addRef.current.id = target.options.databaseid
     }
 
-   
-   /*  useEffect(() => {
-        if(gpsPoint!=null){
-            console.log("settingParameter")
-            console.log(gpsPoint)
-         
 
-     setCenterParameter(gpsPoint)
-    setZoomdepth(13)
-    }
-      }
-    , [gpsPoint]) */
     
     useEffect(() => {
         if (pointsPassed.length!=0){
-            console.log("run")
             setPreviousPositions(pointsPassed)
 
         }
@@ -114,7 +100,7 @@ const MapElement = ({ foundCleaned, gpsPoint,pointsPassed}:functionProps) => {
             <div id="mapid">
             <MapContainer center={[52.52, 13.41]} zoom={10} scrollWheelZoom={false}>
                     {(previousPositions)&&
-                    <PreviousMarkers foundCleaned={foundCleaned} previousPositions={previousPositions}/>}
+                    <PreviousMarkers foundCleaned={foundCleaned} previousPositions={previousPositions} gpsPoint={gpsPoint}/>}
                     {(foundCleaned=="found")&&<NewMarker />}
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

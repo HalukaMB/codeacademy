@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { LocationContext } from '../context/LocationContext'
 import {  Popup, useMapEvents } from 'react-leaflet'
 import trashicon from "../assets/trash.svg";
@@ -74,16 +74,17 @@ interface NewLocationDataType {
   likes: number;
 }
 interface propType {
-  foundCleaned: string
-  previousPositions: NewLocationDataType[]
+  foundCleaned: string,
+  previousPositions: NewLocationDataType[],
+  gpsPoint: L.LatLngExpression|null
 }
 
-const PreviousMarkers = ({ foundCleaned, previousPositions }: propType) => {
+const PreviousMarkers = ({ foundCleaned, previousPositions, gpsPoint }: propType) => {
 
   let { deleteRef } = useContext(LocationContext)
   let { addRef } = useContext(LocationContext)
   const { newPlace, setNewPlace } = useContext(LocationContext)
-  console.log(previousPositions)
+
   let trash = L.icon({
     iconUrl: trashicon,
     iconRetinaUrl: trashicon,
@@ -108,11 +109,7 @@ const PreviousMarkers = ({ foundCleaned, previousPositions }: propType) => {
     iconSize: [25, 55],
   })
 
-  /*     let customMarker = L.Marker.extend({
-          options: { 
-             databaseid: 'Custom data!',
-          }
-       }); */
+
   /* https://stackoverflow.com/questions/17423261/how-to-pass-data-with-marker-in-leaflet-js */
   const clickToAddInfo = (e: L.LeafletMouseEvent) => {
     const target = e.target
@@ -136,10 +133,15 @@ const PreviousMarkers = ({ foundCleaned, previousPositions }: propType) => {
             console.log(e)
         }
     })
+    if (gpsPoint!=null){
+      map.setView(
+        gpsPoint, 13
+        )
+
+    }
     return (
         <>
             {(previousPositions!=null)&&previousPositions.map((element:NewLocationDataType) => {
-                console.log(element["likes"]);
                 const likes=element["likes"]
                 let iconcolor=null
                 if (likes>=0){

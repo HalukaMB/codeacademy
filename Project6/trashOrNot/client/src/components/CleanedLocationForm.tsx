@@ -99,7 +99,7 @@ export const CleanedLocationForm = () => {
                     </div>
                 </fieldset>
                 <div id="putPin">Click on the exact pin where the trash has been taken away.</div>
-                <MapElement foundCleaned="cleaned"pointsPassed={locationsToPass}></MapElement>
+                <MapElement foundCleaned="cleaned"pointsPassed={locationsToPass} gpsPoint={null}></MapElement>
 
                 {(warnings.length > 0) && warnings.map((element: string, index: number) => { return (<div className="warnings" key={index}>{element}</div>) }
                 )}

@@ -14,8 +14,6 @@ export const Profile = () => {
     setUserChecked({ "name": "", "id": "", "foundTrashPlaces": null, "cleanedTrashPlaces": null })
   }
   
-
-
   const onLoad = async () => {
     const localtoken = await localStorage.getItem("token")
     if (localtoken) {
@@ -54,13 +52,13 @@ export const Profile = () => {
 
       {userChecked["foundTrashPlaces"] != null &&
         <div className="trashPlacesStats"> You have reported <span className="highlightStats">{userChecked.foundTrashPlaces.length} {(userChecked.foundTrashPlaces.length!=1)?"places":"place"}</span> with trash
-                                {(userChecked["foundTrashPlaces"]!=null)&&<MapElement foundCleaned="profile" pointsPassed={userChecked["foundTrashPlaces"]}></MapElement>}
+                                {(userChecked["foundTrashPlaces"]!=null)&&<MapElement foundCleaned="profile" pointsPassed={userChecked["foundTrashPlaces"]} gpsPoint={null}></MapElement>}
 
         </div>
       }
       {userChecked["cleanedTrashPlaces"] != null &&
         <div className="cleanPlacesStats"> And you have cleaned up <span className="highlightStats"> {userChecked.cleanedTrashPlaces.length} {(userChecked.cleanedTrashPlaces.length!=1)?"cleaned places":"place"}</span>
-                        {(userChecked["cleanedTrashPlaces"]!=null)&&<MapElement foundCleaned="profile" pointsPassed={userChecked["cleanedTrashPlaces"]}></MapElement>}
+                        {(userChecked["cleanedTrashPlaces"]!=null)&&<MapElement foundCleaned="profile" pointsPassed={userChecked["cleanedTrashPlaces"]} gpsPoint={null}></MapElement>}
 
         </div>
       }
