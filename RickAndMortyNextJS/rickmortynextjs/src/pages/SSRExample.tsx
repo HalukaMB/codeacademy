@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
@@ -25,18 +25,16 @@ export interface EpisodeData{
     created: string
   }
   
-interface SSGComponentProps{
+interface SSRComponentProps{
     episodeData:EpisodeData
 }
 
 
 
-export const getStaticProps:GetStaticProps<SSGComponentProps>=async()=>{
-   
-    const episodenumber = Math.round(Math.random()*10)
-    const urlEpisode=`https://rickandmortyapi.com/api/episode/${episodenumber}`
+export const getServerSideProps:GetServerSideProps<SSRComponentProps>=async()=>{
+    const urlLocation="https://rickandmortyapi.com/api/location"
 
-    const response = await fetch(urlEpisode)
+    const response = await fetch(urlLocation)
     const results = await response.json()
 
     console.log(results)
@@ -44,13 +42,12 @@ export const getStaticProps:GetStaticProps<SSGComponentProps>=async()=>{
     return {
         props:{
             episodeData: results
-        },
-        revalidate: 3*60,
+        }
     }
 
 }
 
-function SSGExample({episodeData}:SSGComponentProps) {
+function SSRExample({episodeData}:SSGComponentProps) {
     console.log(episodeData)
     console.log( process.env.SERVER)
     console.log( process.env.NEXT_PUBLIC_VARIABLE)
@@ -64,12 +61,14 @@ function SSGExample({episodeData}:SSGComponentProps) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div>SSGExample</div>
+            <div>SSRExample</div>
+            <div>
             {episodes&&episodes.map((episode)=>{return(<div key={episode.name}>{episode.name}</div>)})}
+            </div>
             </>
             
 
     )
 }
 
-export default SSGExample
+export default SSRExample
