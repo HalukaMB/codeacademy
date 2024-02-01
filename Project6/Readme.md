@@ -1,6 +1,6 @@
 # Trash Or Not
 
-###1. Purpose of the application
+### 1. Purpose of the application
 The goal was to set up a website that allows users to report illegal junkyards around Berlin (Sperrmüll). After logging in, users can add new found junk yards to the database by putting them on the map. Also, they can report in case they or someone else has cleaned up a location where there was previously an illegal junk yard. A profile page for each user keeps track of the locations that they have reported and cleaned up.
 
 ### 2. Used programming languages and frameworks 
